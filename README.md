@@ -21,6 +21,8 @@ $ yarn boot
 $ yarn start:demo
 ```
 
+执行完以上命令，将打开 `examples/ntv-demo` 页面，如果热更新失效，可以试试手动删除 .umi folder（我也不知道为啥 umi 会卡死 🤷‍♀️）
+
 ## Todo List
 
 - Chore
@@ -37,10 +39,10 @@ $ yarn start:demo
 
 - Render
 
-  - [ ] text-schema
+  - [x] text-schema
   - [ ] text-schema generator scripts
-  - [ ] `<NarrativeTextVis />` skeleton
-  - [ ] feat: basic render
+  - [x] `<NarrativeTextVis />` skeleton
+  - [x] feat: basic render
   - [ ] feat: theme switch
   - [ ] feat: sparkline
 

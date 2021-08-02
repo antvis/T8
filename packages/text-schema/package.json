@@ -31,7 +31,8 @@
     "build:cjs": "tsc --module commonjs --target es5 --outDir ./lib",
     "build:umd": "rollup -c",
     "build": "run-p build:cjs build:esm build:umd",
-    "watch": "yarn build:cjs --w",
+    "watch:esm": "yarn build:esm --w",
+    "watch:cjs": "yarn build:cjs --w",
     "clean": "rimraf node_modules & yarn clean:build",
     "clean:build": "rimraf dist es lib",
     "prepare": "yarn build"

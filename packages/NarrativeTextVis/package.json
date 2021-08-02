@@ -31,7 +31,8 @@
     "build:cjs": "rimraf lib && FORMAT=cjs rollup -c",
     "build:umd": "rimraf dist && FORMAT=umd rollup -c",
     "build": "run-p build:cjs build:esm build:umd",
-    "watch": "rimraf lib && FORMAT=cjs rollup -c -w",
+    "watch:esm": "rimraf es && FORMAT=esm rollup -c -w",
+    "watch:cjs": "rimraf lib && FORMAT=cjs rollup -c -w",
     "clean:build": "rimraf dist es lib",
     "clean": "rimraf node_modules & npm run clean:build",
     "prepare": "yarn build"
@@ -41,6 +42,7 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^3.0.0",
     "@rollup/plugin-typescript": "^8.2.5",
+    "@types/lodash": "^4.14.171",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
     "antd": "^4.16.9",
@@ -58,7 +60,9 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@antv/text-schema": "*"
+    "@antv/text-schema": "*",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "antd": ">=4.4.2",

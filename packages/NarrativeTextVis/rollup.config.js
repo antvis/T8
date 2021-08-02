@@ -18,7 +18,7 @@ const outDir = OUT_DIR_NAME_MAP[format];
 
 const output = {
   name: 'NarrativeTextVis',
-  format: format,
+  format,
   preserveModules: format === 'es',
   sourcemap: 'inline',
   preserveModulesRoot: 'src',
@@ -26,7 +26,7 @@ const output = {
 
 const plugins = [
   typescript({
-    outDir: outDir,
+    outDir,
   }),
   commonjs(),
   resolve(),
