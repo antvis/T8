@@ -1,0 +1,17 @@
+dist/*
+static/*
+bin/*
+public/*
+webpack.config*.js
+__tests__
+coverage
+.history
+*.d.ts
+esm/*
+lib/*
+**/build/*
+**/scripts/*
+**/dist/*
+**/lib/*
+!.umirc.ts
+examples/*/**
