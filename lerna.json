@@ -1,0 +1,13 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "packages": ["packages/*", "examples/*"],
+  "command": {
+    "publish": {
+      "registry": "https://registry.npmjs.org/"
+    },
+    "bootstrap": {
+      "npmClientArgs": ["--no-lockfile", "--no-package-lock"]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+import typescript from '@rollup/plugin-typescript';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
+// import filesize from 'rollup-plugin-filesize';
+import postcss from 'rollup-plugin-postcss';
+import autoprefixer from 'autoprefixer';
+
+const format = process.env.FORMAT;
+
+const OUT_DIR_NAME_MAP = {
+  esm: 'es',
+  cjs: 'lib',
+  umd: 'dist',
+};
+
+const outDir = OUT_DIR_NAME_MAP[format];
+
+const output = {
+  name: 'NarrativeTextVis',
+  format: format,
+  preserveModules: format === 'es',
+  sourcemap: 'inline',
+  preserveModulesRoot: 'src',
+};
+
+const plugins = [
+  typescript({
+    outDir: outDir,
+  }),
+  commonjs(),
+  resolve(),
+  postcss({
+    minimize: true,
+    sourceMap: false,
+    extensions: ['.less', '.css'],
+    use: [['less', { javascriptEnabled: true }]],
+    plugins: [autoprefixer],
+    extract: 'index.css',
+  }),
+];
+
+const external = ['react', 'react-dom', 'antd'];
+
+if (format === 'umd') {
+  output.file = 'dist/narrative-text-vis.min.js';
+  plugins.push(terser());
+  output.globals = {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    antd: 'antd',
+  };
+} else {
+  output.dir = outDir;
+}
+
+export default {
+  input: 'src/index.ts',
+  output,
+  external,
+  plugins,
+};

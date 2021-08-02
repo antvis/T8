@@ -1,0 +1,16 @@
+*.md
+*.sh
+*.yml
+*.svg
+*.gif
+*.log
+.DS_Store
+CNAME
+AUTHORS
+LICENSE
+es/
+lib/
+dist/
+coverage/
+sites/x6-sites/static/demos
+csstype.ts
