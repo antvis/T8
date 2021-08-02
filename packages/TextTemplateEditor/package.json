@@ -1,0 +1,75 @@
+{
+  "name": "@antv/text-template-editor",
+  "version": "0.0.1",
+  "description": "React component ",
+  "keywords": [
+    "react component",
+    "text visualization",
+    "rich text editor"
+  ],
+  "author": {
+    "name": "AntV",
+    "url": "https://antv.vision/"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "unpkg": "dist/text-template-editor.min.js",
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "build:esm": "rimraf es && FORMAT=esm rollup -c",
+    "build:cjs": "rimraf lib && FORMAT=cjs rollup -c",
+    "build:umd": "rimraf dist && FORMAT=umd rollup -c",
+    "build": "run-p build:cjs build:esm build:umd",
+    "watch:esm": "rimraf es && FORMAT=esm rollup -c -w",
+    "watch:cjs": "rimraf lib && FORMAT=cjs rollup -c -w",
+    "clean:build": "rimraf dist es lib",
+    "clean": "rimraf node_modules & npm run clean:build",
+    "prepare": "yarn build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@types/lodash": "^4.14.171",
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.9",
+    "antd": "^4.16.9",
+    "autoprefixer": "^9.0.0",
+    "less": "^4.1.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.55.1",
+    "rollup-plugin-filesize": "^9.1.1",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@antv/text-schema": "*",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
+    "slate": "^0.63.0",
+    "slate-history": "^0.62.0",
+    "slate-react": "^0.65.2"
+  },
+  "peerDependencies": {
+    "antd": ">=4.4.2",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  }
+}

@@ -2,7 +2,7 @@
   "name": "@antv/ntv-demo",
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "rm -rf ./src/.umi && umi dev",
     "build": "umi build",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
@@ -23,6 +23,7 @@
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
     "@antv/narrative-text-vis": "*",
+    "@antv/text-template-editor": "*",
     "react": "17.x",
     "react-dom": "17.x",
     "umi": "^3.5.14"
