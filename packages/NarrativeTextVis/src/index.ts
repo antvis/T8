@@ -1,3 +1,5 @@
 import './style/index.less';
 
-export { TextVis } from './NarrativeTextVis';
+export * from './NarrativeTextVis';
+// 导出所有类型
+export * from '@antv/text-schema';
