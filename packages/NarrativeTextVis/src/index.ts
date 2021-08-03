@@ -1,4 +1,4 @@
-import './style/index.less';
+import './styles/index.less';
 
 export * from './NarrativeTextVis';
 // 导出所有类型

@@ -1,11 +1,11 @@
 import { IPhrase } from './phrase';
 
 /** 段落结构：一句话 或者 */
-export type IParagraph = SentenceParagraph | BulletsParagraph;
+export type IParagraph = TextParagraph | BulletsParagraph;
 
 /** 一句话 != 一段话，一段话由多句组成 */
-interface SentenceParagraph {
-  type: 'text';
+interface TextParagraph {
+  type: 'normal';
   phrases: IPhrase[];
   styles?: BlockStyles;
 }
