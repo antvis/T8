@@ -40,19 +40,48 @@ $ yarn start:demo
 - Render
 
   - [x] text-schema
-  - [ ] text-schema generator scripts
   - [x] `<NarrativeTextVis />` skeleton
   - [x] feat: basic render
+  - [ ] feat: nested-bullets
   - [ ] feat: theme switch
+  - [ ] default theme with editor
+  - [ ] text-schema generator scripts
   - [ ] feat: sparkline
+  - [ ] ...
 
 - Interaction
 
   - [ ] text-schema with interactive
   - [ ] feat: tooltip
   - [ ] feat: popover
+  - [ ] ...
 
 - RichEditor
 
-  - [ ] `<NtvEditor />` skeleton
-  - [ ] case: nlg template
+  - [x] `<TextTemplateEditor />` skeleton
+  - [ ] adaptor textSpec to slate
+    - [x] basic structure
+    - [x] paragraph
+    - [ ] bullets, includes nested-bullets
+  - [ ] adaptor slate to textSpec
+    - [x] paragraph
+    - [ ] bullets, includes nested-bullets
+  - [ ] block edit
+    - [ ] ...
+  - [ ] inline edit
+    - [x] add or delete text 
+    - [x] style
+    - [ ] ...
+  - [ ] editor config extensible (used for analysis report)
+  - [ ] support md language
+  - [ ] ...
+
+## Show Cases
+
+### 🌟 Analysis Report
+
+How to use `<NarrativeTextVis />` and `<TextTemplateEditor />` in an analysis report generator system.
+
+  - [ ] basic UI
+  - [ ] config 
+  - [ ] ...
