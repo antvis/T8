@@ -16,7 +16,7 @@ export const NarrativeTextVis: React.FC<NarrativeTextVisProps> = ({ spec }) => {
         ? map(sections, (section, index) => (
             <div key={index}>
               {map(section.paragraphs, (p, pid) => {
-                if (p.type === 'text') {
+                if (p.type === 'normal') {
                   return <TextLine spec={p} key={pid} />;
                 }
                 if (p.type === 'bullets') {

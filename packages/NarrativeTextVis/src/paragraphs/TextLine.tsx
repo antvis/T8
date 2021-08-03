@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const TextLine: React.FC<Props> = ({ spec }) => {
-  if (spec.type === 'text') {
+  if (spec.type === 'normal') {
     return (
       <p className={getPrefixCls('p')}>
         <Phrase spec={spec.phrases} />

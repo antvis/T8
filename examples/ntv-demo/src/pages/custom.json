@@ -3,7 +3,7 @@
     {
       "paragraphs": [
         {
-          "type": "text",
+          "type": "normal",
           "phrases": [
             {
               "type": "text",
@@ -18,10 +18,10 @@
               "value": "They are "
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$348k",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
@@ -41,10 +41,10 @@
               "value": "with the average deal size being"
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$12k",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
@@ -54,17 +54,17 @@
           ]
         },
         {
-          "type": "text",
+          "type": "normal",
           "phrases": [
             {
               "type": "text",
               "value": "Bookings are up"
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$180.3k",
               "metadata": {
-                "isValue": true,
+                "entityType": "value",
                 "assessment": "positive"
               }
             },
@@ -77,10 +77,10 @@
               "value": "They are up"
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$106.1k",
               "metadata": {
-                "isValue": true,
+                "entityType": "value",
                 "assessment": "positive"
               }
             },
@@ -93,10 +93,10 @@
               "value": "They are"
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$110k",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
@@ -104,10 +104,10 @@
               "value": " ("
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "46.2%",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
@@ -121,7 +121,7 @@
           ]
         },
         {
-          "type": "text",
+          "type": "normal",
           "phrases": [
             {
               "type": "text",
@@ -161,10 +161,10 @@
                   "value": " ("
                 },
                 {
-                  "type": "text",
+                  "type": "entity",
                   "value": "$50.6k",
                   "metadata": {
-                    "isValue": true,
+                    "entityType": "value",
                     "assessment": "positive"
                   }
                 },
@@ -192,10 +192,10 @@
                   "noTrailingSpace": true
                 },
                 {
-                  "type": "text",
+                  "type": "entity",
                   "value": "$86.2k",
                   "metadata": {
-                    "isValue": true,
+                    "entityType": "value",
                     "assessment": "positive"
                   }
                 },
@@ -239,10 +239,10 @@
                   "noTrailingSpace": true
                 },
                 {
-                  "type": "text",
+                  "type": "entity",
                   "value": "$160.1k",
                   "metadata": {
-                    "isValue": true,
+                    "entityType": "value",
                     "assessment": "positive"
                   }
                 },
@@ -267,7 +267,7 @@
           ]
         },
         {
-          "type": "text",
+          "type": "normal",
           "phrases": [
             {
               "type": "text",
@@ -278,10 +278,10 @@
               "value": " ("
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "29",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
@@ -293,10 +293,10 @@
               "value": "is up"
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "17",
               "metadata": {
-                "isValue": true,
+                "entityType": "value",
                 "assessment": "positive"
               }
             },
@@ -309,10 +309,10 @@
               "value": " ("
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "12",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
@@ -326,7 +326,7 @@
           ]
         },
         {
-          "type": "text",
+          "type": "normal",
           "phrases": [
             {
               "type": "text",
@@ -337,10 +337,10 @@
               "value": " ("
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$12k",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
@@ -352,10 +352,10 @@
               "value": "is down"
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$2k",
               "metadata": {
-                "isValue": true,
+                "entityType": "value",
                 "assessment": "negative"
               }
             },
@@ -368,10 +368,10 @@
               "value": " ("
             },
             {
-              "type": "text",
+              "type": "entity",
               "value": "$14k",
               "metadata": {
-                "isValue": true
+                "entityType": "value"
               }
             },
             {
