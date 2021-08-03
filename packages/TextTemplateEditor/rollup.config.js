@@ -40,7 +40,7 @@ const plugins = [
   }),
 ];
 
-const external = ['react', 'react-dom', 'antd'];
+const external = ['react', 'react-dom', 'antd', '@ant-design/icons'];
 
 if (format === 'umd') {
   output.file = 'dist/text-template-editor.min.js';
@@ -49,6 +49,7 @@ if (format === 'umd') {
     react: 'React',
     'react-dom': 'ReactDOM',
     antd: 'antd',
+    '@ant-design/icons': 'icons',
   };
 } else {
   output.dir = outDir;
