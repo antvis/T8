@@ -1,0 +1,345 @@
+{
+  "$ref": "#/definitions/ITextSpec",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "IHeadline": {
+      "additionalProperties": false,
+      "description": "标题",
+      "properties": {
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/IPhrase"
+          },
+          "type": "array"
+        },
+        "type": {
+          "const": "headline",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "phrases"
+      ],
+      "type": "object"
+    },
+    "IParagraph": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "description": "一句话 != 一段话，一段话由多句组成",
+          "properties": {
+            "phrases": {
+              "items": {
+                "$ref": "#/definitions/IPhrase"
+              },
+              "type": "array"
+            },
+            "styles": {
+              "additionalProperties": false,
+              "description": "块级样式",
+              "properties": {
+                "backgroundColor": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "textAlign": {
+                  "enum": [
+                    "left",
+                    "center",
+                    "right"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "textAlign"
+              ],
+              "type": "object"
+            },
+            "type": {
+              "const": "normal",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "phrases"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "<ul></ul>",
+          "properties": {
+            "bullets": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "bullets": {
+                    "items": {
+                      "$ref": "#/definitions/interface-1520756226-384-552-1520756226-0-680"
+                    },
+                    "type": "array"
+                  },
+                  "isOrder": {
+                    "type": "boolean"
+                  },
+                  "phrases": {
+                    "items": {
+                      "$ref": "#/definitions/IPhrase"
+                    },
+                    "type": "array"
+                  },
+                  "styles": {
+                    "additionalProperties": false,
+                    "description": "块级样式",
+                    "properties": {
+                      "backgroundColor": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "textAlign": {
+                        "enum": [
+                          "left",
+                          "center",
+                          "right"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "textAlign"
+                    ],
+                    "type": "object"
+                  },
+                  "type": {
+                    "const": "bullet-item",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "phrases"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "isOrder": {
+              "type": "boolean"
+            },
+            "styles": {
+              "additionalProperties": false,
+              "description": "块级样式",
+              "properties": {
+                "backgroundColor": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "textAlign": {
+                  "enum": [
+                    "left",
+                    "center",
+                    "right"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "textAlign"
+              ],
+              "type": "object"
+            },
+            "type": {
+              "const": "bullets",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "isOrder",
+            "bullets"
+          ],
+          "type": "object"
+        }
+      ],
+      "description": "段落结构：一句话 或者"
+    },
+    "IPhrase": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "description": "短语 -- 文本",
+          "properties": {
+            "styles": {
+              "additionalProperties": false,
+              "description": "行内元素富文本样式",
+              "properties": {
+                "bold": {
+                  "type": "boolean"
+                },
+                "color": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": {
+              "const": "text",
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "metadata": {
+              "additionalProperties": false,
+              "description": "特定节点标记",
+              "properties": {
+                "assessment": {
+                  "description": "用于常见数据解读 encode",
+                  "enum": [
+                    "positive",
+                    "negative"
+                  ],
+                  "type": "string"
+                },
+                "entityType": {
+                  "const": "value",
+                  "description": "类型",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "entityType"
+              ],
+              "type": "object"
+            },
+            "styles": {
+              "additionalProperties": false,
+              "description": "行内元素富文本样式",
+              "properties": {
+                "bold": {
+                  "type": "boolean"
+                },
+                "color": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": {
+              "const": "entity",
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ],
+      "description": "短语 inline node"
+    },
+    "ISection": {
+      "additionalProperties": false,
+      "description": "章节",
+      "properties": {
+        "paragraphs": {
+          "items": {
+            "$ref": "#/definitions/IParagraph"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ITextSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "headline": {
+          "$ref": "#/definitions/IHeadline"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/definitions/ISection"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "interface-1520756226-384-552-1520756226-0-680": {
+      "additionalProperties": false,
+      "properties": {
+        "bullets": {
+          "items": {
+            "$ref": "#/definitions/interface-1520756226-384-552-1520756226-0-680"
+          },
+          "type": "array"
+        },
+        "isOrder": {
+          "type": "boolean"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/IPhrase"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "additionalProperties": false,
+          "description": "块级样式",
+          "properties": {
+            "backgroundColor": {
+              "type": "string"
+            },
+            "color": {
+              "type": "string"
+            },
+            "textAlign": {
+              "enum": [
+                "left",
+                "center",
+                "right"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "textAlign"
+          ],
+          "type": "object"
+        },
+        "type": {
+          "const": "bullet-item",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "phrases"
+      ],
+      "type": "object"
+    }
+  }
+}
