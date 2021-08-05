@@ -31,6 +31,7 @@
     "build:cjs": "tsc --module commonjs --target es5 --outDir ./lib",
     "build:umd": "rollup -c",
     "build": "run-p build:cjs build:esm build:umd",
+    "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t ITextSpec --no-type-check --no-ref-encode > build/color-schema.json",
     "watch:esm": "yarn build:esm --w",
     "watch:cjs": "yarn build:cjs --w",
     "clean": "rimraf node_modules & yarn clean:build",
@@ -46,6 +47,7 @@
     "rollup": "^2.55.1",
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-terser": "^7.0.2",
+    "ts-json-schema-generator": "^0.95.0",
     "typescript": "^4.3.5"
   }
 }
