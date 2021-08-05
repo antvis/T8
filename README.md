@@ -15,7 +15,6 @@ $ npm install lerna -g
 
 # 安装项目依赖和初始化构建
 $ yarn
-$ yarn boot
 
 # 启动 demo 页面进行调试
 $ yarn start:demo
@@ -42,10 +41,10 @@ $ yarn start:demo
   - [x] text-schema
   - [x] `<NarrativeTextVis />` skeleton
   - [x] feat: basic render
-  - [ ] feat: nested-bullets
+  - [x] feat: nested-bullets
   - [ ] feat: theme switch
   - [ ] default theme with editor
-  - [ ] text-schema generator scripts
+  - [x] text-schema generator scripts
   - [ ] feat: sparkline
   - [ ] ...
 
@@ -53,25 +52,20 @@ $ yarn start:demo
 
   - [ ] text-schema with interactive
   - [ ] feat: tooltip
-  - [ ] feat: popover
+  - [ ] feat: popover to view detailed data
+  - [ ] feat: link analytic with text
+  - [ ] feat: sparkline global 
   - [ ] ...
 
 - RichEditor
 
   - [x] `<TextTemplateEditor />` skeleton
   - [ ] adaptor textSpec to slate
-    - [x] basic structure
     - [x] paragraph
     - [ ] bullets, includes nested-bullets
   - [ ] adaptor slate to textSpec
     - [x] paragraph
     - [ ] bullets, includes nested-bullets
-  - [ ] block edit
-    - [ ] ...
-  - [ ] inline edit
-    - [x] add or delete text 
-    - [x] style
-    - [ ] ...
   - [ ] editor config extensible (used for analysis report)
   - [ ] support md language
   - [ ] ...
