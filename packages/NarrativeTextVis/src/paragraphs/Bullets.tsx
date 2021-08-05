@@ -13,6 +13,15 @@ export const Bullets: React.FC<Props> = ({ spec }) => {
     const children = map(spec.bullets, (bullet, index) => (
       <li className={getPrefixCls('li')} key={index}>
         <Phrase spec={bullet.phrases} />
+        {bullet?.bullets ? (
+          <Bullets
+            spec={{
+              type: 'bullets',
+              isOrder: spec.isOrder,
+              bullets: bullet?.bullets,
+            }}
+          />
+        ) : null}
       </li>
     ));
     return spec.isOrder ? (

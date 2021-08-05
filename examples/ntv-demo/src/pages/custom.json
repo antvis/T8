@@ -176,6 +176,26 @@
                   "type": "text",
                   "value": "See all lead sources. "
                 }
+              ],
+              "bullets": [
+                {
+                  "type": "bullet-item",
+                  "phrases": [
+                    {
+                      "type": "text",
+                      "value": "sub node 1"
+                    }
+                  ]
+                },
+                {
+                  "type": "bullet-item",
+                  "phrases": [
+                    {
+                      "type": "text",
+                      "value": "sub node 2"
+                    }
+                  ]
+                }
               ]
             },
             {
