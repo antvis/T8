@@ -4,7 +4,6 @@
   "definitions": {
     "IHeadline": {
       "additionalProperties": false,
-      "description": "标题",
       "properties": {
         "phrases": {
           "items": {
@@ -27,7 +26,6 @@
       "anyOf": [
         {
           "additionalProperties": false,
-          "description": "一句话 != 一段话，一段话由多句组成",
           "properties": {
             "phrases": {
               "items": {
@@ -37,7 +35,6 @@
             },
             "styles": {
               "additionalProperties": false,
-              "description": "块级样式",
               "properties": {
                 "backgroundColor": {
                   "type": "string"
@@ -72,7 +69,6 @@
         },
         {
           "additionalProperties": false,
-          "description": "<ul></ul>",
           "properties": {
             "bullets": {
               "items": {
@@ -80,7 +76,7 @@
                 "properties": {
                   "bullets": {
                     "items": {
-                      "$ref": "#/definitions/interface-1520756226-384-552-1520756226-0-680"
+                      "$ref": "#/definitions/interface-1520756226-347-525-1520756226-0-641"
                     },
                     "type": "array"
                   },
@@ -95,7 +91,6 @@
                   },
                   "styles": {
                     "additionalProperties": false,
-                    "description": "块级样式",
                     "properties": {
                       "backgroundColor": {
                         "type": "string"
@@ -135,7 +130,6 @@
             },
             "styles": {
               "additionalProperties": false,
-              "description": "块级样式",
               "properties": {
                 "backgroundColor": {
                   "type": "string"
@@ -169,18 +163,15 @@
           ],
           "type": "object"
         }
-      ],
-      "description": "段落结构：一句话 或者"
+      ]
     },
     "IPhrase": {
       "anyOf": [
         {
           "additionalProperties": false,
-          "description": "短语 -- 文本",
           "properties": {
             "styles": {
               "additionalProperties": false,
-              "description": "行内元素富文本样式",
               "properties": {
                 "bold": {
                   "type": "boolean"
@@ -213,7 +204,6 @@
               "description": "特定节点标记",
               "properties": {
                 "assessment": {
-                  "description": "用于常见数据解读 encode",
                   "enum": [
                     "positive",
                     "negative"
@@ -222,7 +212,7 @@
                 },
                 "entityType": {
                   "const": "value",
-                  "description": "类型",
+                  "description": "specific type to encoding",
                   "type": "string"
                 }
               },
@@ -233,7 +223,6 @@
             },
             "styles": {
               "additionalProperties": false,
-              "description": "行内元素富文本样式",
               "properties": {
                 "bold": {
                   "type": "boolean"
@@ -257,12 +246,10 @@
           ],
           "type": "object"
         }
-      ],
-      "description": "短语 inline node"
+      ]
     },
     "ISection": {
       "additionalProperties": false,
-      "description": "章节",
       "properties": {
         "paragraphs": {
           "items": {
@@ -288,12 +275,12 @@
       },
       "type": "object"
     },
-    "interface-1520756226-384-552-1520756226-0-680": {
+    "interface-1520756226-347-525-1520756226-0-641": {
       "additionalProperties": false,
       "properties": {
         "bullets": {
           "items": {
-            "$ref": "#/definitions/interface-1520756226-384-552-1520756226-0-680"
+            "$ref": "#/definitions/interface-1520756226-347-525-1520756226-0-641"
           },
           "type": "array"
         },
@@ -308,7 +295,6 @@
         },
         "styles": {
           "additionalProperties": false,
-          "description": "块级样式",
           "properties": {
             "backgroundColor": {
               "type": "string"

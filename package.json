@@ -12,6 +12,7 @@
     "boot": "lerna bootstrap",
     "lint": "lerna run lint",
     "start:demo": "node ./scripts/start-ntv-demo.js",
+    "schema": "cd ./packages/text-schema && yarn schema",
     "prepare": "husky install",
     "precommit": "lint-staged",
     "postinstall": "yarn boot"
