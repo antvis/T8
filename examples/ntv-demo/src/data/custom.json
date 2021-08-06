@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../packages/text-schema/build/text-schema.json",
   "sections": [
     {
       "paragraphs": [
@@ -10,18 +11,25 @@
               "value": "This quarter, "
             },
             {
-              "type": "text",
-              "value": "bookings are higher than usual for this point in the quarter. "
+              "type": "entity",
+              "value": "bookings",
+              "metadata": {
+                "entityType": "metric_name"
+              }
             },
             {
               "type": "text",
-              "value": "They are "
+              "value": "are higher than usual for this point in the quarter. "
+            },
+            {
+              "type": "text",
+              "value": "They are"
             },
             {
               "type": "entity",
               "value": "$348k",
               "metadata": {
-                "entityType": "value"
+                "entityType": "metric_value"
               }
             },
             {
@@ -33,23 +41,41 @@
               "value": "They were made up of"
             },
             {
-              "type": "text",
-              "value": "29 deals, "
+              "type": "entity",
+              "value": "29 deals",
+              "metadata": {
+                "entityType": "metric_value"
+              }
             },
             {
               "type": "text",
-              "value": "with the average deal size being"
+              "value": ", "
+            },
+            {
+              "type": "text",
+              "value": "with the"
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": "being"
             },
             {
               "type": "entity",
               "value": "$12k",
               "metadata": {
-                "entityType": "value"
+                "entityType": "metric_value"
               }
             },
             {
               "type": "text",
-              "value": ". "
+              "value": "."
             }
           ]
         },
@@ -57,14 +83,21 @@
           "type": "normal",
           "phrases": [
             {
+              "type": "entity",
+              "value": "Bookings",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
               "type": "text",
-              "value": "Bookings are up"
+              "value": "are up"
             },
             {
               "type": "entity",
               "value": "$180.3k",
               "metadata": {
-                "entityType": "value",
+                "entityType": "delta_value",
                 "assessment": "positive"
               }
             },
@@ -80,7 +113,7 @@
               "type": "entity",
               "value": "$106.1k",
               "metadata": {
-                "entityType": "value",
+                "entityType": "delta_value",
                 "assessment": "positive"
               }
             },
@@ -96,18 +129,18 @@
               "type": "entity",
               "value": "$110k",
               "metadata": {
-                "entityType": "value"
+                "entityType": "metric_value"
               }
             },
             {
               "type": "text",
-              "value": " ("
+              "value": "("
             },
             {
               "type": "entity",
               "value": "46.2%",
               "metadata": {
-                "entityType": "value"
+                "entityType": "contribute_ratio"
               }
             },
             {
@@ -145,11 +178,10 @@
                   "value": "the"
                 },
                 {
-                  "type": "text",
+                  "type": "entity",
                   "value": "Prospecting",
                   "metadata": {
-                    "dm_id": "40799a7d-8321-3363-8612-ca7faa7ddcd6",
-                    "value": "Prospecting"
+                    "entityType": "dim_value"
                   }
                 },
                 {
@@ -164,7 +196,7 @@
                   "type": "entity",
                   "value": "$50.6k",
                   "metadata": {
-                    "entityType": "value",
+                    "entityType": "delta_value",
                     "assessment": "positive"
                   }
                 },
@@ -202,38 +234,35 @@
               "type": "bullet-item",
               "phrases": [
                 {
-                  "type": "text",
-                  "value": "Keely Townsend"
+                  "type": "entity",
+                  "value": "Keely Townsend",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
                 },
                 {
-                  "type": "punctuation",
-                  "value": "(",
-                  "noLeadingSpace": false,
-                  "noTrailingSpace": true
+                  "type": "text",
+                  "value": "("
                 },
                 {
                   "type": "entity",
                   "value": "$86.2k",
                   "metadata": {
-                    "entityType": "value",
+                    "entityType": "delta_value",
                     "assessment": "positive"
                   }
                 },
                 {
-                  "type": "punctuation",
-                  "value": ")",
-                  "noLeadingSpace": true,
-                  "noTrailingSpace": false
+                  "type": "text",
+                  "value": ")"
                 },
                 {
                   "type": "text",
                   "value": "See all account executives"
                 },
                 {
-                  "type": "punctuation",
-                  "value": ".",
-                  "noLeadingSpace": true,
-                  "noTrailingSpace": false
+                  "type": "text",
+                  "value": "."
                 }
               ]
             },
@@ -245,42 +274,39 @@
                   "value": "the"
                 },
                 {
-                  "type": "text",
-                  "value": "New Client"
+                  "type": "entity",
+                  "value": "New Client",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
                 },
                 {
                   "type": "text",
                   "value": "opportunity type"
                 },
                 {
-                  "type": "punctuation",
-                  "value": "(",
-                  "noLeadingSpace": false,
-                  "noTrailingSpace": true
+                  "type": "text",
+                  "value": "("
                 },
                 {
                   "type": "entity",
                   "value": "$160.1k",
                   "metadata": {
-                    "entityType": "value",
+                    "entityType": "delta_value",
                     "assessment": "positive"
                   }
                 },
                 {
-                  "type": "punctuation",
-                  "value": ")",
-                  "noLeadingSpace": true,
-                  "noTrailingSpace": false
+                  "type": "text",
+                  "value": ")"
                 },
                 {
                   "type": "text",
                   "value": "See all opportunity types"
                 },
                 {
-                  "type": "punctuation",
-                  "value": ".",
-                  "noLeadingSpace": true,
-                  "noTrailingSpace": false
+                  "type": "text",
+                  "value": "."
                 }
               ]
             }
@@ -291,7 +317,14 @@
           "phrases": [
             {
               "type": "text",
-              "value": "The number of deals"
+              "value": "The"
+            },
+            {
+              "type": "entity",
+              "value": "number of deals",
+              "metadata": {
+                "entityType": "metric_name"
+              }
             },
             {
               "type": "text",
@@ -301,7 +334,7 @@
               "type": "entity",
               "value": "29",
               "metadata": {
-                "entityType": "value"
+                "entityType": "metric_value"
               }
             },
             {
@@ -316,7 +349,7 @@
               "type": "entity",
               "value": "17",
               "metadata": {
-                "entityType": "value",
+                "entityType": "delta_value",
                 "assessment": "positive"
               }
             },
@@ -332,7 +365,7 @@
               "type": "entity",
               "value": "12",
               "metadata": {
-                "entityType": "value"
+                "entityType": "metric_value"
               }
             },
             {
@@ -350,7 +383,14 @@
           "phrases": [
             {
               "type": "text",
-              "value": "The average deal size"
+              "value": "The"
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
             },
             {
               "type": "text",
@@ -360,7 +400,7 @@
               "type": "entity",
               "value": "$12k",
               "metadata": {
-                "entityType": "value"
+                "entityType": "metric_value"
               }
             },
             {
@@ -375,7 +415,7 @@
               "type": "entity",
               "value": "$2k",
               "metadata": {
-                "entityType": "value",
+                "entityType": "delta_value",
                 "assessment": "negative"
               }
             },
@@ -391,7 +431,7 @@
               "type": "entity",
               "value": "$14k",
               "metadata": {
-                "entityType": "value"
+                "entityType": "metric_value"
               }
             },
             {

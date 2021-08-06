@@ -1,0 +1,140 @@
+{
+  "$schema": "../../../../packages/text-schema/build/text-schema.json",
+  "sections": [
+    {
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "数据标记规范",
+              "styles": {
+                "fontStyle": "italic",
+                "fontSize": 16,
+                "borderLeft": "4px solid #1890ff",
+                "paddingLeft": 6,
+                "opacity": 0.8
+              }
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "指标："
+            },
+            {
+              "type": "entity",
+              "value": "DAU",
+              "metadata": {
+                "entityType": "metric_name"
+              },
+              "styles": {
+                "marginRight": 12
+              }
+            },
+            {
+              "type": "text",
+              "value": "指标值："
+            },
+            {
+              "type": "entity",
+              "value": "100w",
+              "metadata": {
+                "entityType": "metric_value"
+              },
+              "styles": {
+                "marginRight": 12
+              }
+            },
+            {
+              "type": "text",
+              "value": "差值："
+            },
+            {
+              "type": "entity",
+              "value": "12",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              },
+              "styles": {
+                "marginRight": 12
+              }
+            },
+            {
+              "type": "text",
+              "value": "比率："
+            },
+            {
+              "type": "entity",
+              "value": "12%",
+              "metadata": {
+                "entityType": "ratio_value",
+                "assessment": "positive"
+              },
+              "styles": {
+                "marginRight": 12
+              }
+            },
+            {
+              "type": "text",
+              "value": "贡献度："
+            },
+            {
+              "type": "entity",
+              "value": "5%",
+              "metadata": {
+                "entityType": "contribute_ratio"
+              },
+              "styles": {
+                "marginRight": 12
+              }
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "趋势描述："
+            },
+            {
+              "type": "entity",
+              "value": "周期性",
+              "metadata": {
+                "entityType": "trend_desc"
+              },
+              "styles": {
+                "marginRight": 12
+              }
+            },
+            {
+              "type": "text",
+              "value": "维值条件："
+            },
+            {
+              "type": "entity",
+              "value": "北京",
+              "metadata": {
+                "entityType": "dim_value",
+                "detail": {
+                  "left": "城市",
+                  "op": "=",
+                  "right": "北京"
+                }
+              },
+              "styles": {
+                "marginRight": 12
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

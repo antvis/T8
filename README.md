@@ -42,6 +42,8 @@ $ yarn start:demo
   - [x] `<NarrativeTextVis />` skeleton
   - [x] feat: basic render
   - [x] feat: nested-bullets
+  - [x] feat: entity encoding spec
+  - [ ] feat: entity get text from detail data
   - [ ] feat: theme switch
   - [ ] default theme with editor
   - [x] text-schema generator scripts

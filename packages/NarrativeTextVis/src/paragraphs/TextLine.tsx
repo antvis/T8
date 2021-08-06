@@ -1,6 +1,6 @@
 import React from 'react';
 import { IParagraph } from '@antv/text-schema';
-import { Phrase } from '../phrases';
+import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
 
 interface Props {
@@ -11,7 +11,7 @@ export const TextLine: React.FC<Props> = ({ spec }) => {
   if (spec.type === 'normal') {
     return (
       <p className={getPrefixCls('p')}>
-        <Phrase spec={spec.phrases} />
+        <Phrases spec={spec.phrases} />
       </p>
     );
   }
