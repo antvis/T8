@@ -35,7 +35,7 @@
     "watch:esm": "yarn build:esm --w",
     "watch:cjs": "yarn build:cjs --w",
     "clean": "rimraf node_modules & yarn clean:build",
-    "clean:build": "rimraf dist es lib",
+    "clean:build": "rimraf dist es lib build",
     "prepare": "yarn build"
   },
   "devDependencies": {
