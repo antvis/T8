@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "lerna clean -y && lerna run clean:build && rimraf node_modules",
+    "test": "jest",
     "boot": "lerna bootstrap",
     "lint": "lerna run lint",
     "start:demo": "node ./scripts/start-ntv-demo.js",
@@ -20,17 +21,14 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{less,css}": [
       "stylelint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
-    "*.{json}": [
-      "prettier --write",
-      "git add"
+    "*.json": [
+      "prettier --write"
     ]
   },
   "devDependencies": {

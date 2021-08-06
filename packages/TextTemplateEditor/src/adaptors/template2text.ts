@@ -42,19 +42,8 @@ export function elements2section(elements: ITemplate['sections'][number]): ISect
 }
 
 function leaf2phrases(leafs: Text[]): IPhrase[] {
-  return map(leafs, (leaf) => {
-    if ('isVariable' in leaf && leaf.isVariable) {
-      return {
-        type: 'entity',
-        value: leaf.text,
-        metadata: {
-          entityType: 'value',
-        },
-      };
-    }
-    return {
-      type: 'text',
-      value: leaf.text,
-    };
-  });
+  return map(leafs, (leaf) => ({
+    type: 'text',
+    value: leaf.text,
+  }));
 }

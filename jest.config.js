@@ -7,7 +7,7 @@ module.exports = {
   },
   testPathIgnorePatterns: ['/node_modules/'],
   collectCoverage: false,
-  collectCoverageFrom: ['src/**/*.ts'],
+  collectCoverageFrom: ['packages/**/src/**/*.ts'],
   testRegex: '(/__tests__/.*\\.(test|spec))\\.ts$',
   verbose: false,
 };

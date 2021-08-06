@@ -27,7 +27,6 @@
   },
   "scripts": {
     "lint": "eslint --ext .ts,.tsx ./src",
-    "test": "jest",
     "build:esm": "rimraf es && FORMAT=esm rollup -c",
     "build:cjs": "rimraf lib && FORMAT=cjs rollup -c",
     "build:umd": "rimraf dist && FORMAT=umd rollup -c",
@@ -45,14 +44,12 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^3.0.0",
     "@rollup/plugin-typescript": "^8.2.5",
-    "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.171",
     "@types/numeral": "^2.0.1",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
     "antd": "^4.16.9",
     "autoprefixer": "^9.0.0",
-    "jest": "^27.0.6",
     "less": "^4.1.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.3.6",
@@ -63,7 +60,6 @@
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
-    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   },
   "dependencies": {
