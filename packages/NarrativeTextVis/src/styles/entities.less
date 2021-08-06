@@ -1,0 +1,45 @@
+@metric-color: #e6f7ff;
+@value-color: #f5f5f5;
+@dim-color: #f0f0f0;
+@negative-color: #eaf8f1;
+@positive-color: #fdefec;
+@contribution-color: #f9f0ff;
+@trend-color: #e8e8e8;
+
+.@{ntv-prefix}-value {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 0 4px;
+  padding: 0 4px;
+  line-height: 1.5em;
+  border-radius: 2px;
+
+  &.@{ntv-prefix}-metric-name {
+    background-color: @metric-color;
+  }
+
+  &.@{ntv-prefix}-metric-value {
+    background-color: @value-color;
+  }
+
+  &.@{ntv-prefix}-contribute-ratio {
+    background-color: @contribution-color;
+  }
+
+  &.@{ntv-prefix}-value-positive {
+    background-color: @positive-color;
+  }
+
+  &.@{ntv-prefix}-value-negative {
+    background-color: @negative-color;
+  }
+
+  &.@{ntv-prefix}-trend-desc {
+    text-decoration: underline;
+    background-color: @trend-color;
+  }
+
+  &.@{ntv-prefix}-dim-value {
+    background-color: @dim-color, 0.1;
+  }
+}

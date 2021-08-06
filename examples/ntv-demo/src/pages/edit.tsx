@@ -2,14 +2,13 @@ import { Row, Col } from 'antd';
 import { ITextSpec } from '@antv/narrative-text-vis';
 import { NarrativeTextVis } from '@antv/narrative-text-vis';
 import { TextTemplateEditor } from '@antv/text-template-editor';
-import textData from './custom.json';
+import textData from '../data/custom.json';
 import '@antv/text-template-editor/es/index.css';
 import './index.less';
 
 export default function EditorPage() {
   const editor = TextTemplateEditor.useEditor(textData as ITextSpec);
   const { textSpec } = editor;
-  console.log('template: ', textSpec);
   return (
     <div className="container">
       <blockquote>

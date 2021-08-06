@@ -2,6 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
+// TODO 要发包前加 filesize 监控包大小
 // import filesize from 'rollup-plugin-filesize';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
@@ -40,7 +41,7 @@ const plugins = [
   }),
 ];
 
-const external = ['react', 'react-dom', 'antd'];
+const external = ['react', 'react-dom', 'antd', '@ant-design/icons'];
 
 if (format === 'umd') {
   output.file = 'dist/narrative-text-vis.min.js';
@@ -49,6 +50,7 @@ if (format === 'umd') {
     react: 'React',
     'react-dom': 'ReactDOM',
     antd: 'antd',
+    '@ant-design/icons': 'icons',
   };
 } else {
   output.dir = outDir;

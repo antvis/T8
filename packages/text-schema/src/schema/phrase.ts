@@ -1,27 +1,48 @@
+import { CSSProperties } from 'react';
+import { RawData, FilterItem } from './data';
+
 export type IPhrase = TextPhrase | EntityPhrase;
 
 interface TextPhrase {
   type: 'text';
   value: string;
-  styles?: InlineStyles;
+  styles?: CSSProperties;
 }
 
 interface EntityPhrase {
   type: 'entity';
   value?: string;
-  metadata?: Metadata;
-  styles?: InlineStyles;
+  metadata?: MetaData;
+  styles?: CSSProperties;
 }
 
-/** 特定节点标记 */
-interface Metadata {
-  /** specific type to encoding */
-  entityType: 'value';
-  // TODO 也许之后会换掉
-  assessment?: 'positive' | 'negative';
-}
+export type ValueAssessment = 'positive' | 'negative' | 'equal';
 
-interface InlineStyles {
-  bold?: boolean;
-  color?: string;
-}
+type MetaData =
+  | {
+      entityType: 'metric_name';
+      detail?: string;
+    }
+  | {
+      entityType: 'metric_value' | 'ratio_value' | 'contribute_ratio';
+      assessment?: ValueAssessment;
+      data?: number;
+      format?: string;
+    }
+  | {
+      entityType: 'delta_value';
+      assessment?: ValueAssessment;
+      data?: number;
+      format?: string;
+      detail?: [number, number];
+    }
+  | {
+      entityType: 'trend_desc';
+      detail?: RawData;
+    }
+  | {
+      entityType: 'dim_value';
+      detail?: FilterItem;
+    };
+
+export type IEntityType = MetaData['entityType'];
