@@ -32,7 +32,7 @@ $ yarn start:demo
   - [x] husky & lint-staged
   - [x] build
   - [x] live demo
-  - [ ] jest test
+  - [x] jest test
   - [ ] publish
   - [ ] site & mdlint
 
@@ -43,7 +43,7 @@ $ yarn start:demo
   - [x] feat: basic render
   - [x] feat: nested-bullets
   - [x] feat: entity encoding spec
-  - [ ] feat: entity get text from detail data
+  - [x] feat: entity get text from detail data
   - [ ] feat: theme switch
   - [ ] default theme with editor
   - [x] text-schema generator scripts

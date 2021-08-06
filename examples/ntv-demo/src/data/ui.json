@@ -42,9 +42,10 @@
             },
             {
               "type": "entity",
-              "value": "100w",
               "metadata": {
-                "entityType": "metric_value"
+                "entityType": "metric_value",
+                "data": 901632.11,
+                "format": "0.0a"
               },
               "styles": {
                 "marginRight": 12
@@ -56,10 +57,10 @@
             },
             {
               "type": "entity",
-              "value": "12",
               "metadata": {
                 "entityType": "delta_value",
-                "assessment": "negative"
+                "data": 100,
+                "format": "0.0"
               },
               "styles": {
                 "marginRight": 12
@@ -71,10 +72,10 @@
             },
             {
               "type": "entity",
-              "value": "12%",
               "metadata": {
                 "entityType": "ratio_value",
-                "assessment": "positive"
+                "data": -0.034,
+                "format": "0.0%"
               },
               "styles": {
                 "marginRight": 12
@@ -86,9 +87,10 @@
             },
             {
               "type": "entity",
-              "value": "5%",
               "metadata": {
-                "entityType": "contribute_ratio"
+                "entityType": "contribute_ratio",
+                "data": 0.05,
+                "format": "0.0%"
               },
               "styles": {
                 "marginRight": 12

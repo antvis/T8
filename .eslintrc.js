@@ -29,6 +29,7 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'lines-between-class-members': 'off',
   },
   settings: {
     react: {
