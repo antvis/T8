@@ -1,33 +1,45 @@
-/* eslint-disable no-nested-ternary */
 import React from 'react';
-import { map, get } from 'lodash';
-import cx from 'classnames';
+import { map } from 'lodash';
 import { IPhrase } from '@antv/text-schema';
-import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
-import { parsePhrase } from '../utils/phrase-parser';
+import { DetailChartDisplayType } from '../interface';
+
+import { Default } from './Default';
+import { DeltaValue } from './DeltaValue';
+import { RatioValue } from './RatioValue';
+import { DimValue } from './DimValue';
+import { TrendDesc } from './TrendDesc';
 
 interface Props {
   spec: IPhrase[];
+  detailChartDisplayType: DetailChartDisplayType;
 }
 
-export const Phrases: React.FC<Props> = ({ spec }) => (
+export const Phrases: React.FC<Props> = ({ spec, detailChartDisplayType }) => (
   <>
     {map(spec, (phrase, index) => {
-      const pp = parsePhrase(phrase);
-      const children = (
-        <span className={cx(pp.classNames)} style={phrase?.styles} key={`${phrase.value}-${index}`}>
-          {get(phrase, 'metadata.entityType') === 'ratio_value' ? (
-            pp.assessment === 'positive' ? (
-              <CaretUpOutlined />
-            ) : (
-              <CaretDownOutlined />
-            )
-          ) : null}
-          {pp.content}
-        </span>
-      );
-      // TODO interactive of get detail
-      return children;
+      const defaultComp = <Default phrase={phrase} key={`${index}-${phrase.value}`} />;
+      if (phrase.type === 'text') return defaultComp;
+      if (phrase?.metadata?.entityType) {
+        switch (phrase?.metadata?.entityType) {
+          case 'trend_desc':
+            return (
+              <TrendDesc
+                phrase={phrase}
+                detailChartDisplayType={detailChartDisplayType}
+                key={`${index}-${phrase.value}`}
+              />
+            );
+          case 'delta_value':
+            return <DeltaValue phrase={phrase} key={`${index}-${phrase.value}`} />;
+          case 'ratio_value':
+            return <RatioValue phrase={phrase} key={`${index}-${phrase.value}`} />;
+          case 'dim_value':
+            return <DimValue phrase={phrase} key={`${index}-${phrase.value}`} />;
+          default:
+            return defaultComp;
+        }
+      }
+      return defaultComp;
     })}
   </>
 );

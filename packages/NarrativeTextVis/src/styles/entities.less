@@ -7,12 +7,29 @@
 @trend-color: #e8e8e8;
 
 .@{ntv-prefix}-value {
+  position: relative;
   display: inline-block;
   box-sizing: border-box;
   margin: 0 4px;
   padding: 0 4px;
   line-height: 1.5em;
   border-radius: 2px;
+  cursor: pointer;
+
+  // TODO 增加一个统一标识处理是否能让用户 hover
+  /**
+   * push popover class to remind user:
+   * You can hover here!
+   * */
+  &.popover::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    content: '';
+  }
 
   &.@{ntv-prefix}-metric-name {
     background-color: @metric-color;
@@ -40,6 +57,6 @@
   }
 
   &.@{ntv-prefix}-dim-value {
-    background-color: @dim-color, 0.1;
+    background-color: @dim-color;
   }
 }

@@ -11,7 +11,7 @@ export const Headline: React.FC<Props> = ({ spec }) => {
   if (spec && spec.type === 'headline') {
     return (
       <h1 className={getPrefixCls('headline')}>
-        <Phrases spec={spec.phrases} />
+        <Phrases spec={spec.phrases} detailChartDisplayType={null} />
       </h1>
     );
   }

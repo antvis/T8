@@ -120,7 +120,7 @@ describe('phrase handler', () => {
     });
 
     expect(pp.classNames).toEqual([getPrefixCls('value'), getPrefixCls('value-negative')]);
-    expect(pp.content).toBe('-1,000');
+    expect(pp.content).toBe('1,000');
     expect(pp.assessment).toBe('negative');
     expect(pp.originalData).toBe(-1000);
   });

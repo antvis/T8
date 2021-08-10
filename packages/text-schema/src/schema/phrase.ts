@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { RawData, FilterItem } from './data';
+import { FilterItem } from './data';
 
 export type IPhrase = TextPhrase | EntityPhrase;
 
@@ -38,7 +38,8 @@ type MetaData =
     }
   | {
       entityType: 'trend_desc';
-      detail?: RawData;
+      // TODO support multi line
+      detail?: number[];
     }
   | {
       entityType: 'dim_value';
