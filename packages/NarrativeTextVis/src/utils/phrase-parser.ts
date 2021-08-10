@@ -12,7 +12,7 @@ const compareType: PhraseType[] = ['ratio_value', 'delta_value'];
 
 class PhraseParser {
   private phrase: IPhrase;
-  private type: PhraseType;
+  public type: PhraseType;
   /** compare assessment */
   public assessment: ValueAssessment | null;
   public originalData: number | undefined;
@@ -85,12 +85,6 @@ class PhraseParser {
   }
 
   get content() {
-    if (this.type === 'delta_value') {
-      if (!this.assessment) return this.text;
-      // TODO 处理 equal 的情况
-      if (this.assessment === 'equal') return this.text;
-      return this.assessment === 'negative' ? `-${this.text}` : `+${this.text}`;
-    }
     return this.text;
   }
 }

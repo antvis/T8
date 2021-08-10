@@ -47,14 +47,13 @@ $ yarn start:demo
   - [ ] feat: theme switch
   - [ ] default theme with editor
   - [x] text-schema generator scripts
-  - [ ] feat: sparkline
+  - [x] feat: sparkline
   - [ ] ...
 
 - Interaction
 
   - [ ] text-schema with interactive
-  - [ ] feat: tooltip
-  - [ ] feat: popover to view detailed data
+  - [x] feat: popover to view detailed data
   - [ ] feat: link analytic with text
   - [ ] feat: sparkline global 
   - [ ] ...

@@ -1,0 +1,1 @@
+export { TrendLine } from './TrendLine';

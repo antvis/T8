@@ -59,8 +59,9 @@
               "type": "entity",
               "metadata": {
                 "entityType": "delta_value",
-                "data": 100,
-                "format": "0.0"
+                "data": 100.33,
+                "format": "0.0",
+                "detail": [120.12, 220.45]
               },
               "styles": {
                 "marginRight": 12
@@ -109,7 +110,11 @@
               "type": "entity",
               "value": "周期性",
               "metadata": {
-                "entityType": "trend_desc"
+                "entityType": "trend_desc",
+                "detail": [
+                  264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592,
+                  492, 467, 513, 546, 983, 340, 539, 243, 226, 192
+                ]
               },
               "styles": {
                 "marginRight": 12
