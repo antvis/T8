@@ -12,7 +12,7 @@ interface Props extends BasicPhraseProps {
 }
 
 export const TrendDesc: React.FC<Props> = ({ phrase, detailChartDisplayType }) => {
-  const pp = usePhraseParser({ phrase });
+  const phraseParser = usePhraseParser({ phrase });
   const [Chart, setChart] = useState<ReactNode>(null);
 
   useEffect(() => {
@@ -22,27 +22,27 @@ export const TrendDesc: React.FC<Props> = ({ phrase, detailChartDisplayType }) =
         const chart = <TrendLine data={detail} displayType={detailChartDisplayType} />;
         setChart(chart);
         if (detailChartDisplayType === 'tooltip') {
-          pp.setPopoverContent(chart);
+          phraseParser.setPopoverContent(chart);
         } else {
-          pp.setPopoverContent(null);
+          phraseParser.setPopoverContent(null);
         }
       } else {
         setChart(null);
       }
     } else {
-      pp.setPopoverContent(null);
+      phraseParser.setPopoverContent(null);
     }
   }, [phrase, detailChartDisplayType]);
 
   const children = (
-    <span className={cx(pp.classNames)} style={phrase?.styles}>
-      {pp.content}
+    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+      {phraseParser.content}
       {detailChartDisplayType === 'inline' ? Chart : null}
     </span>
   );
 
   return Chart && detailChartDisplayType === 'tooltip' ? (
-    <Popover title="数据详情" content={pp.PopoverContent}>
+    <Popover title="数据详情" content={phraseParser.PopoverContent}>
       {children}
     </Popover>
   ) : (

@@ -6,26 +6,26 @@ import { BasicPhraseProps } from './interface';
 import { usePhraseParser } from './usePhraseParser';
 
 export const DimValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
-  const pp = usePhraseParser({ phrase });
+  const phraseParser = usePhraseParser({ phrase });
 
   useEffect(() => {
     if (phrase.type === 'entity' && phrase?.metadata?.entityType === 'dim_value') {
       const detail = phrase?.metadata?.detail;
       if (detail && !isUndefined(detail?.left) && !isUndefined(detail?.op) && !isUndefined(detail?.right)) {
-        pp.setPopoverContent(`${detail.left} ${detail.op} ${detail.right}`);
+        phraseParser.setPopoverContent(`${detail.left} ${detail.op} ${detail.right}`);
       } else {
-        pp.setPopoverContent(null);
+        phraseParser.setPopoverContent(null);
       }
     } else {
-      pp.setPopoverContent(null);
+      phraseParser.setPopoverContent(null);
     }
   }, [phrase]);
 
   const children = (
-    <span className={cx(pp.classNames)} style={phrase?.styles}>
-      {pp.content}
+    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+      {phraseParser.content}
     </span>
   );
 
-  return pp.PopoverContent ? <Popover content={pp.PopoverContent}>{children}</Popover> : children;
+  return phraseParser.PopoverContent ? <Popover content={phraseParser.PopoverContent}>{children}</Popover> : children;
 };
