@@ -37,7 +37,10 @@ export const TrendLine: React.FC<Props> = ({ data, displayType }) => {
       }
     }
     return () => {
-      if (chart.current) chart.current.destroy();
+      if (chart.current) {
+        chart.current.destroy();
+        chart.current = null;
+      }
     };
   }, [data, displayType]);
   return <div ref={container} style={{ display: 'inline-block' }} />;

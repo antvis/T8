@@ -1,10 +1,14 @@
 @metric-color: #e6f7ff;
 @value-color: #f5f5f5;
 @dim-color: #f0f0f0;
+@dim-popover-marker-color: #838383;
 @negative-color: #eaf8f1;
+@negative-popover-marker-color: #30bf78;
 @positive-color: #fdefec;
+@positive-popover-marker-color: #f4664a;
 @contribution-color: #f9f0ff;
 @trend-color: #e8e8e8;
+@trend-popover-marker-color: #505050;
 
 .@{ntv-prefix}-value {
   position: relative;
@@ -14,20 +18,19 @@
   padding: 0 4px;
   line-height: 1.5em;
   border-radius: 2px;
-  cursor: pointer;
 
-  // TODO 增加一个统一标识处理是否能让用户 hover
-  /**
-   * push popover class to remind user:
-   * You can hover here!
-   * */
-  &.popover::after {
+  &.@{ntv-prefix}-popover-marker {
+    padding-right: 8px;
+    cursor: pointer;
+  }
+
+  &.@{ntv-prefix}-popover-marker::after {
     position: absolute;
     top: 0;
     right: 0;
-    width: 10px;
-    height: 10px;
-    background-color: #ccc;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
     content: '';
   }
 
@@ -45,18 +48,38 @@
 
   &.@{ntv-prefix}-value-positive {
     background-color: @positive-color;
+
+    &.@{ntv-prefix}-popover-marker::after {
+      border-top: 4px solid @positive-popover-marker-color;
+      border-right: 4px solid @positive-popover-marker-color;
+    }
   }
 
   &.@{ntv-prefix}-value-negative {
     background-color: @negative-color;
+
+    &.@{ntv-prefix}-popover-marker::after {
+      border-top: 4px solid @negative-popover-marker-color;
+      border-right: 4px solid @negative-popover-marker-color;
+    }
   }
 
   &.@{ntv-prefix}-trend-desc {
     text-decoration: underline;
     background-color: @trend-color;
+
+    &.@{ntv-prefix}-popover-marker::after {
+      border-top: 4px solid @trend-popover-marker-color;
+      border-right: 4px solid @trend-popover-marker-color;
+    }
   }
 
   &.@{ntv-prefix}-dim-value {
     background-color: @dim-color;
+
+    &.@{ntv-prefix}-popover-marker::after {
+      border-top: 4px solid @dim-popover-marker-color;
+      border-right: 4px solid @dim-popover-marker-color;
+    }
   }
 }
