@@ -10,7 +10,7 @@ type PhraseType = 'text' | IEntityType | null;
 /** compare */
 const compareType: PhraseType[] = ['ratio_value', 'delta_value'];
 
-class PhraseParser {
+export class PhraseParser {
   private phrase: IPhrase;
   public type: PhraseType;
   /** compare assessment */
