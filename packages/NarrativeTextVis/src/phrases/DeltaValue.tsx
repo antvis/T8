@@ -7,7 +7,7 @@ import { BasicPhraseProps } from './interface';
 import { usePhraseParser } from './usePhraseParser';
 
 export const DeltaValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
-  const pp = usePhraseParser({ phrase });
+  const phraseParser = usePhraseParser({ phrase });
 
   useEffect(() => {
     if (phrase.type === 'entity' && phrase?.metadata?.entityType === 'delta_value') {
@@ -16,25 +16,25 @@ export const DeltaValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
       if (isArray(detail) && detail.length === 2) {
         const before = format ? numeral(detail[0]).format(format) : detail[0];
         const after = format ? numeral(detail[1]).format(format) : detail[1];
-        pp.setPopoverContent(`${before} -> ${after}`);
+        phraseParser.setPopoverContent(`${before} -> ${after}`);
       } else {
-        pp.setPopoverContent(null);
+        phraseParser.setPopoverContent(null);
       }
     } else {
-      pp.setPopoverContent(null);
+      phraseParser.setPopoverContent(null);
     }
   }, [phrase]);
 
   const children = (
-    <span className={cx(pp.classNames)} style={phrase?.styles}>
-      {pp.type === 'delta_value' && pp.assessment === 'negative' ? '-' : ''}
-      {pp.type === 'delta_value' && pp.assessment === 'positive' ? '+' : ''}
-      {pp.content}
+    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+      {phraseParser.type === 'delta_value' && phraseParser.assessment === 'negative' ? '-' : ''}
+      {phraseParser.type === 'delta_value' && phraseParser.assessment === 'positive' ? '+' : ''}
+      {phraseParser.content}
     </span>
   );
 
-  return pp.PopoverContent ? (
-    <Popover title="数据详情" content={pp.PopoverContent}>
+  return phraseParser.PopoverContent ? (
+    <Popover title="数据详情" content={phraseParser.PopoverContent}>
       {children}
     </Popover>
   ) : (

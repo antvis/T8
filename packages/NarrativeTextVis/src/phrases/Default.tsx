@@ -4,10 +4,10 @@ import { BasicPhraseProps } from './interface';
 import { usePhraseParser } from './usePhraseParser';
 
 export const Default: React.FC<BasicPhraseProps> = ({ phrase }) => {
-  const pp = usePhraseParser({ phrase });
+  const phraseParser = usePhraseParser({ phrase });
   return (
-    <span className={cx(pp.classNames)} style={phrase?.styles}>
-      {pp.content}
+    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+      {phraseParser.content}
     </span>
   );
 };

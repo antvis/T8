@@ -6,11 +6,17 @@ import { BasicPhraseProps } from './interface';
 import { usePhraseParser } from './usePhraseParser';
 
 export const RatioValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
-  const pp = usePhraseParser({ phrase });
+  const phraseParser = usePhraseParser({ phrase });
   return (
-    <span className={cx(pp.classNames)} style={phrase?.styles}>
-      {pp.type === 'ratio_value' ? pp.assessment === 'positive' ? <CaretUpOutlined /> : <CaretDownOutlined /> : null}
-      {pp.content}
+    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+      {phraseParser.type === 'ratio_value' ? (
+        phraseParser.assessment === 'positive' ? (
+          <CaretUpOutlined />
+        ) : (
+          <CaretDownOutlined />
+        )
+      ) : null}
+      {phraseParser.content}
     </span>
   );
 };

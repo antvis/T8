@@ -5,8 +5,8 @@ import { parsePhrase, PhraseParser } from '../utils/phrase-parser';
 import { getPrefixCls } from '../utils/getPrefixCls';
 
 export const usePhraseParser = ({ phrase }: { phrase: IPhrase }) => {
-  const pp = parsePhrase(phrase);
-  const [classNames, setClassNames] = useState<PhraseParser['classNames']>(pp.classNames);
+  const phraseParser = parsePhrase(phrase);
+  const [classNames, setClassNames] = useState<PhraseParser['classNames']>(phraseParser.classNames);
   const [PopoverContent, setPopoverContent] = useState<ReactNode>(null);
 
   /**
@@ -24,9 +24,9 @@ export const usePhraseParser = ({ phrase }: { phrase: IPhrase }) => {
   }, [PopoverContent]);
 
   return {
-    ...pp,
+    ...phraseParser,
     classNames,
-    content: pp.content,
+    content: phraseParser.content,
     PopoverContent,
     setPopoverContent,
   };
