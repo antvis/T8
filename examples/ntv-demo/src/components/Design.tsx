@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions } from 'antd';
+import { Descriptions, Tag, message } from 'antd';
 import { NarrativeTextVisProps, Phrase } from '@antv/narrative-text-vis';
 
 export const Design: React.FC<{
@@ -98,6 +98,33 @@ export const Design: React.FC<{
                 },
               },
             }}
+          />
+        </Descriptions.Item>
+        <Descriptions.Item label="自定义">
+          <Phrase.Custom<{
+            popMsg: string;
+          }>
+            phrase={{
+              type: 'custom',
+              value: '点击 say hello',
+              metadata: {
+                popMsg: '👋 hello',
+              },
+              styles: {
+                cursor: 'pointer',
+              },
+            }}
+            customPhraseRender={(phrase) => (
+              <Tag
+                color="purple"
+                onClick={() => {
+                  message.success(phrase?.metadata?.popMsg);
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                {phrase.value}
+              </Tag>
+            )}
           />
         </Descriptions.Item>
       </Descriptions>

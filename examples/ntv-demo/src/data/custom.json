@@ -205,8 +205,13 @@
                   "value": ") "
                 },
                 {
-                  "type": "text",
-                  "value": "See all lead sources. "
+                  "type": "custom",
+                  "value": "See all lead sources.",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx1"
+                  }
                 }
               ],
               "bullets": [
@@ -254,11 +259,16 @@
                 },
                 {
                   "type": "text",
-                  "value": ")"
+                  "value": ") "
                 },
                 {
-                  "type": "text",
-                  "value": "See all account executives"
+                  "type": "custom",
+                  "value": "See all account executives",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx2"
+                  }
                 },
                 {
                   "type": "text",
@@ -298,11 +308,16 @@
                 },
                 {
                   "type": "text",
-                  "value": ")"
+                  "value": ") "
                 },
                 {
-                  "type": "text",
-                  "value": "See all opportunity types"
+                  "type": "custom",
+                  "value": "See all opportunity types",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx3"
+                  }
                 },
                 {
                   "type": "text",
