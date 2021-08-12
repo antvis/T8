@@ -31,7 +31,7 @@
     "build:cjs": "tsc --module commonjs --target es5 --outDir ./lib",
     "build:umd": "rollup -c",
     "build": "run-p build:cjs build:esm build:umd schema",
-    "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t ITextSpec --no-type-check --no-ref-encode > build/text-schema.json",
+    "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t ITextSpecGenerator --no-type-check --no-ref-encode > build/text-schema.json",
     "watch:esm": "yarn build:esm --w",
     "watch:cjs": "yarn build:cjs --w",
     "clean": "rimraf node_modules & yarn clean:build",

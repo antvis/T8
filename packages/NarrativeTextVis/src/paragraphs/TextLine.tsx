@@ -1,22 +1,26 @@
 import React from 'react';
-import { IParagraph } from '@antv/text-schema';
+import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
-import { DetailChartDisplayType } from '../interface';
+import { CustomPhraseRender } from '../interface';
 
-interface Props {
-  spec: IParagraph;
-  detailChartDisplayType: DetailChartDisplayType;
+interface Props<P> {
+  spec: IParagraph<P>;
+  customPhraseRender?: CustomPhraseRender<P>;
 }
 
-export const TextLine: React.FC<Props> = ({ spec, detailChartDisplayType }) => {
+export function TextLine<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
   if (spec.type === 'normal') {
     return (
       <p className={getPrefixCls('p')}>
-        <Phrases spec={spec.phrases} detailChartDisplayType={detailChartDisplayType} />
+        <Phrases<P> spec={spec.phrases} customPhraseRender={customPhraseRender} />
       </p>
     );
   }
 
   return null;
+}
+
+TextLine.defaultProps = {
+  customPhraseRender: null,
 };

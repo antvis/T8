@@ -1,19 +1,25 @@
 import React from 'react';
-import { IHeadline } from '@antv/text-schema';
+import { IHeadline, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
+import { CustomPhraseRender } from '../interface';
 
-interface Props {
-  spec: IHeadline;
+interface Props<P> {
+  spec: IHeadline<P>;
+  customPhraseRender?: CustomPhraseRender<P>;
 }
 
-export const Headline: React.FC<Props> = ({ spec }) => {
+export function Headline<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
   if (spec && spec.type === 'headline') {
     return (
       <h1 className={getPrefixCls('headline')}>
-        <Phrases spec={spec.phrases} detailChartDisplayType={null} />
+        <Phrases spec={spec.phrases} customPhraseRender={customPhraseRender} />
       </h1>
     );
   }
   return null;
+}
+
+Headline.defaultProps = {
+  customPhraseRender: null,
 };

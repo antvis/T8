@@ -1,18 +1,28 @@
 import { CSSProperties } from 'react';
 import { FilterItem } from './data';
 
-export type IPhrase = TextPhrase | EntityPhrase;
+export type DefaultCustomPhraseGeneric = Record<string, unknown>;
 
-interface TextPhrase {
+// P used for custom phrase;
+export type IPhrase<P = DefaultCustomPhraseGeneric> = ITextPhrase | IEntityPhrase | ICustomPhrase<P>;
+
+export interface ITextPhrase {
   type: 'text';
   value: string;
   styles?: CSSProperties;
 }
 
-interface EntityPhrase {
+export interface IEntityPhrase {
   type: 'entity';
   value?: string;
   metadata?: MetaData;
+  styles?: CSSProperties;
+}
+
+export interface ICustomPhrase<P> {
+  type: 'custom';
+  value?: string;
+  metadata?: P;
   styles?: CSSProperties;
 }
 

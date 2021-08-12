@@ -1,27 +1,27 @@
-import { IPhrase } from './phrase';
+import { IPhrase, DefaultCustomPhraseGeneric } from './phrase';
 
-export type IParagraph = TextParagraph | BulletsParagraph;
+export type IParagraph<P = DefaultCustomPhraseGeneric> = TextParagraph<P> | BulletsParagraph<P>;
 
-interface TextParagraph {
+interface TextParagraph<P> {
   type: 'normal';
-  phrases: IPhrase[];
+  phrases: IPhrase<P>[];
   styles?: BlockStyles;
 }
 
-interface BulletsParagraph {
+interface BulletsParagraph<P> {
   type: 'bullets';
   isOrder: boolean;
   // used for nested bullets structure
-  bullets: BulletItem[];
+  bullets: BulletItem<P>[];
   styles?: BlockStyles;
 }
 
-interface BulletItem {
+interface BulletItem<P> {
   type: 'bullet-item';
-  phrases: IPhrase[];
+  phrases: IPhrase<P>[];
   // used for next level of bullets
   isOrder?: boolean;
-  bullets?: BulletItem[];
+  bullets?: BulletItem<P>[];
   styles?: BlockStyles;
 }
 

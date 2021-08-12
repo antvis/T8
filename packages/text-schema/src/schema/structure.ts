@@ -1,17 +1,24 @@
-import { IPhrase } from './phrase';
+import { IPhrase, DefaultCustomPhraseGeneric } from './phrase';
 import { IParagraph } from './paragraph';
 
-export interface ITextSpec {
-  headline?: IHeadline;
-  sections?: ISection[];
+export interface ITextSpec<P = DefaultCustomPhraseGeneric> {
+  headline?: IHeadline<P>;
+  sections?: ISection<P>[];
   // TODO 可扩展内容交互
 }
 
-export interface IHeadline {
+export interface IHeadline<P> {
   type: 'headline';
-  phrases: IPhrase[];
+  phrases: IPhrase<P>[];
 }
 
-export interface ISection {
-  paragraphs?: IParagraph[];
+export interface ISection<P> {
+  paragraphs?: IParagraph<P>[];
 }
+
+/**
+ * @deprecated
+ * only used for export json-schema generator
+ * https://github.com/vega/ts-json-schema-generator/issues/35
+ */
+export type ITextSpecGenerator = ITextSpec;

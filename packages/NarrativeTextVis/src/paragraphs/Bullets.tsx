@@ -1,28 +1,28 @@
 import React from 'react';
-import { IParagraph } from '@antv/text-schema';
+import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { map } from 'lodash';
 import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
-import { DetailChartDisplayType } from '../interface';
+import { CustomPhraseRender } from '../interface';
 
-interface Props {
-  spec: IParagraph;
-  detailChartDisplayType: DetailChartDisplayType;
+interface Props<P> {
+  spec: IParagraph<P>;
+  customPhraseRender?: CustomPhraseRender<P>;
 }
 
-export const Bullets: React.FC<Props> = ({ spec, detailChartDisplayType }) => {
+export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
   if (spec.type === 'bullets') {
     const children = map(spec.bullets, (bullet, index) => (
       <li className={getPrefixCls('li')} key={index}>
-        <Phrases spec={bullet.phrases} detailChartDisplayType={detailChartDisplayType} />
+        <Phrases<P> spec={bullet.phrases} customPhraseRender={customPhraseRender} />
         {bullet?.bullets ? (
-          <Bullets
+          <Bullets<P>
             spec={{
               type: 'bullets',
               isOrder: spec.isOrder,
               bullets: bullet?.bullets,
             }}
-            detailChartDisplayType={detailChartDisplayType}
+            customPhraseRender={customPhraseRender}
           />
         ) : null}
       </li>
@@ -34,4 +34,8 @@ export const Bullets: React.FC<Props> = ({ spec, detailChartDisplayType }) => {
     );
   }
   return null;
+}
+
+Bullets.defaultProps = {
+  customPhraseRender: null,
 };
