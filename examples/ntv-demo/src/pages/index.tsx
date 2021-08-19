@@ -13,7 +13,7 @@ import {
   ModalShowDetail,
   ModalShowDetailMeta,
 } from '../components/ModalShowDetail';
-import textData from '../data/custom.json';
+import booking from '../data/booking.json';
 import './index.less';
 
 export default function IndexPage() {
@@ -60,7 +60,7 @@ export default function IndexPage() {
         </a>
       </blockquote>
       <NarrativeTextVis<ModalShowDetailMeta>
-        spec={textData as ITextSpec<ModalShowDetailMeta>}
+        spec={booking as ITextSpec<ModalShowDetailMeta>}
         detailChartDisplayType={detailChartDisplayType}
         customPhraseRender={customPhraseRender}
       />
