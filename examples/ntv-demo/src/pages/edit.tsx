@@ -2,11 +2,11 @@ import { Row, Col } from 'antd';
 import { ITextSpec } from '@antv/narrative-text-vis';
 import { NarrativeTextVis } from '@antv/narrative-text-vis';
 import { TextTemplateEditor } from '@antv/text-template-editor';
-import textData from '../data/custom.json';
+import booking from '../data/booking.json';
 import './index.less';
 
 export default function EditorPage() {
-  const editor = TextTemplateEditor.useEditor(textData as ITextSpec);
+  const editor = TextTemplateEditor.useEditor(booking as ITextSpec);
   const { textSpec } = editor;
   return (
     <div className="container">

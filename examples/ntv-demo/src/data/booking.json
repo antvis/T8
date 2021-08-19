@@ -214,26 +214,30 @@
                   }
                 }
               ],
-              "bullets": [
-                {
-                  "type": "bullet-item",
-                  "phrases": [
-                    {
-                      "type": "text",
-                      "value": "sub node 1"
-                    }
-                  ]
-                },
-                {
-                  "type": "bullet-item",
-                  "phrases": [
-                    {
-                      "type": "text",
-                      "value": "sub node 2"
-                    }
-                  ]
-                }
-              ]
+              "subBullet": {
+                "type": "bullets",
+                "isOrder": false,
+                "bullets": [
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 1"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 2"
+                      }
+                    ]
+                  }
+                ]
+              }
             },
             {
               "type": "bullet-item",

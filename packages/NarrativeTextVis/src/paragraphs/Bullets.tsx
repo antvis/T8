@@ -15,16 +15,7 @@ export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhra
     const children = map(spec.bullets, (bullet, index) => (
       <li className={getPrefixCls('li')} key={index}>
         <Phrases<P> spec={bullet.phrases} customPhraseRender={customPhraseRender} />
-        {bullet?.bullets ? (
-          <Bullets<P>
-            spec={{
-              type: 'bullets',
-              isOrder: spec.isOrder,
-              bullets: bullet?.bullets,
-            }}
-            customPhraseRender={customPhraseRender}
-          />
-        ) : null}
+        {bullet?.subBullet ? <Bullets<P> spec={bullet?.subBullet} customPhraseRender={customPhraseRender} /> : null}
       </li>
     ));
     return spec.isOrder ? (
