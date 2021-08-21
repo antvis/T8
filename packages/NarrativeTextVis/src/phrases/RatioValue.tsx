@@ -1,9 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import cx from 'classnames';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { BasicPhraseProps } from './interface';
 import { usePhraseParser } from './usePhraseParser';
+import { classnames as cx } from '../utils/classnames';
 
 export const RatioValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
   const phraseParser = usePhraseParser({ phrase });

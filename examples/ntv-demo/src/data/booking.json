@@ -225,7 +225,31 @@
                         "type": "text",
                         "value": "sub node 1"
                       }
-                    ]
+                    ],
+                    "subBullet": {
+                      "type": "bullets",
+                      "isOrder": false,
+                      "bullets": [
+                        {
+                          "type": "bullet-item",
+                          "phrases": [
+                            {
+                              "type": "text",
+                              "value": "sub node 1.1"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "bullet-item",
+                          "phrases": [
+                            {
+                              "type": "text",
+                              "value": "sub node 1.2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   },
                   {
                     "type": "bullet-item",

@@ -1,5 +1,5 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useEffect } from 'react';
-import { map } from 'lodash';
 import { ITextSpec, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { Headline, TextLine, Bullets } from './paragraphs';
 import { PhraseCtxProvider, usePhraseCtx } from './context/phrase';
@@ -29,9 +29,9 @@ function NarrativeTextVisInternal<P extends DefaultCustomPhraseGeneric>({
     <div>
       {headline ? <Headline spec={headline} customPhraseRender={customPhraseRender} /> : null}
       {sections
-        ? map(sections, (section, index) => (
+        ? sections?.map((section, index) => (
             <div key={index}>
-              {map(section.paragraphs, (p, pid) => {
+              {section.paragraphs?.map((p, pid) => {
                 switch (p.type) {
                   case 'normal':
                     return <TextLine<P> spec={p} key={pid} customPhraseRender={customPhraseRender} />;
