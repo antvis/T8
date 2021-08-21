@@ -1,6 +1,6 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
-import { map } from 'lodash';
 import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { CustomPhraseRender } from '../interface';
@@ -12,7 +12,7 @@ interface Props<P> {
 
 export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
   if (spec.type === 'bullets') {
-    const children = map(spec.bullets, (bullet, index) => (
+    const children = spec.bullets?.map((bullet, index) => (
       <li className={getPrefixCls('li')} key={index}>
         <Phrases<P> spec={bullet.phrases} customPhraseRender={customPhraseRender} />
         {bullet?.subBullet ? <Bullets<P> spec={bullet?.subBullet} customPhraseRender={customPhraseRender} /> : null}

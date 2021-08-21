@@ -1,14 +1,9 @@
-import { get, isUndefined, isString } from 'lodash';
-import numeral from 'numeral';
-import { Argument } from 'classnames';
 import { IPhrase, ValueAssessment, IEntityType } from '@antv/text-schema';
 import { getPrefixCls } from './getPrefixCls';
+import { get } from './get';
 
 /** text & entity */
 type PhraseType = 'text' | IEntityType | null;
-
-/** compare */
-const compareType: PhraseType[] = ['ratio_value', 'delta_value'];
 
 export class PhraseParser {
   private phrase: IPhrase;
@@ -18,13 +13,13 @@ export class PhraseParser {
   public originalData: number | undefined;
   private text: string;
   /** use className to encode value */
-  public classNames: Argument[];
+  public classNames: string[];
 
   constructor(phrase: IPhrase) {
     this.phrase = phrase;
     this.type = this.setType();
     this.originalData = get(phrase, 'metadata.data', undefined);
-    this.assessment = this.setAssessment();
+    this.assessment = get(phrase, 'metadata.assessment', null);
     this.text = this.getText();
     this.classNames = this.getClassNames();
   }
@@ -37,37 +32,16 @@ export class PhraseParser {
   }
 
   /**
-   * prefix of value, up or down
-   * FIXME
-   * TBD: 没有对比意义的数值直接返回 null，如果有 metadata.assessment 就用这个，否则判断 originalData
-   * */
-  private setAssessment(): ValueAssessment | null {
-    if (!compareType.includes(this.type)) return null;
-    const as = get(this.phrase, 'metadata.assessment', null);
-    if (as) return as;
-    // eslint-disable-next-line no-nested-ternary
-    if (this.originalData) return this.originalData > 0 ? 'positive' : this.originalData < 0 ? 'negative' : 'equal';
-    return null;
-  }
-
-  /**
-   * text || formatted data
-   * FIXME
-   * TBD: 如果有 value 则用 value，否则去看 data & format
+   * value
    * */
   private getText(): string {
     if (this.type === 'text') return this.phrase.value;
     if (this.phrase.value) return this.phrase.value;
-    const format = get(this.phrase, 'metadata.format', undefined);
-    if (!isUndefined(this.originalData)) {
-      const data = this.assessment ? Math.abs(this.originalData) : this.originalData;
-      return isString(format) ? numeral(data).format(format) : `${data}`;
-    }
     return '';
   }
 
-  private getClassNames(): Argument[] {
-    const classNames: Argument[] = [];
+  private getClassNames(): string[] {
+    const classNames: string[] = [];
     const classNameMap: Partial<Record<IEntityType, string>> = {
       metric_name: 'metric-name',
       metric_value: 'metric-value',
@@ -77,7 +51,7 @@ export class PhraseParser {
     };
     if (this.type !== 'text') {
       classNames.push(getPrefixCls('value'));
-      const entityCl = get(classNameMap, this.type);
+      const entityCl = classNameMap?.[this.type];
       if (entityCl) classNames.push(getPrefixCls(entityCl));
     }
     if (this.assessment) classNames.push(getPrefixCls(`value-${this.assessment}`));

@@ -23,10 +23,9 @@ export const Design: React.FC<{
           <Phrase
             phrase={{
               type: 'entity',
+              value: '901632.11',
               metadata: {
                 entityType: 'metric_value',
-                data: 901632.11,
-                format: '0.0a',
               },
             }}
           />
@@ -35,11 +34,11 @@ export const Design: React.FC<{
           <Phrase.DeltaValue
             phrase={{
               type: 'entity',
+              value: '100.33',
               metadata: {
                 entityType: 'delta_value',
-                data: 100.33,
-                format: '0.0',
-                detail: [120.12, 220.45],
+                assessment: 'positive',
+                detail: ['120.12', '220.45'],
               },
             }}
           />
@@ -48,10 +47,10 @@ export const Design: React.FC<{
           <Phrase.RatioValue
             phrase={{
               type: 'entity',
+              value: '30%',
               metadata: {
                 entityType: 'ratio_value',
-                data: -0.034,
-                format: '0.0%',
+                assessment: 'negative',
               },
             }}
           />
@@ -60,10 +59,9 @@ export const Design: React.FC<{
           <Phrase
             phrase={{
               type: 'entity',
+              value: '20%',
               metadata: {
                 entityType: 'contribute_ratio',
-                data: 0.05,
-                format: '0.0%',
               },
             }}
           />

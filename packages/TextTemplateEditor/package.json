@@ -2,6 +2,7 @@
   "name": "@antv/text-template-editor",
   "version": "0.0.1",
   "description": "React component ",
+  "private": true,
   "keywords": [
     "react component",
     "text visualization",

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { Popover } from 'antd';
-import cx from 'classnames';
-import { isArray } from 'lodash';
 import { usePhraseParser } from './usePhraseParser';
 import { BasicPhraseProps } from './interface';
 import { TrendLine } from '../charts';
 import { DetailChartDisplayType } from '../interface';
+import { isArray } from '../utils/type';
+import { classnames as cx } from '../utils/classnames';
 
 interface Props extends BasicPhraseProps {
   detailChartDisplayType: DetailChartDisplayType;

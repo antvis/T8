@@ -1,5 +1,4 @@
 import React from 'react';
-import { map } from 'lodash';
 import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { Phrase } from './Phrase';
 import { usePhraseCtx } from '../context/phrase';
@@ -14,7 +13,7 @@ export function Phrases<P extends DefaultCustomPhraseGeneric>({ spec, customPhra
   const { detailChartDisplayType } = usePhraseCtx();
   return (
     <>
-      {map(spec, (phrase, index) => {
+      {spec?.map((phrase, index) => {
         const key = `${index}-${phrase.value}`;
         const defaultComp = <Phrase phrase={phrase} key={key} />;
         if (phrase.type === 'text') return defaultComp;

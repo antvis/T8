@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Popover } from 'antd';
-import cx from 'classnames';
-import { isUndefined } from 'lodash';
 import { BasicPhraseProps } from './interface';
 import { usePhraseParser } from './usePhraseParser';
+import { isUndefined } from '../utils/type';
+import { classnames as cx } from '../utils/classnames';
 
 export const DimValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
   const phraseParser = usePhraseParser({ phrase });

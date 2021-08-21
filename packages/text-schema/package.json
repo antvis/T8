@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Json schema of narrative text visualization",
   "keywords": [
-    "json-schema",
+    "json schema",
     "text visualization",
     "narrative"
   ],
@@ -29,8 +29,7 @@
     "lint": "eslint --ext .ts ./src",
     "build:esm": "tsc --module esnext --target es2015 --outDir ./es",
     "build:cjs": "tsc --module commonjs --target es5 --outDir ./lib",
-    "build:umd": "rollup -c",
-    "build": "run-p build:cjs build:esm build:umd schema",
+    "build": "run-p build:cjs build:esm schema",
     "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t ITextSpecGenerator --no-type-check --no-ref-encode > build/text-schema.json",
     "watch:esm": "yarn build:esm --w",
     "watch:cjs": "yarn build:cjs --w",
@@ -39,15 +38,8 @@
     "prepare": "yarn build"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@rollup/plugin-typescript": "^8.2.5",
-    "@types/react": "^17.0.15",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "rollup": "^2.55.1",
-    "rollup-plugin-filesize": "^9.1.1",
-    "rollup-plugin-terser": "^7.0.2",
     "ts-json-schema-generator": "^0.95.0",
     "typescript": "^4.3.5"
   },
