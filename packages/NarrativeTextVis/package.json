@@ -1,6 +1,6 @@
 {
   "name": "@antv/narrative-text-vis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React component of interactive narrative text",
   "keywords": [
     "react component",
@@ -63,7 +63,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@antv/text-schema": "^0.1.0"
+    "@antv/text-schema": "^0.1.1"
   },
   "peerDependencies": {
     "@ant-design/icons": ">=4.4.2",
