@@ -1,6 +1,6 @@
 {
   "name": "@antv/text-template-editor",
-  "version": "0.1.1",
+  "version": "0.1.2-alpha.0",
   "description": "React component ",
   "private": true,
   "keywords": [
@@ -62,7 +62,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@antv/text-schema": "^0.1.1",
+    "@antv/text-schema": "^0.1.2-alpha.0",
     "classnames": "^2.3.1",
     "immer": "^9.0.5",
     "lodash": "^4.17.21",
