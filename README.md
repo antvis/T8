@@ -33,6 +33,7 @@ $ yarn start:demo
   - [x] build
   - [x] live demo
   - [x] jest test
+  - [ ] rollup build no response
   - [ ] publish
   - [ ] site & mdlint
 
@@ -58,24 +59,11 @@ $ yarn start:demo
   - [ ] feat: sparkline global 
   - [ ] ...
 
-- RichEditor
-
-  - [x] `<TextTemplateEditor />` skeleton
-  - [ ] adaptor textSpec to slate
-    - [x] paragraph
-    - [ ] bullets, includes nested-bullets
-  - [ ] adaptor slate to textSpec
-    - [x] paragraph
-    - [ ] bullets, includes nested-bullets
-  - [ ] editor config extensible (used for analysis report)
-  - [ ] support md language
-  - [ ] ...
-
 ## Show Cases
 
 ### 🌟 Analysis Report
 
-How to use `<NarrativeTextVis />` and `<TextTemplateEditor />` in an analysis report generator system.
+How to use `<NarrativeTextVis />` in an analysis report generator system.
 
   - [ ] basic UI
   - [ ] config 

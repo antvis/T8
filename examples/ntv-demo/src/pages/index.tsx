@@ -64,13 +64,6 @@ export default function IndexPage() {
         detailChartDisplayType={detailChartDisplayType}
         customPhraseRender={customPhraseRender}
       />
-      <Button
-        type="primary"
-        icon={<ArrowRightOutlined />}
-        onClick={() => history.push('/edit')}
-      >
-        Try edit it!
-      </Button>
     </div>
   );
 }

@@ -7,12 +7,12 @@ export interface ITextSpec<P = DefaultCustomPhraseGeneric> {
   // TODO 可扩展内容交互
 }
 
-export interface IHeadline<P> {
+export interface IHeadline<P = DefaultCustomPhraseGeneric> {
   type: 'headline';
   phrases: IPhrase<P>[];
 }
 
-export interface ISection<P> {
+export interface ISection<P = DefaultCustomPhraseGeneric> {
   paragraphs?: IParagraph<P>[];
 }
 
