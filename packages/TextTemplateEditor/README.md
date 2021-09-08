@@ -1,7 +1,0 @@
-# `TextTemplateEditor`
-
-> TODO: description
-
-## Usage
-
-
