@@ -7,8 +7,8 @@ export const Design: React.FC<{
 }> = ({ detailChartDisplayType }) => {
   return (
     <div style={{ marginBottom: 48 }}>
-      <Descriptions title="数据标记规范" bordered size="small">
-        <Descriptions.Item label="指标">
+      <Descriptions title="Data marking specification" bordered size="small">
+        <Descriptions.Item label="Metric Name">
           <Phrase
             phrase={{
               type: 'entity',
@@ -19,7 +19,7 @@ export const Design: React.FC<{
             }}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="指标值">
+        <Descriptions.Item label="Metric Value">
           <Phrase
             phrase={{
               type: 'entity',
@@ -30,7 +30,7 @@ export const Design: React.FC<{
             }}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="差值">
+        <Descriptions.Item label="Delta Value">
           <Phrase.DeltaValue
             phrase={{
               type: 'entity',
@@ -43,7 +43,7 @@ export const Design: React.FC<{
             }}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="比率">
+        <Descriptions.Item label="Ratio Value">
           <Phrase.RatioValue
             phrase={{
               type: 'entity',
@@ -55,7 +55,7 @@ export const Design: React.FC<{
             }}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="贡献度">
+        <Descriptions.Item label="Contribution">
           <Phrase
             phrase={{
               type: 'entity',
@@ -66,11 +66,11 @@ export const Design: React.FC<{
             }}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="趋势描述">
+        <Descriptions.Item label="Trend">
           <Phrase.TrendDesc
             phrase={{
               type: 'entity',
-              value: '周期性',
+              value: 'periodic',
               metadata: {
                 entityType: 'trend_desc',
                 detail: [
@@ -82,7 +82,7 @@ export const Design: React.FC<{
             detailChartDisplayType={detailChartDisplayType || 'inline'}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="维值条件">
+        <Descriptions.Item label="Drill Down Dimension">
           <Phrase.DimValue
             phrase={{
               type: 'entity',
@@ -98,13 +98,13 @@ export const Design: React.FC<{
             }}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="自定义">
+        <Descriptions.Item label="Custom">
           <Phrase.Custom<{
             popMsg: string;
           }>
             phrase={{
               type: 'custom',
-              value: '点击 say hello',
+              value: 'Click to say hello',
               metadata: {
                 popMsg: '👋 hello',
               },

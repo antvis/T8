@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { IPhrase, DefaultCustomPhraseGeneric } from './phrase';
 import { IParagraph } from './paragraph';
 
@@ -10,6 +11,7 @@ export interface ITextSpec<P = DefaultCustomPhraseGeneric> {
 export interface IHeadline<P = DefaultCustomPhraseGeneric> {
   type: 'headline';
   phrases: IPhrase<P>[];
+  styles?: CSSProperties;
 }
 
 export interface ISection<P = DefaultCustomPhraseGeneric> {

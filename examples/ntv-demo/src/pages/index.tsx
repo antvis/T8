@@ -1,12 +1,11 @@
 import { useState, ReactNode } from 'react';
-import { Button, Radio } from 'antd';
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { history } from 'umi';
+import { Radio, Divider } from 'antd';
 import {
   NarrativeTextVis,
   ITextSpec,
   NarrativeTextVisProps,
   ICustomPhrase,
+  Paragraph,
 } from '@antv/narrative-text-vis';
 import { Design } from '../components/Design';
 import {
@@ -35,13 +34,13 @@ export default function IndexPage() {
   return (
     <div className="container" style={{ maxWidth: 866, margin: '0 auto' }}>
       <div style={{ margin: '24px 0' }}>
-        <span>明细数据图显示方式：</span>
+        <span>Display mode of detailed data: </span>
         <Radio.Group
           optionType="button"
           buttonStyle="solid"
           options={[
-            { value: 'inline', label: '行内' },
-            { value: 'tooltip', label: '弹框' },
+            { value: 'inline', label: 'inline' },
+            { value: 'tooltip', label: 'tooltip' },
           ]}
           onChange={(e) => {
             setDetailChartDisplayType(e.target.value);
@@ -49,7 +48,21 @@ export default function IndexPage() {
           value={detailChartDisplayType}
         />
       </div>
+      <Divider orientation="left">1. Phrase</Divider>
       <Design detailChartDisplayType={detailChartDisplayType} />
+      <Divider orientation="left">2. Sentence</Divider>
+      <Paragraph
+        paragraph={{
+          type: 'normal',
+          phrases: [
+            { type: 'text', value: 'This is a single paragraph example.' },
+          ],
+          styles: {
+            marginBottom: 36,
+          },
+        }}
+      />
+      <Divider orientation="left">3. Narrative</Divider>
       <blockquote>
         {'Thanks for '}
         <a

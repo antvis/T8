@@ -13,15 +13,19 @@ interface Props<P> {
 export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
   if (spec.type === 'bullets') {
     const children = spec.bullets?.map((bullet, index) => (
-      <li className={getPrefixCls('li')} key={index}>
+      <li className={getPrefixCls('li')} key={index} style={spec.styles}>
         <Phrases<P> spec={bullet.phrases} customPhraseRender={customPhraseRender} />
         {bullet?.subBullet ? <Bullets<P> spec={bullet?.subBullet} customPhraseRender={customPhraseRender} /> : null}
       </li>
     ));
     return spec.isOrder ? (
-      <ol className={getPrefixCls('ol')}>{children}</ol>
+      <ol className={getPrefixCls('ol')} style={spec.styles}>
+        {children}
+      </ol>
     ) : (
-      <ul className={getPrefixCls('ul')}>{children}</ul>
+      <ul className={getPrefixCls('ul')} style={spec.styles}>
+        {children}
+      </ul>
     );
   }
   return null;
