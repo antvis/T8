@@ -12,7 +12,7 @@ interface Props<P> {
 export function Headline<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
   if (spec && spec.type === 'headline') {
     return (
-      <h1 className={getPrefixCls('headline')}>
+      <h1 className={getPrefixCls('headline')} style={spec.styles}>
         <Phrases spec={spec.phrases} customPhraseRender={customPhraseRender} />
       </h1>
     );

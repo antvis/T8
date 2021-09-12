@@ -12,7 +12,7 @@ interface Props<P> {
 export function TextLine<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
   if (spec.type === 'normal') {
     return (
-      <p className={getPrefixCls('p')}>
+      <p className={getPrefixCls('p')} style={spec.styles}>
         <Phrases<P> spec={spec.phrases} customPhraseRender={customPhraseRender} />
       </p>
     );

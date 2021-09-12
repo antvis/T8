@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect } from 'react';
-import { ITextSpec, DefaultCustomPhraseGeneric } from '@antv/text-schema';
+import { ITextSpec, IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { Headline, TextLine, Bullets } from './paragraphs';
 import { PhraseCtxProvider, usePhraseCtx } from './context/phrase';
 import { DetailChartDisplayType, CustomPhraseRender } from './interface';
@@ -12,6 +12,26 @@ export interface NarrativeTextVisProps<P extends DefaultCustomPhraseGeneric = De
   /** custom phrase render comp, is not defined, it will use text as default */
   customPhraseRender?: CustomPhraseRender<P>;
 }
+
+interface ParagraphProps<P> {
+  paragraph: IParagraph<P>;
+  customPhraseRender?: CustomPhraseRender<P>;
+}
+
+export function Paragraph<P extends DefaultCustomPhraseGeneric>({ paragraph, customPhraseRender }: ParagraphProps<P>) {
+  switch (paragraph.type) {
+    case 'normal':
+      return <TextLine<P> spec={paragraph} customPhraseRender={customPhraseRender} />;
+    case 'bullets':
+      return <Bullets<P> spec={paragraph} customPhraseRender={customPhraseRender} />;
+    default:
+      return null;
+  }
+}
+
+Paragraph.defaultProps = {
+  customPhraseRender: null,
+};
 
 function NarrativeTextVisInternal<P extends DefaultCustomPhraseGeneric>({
   spec,
@@ -31,16 +51,9 @@ function NarrativeTextVisInternal<P extends DefaultCustomPhraseGeneric>({
       {sections
         ? sections?.map((section, index) => (
             <div key={index}>
-              {section.paragraphs?.map((p, pid) => {
-                switch (p.type) {
-                  case 'normal':
-                    return <TextLine<P> spec={p} key={pid} customPhraseRender={customPhraseRender} />;
-                  case 'bullets':
-                    return <Bullets<P> spec={p} key={pid} customPhraseRender={customPhraseRender} />;
-                  default:
-                    return null;
-                }
-              })}
+              {section.paragraphs?.map((p, pid) => (
+                <Paragraph<P> paragraph={p} key={pid} customPhraseRender={customPhraseRender} />
+              ))}
             </div>
           ))
         : null}
