@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
+import filesize from 'rollup-plugin-filesize';
 
 const format = process.env.FORMAT;
 
@@ -37,6 +38,7 @@ const plugins = [
     plugins: [autoprefixer],
     extract: 'index.css',
   }),
+  filesize(),
 ];
 
 const external = ['react', 'react-dom', 'antd', '@ant-design/icons', '@antv/g2plot'];

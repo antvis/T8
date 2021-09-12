@@ -27,8 +27,8 @@
   },
   "scripts": {
     "lint": "eslint --ext .ts ./src",
-    "build:esm": "tsc --module esnext --target es2015 --outDir ./es",
-    "build:cjs": "tsc --module commonjs --target es5 --outDir ./lib",
+    "build:esm": "rimraf es && tsc --module esnext --target es2015 --outDir ./es",
+    "build:cjs": "rimraf lib && tsc --module commonjs --target es5 --outDir ./lib",
     "build": "run-p build:cjs build:esm schema",
     "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t ITextSpecGenerator --no-type-check --no-ref-encode > build/text-schema.json",
     "watch:esm": "yarn build:esm --w",
