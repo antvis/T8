@@ -5,6 +5,7 @@ import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 import filesize from 'rollup-plugin-filesize';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 const format = process.env.FORMAT;
 
@@ -25,6 +26,7 @@ const output = {
 };
 
 const plugins = [
+  peerDepsExternal(),
   typescript({
     outDir,
   }),
@@ -40,8 +42,6 @@ const plugins = [
   }),
   filesize(),
 ];
-
-const external = ['react', 'react-dom', 'antd', '@ant-design/icons', '@antv/g2plot'];
 
 if (format === 'umd') {
   output.file = 'dist/narrative-text-vis.min.js';
@@ -60,6 +60,5 @@ if (format === 'umd') {
 export default {
   input: 'src/index.ts',
   output,
-  external,
   plugins,
 };
