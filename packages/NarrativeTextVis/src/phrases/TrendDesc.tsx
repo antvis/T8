@@ -8,7 +8,7 @@ import { isArray } from '../utils/type';
 import { classnames as cx } from '../utils/classnames';
 
 interface Props extends BasicPhraseProps {
-  detailChartDisplayType: DetailChartDisplayType;
+  detailChartDisplayType?: DetailChartDisplayType;
 }
 
 export const TrendDesc: React.FC<Props> = ({ phrase, detailChartDisplayType }) => {
@@ -48,4 +48,8 @@ export const TrendDesc: React.FC<Props> = ({ phrase, detailChartDisplayType }) =
   ) : (
     children
   );
+};
+
+TrendDesc.defaultProps = {
+  detailChartDisplayType: 'inline',
 };

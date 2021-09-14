@@ -3,14 +3,13 @@ import React from 'react';
 import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
-import { CustomPhraseRender } from '../interface';
+import { WithPhraseProps } from '../interface';
 
-interface Props<P> {
+type BulletsProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
   spec: IParagraph<P>;
-  customPhraseRender?: CustomPhraseRender<P>;
-}
+};
 
-export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
+export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: BulletsProps<P>) {
   if (spec.type === 'bullets') {
     const children = spec.bullets?.map((bullet, index) => (
       <li className={getPrefixCls('li')} key={index} style={spec.styles}>
@@ -30,7 +29,3 @@ export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhra
   }
   return null;
 }
-
-Bullets.defaultProps = {
-  customPhraseRender: null,
-};
