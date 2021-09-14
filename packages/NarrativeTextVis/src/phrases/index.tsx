@@ -1,16 +1,17 @@
 import React from 'react';
 import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { Phrase } from './Phrase';
-import { usePhraseCtx } from '../context/phrase';
-import { CustomPhraseRender } from '../interface';
+import { WithPhraseProps } from '../interface';
 
-interface Props<P> {
+type PhraseProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
   spec: IPhrase<P>[];
-  customPhraseRender?: CustomPhraseRender<P>;
-}
+};
 
-export function Phrases<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: Props<P>) {
-  const { detailChartDisplayType } = usePhraseCtx();
+export function Phrases<P extends DefaultCustomPhraseGeneric>({
+  spec,
+  customPhraseRender,
+  detailChartDisplayType,
+}: PhraseProps<P>) {
   return (
     <>
       {spec?.map((phrase, index) => {
@@ -43,7 +44,3 @@ export function Phrases<P extends DefaultCustomPhraseGeneric>({ spec, customPhra
 }
 
 export { Phrase } from './Phrase';
-
-Phrases.defaultProps = {
-  customPhraseRender: null,
-};

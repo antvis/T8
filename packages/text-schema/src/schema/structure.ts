@@ -6,6 +6,7 @@ export interface ITextSpec<P = DefaultCustomPhraseGeneric> {
   headline?: IHeadline<P>;
   sections?: ISection<P>[];
   // TODO 可扩展内容交互
+  styles?: CSSProperties;
 }
 
 export interface IHeadline<P = DefaultCustomPhraseGeneric> {
@@ -16,6 +17,7 @@ export interface IHeadline<P = DefaultCustomPhraseGeneric> {
 
 export interface ISection<P = DefaultCustomPhraseGeneric> {
   paragraphs?: IParagraph<P>[];
+  styles?: CSSProperties;
 }
 
 /**
