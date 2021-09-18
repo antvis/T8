@@ -1,17 +1,24 @@
 import React from 'react';
-import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
+import { IParagraph, DefaultCustomPhraseGeneric, DefaultCustomBlockStructureGeneric } from '@antv/text-schema';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { WithPhraseProps } from '../interface';
+import { WithPhraseProps, WithCustomBlockElement } from '../interface';
 
-type ParagraphProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IParagraph<P>;
-};
+type ParagraphProps<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+> = WithPhraseProps<P> &
+  WithCustomBlockElement<S> & {
+    spec: IParagraph<S, P>;
+  };
 
-export function Paragraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric>({
-  spec,
-  ...phraseProps
-}: ParagraphProps<P>) {
+export function Paragraph<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+>({ spec, customBlockElementRender, ...phraseProps }: ParagraphProps<S, P>) {
+  if ((spec as S).customType && customBlockElementRender) {
+    return <>{customBlockElementRender(spec as S)}</>;
+  }
   switch (spec.type) {
     case 'normal':
       return <TextLine<P> spec={spec} {...phraseProps} />;

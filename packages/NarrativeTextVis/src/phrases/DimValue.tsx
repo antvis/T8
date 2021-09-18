@@ -22,7 +22,7 @@ export const DimValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
   }, [phrase]);
 
   const children = (
-    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+    <span className={cx(...phraseParser.classNames)} style={phrase?.styles}>
       {phraseParser.content}
     </span>
   );

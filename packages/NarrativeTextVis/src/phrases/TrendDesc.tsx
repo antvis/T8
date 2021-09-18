@@ -35,7 +35,7 @@ export const TrendDesc: React.FC<Props> = ({ phrase, detailChartDisplayType }) =
   }, [phrase, detailChartDisplayType]);
 
   const children = (
-    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+    <span className={cx(...phraseParser.classNames)} style={phrase?.styles}>
       {phraseParser.content}
       {detailChartDisplayType === 'inline' ? Chart : null}
     </span>

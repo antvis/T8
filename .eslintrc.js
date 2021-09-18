@@ -30,6 +30,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/jsx-props-no-spreading': 'off',
     'lines-between-class-members': 'off',
+    'no-nested-ternary': 'off',
   },
   settings: {
     react: {

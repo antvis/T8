@@ -1,19 +1,30 @@
 import React from 'react';
-import { ISection, DefaultCustomPhraseGeneric } from '@antv/text-schema';
-import { WithPhraseProps } from '../interface';
+import { ISection, DefaultCustomPhraseGeneric, DefaultCustomBlockStructureGeneric } from '@antv/text-schema';
+import { WithPhraseProps, WithCustomBlockElement } from '../interface';
 import { Paragraph } from '../paragraph';
 
-type SectionProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: ISection<P>;
-};
+type SectionProps<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+> = WithPhraseProps<P> &
+  WithCustomBlockElement<S> & {
+    spec: ISection<S, P>;
+  };
 
-export function Section<P extends DefaultCustomPhraseGeneric>({ spec, ...phraseProps }: SectionProps<P>) {
+export function Section<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+>({ spec, customBlockElementRender, ...phraseProps }: SectionProps<S, P>) {
   return (
-    <div style={spec.styles}>
-      {spec?.paragraphs?.map((p, pid) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Paragraph<P> spec={p} key={pid} {...phraseProps} />
-      ))}
+    <div className={spec.className} style={spec.styles}>
+      {spec?.paragraphs
+        ? spec?.paragraphs.map((p, pid) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Paragraph<S, P> key={pid} spec={p} customBlockElementRender={customBlockElementRender} {...phraseProps} />
+          ))
+        : customBlockElementRender
+        ? customBlockElementRender(spec as S)
+        : null}
     </div>
   );
 }
