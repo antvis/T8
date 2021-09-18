@@ -1,37 +1,31 @@
-import { CSSProperties } from 'react';
-import { IPhrase, DefaultCustomPhraseGeneric } from './phrase';
+import { AntVSpec } from '@antv/antv-spec';
+import { IPhrase } from './phrase';
+import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGeneric } from './common';
 
-export type IParagraph<P = DefaultCustomPhraseGeneric> = TextParagraph<P> | BulletsParagraph<P> | PlotParagraph;
+export type IParagraph<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+> = (TextParagraph<P> | BulletsParagraph<P> | PlotParagraph | S) & CommonProps;
 
-interface TextParagraph<P> {
+type TextParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
   type: 'normal';
   phrases: IPhrase<P>[];
-  styles?: CSSProperties;
-}
+};
 
-interface BulletsParagraph<P> {
+type BulletsParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
   type: 'bullets';
   isOrder: boolean;
   bullets: BulletItem<P>[];
-  styles?: CSSProperties;
-}
+};
 
-interface BulletItem<P> {
+type BulletItem<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
   type: 'bullet-item';
   phrases: IPhrase<P>[];
   // nested list
   subBullet?: BulletsParagraph<P>;
-  styles?: CSSProperties;
-}
+};
 
 interface PlotParagraph {
   type: 'plot';
-  // TODO 待 antv-spec 发包稳定后可替换之
   spec: AntVSpec;
-  styles?: CSSProperties;
 }
-
-/**
- * @deprecated
- */
-type AntVSpec = unknown;

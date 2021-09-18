@@ -1,24 +1,32 @@
-import { CSSProperties } from 'react';
-import { IPhrase, DefaultCustomPhraseGeneric } from './phrase';
+import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGeneric } from './common';
+import { IPhrase } from './phrase';
 import { IParagraph } from './paragraph';
 
-export interface ITextSpec<P = DefaultCustomPhraseGeneric> {
+export type ITextSpec<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+> = CommonProps & {
   headline?: IHeadline<P>;
-  sections?: ISection<P>[];
+  sections?: ISection<S, P>[];
   // TODO 可扩展内容交互
-  styles?: CSSProperties;
-}
+};
 
-export interface IHeadline<P = DefaultCustomPhraseGeneric> {
+export type IHeadline<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
   type: 'headline';
   phrases: IPhrase<P>[];
-  styles?: CSSProperties;
-}
+};
 
-export interface ISection<P = DefaultCustomPhraseGeneric> {
-  paragraphs?: IParagraph<P>[];
-  styles?: CSSProperties;
-}
+type StandardSection<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+> = {
+  paragraphs?: IParagraph<S, P>[];
+};
+
+export type ISection<
+  S extends DefaultCustomBlockStructureGeneric = null,
+  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
+> = (StandardSection<S, P> | S) & CommonProps;
 
 /**
  * @deprecated

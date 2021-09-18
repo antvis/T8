@@ -6,7 +6,7 @@ import { getPrefixCls } from '../utils/getPrefixCls';
 import { WithPhraseProps } from '../interface';
 
 type BulletsProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IParagraph<P>;
+  spec: IParagraph<null, P>;
 };
 
 export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: BulletsProps<P>) {

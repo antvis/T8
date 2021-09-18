@@ -23,7 +23,7 @@ export const DeltaValue: React.FC<BasicPhraseProps> = ({ phrase }) => {
   }, [phrase]);
 
   const children = (
-    <span className={cx(phraseParser.classNames)} style={phrase?.styles}>
+    <span className={cx(...phraseParser.classNames)} style={phrase?.styles}>
       {phraseParser.type === 'delta_value' && phraseParser.assessment === 'negative' ? '-' : ''}
       {phraseParser.type === 'delta_value' && phraseParser.assessment === 'positive' ? '+' : ''}
       {phraseParser.content}

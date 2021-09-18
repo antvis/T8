@@ -52,7 +52,7 @@ export default function IndexPage() {
       <Divider orientation="left">1. Phrase</Divider>
       <Design detailChartDisplayType={detailChartDisplayType} />
       <Divider orientation="left">2. Paragraph</Divider>
-      <Paragraph<ModalShowDetailMeta>
+      <Paragraph<null, ModalShowDetailMeta>
         spec={{
           type: 'normal',
           phrases: [
@@ -133,8 +133,8 @@ export default function IndexPage() {
           Lexio Demo
         </a>
       </blockquote>
-      <NarrativeTextVis<ModalShowDetailMeta>
-        spec={booking as ITextSpec<ModalShowDetailMeta>}
+      <NarrativeTextVis<null, ModalShowDetailMeta>
+        spec={booking as ITextSpec<null, ModalShowDetailMeta>}
         detailChartDisplayType={detailChartDisplayType}
         customPhraseRender={customPhraseRender}
       />

@@ -1,10 +1,12 @@
 import { CSSProperties } from 'react';
 import { FilterItem } from './data';
-
-export type DefaultCustomPhraseGeneric = Record<string, unknown>;
+import { DefaultCustomPhraseGeneric } from './common';
 
 // P used for custom phrase;
-export type IPhrase<P = DefaultCustomPhraseGeneric> = ITextPhrase | IEntityPhrase | ICustomPhrase<P>;
+export type IPhrase<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> =
+  | ITextPhrase
+  | IEntityPhrase
+  | ICustomPhrase<P>;
 
 export interface ITextPhrase {
   type: 'text';

@@ -4,8 +4,8 @@ import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { WithPhraseProps } from '../interface';
 
-type TextLineProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IParagraph<P>;
+type TextLineProps<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
+  spec: IParagraph<null, P>;
 };
 
 export function TextLine<P extends DefaultCustomPhraseGeneric>({ spec, ...phraseProps }: TextLineProps<P>) {
@@ -16,6 +16,5 @@ export function TextLine<P extends DefaultCustomPhraseGeneric>({ spec, ...phrase
       </p>
     );
   }
-
   return null;
 }
