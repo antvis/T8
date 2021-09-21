@@ -17,8 +17,8 @@ export function Section<
 >({ spec, customBlockElementRender, ...phraseProps }: SectionProps<S, P>) {
   return (
     <div className={spec.className} style={spec.styles}>
-      {spec?.paragraphs
-        ? spec?.paragraphs.map((p, pid) => (
+      {'paragraphs' in spec
+        ? spec?.paragraphs?.map((p, pid) => (
             // eslint-disable-next-line react/no-array-index-key
             <Paragraph<S, P> key={pid} spec={p} customBlockElementRender={customBlockElementRender} {...phraseProps} />
           ))

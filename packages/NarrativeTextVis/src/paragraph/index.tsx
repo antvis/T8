@@ -16,10 +16,10 @@ export function Paragraph<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >({ spec, customBlockElementRender, ...phraseProps }: ParagraphProps<S, P>) {
-  if ((spec as S).customType && customBlockElementRender) {
-    return <>{customBlockElementRender(spec as S)}</>;
+  if ('customType' in spec && spec.customType && customBlockElementRender) {
+    return <>{customBlockElementRender(spec)}</>;
   }
-  switch (spec.type) {
+  switch (spec?.type) {
     case 'normal':
       return <TextLine<P> spec={spec} {...phraseProps} />;
     case 'bullets':

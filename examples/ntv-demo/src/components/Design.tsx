@@ -1,8 +1,8 @@
 import React from 'react';
-import { Descriptions, Tag, message } from 'antd';
+import { Descriptions } from 'antd';
 import { NarrativeTextVisProps, Phrase } from '@antv/narrative-text-vis';
 
-export const Design: React.FC<{
+const Design: React.FC<{
   detailChartDisplayType: NarrativeTextVisProps['detailChartDisplayType'];
 }> = ({ detailChartDisplayType }) => {
   return (
@@ -98,34 +98,9 @@ export const Design: React.FC<{
             }}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="Custom">
-          <Phrase.Custom<{
-            popMsg: string;
-          }>
-            phrase={{
-              type: 'custom',
-              value: 'Click to say hello',
-              metadata: {
-                popMsg: '👋 hello',
-              },
-              styles: {
-                cursor: 'pointer',
-              },
-            }}
-            customPhraseRender={(phrase) => (
-              <Tag
-                color="purple"
-                onClick={() => {
-                  message.success(phrase?.metadata?.popMsg);
-                }}
-                style={{ cursor: 'pointer' }}
-              >
-                {phrase.value}
-              </Tag>
-            )}
-          />
-        </Descriptions.Item>
       </Descriptions>
     </div>
   );
 };
+
+export default Design;

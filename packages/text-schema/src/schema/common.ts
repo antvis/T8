@@ -6,18 +6,18 @@ export type CommonProps = {
   className?: string;
 };
 
-// TODO 期望可以替换 keyof 维护，但是文件不能循环引用，先手动维护吧
+// TODO 期望可以在类型上约束不能使用已有保留字
 const retainKeys = ['type', 'paragraphs', 'phrases', 'isOrder', 'bullets', 'subBullet'] as const;
 
-type ExcludeKeys = Record<typeof retainKeys[number], never>;
+type ExcludeKeys = Partial<Record<typeof retainKeys[number], never>>;
 
 /** basic block element structure, used for extends */
-export type DefaultCustomBlockStructureGeneric =
-  | null
-  | ({
-      // customType is required for custom block structure
-      customType: string;
-      [key: string]: unknown;
-    } & ExcludeKeys);
+export interface DefaultBlockStructure extends ExcludeKeys {
+  // customType is required for custom block structure
+  customType: string;
+  [key: string]: unknown;
+}
+
+export type DefaultCustomBlockStructureGeneric = null | DefaultBlockStructure;
 
 export type DefaultCustomPhraseGeneric = Record<string, unknown>;
