@@ -2,37 +2,39 @@ import React from 'react';
 import { Descriptions } from 'antd';
 import { NarrativeTextVisProps, Phrase } from '@antv/narrative-text-vis';
 
-const Design: React.FC<{
-  detailChartDisplayType: NarrativeTextVisProps['detailChartDisplayType'];
-}> = ({ detailChartDisplayType }) => {
+const Design: React.FC<
+  Pick<NarrativeTextVisProps, 'detailChartDisplayType' | 'customEntityEncoding'>
+> = ({ detailChartDisplayType, customEntityEncoding }) => {
   return (
     <div style={{ marginBottom: 48 }}>
       <Descriptions title="Data marking specification" bordered size="small">
         <Descriptions.Item label="Metric Name">
           <Phrase
-            phrase={{
+            spec={{
               type: 'entity',
               value: 'DAU',
               metadata: {
                 entityType: 'metric_name',
               },
             }}
+            customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
         <Descriptions.Item label="Metric Value">
           <Phrase
-            phrase={{
+            spec={{
               type: 'entity',
               value: '901632.11',
               metadata: {
                 entityType: 'metric_value',
               },
             }}
+            customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
         <Descriptions.Item label="Delta Value">
-          <Phrase.DeltaValue
-            phrase={{
+          <Phrase
+            spec={{
               type: 'entity',
               value: '100.33',
               metadata: {
@@ -41,11 +43,12 @@ const Design: React.FC<{
                 detail: ['120.12', '220.45'],
               },
             }}
+            customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
         <Descriptions.Item label="Ratio Value">
-          <Phrase.RatioValue
-            phrase={{
+          <Phrase
+            spec={{
               type: 'entity',
               value: '30%',
               metadata: {
@@ -53,22 +56,24 @@ const Design: React.FC<{
                 assessment: 'negative',
               },
             }}
+            customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
         <Descriptions.Item label="Contribution">
           <Phrase
-            phrase={{
+            spec={{
               type: 'entity',
               value: '20%',
               metadata: {
                 entityType: 'contribute_ratio',
               },
             }}
+            customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
         <Descriptions.Item label="Trend">
-          <Phrase.TrendDesc
-            phrase={{
+          <Phrase
+            spec={{
               type: 'entity',
               value: 'periodic',
               metadata: {
@@ -80,11 +85,12 @@ const Design: React.FC<{
               },
             }}
             detailChartDisplayType={detailChartDisplayType || 'inline'}
+            customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
         <Descriptions.Item label="Drill Down Dimension">
-          <Phrase.DimValue
-            phrase={{
+          <Phrase
+            spec={{
               type: 'entity',
               value: '北京',
               metadata: {
@@ -96,6 +102,7 @@ const Design: React.FC<{
                 },
               },
             }}
+            customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
       </Descriptions>

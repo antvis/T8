@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Radio } from 'antd';
+import { Radio, Space } from 'antd';
+import { YuqueFilled } from '@ant-design/icons';
 import {
   NarrativeTextVis,
+  Phrase,
   Section,
   Paragraph,
   ITextSpec,
@@ -12,9 +14,7 @@ import AnchorLayout from '../components/AnchorLayout';
 import ContentBlock from '../components/ContentBlock';
 import Design from '../components/Design';
 import HighlightCode from '../components/HighlightCode';
-
 import getAnchors from '../utils/get-anchors';
-
 import booking from '../data/booking.json';
 
 const anchors = getAnchors('basic', [
@@ -27,10 +27,24 @@ const anchors = getAnchors('basic', [
 export default function BasicPage() {
   const [detailChartDisplayType, setDetailChartDisplayType] =
     useState<NarrativeTextVisProps['detailChartDisplayType']>('inline');
+  const [customEntityEncoding, setCustomEntityEncoding] = useState<
+    NarrativeTextVisProps['customEntityEncoding']
+  >({
+    delta_value: {
+      assessment: {
+        positive: {
+          color: 'yellow',
+          prefix: <YuqueFilled />,
+        },
+        negative: {},
+      },
+    },
+  });
 
   return (
     <AnchorLayout anchorLinks={anchors}>
-      <div style={{ margin: '24px 0' }}>
+      {/* TODO 趋势图 api 待完善 */}
+      {/* <div>
         <span>Display mode of detailed data: </span>
         <Radio.Group
           optionType="button"
@@ -44,17 +58,13 @@ export default function BasicPage() {
           }}
           value={detailChartDisplayType}
         />
-      </div>
-      <HighlightCode
-        langType="tsx"
-        code={`
-interface CommonProps {
-  /** the display position of detail trend line */
-  detailChartDisplayType?: 'inline' | 'tooltip',
-}`}
-      />
+      </div> */}
+
       <ContentBlock id={anchors[0].id} title={anchors[0].title}>
-        <Design detailChartDisplayType={detailChartDisplayType} />
+        <Design
+          detailChartDisplayType={detailChartDisplayType}
+          customEntityEncoding={customEntityEncoding}
+        />
         <HighlightCode
           langType="tsx"
           code={`<Phrase phrase={phraseSpec} {...commonProps} />`}
@@ -69,6 +79,7 @@ interface CommonProps {
             ],
           }}
           detailChartDisplayType={detailChartDisplayType}
+          customEntityEncoding={customEntityEncoding}
         />
         <HighlightCode
           langType="tsx"
@@ -100,6 +111,7 @@ interface CommonProps {
             ],
           }}
           detailChartDisplayType={detailChartDisplayType}
+          customEntityEncoding={customEntityEncoding}
         />
         <HighlightCode
           langType="tsx"
@@ -119,6 +131,7 @@ interface CommonProps {
         <NarrativeTextVis
           spec={booking as ITextSpec}
           detailChartDisplayType={detailChartDisplayType}
+          customEntityEncoding={customEntityEncoding}
         />
         <HighlightCode
           langType="tsx"
