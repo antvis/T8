@@ -8,6 +8,8 @@ import {
 import { Headline } from './paragraph';
 import { Section } from './section';
 import { WithPhraseProps, WithCustomBlockElement } from './interface';
+import { classnames as cx } from './utils/classnames';
+import { getPrefixCls } from './utils/getPrefixCls';
 
 export type NarrativeTextVisProps<
   S extends DefaultCustomBlockStructureGeneric = null,
@@ -23,7 +25,7 @@ export function NarrativeTextVis<
 >({ spec, customBlockElementRender, ...phraseProps }: NarrativeTextVisProps<S, P>) {
   const { headline, sections, styles, className } = spec;
   return (
-    <div className={className} style={styles}>
+    <div className={cx(className, getPrefixCls('container'))} style={styles}>
       {headline ? <Headline<P> spec={headline as IHeadline<P>} {...phraseProps} /> : null}
       {sections
         ? sections?.map((section, index) => (

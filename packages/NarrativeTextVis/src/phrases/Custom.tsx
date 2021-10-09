@@ -1,7 +1,7 @@
 import React from 'react';
+import { isFunction } from 'lodash-es';
 import { ICustomPhrase, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { CustomPhraseRender } from '../interface';
-import { isFunction } from '../utils/type';
 
 interface Props<P> {
   phrase: ICustomPhrase<P>;

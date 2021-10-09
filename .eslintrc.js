@@ -28,6 +28,8 @@ module.exports = {
     'import/extensions': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-var-requires': 0,
+    'import/no-extraneous-dependencies': 'off',
     'react/jsx-props-no-spreading': 'off',
     'lines-between-class-members': 'off',
     'no-nested-ternary': 'off',

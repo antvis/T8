@@ -1,35 +1,21 @@
-import { ReactNode, useState, useEffect } from 'react';
-import { IPhrase } from '@antv/text-schema';
-import { parsePhrase, PhraseParser } from '../utils/phrase-parser';
-import { getPrefixCls } from '../utils/getPrefixCls';
+import { useEffect, useState } from 'react';
+import PhraseParser from '../utils/phrase-parser';
+import { BasicPhraseProps } from './interface';
 
-export const usePhraseParser = ({ phrase }: { phrase: IPhrase }) => {
-  const phraseParser = parsePhrase(phrase);
-  const [classNames, setClassNames] = useState<PhraseParser['classNames']>(phraseParser.classNames);
-  const [PopoverContent, setPopoverContent] = useState<ReactNode>(null);
+// TODO phrase update
+/** phrase info with ui */
+export const usePhraseParser = ({ phrase, customEntityEncoding }: BasicPhraseProps) => {
+  const [phraseMeta, setPhraseMeta] = useState<PhraseParser>(new PhraseParser(phrase, customEntityEncoding));
 
-  /**
-   * push popover class to remind user:
-   * You can hover here!
-   */
   useEffect(() => {
-    const popCls = getPrefixCls('popover-marker');
-    if (PopoverContent) {
-      if (!classNames.includes(popCls)) setClassNames([...classNames, popCls]);
-    } else {
-      const index = classNames.indexOf(popCls);
-      if (index > -1) {
-        classNames.splice(index, 1);
-        setClassNames(classNames);
-      }
+    if (phraseMeta && customEntityEncoding) {
+      setPhraseMeta(phraseMeta.updateCustomEncoding(customEntityEncoding));
     }
-  }, [PopoverContent]);
+  }, [customEntityEncoding]);
 
   return {
-    ...phraseParser,
-    classNames,
-    content: phraseParser.content,
-    PopoverContent,
-    setPopoverContent,
+    classNames: phraseMeta.classNames,
+    styles: { ...(phraseMeta?.encodingStyles || {}), ...(phrase?.styles || {}) },
+    Content: phraseMeta.Content,
   };
 };

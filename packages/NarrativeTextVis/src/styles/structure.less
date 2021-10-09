@@ -1,12 +1,23 @@
 @font-color: #505659;
 
-.@{ntv-prefix}-headline {
-  border-bottom: 1px solid rgb(199, 199, 199);
+.@{ntv-prefix}-container {
+  p,
+  li {
+    color: @font-color;
+    font-size: 15px;
+    line-height: 1.8em;
+  }
+
+  // default list style
+  ul li {
+    list-style: disc;
+  }
+
+  ol li {
+    list-style: decimal;
+  }
 }
 
-.@{ntv-prefix}-p,
-.@{ntv-prefix}-li {
-  color: @font-color;
-  font-size: 15px;
-  line-height: 1.8em;
+.@{ntv-prefix}-headline {
+  border-bottom: 1px solid rgb(199, 199, 199);
 }

@@ -1,26 +1,34 @@
-import { Default } from './Default';
-import { DeltaValue } from './DeltaValue';
-import { RatioValue } from './RatioValue';
-import { DimValue } from './DimValue';
-import { TrendDesc } from './TrendDesc';
+import React from 'react';
+import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/text-schema';
+import { isEmpty } from 'lodash-es';
+import { usePhraseParser } from './usePhraseParser';
 import { Custom } from './Custom';
+import { classnames as cx } from '../utils/classnames';
+import { WithPhraseProps } from '../interface';
 
-type InternalPhraseType = typeof Default;
+type PhraseProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
+  spec: IPhrase<P>;
+};
 
-interface PhraseType extends InternalPhraseType {
-  DeltaValue: typeof DeltaValue;
-  RatioValue: typeof RatioValue;
-  DimValue: typeof DimValue;
-  TrendDesc: typeof TrendDesc;
-  Custom: typeof Custom;
-}
-
-// TODO 目前组件的 props 设计的不太合理，先做可单独使用的结构，待 metadata 完备之后再优化 props
 /** <Phrase /> can use independence */
-export const Phrase = Default as PhraseType;
+export function Phrase<P extends DefaultCustomPhraseGeneric>({
+  spec: phrase,
+  customEntityEncoding,
+  customPhraseRender,
+}: // TODO tooltip handler
+// detailChartDisplayType,
+PhraseProps<P>) {
+  if (phrase.type === 'custom') {
+    return <Custom<P> phrase={phrase} customPhraseRender={customPhraseRender} />;
+  }
 
-Phrase.DeltaValue = DeltaValue;
-Phrase.RatioValue = RatioValue;
-Phrase.DimValue = DimValue;
-Phrase.TrendDesc = TrendDesc;
-Phrase.Custom = Custom;
+  const { styles, classNames, Content } = usePhraseParser({ phrase, customEntityEncoding });
+
+  return isEmpty(styles) && classNames.length === 0 ? (
+    <>{Content}</>
+  ) : (
+    <span className={cx(...classNames)} style={styles}>
+      {Content}
+    </span>
+  );
+}
