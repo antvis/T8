@@ -3,7 +3,12 @@ import { Descriptions } from 'antd';
 import { NarrativeTextVisProps, Phrase } from '@antv/narrative-text-vis';
 
 const Design: React.FC<
-  Pick<NarrativeTextVisProps, 'detailChartDisplayType' | 'customEntityEncoding'>
+  Partial<
+    Pick<
+      NarrativeTextVisProps,
+      'detailChartDisplayType' | 'customEntityEncoding'
+    >
+  >
 > = ({ detailChartDisplayType, customEntityEncoding }) => {
   return (
     <div style={{ marginBottom: 48 }}>

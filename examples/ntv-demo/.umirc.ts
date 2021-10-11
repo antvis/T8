@@ -47,10 +47,10 @@ export default defineConfig({
       component: '@/pages/custom',
     },
     {
-      path: '/event',
-      name: 'Event',
+      path: '/tools',
+      name: 'Tools',
       icon: 'tool',
-      component: '@/pages/event',
+      component: '@/pages/tools',
     },
   ],
   favicon: logoUrl,

@@ -29,6 +29,7 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/ban-ts-comment': 1,
     'import/no-extraneous-dependencies': 'off',
     'react/jsx-props-no-spreading': 'off',
     'lines-between-class-members': 'off',

@@ -2,13 +2,12 @@ import React, { ReactNode, CSSProperties } from 'react';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { IPhrase, ValueAssessment, IEntityType } from '@antv/text-schema';
 import { get } from 'lodash-es';
-import { CustomEntityEncoding, EncodingChannels } from '../interface';
 import { getPrefixCls } from './getPrefixCls';
+import { CustomEntityEncoding, EncodingChannels } from '../interface';
+import { ASSESSMENT_TYPE } from '../constance';
 
 /** text & entity */
 type PhraseType = 'text' | IEntityType | null;
-
-const ASSESSMENT_TYPE = ['delta_value', 'ratio_value'];
 
 function getDefaultPrefix(type: PhraseType, assessment: ValueAssessment): ReactNode {
   switch (type) {
@@ -47,9 +46,9 @@ class PhraseParser {
    * compare assessment -- extensible encoding channel
    * assessment encoding has higher priority then the outer layer
    * */
-  private assessment?: ValueAssessment | null;
+  public assessment?: ValueAssessment | null;
   /** main content string value */
-  private text?: string;
+  public text?: string;
   /**
    * use className to make default encoding
    *    * Users can custom encoding by override class styles
