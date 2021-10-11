@@ -5,27 +5,27 @@ import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGen
 export type IParagraph<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = (TextParagraph<P> | BulletsParagraph<P> | PlotParagraph | S) & CommonProps;
+> = (ITextParagraph<P> | IBulletsParagraph<P> | IPlotParagraph | S) & CommonProps;
 
-type TextParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
+type ITextParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
   type: 'normal';
   phrases: IPhrase<P>[];
 };
 
-type BulletsParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
+type IBulletsParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
   type: 'bullets';
   isOrder: boolean;
-  bullets: BulletItem<P>[];
+  bullets: IBulletItem<P>[];
 };
 
-type BulletItem<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+export type IBulletItem<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
   type: 'bullet-item';
   phrases: IPhrase<P>[];
   // nested list
-  subBullet?: BulletsParagraph<P>;
+  subBullet?: IBulletsParagraph<P>;
 };
 
-interface PlotParagraph {
+interface IPlotParagraph {
   type: 'plot';
   spec: AntVSpec;
 }

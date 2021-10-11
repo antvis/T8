@@ -14,7 +14,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "types": "lib/index.d.ts",
+  "types": "es/src/index.d.ts",
   "unpkg": "dist/narrative-text-vis.min.js",
   "files": [
     "dist",
