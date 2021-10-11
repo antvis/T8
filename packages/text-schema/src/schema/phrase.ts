@@ -35,7 +35,13 @@ type MetaData =
       entityType: 'metric_name';
     }
   | {
-      entityType: 'metric_value' | 'ratio_value' | 'contribute_ratio';
+      entityType: 'metric_value';
+    }
+  | {
+      entityType: 'contribute_ratio';
+    }
+  | {
+      entityType: 'ratio_value';
       assessment?: ValueAssessment;
     }
   | {

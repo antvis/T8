@@ -1,6 +1,6 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
+import { v4 } from 'uuid';
 import { Phrases } from '../phrases';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { WithPhraseProps } from '../interface';
@@ -9,11 +9,19 @@ type BulletsProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
   spec: IParagraph<null, P>;
 };
 
-export function Bullets<P extends DefaultCustomPhraseGeneric>({ spec, customPhraseRender }: BulletsProps<P>) {
+export function Bullets<P extends DefaultCustomPhraseGeneric>({
+  spec,
+  customPhraseRender,
+  customEntityEncoding,
+}: BulletsProps<P>) {
   if (spec.type === 'bullets') {
-    const children = spec.bullets?.map((bullet, index) => (
-      <li className={getPrefixCls('li')} key={index} style={spec.styles}>
-        <Phrases<P> spec={bullet.phrases} customPhraseRender={customPhraseRender} />
+    const children = spec.bullets?.map((bullet) => (
+      <li className={getPrefixCls('li')} key={v4()} style={spec.styles}>
+        <Phrases<P>
+          spec={bullet.phrases}
+          customPhraseRender={customPhraseRender}
+          customEntityEncoding={customEntityEncoding}
+        />
         {bullet?.subBullet ? <Bullets<P> spec={bullet?.subBullet} customPhraseRender={customPhraseRender} /> : null}
       </li>
     ));

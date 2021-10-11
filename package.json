@@ -15,11 +15,11 @@
     "build:ntv": "cd ./packages/NarrativeTextVis && npm run build",
     "boot": "lerna bootstrap",
     "lint": "lerna run lint",
-    "start:demo": "node ./scripts/start-ntv-demo.js",
-    "schema": "cd ./packages/text-schema && yarn schema",
+    "start:ntv-demo": "cd examples/ntv-demo && npm run start",
+    "start-live:ntv-demo": "node ./scripts/start-ntv-demo.js",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "postinstall": "yarn boot"
+    "postinstall": "npm run boot"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

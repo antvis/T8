@@ -1,5 +1,6 @@
 import React from 'react';
 import { ISection, DefaultCustomPhraseGeneric, DefaultCustomBlockStructureGeneric } from '@antv/text-schema';
+import { v4 } from 'uuid';
 import { WithPhraseProps, WithCustomBlockElement } from '../interface';
 import { Paragraph } from '../paragraph';
 
@@ -18,9 +19,8 @@ export function Section<
   return (
     <div className={spec.className} style={spec.styles}>
       {'paragraphs' in spec
-        ? spec?.paragraphs?.map((p, pid) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Paragraph<S, P> key={pid} spec={p} customBlockElementRender={customBlockElementRender} {...phraseProps} />
+        ? spec?.paragraphs?.map((p) => (
+            <Paragraph<S, P> key={v4()} spec={p} customBlockElementRender={customBlockElementRender} {...phraseProps} />
           ))
         : customBlockElementRender
         ? customBlockElementRender(spec as S)

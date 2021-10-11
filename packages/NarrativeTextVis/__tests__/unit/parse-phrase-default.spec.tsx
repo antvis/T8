@@ -30,4 +30,50 @@ describe('phrase handler', () => {
     expect(wrapper.html()).toEqual('<span>DAU</span>');
     wrapper.unmount();
   });
+
+  it('metric_value', () => {
+    const { classNames, encodingStyles, Content } = new PhraseParser({
+      type: 'entity',
+      value: '10.23',
+      metadata: {
+        entityType: 'metric_value',
+      },
+    });
+    expect(classNames).toEqual([getPrefixCls('value'), getPrefixCls('metric-value')]);
+    expect(encodingStyles).toEqual({});
+    const wrapper = shallow(<span>{Content}</span>);
+    expect(wrapper.html()).toEqual('<span>10.23</span>');
+    wrapper.unmount();
+  });
+
+  it('contribute_ratio', () => {
+    const { classNames, encodingStyles, Content } = new PhraseParser({
+      type: 'entity',
+      value: '10.23%',
+      metadata: {
+        entityType: 'contribute_ratio',
+      },
+    });
+    expect(classNames).toEqual([getPrefixCls('value'), getPrefixCls('contribute-ratio')]);
+    expect(encodingStyles).toEqual({});
+    const wrapper = shallow(<span>{Content}</span>);
+    expect(wrapper.html()).toEqual('<span>10.23%</span>');
+    wrapper.unmount();
+  });
+
+  it('ratio_value', () => {
+    const { classNames, encodingStyles, Content } = new PhraseParser({
+      type: 'entity',
+      value: '10.23%',
+      metadata: {
+        entityType: 'ratio_value',
+        assessment: 'positive',
+      },
+    });
+    expect(classNames).toEqual([getPrefixCls('value'), getPrefixCls('value-positive')]);
+    expect(encodingStyles).toEqual({});
+    const wrapper = shallow(<span>{Content}</span>);
+    // expect(wrapper.html()).toEqual('<span>10.23%</span>');
+    wrapper.unmount();
+  });
 });

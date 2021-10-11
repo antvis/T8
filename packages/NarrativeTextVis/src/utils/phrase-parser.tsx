@@ -155,14 +155,6 @@ class PhraseParser {
     );
   }
 
-  public updateCustomEncoding(entityEncoding: CustomEntityEncoding) {
-    this.customEntityEncoding = entityEncoding;
-    this.encodingStyles = this.getEncodingStyles();
-    this.Prefix = this.getPrefix();
-    this.Suffix = this.getSuffix();
-    return this;
-  }
-
   // TODO hover tooltip 或者是 wsv 的内容
   // get DetailContent(): ReactNode {
   //   if (this.type === 'ratio_value') {
