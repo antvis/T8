@@ -5,6 +5,7 @@ import {
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
 } from '@antv/text-schema';
+import { v4 } from 'uuid';
 import { Headline } from './paragraph';
 import { Section } from './section';
 import { WithPhraseProps, WithCustomBlockElement } from './interface';
@@ -28,10 +29,9 @@ export function NarrativeTextVis<
     <div className={cx(className, getPrefixCls('container'))} style={styles}>
       {headline ? <Headline<P> spec={headline as IHeadline<P>} {...phraseProps} /> : null}
       {sections
-        ? sections?.map((section, index) => (
+        ? sections?.map((section) => (
             <Section<S, P>
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
+              key={v4()}
               spec={section}
               customBlockElementRender={customBlockElementRender}
               {...phraseProps}

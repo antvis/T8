@@ -1,13 +1,8 @@
-import { useState } from 'react';
-import { Radio, Space } from 'antd';
-import { YuqueFilled } from '@ant-design/icons';
 import {
   NarrativeTextVis,
-  Phrase,
   Section,
   Paragraph,
   ITextSpec,
-  NarrativeTextVisProps,
 } from '@antv/narrative-text-vis';
 
 import AnchorLayout from '../components/AnchorLayout';
@@ -25,50 +20,11 @@ const anchors = getAnchors('basic', [
 ]);
 
 export default function BasicPage() {
-  const [detailChartDisplayType, setDetailChartDisplayType] =
-    useState<NarrativeTextVisProps['detailChartDisplayType']>('inline');
-  const [customEntityEncoding, setCustomEntityEncoding] = useState<
-    NarrativeTextVisProps['customEntityEncoding']
-  >({
-    delta_value: {
-      assessment: {
-        positive: {
-          color: 'yellow',
-          prefix: <YuqueFilled />,
-        },
-        negative: {},
-      },
-    },
-  });
-
   return (
     <AnchorLayout anchorLinks={anchors}>
-      {/* TODO 趋势图 api 待完善 */}
-      {/* <div>
-        <span>Display mode of detailed data: </span>
-        <Radio.Group
-          optionType="button"
-          buttonStyle="solid"
-          options={[
-            { value: 'inline', label: 'inline' },
-            { value: 'tooltip', label: 'tooltip' },
-          ]}
-          onChange={(e) => {
-            setDetailChartDisplayType(e.target.value);
-          }}
-          value={detailChartDisplayType}
-        />
-      </div> */}
-
       <ContentBlock id={anchors[0].id} title={anchors[0].title}>
-        <Design
-          detailChartDisplayType={detailChartDisplayType}
-          customEntityEncoding={customEntityEncoding}
-        />
-        <HighlightCode
-          langType="tsx"
-          code={`<Phrase phrase={phraseSpec} {...commonProps} />`}
-        />
+        <Design />
+        <HighlightCode langType="tsx" code={`<Phrase spec={phraseSpec} />`} />
       </ContentBlock>
       <ContentBlock id={anchors[1].id} title={anchors[1].title}>
         <Paragraph
@@ -78,12 +34,10 @@ export default function BasicPage() {
               { type: 'text', value: 'This is a single paragraph example.' },
             ],
           }}
-          detailChartDisplayType={detailChartDisplayType}
-          customEntityEncoding={customEntityEncoding}
         />
         <HighlightCode
           langType="tsx"
-          code={`<Paragraph spec={paragraphSpec} {...commonProps} />`}
+          code={`<Paragraph spec={paragraphSpec} />`}
         />
       </ContentBlock>
       <ContentBlock id={anchors[2].id} title={anchors[2].title}>
@@ -110,13 +64,8 @@ export default function BasicPage() {
               },
             ],
           }}
-          detailChartDisplayType={detailChartDisplayType}
-          customEntityEncoding={customEntityEncoding}
         />
-        <HighlightCode
-          langType="tsx"
-          code={`<Section spec={sectionSpec} {...commonProps} />`}
-        />
+        <HighlightCode langType="tsx" code={`<Section spec={sectionSpec} />`} />
       </ContentBlock>
       <ContentBlock id={anchors[3].id} title={anchors[3].title}>
         <blockquote>
@@ -128,14 +77,10 @@ export default function BasicPage() {
             Lexio Demo
           </a>
         </blockquote>
-        <NarrativeTextVis
-          spec={booking as ITextSpec}
-          detailChartDisplayType={detailChartDisplayType}
-          customEntityEncoding={customEntityEncoding}
-        />
+        <NarrativeTextVis spec={booking as ITextSpec} />
         <HighlightCode
           langType="tsx"
-          code={`<NarrativeTextVis spec={textSpec} {...commonProps} />`}
+          code={`<NarrativeTextVis spec={textSpec} />`}
         />
       </ContentBlock>
     </AnchorLayout>

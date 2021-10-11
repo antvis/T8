@@ -8,10 +8,8 @@ export const usePhraseParser = ({ phrase, customEntityEncoding }: BasicPhrasePro
   const [phraseMeta, setPhraseMeta] = useState<PhraseParser>(new PhraseParser(phrase, customEntityEncoding));
 
   useEffect(() => {
-    if (phraseMeta && customEntityEncoding) {
-      setPhraseMeta(phraseMeta.updateCustomEncoding(customEntityEncoding));
-    }
-  }, [customEntityEncoding]);
+    setPhraseMeta(new PhraseParser(phrase, customEntityEncoding));
+  }, [phrase, customEntityEncoding]);
 
   return {
     classNames: phraseMeta.classNames,
