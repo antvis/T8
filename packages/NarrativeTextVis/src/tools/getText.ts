@@ -1,7 +1,6 @@
 /**
  * get text by spec, used for copy text
  */
-
 import {
   ITextSpec,
   IParagraph,
@@ -33,7 +32,6 @@ function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGe
         text = curr.value;
       }
     }
-    // TODO support custom phrase get text
     const phraseMeta = new PhraseParser(curr);
     text = (phraseMeta?.assessment === 'negative' ? '-' : '') + (phraseMeta?.text || '');
     return prev + text;
