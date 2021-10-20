@@ -2,6 +2,7 @@ import React from 'react';
 import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/text-schema';
 import { v4 } from 'uuid';
 import { Phrases } from '../phrases';
+import { classnames as cx } from '../utils/classnames';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { WithPhraseProps } from '../interface';
 
@@ -26,11 +27,11 @@ export function Bullets<P extends DefaultCustomPhraseGeneric>({
       </li>
     ));
     return spec.isOrder ? (
-      <ol className={getPrefixCls('ol')} style={spec.styles}>
+      <ol className={cx(getPrefixCls('ol'), spec.className)} style={spec.styles}>
         {children}
       </ol>
     ) : (
-      <ul className={getPrefixCls('ul')} style={spec.styles}>
+      <ul className={cx(getPrefixCls('ul'), spec.className)} style={spec.styles}>
         {children}
       </ul>
     );
