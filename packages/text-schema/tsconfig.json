@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["./src"],
+  "include": ["./src", "rollup.config.js"],
   "compilerOptions": {
     "declarationDir": "./lib"
   }

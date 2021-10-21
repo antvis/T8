@@ -1,0 +1,1 @@
+export { generateSentence } from './template';

@@ -10,6 +10,7 @@
   "scripts": {
     "clean": "lerna clean -y && lerna run clean:build && rimraf node_modules",
     "test": "jest",
+    "test:schema": "cd ./packages/text-schema && npm run test",
     "test:ntv": "cd ./packages/NarrativeTextVis && npm run test",
     "build:schema": "cd ./packages/text-schema && npm run build",
     "build:ntv": "cd ./packages/NarrativeTextVis && npm run build",
