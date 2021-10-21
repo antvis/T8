@@ -27,9 +27,11 @@
   },
   "scripts": {
     "lint": "eslint --ext .ts ./src",
+    "test": "jest",
     "build:esm": "rimraf es && tsc --module esnext --target es2015 --outDir ./es",
     "build:cjs": "rimraf lib && tsc --module commonjs --target es5 --outDir ./lib",
-    "build": "run-p build:cjs build:esm schema",
+    "build:umd": "rimraf ./dist && rollup -c",
+    "build": "run-p build:cjs build:esm build:umd schema",
     "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t ITextSpecGenerator --no-type-check --no-ref-encode > build/text-schema.json",
     "watch:esm": "yarn build:esm --w",
     "watch:cjs": "yarn build:cjs --w",
@@ -38,8 +40,14 @@
     "prepare": "yarn build"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "jest": "^27.0.6",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "rollup": "^2.55.1",
+    "rollup-plugin-terser": "^7.0.2",
     "ts-json-schema-generator": "^0.95.0",
     "typescript": "^4.3.5"
   },
