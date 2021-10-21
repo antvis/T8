@@ -70,7 +70,7 @@ describe('phrase handler', () => {
         assessment: 'positive',
       },
     });
-    expect(classNames).toEqual([getPrefixCls('value'), getPrefixCls('value-positive')]);
+    expect(classNames).toEqual([getPrefixCls('value'), getPrefixCls('ratio-value'), getPrefixCls('value-positive')]);
     expect(encodingStyles).toEqual({});
     const wrapper = shallow(<span>{Content}</span>);
     // expect(wrapper.html()).toEqual('<span>10.23%</span>');

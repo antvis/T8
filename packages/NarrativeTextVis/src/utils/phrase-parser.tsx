@@ -1,7 +1,7 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { IPhrase, ValueAssessment, IEntityType } from '@antv/text-schema';
-import { get } from 'lodash-es';
+import { get, kebabCase } from 'lodash-es';
 import { getPrefixCls } from './getPrefixCls';
 import { CustomEntityEncoding, EncodingChannels } from '../interface';
 import { ASSESSMENT_TYPE } from '../constance';
@@ -98,19 +98,15 @@ class PhraseParser {
 
   private getClassNames(): string[] {
     const classNames: string[] = [];
-    const classNameMap: Partial<Record<IEntityType, string>> = {
-      metric_name: 'metric-name',
-      metric_value: 'metric-value',
-      contribute_ratio: 'contribute-ratio',
-      trend_desc: 'trend-desc',
-      dim_value: 'dim-value',
-    };
     if (this.type !== 'text') {
       classNames.push(getPrefixCls('value'));
-      const entityCl = classNameMap?.[this.type];
+      // generate default className easy to extends
+      const entityCl = kebabCase(this.type);
       if (entityCl) classNames.push(getPrefixCls(entityCl));
     }
-    if (this.assessment) classNames.push(getPrefixCls(`value-${this.assessment}`));
+    if (this.assessment) {
+      classNames.push(getPrefixCls(`value-${this.assessment}`));
+    }
     return classNames;
   }
 
