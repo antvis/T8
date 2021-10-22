@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Radio, Tag, message, Form } from 'antd';
-import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { UpCircleFilled, DownCircleFilled } from '@ant-design/icons';
 import {
   NarrativeTextVis,
   Section,
@@ -127,9 +127,6 @@ export default function CustomPage() {
   const [color, setColor] = useState<'red_up_green_down' | 'red_down_green_up'>(
     'red_up_green_down',
   );
-  const [ratioFlag, setRadioFlag] = useState<'ratio_+_-' | 'ratio_up_down'>(
-    'ratio_up_down',
-  );
   const [deltaFlag, setDeltaFlag] = useState<'delta_+_-' | 'delta_up_down'>(
     'delta_+_-',
   );
@@ -141,11 +138,9 @@ export default function CustomPage() {
           assessment: {
             positive: {
               color: color === 'red_up_green_down' ? redColor : greenColor,
-              prefix: ratioFlag === 'ratio_+_-' ? '+' : <CaretUpOutlined />,
             },
             negative: {
               color: color === 'red_up_green_down' ? greenColor : redColor,
-              prefix: ratioFlag === 'ratio_+_-' ? '-' : <CaretDownOutlined />,
             },
           },
         },
@@ -153,16 +148,16 @@ export default function CustomPage() {
           assessment: {
             positive: {
               color: color === 'red_up_green_down' ? redColor : greenColor,
-              prefix: deltaFlag === 'delta_+_-' ? '+' : <CaretUpOutlined />,
+              prefix: deltaFlag === 'delta_+_-' ? '+' : <UpCircleFilled />,
             },
             negative: {
               color: color === 'red_up_green_down' ? greenColor : redColor,
-              prefix: deltaFlag === 'delta_+_-' ? '-' : <CaretDownOutlined />,
+              prefix: deltaFlag === 'delta_+_-' ? '-' : <DownCircleFilled />,
             },
           },
         },
       };
-    }, [color, ratioFlag, deltaFlag]);
+    }, [color, deltaFlag]);
 
   return (
     <AnchorLayout anchorLinks={anchors}>
@@ -211,49 +206,6 @@ export default function CustomPage() {
               </Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item label="ratio value assessment flag">
-            <Radio.Group
-              value={ratioFlag}
-              onChange={(e) => setRadioFlag(e.target.value)}
-            >
-              <Radio value="ratio_up_down">
-                <Phrase spec={ratio_up} />
-                <Phrase spec={ratio_down} />
-              </Radio>
-              <Radio value="ratio_+_-">
-                <Phrase
-                  spec={ratio_up}
-                  customEntityEncoding={{
-                    ratio_value: {
-                      assessment: {
-                        positive: {
-                          prefix: '+',
-                        },
-                        negative: {
-                          prefix: '-',
-                        },
-                      },
-                    },
-                  }}
-                />
-                <Phrase
-                  spec={ratio_down}
-                  customEntityEncoding={{
-                    ratio_value: {
-                      assessment: {
-                        positive: {
-                          prefix: '+',
-                        },
-                        negative: {
-                          prefix: '-',
-                        },
-                      },
-                    },
-                  }}
-                />
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
           <Form.Item label="delta value assessment flag">
             <Radio.Group
               value={deltaFlag}
@@ -270,10 +222,10 @@ export default function CustomPage() {
                     delta_value: {
                       assessment: {
                         positive: {
-                          prefix: <CaretUpOutlined />,
+                          prefix: <UpCircleFilled />,
                         },
                         negative: {
-                          prefix: <CaretDownOutlined />,
+                          prefix: <DownCircleFilled />,
                         },
                       },
                     },
@@ -285,10 +237,10 @@ export default function CustomPage() {
                     delta_value: {
                       assessment: {
                         positive: {
-                          prefix: '+',
+                          prefix: <UpCircleFilled />,
                         },
                         negative: {
-                          prefix: '-',
+                          prefix: <DownCircleFilled />,
                         },
                       },
                     },
