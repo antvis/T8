@@ -50,7 +50,6 @@ if (format === 'umd') {
     react: 'React',
     'react-dom': 'ReactDOM',
     antd: 'antd',
-    '@ant-design/icons': 'icons',
     '@antv/g2plot': 'G2Plot',
   };
 } else {

@@ -1,7 +1,7 @@
 import React, { ReactNode, CSSProperties } from 'react';
-import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { IPhrase, ValueAssessment, IEntityType } from '@antv/text-schema';
 import { get, kebabCase } from 'lodash-es';
+import { ArrowDown, ArrowUp } from '../assets/icons';
 import { getPrefixCls } from './getPrefixCls';
 import { CustomEntityEncoding, EncodingChannels } from '../interface';
 import { ASSESSMENT_TYPE } from '../constance';
@@ -14,7 +14,7 @@ function getDefaultPrefix(type: PhraseType, assessment: ValueAssessment): ReactN
     case 'delta_value':
       return assessment === 'positive' ? '+' : assessment === 'negative' ? '-' : '';
     case 'ratio_value':
-      return assessment === 'positive' ? <CaretUpOutlined /> : assessment === 'negative' ? <CaretDownOutlined /> : '';
+      return assessment === 'positive' ? <ArrowUp /> : assessment === 'negative' ? <ArrowDown /> : '';
     default:
       return '';
   }
@@ -143,7 +143,7 @@ class PhraseParser {
   public get Content(): ReactNode {
     return (
       <>
-        {this.Prefix}
+        {this.Prefix ? <span style={{ marginRight: 2 }}>{this.Prefix}</span> : null}
         {this.text}
         {this.Suffix}
       </>
