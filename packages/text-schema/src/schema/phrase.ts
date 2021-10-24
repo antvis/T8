@@ -38,6 +38,9 @@ type MetaData =
       entityType: 'metric_value';
     }
   | {
+      entityType: 'other_metric_value';
+    }
+  | {
       entityType: 'contribute_ratio';
     }
   | {
