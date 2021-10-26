@@ -21,6 +21,7 @@ type GetCustomPhraseTextFun<P extends DefaultCustomPhraseGeneric = DefaultCustom
 
 function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric>(
   spec: IPhrase<P>[],
+  sign = false,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
   return spec.reduce((prev, curr) => {
@@ -33,7 +34,10 @@ function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGe
       }
     }
     const phraseMeta = new PhraseParser(curr);
-    text = (phraseMeta?.assessment === 'negative' ? '-' : '') + (phraseMeta?.text || '');
+    let prefix = '';
+    if (phraseMeta?.assessment === 'negative') prefix = '-';
+    if (sign && phraseMeta?.assessment === 'positive') prefix = '+';
+    text = prefix + (phraseMeta?.text || '');
     return prev + text;
   }, '');
 }
@@ -41,11 +45,12 @@ function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGe
 function getBulletsText<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric>(
   spec: IBulletItem<P>,
   level = 1,
+  sign = false,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
   let text = '';
   if (spec?.phrases) {
-    text = getPhrases(spec.phrases);
+    text = getPhrases(spec.phrases, sign);
   }
   if (spec?.subBullet) {
     text = spec.subBullet.bullets?.reduce(
@@ -53,6 +58,7 @@ function getBulletsText<P extends DefaultCustomPhraseGeneric = DefaultCustomPhra
         `${prev}\r\n${pad('', level * 2)}${spec.subBullet.isOrder ? `${index + 1}` : '· '}${getBulletsText(
           curr,
           level + 1,
+          sign,
           getCustomPhraseText,
         )}`,
       text,
@@ -66,16 +72,18 @@ export function getParagraphText<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
   spec: IParagraph<S, P>,
+  sign = false,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
-  if (spec?.type === 'normal' && spec?.phrases) return getPhrases(spec.phrases, getCustomPhraseText);
+  if (spec?.type === 'normal' && spec?.phrases) return getPhrases(spec.phrases, sign, getCustomPhraseText);
   if (spec?.type === 'bullets' && spec?.bullets) {
     return spec.bullets?.reduce(
       (prev, curr, index) =>
         `${prev}${prev ? '\r\n' : ''}${spec.isOrder ? `${index + 1}` : '· '}${getBulletsText(
           curr,
           1,
+          sign,
           getCustomPhraseText,
         )}`,
       '',
@@ -91,12 +99,13 @@ export function getSectionText<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
   spec: ISection<S, P>,
+  sign = false,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
   if (spec?.paragraphs) {
     return spec.paragraphs.reduce(
-      (prev, curr) => `${prev}\r\n${getParagraphText<S, P>(curr, getCustomStructureText, getCustomPhraseText)}`,
+      (prev, curr) => `${prev}\r\n${getParagraphText<S, P>(curr, sign, getCustomStructureText, getCustomPhraseText)}`,
       '',
     );
   }
@@ -109,15 +118,16 @@ export function getNarrativeText<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
   spec: ITextSpec<S, P>,
+  sign = true,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
   let text = '';
-  if (spec?.headline?.phrases) text += getPhrases<P>(spec.headline.phrases);
+  if (spec?.headline?.phrases) text += getPhrases<P>(spec.headline.phrases, sign);
   if (spec?.sections) {
     text = spec?.sections?.reduce(
       (prev, curr) =>
-        `${prev}${prev ? '\r\n' : ''}${getSectionText<S, P>(curr, getCustomStructureText, getCustomPhraseText)}`,
+        `${prev}${prev ? '\r\n' : ''}${getSectionText<S, P>(curr, sign, getCustomStructureText, getCustomPhraseText)}`,
       text,
     );
   }
