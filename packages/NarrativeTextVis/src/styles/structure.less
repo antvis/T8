@@ -1,27 +1,33 @@
 @font-color: #505659;
 
 .@{ntv-prefix}-container {
+  font-family: PingFangSC-Regular, sans-serif;
+
+  section {
+    font-family: PingFangSC-Regular, sans-serif;
+  }
+
   p,
   li {
     color: @font-color;
     font-size: 15px;
+    font-family: PingFangSC-Regular, sans-serif;
     line-height: 1.8em;
   }
 
   p {
     margin-bottom: 0.2em;
   }
-
-  // default list style
-  ul li {
-    list-style: disc;
-  }
-
-  ol li {
-    list-style: decimal;
-  }
 }
 
 .@{ntv-prefix}-headline {
+  font-family: PingFangSC-Medium, sans-serif;
   border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.@{ntv-prefix}-section,
+.@{ntv-prefix}-p,
+.@{ntv-prefix}-ul,
+.@{ntv-prefix}-ol {
+  font-family: PingFangSC-Regular, sans-serif;
 }

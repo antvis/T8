@@ -19,7 +19,7 @@ export function Section<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >({ spec, customBlockElementRender, ...phraseProps }: SectionProps<S, P>) {
   return (
-    <div className={cx(getPrefixCls('section'), spec.className)} style={spec.styles}>
+    <section className={cx(getPrefixCls('section'), spec.className)} style={spec.styles}>
       {'paragraphs' in spec
         ? spec?.paragraphs?.map((p) => (
             <Paragraph<S, P> key={v4()} spec={p} customBlockElementRender={customBlockElementRender} {...phraseProps} />
@@ -27,6 +27,6 @@ export function Section<
         : customBlockElementRender
         ? customBlockElementRender(spec as S)
         : null}
-    </div>
+    </section>
   );
 }

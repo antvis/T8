@@ -19,11 +19,15 @@
             },
             {
               "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
               "value": "are higher than usual for this point in the quarter. "
             },
             {
               "type": "text",
-              "value": "They are"
+              "value": "They are "
             },
             {
               "type": "entity",
@@ -38,7 +42,7 @@
             },
             {
               "type": "text",
-              "value": "They were made up of"
+              "value": "They were made up of "
             },
             {
               "type": "entity",
@@ -53,7 +57,7 @@
             },
             {
               "type": "text",
-              "value": "with the"
+              "value": "with the "
             },
             {
               "type": "entity",
@@ -64,7 +68,11 @@
             },
             {
               "type": "text",
-              "value": "being"
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "being "
             },
             {
               "type": "entity",
@@ -84,14 +92,18 @@
           "phrases": [
             {
               "type": "entity",
-              "value": "Bookings",
+              "value": "Bookings ",
               "metadata": {
                 "entityType": "metric_name"
               }
             },
             {
               "type": "text",
-              "value": "are up"
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "are up "
             },
             {
               "type": "entity",
@@ -103,11 +115,15 @@
             },
             {
               "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
               "value": "relative to the same time last quarter. "
             },
             {
               "type": "text",
-              "value": "They are up"
+              "value": "They are up "
             },
             {
               "type": "entity",
@@ -119,11 +135,15 @@
             },
             {
               "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
               "value": "relative to the same time last year. "
             },
             {
               "type": "text",
-              "value": "They are"
+              "value": "They are "
             },
             {
               "type": "entity",
@@ -134,7 +154,7 @@
             },
             {
               "type": "text",
-              "value": "("
+              "value": " ("
             },
             {
               "type": "entity",
@@ -175,7 +195,7 @@
               "phrases": [
                 {
                   "type": "text",
-                  "value": "the"
+                  "value": "the "
                 },
                 {
                   "type": "entity",
@@ -183,6 +203,10 @@
                   "metadata": {
                     "entityType": "dim_value"
                   }
+                },
+                {
+                  "type": "text",
+                  "value": " "
                 },
                 {
                   "type": "text",
@@ -275,7 +299,7 @@
                 },
                 {
                   "type": "text",
-                  "value": "("
+                  "value": " ("
                 },
                 {
                   "type": "entity",
@@ -309,7 +333,7 @@
               "phrases": [
                 {
                   "type": "text",
-                  "value": "the"
+                  "value": "the "
                 },
                 {
                   "type": "entity",
@@ -320,11 +344,15 @@
                 },
                 {
                   "type": "text",
+                  "value": " "
+                },
+                {
+                  "type": "text",
                   "value": "opportunity type"
                 },
                 {
                   "type": "text",
-                  "value": "("
+                  "value": " ("
                 },
                 {
                   "type": "entity",
@@ -360,7 +388,7 @@
           "phrases": [
             {
               "type": "text",
-              "value": "The"
+              "value": "The "
             },
             {
               "type": "entity",
@@ -386,7 +414,7 @@
             },
             {
               "type": "text",
-              "value": "is up"
+              "value": "is up "
             },
             {
               "type": "entity",
@@ -395,6 +423,10 @@
                 "entityType": "delta_value",
                 "assessment": "positive"
               }
+            },
+            {
+              "type": "text",
+              "value": " "
             },
             {
               "type": "text",
@@ -426,7 +458,7 @@
           "phrases": [
             {
               "type": "text",
-              "value": "The"
+              "value": "The "
             },
             {
               "type": "entity",
@@ -452,7 +484,7 @@
             },
             {
               "type": "text",
-              "value": "is down"
+              "value": "is down "
             },
             {
               "type": "entity",
@@ -461,6 +493,10 @@
                 "entityType": "delta_value",
                 "assessment": "negative"
               }
+            },
+            {
+              "type": "text",
+              "value": " "
             },
             {
               "type": "text",

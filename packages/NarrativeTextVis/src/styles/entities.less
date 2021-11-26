@@ -4,16 +4,15 @@
 @dim-color: #f0f0f0;
 @negative-color: #30bf78;
 @positive-color: #f4664a;
-@contribution-color: #f9f0ff;
+@contribution-color: #722ed1;
 
 .@{ntv-prefix}-value {
   display: flex;
   display: inline-block;
   align-items: center;
   box-sizing: border-box;
-  margin: 0 4px;
-  padding: 0 2px;
   color: #404040;
+  font-family: Roboto-Medium, sans-serif;
   line-height: 1.5em;
   border-radius: 2px;
 
@@ -25,8 +24,12 @@
     color: @value-color;
   }
 
+  &.@{ntv-prefix}-other-metric-value {
+    font-weight: bold;
+  }
+
   &.@{ntv-prefix}-contribute-ratio {
-    background-color: @contribution-color;
+    color: @contribution-color;
   }
 
   &.@{ntv-prefix}-value-positive {
@@ -37,9 +40,16 @@
     color: @negative-color;
   }
 
-  &.@{ntv-prefix}-trend-desc,
+  // &.@{ntv-prefix}-trend-desc {
+  // color: #000;
+  // }
+
   &.@{ntv-prefix}-dim-value {
     color: #000;
-    background-color: #e9e9e9;
+    text-decoration: underline;
+  }
+
+  &.@{ntv-prefix}-time-desc {
+    text-decoration: underline;
   }
 }
