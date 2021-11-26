@@ -3,13 +3,8 @@ import { Descriptions } from 'antd';
 import { NarrativeTextVisProps, Phrase } from '@antv/narrative-text-vis';
 
 const Design: React.FC<
-  Partial<
-    Pick<
-      NarrativeTextVisProps,
-      'detailChartDisplayType' | 'customEntityEncoding'
-    >
-  >
-> = ({ detailChartDisplayType, customEntityEncoding }) => {
+  Partial<Pick<NarrativeTextVisProps, 'customEntityEncoding'>>
+> = ({ customEntityEncoding }) => {
   return (
     <div style={{ marginBottom: 48 }}>
       <Descriptions title="Data marking specification" bordered size="small">
@@ -32,6 +27,18 @@ const Design: React.FC<
               value: '901632.11',
               metadata: {
                 entityType: 'metric_value',
+              },
+            }}
+            customEntityEncoding={customEntityEncoding}
+          />
+        </Descriptions.Item>
+        <Descriptions.Item label="Other Metric Value">
+          <Phrase
+            spec={{
+              type: 'entity',
+              value: '30%',
+              metadata: {
+                entityType: 'other_metric_value',
               },
             }}
             customEntityEncoding={customEntityEncoding}
@@ -76,7 +83,7 @@ const Design: React.FC<
             customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
-        <Descriptions.Item label="Trend">
+        <Descriptions.Item label="Trend Description">
           <Phrase
             spec={{
               type: 'entity',
@@ -89,7 +96,6 @@ const Design: React.FC<
                 ],
               },
             }}
-            detailChartDisplayType={detailChartDisplayType || 'inline'}
             customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
@@ -105,6 +111,18 @@ const Design: React.FC<
                   op: '=',
                   right: '北京',
                 },
+              },
+            }}
+            customEntityEncoding={customEntityEncoding}
+          />
+        </Descriptions.Item>
+        <Descriptions.Item label="Time Description">
+          <Phrase
+            spec={{
+              type: 'entity',
+              value: '2021-10-11',
+              metadata: {
+                entityType: 'time_desc',
               },
             }}
             customEntityEncoding={customEntityEncoding}

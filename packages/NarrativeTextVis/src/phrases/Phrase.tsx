@@ -15,9 +15,7 @@ export function Phrase<P extends DefaultCustomPhraseGeneric>({
   spec: phrase,
   customEntityEncoding,
   customPhraseRender,
-}: // TODO tooltip handler
-// detailChartDisplayType,
-PhraseProps<P>) {
+}: PhraseProps<P>) {
   if (phrase.type === 'custom') {
     return <Custom<P> phrase={phrase} customPhraseRender={customPhraseRender} />;
   }
