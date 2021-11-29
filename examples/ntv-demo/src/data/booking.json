@@ -240,7 +240,7 @@
               ],
               "subBullet": {
                 "type": "bullets",
-                "isOrder": false,
+                "isOrder": true,
                 "bullets": [
                   {
                     "type": "bullet-item",
