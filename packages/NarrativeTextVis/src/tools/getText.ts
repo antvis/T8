@@ -26,18 +26,19 @@ function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGe
 ): string {
   return spec.reduce((prev, curr) => {
     let text = '';
-    if (curr.type === 'custom' && getCustomPhraseText) {
+    if (curr.type === 'custom') {
       if (getCustomPhraseText) {
         text = getCustomPhraseText(curr);
       } else if (curr?.value) {
         text = curr.value;
       }
+    } else {
+      const phraseMeta = new PhraseParser(curr);
+      let prefix = '';
+      if (phraseMeta?.assessment === 'negative') prefix = '-';
+      if (sign && phraseMeta?.assessment === 'positive') prefix = '+';
+      text = prefix + (phraseMeta?.text || '');
     }
-    const phraseMeta = new PhraseParser(curr);
-    let prefix = '';
-    if (phraseMeta?.assessment === 'negative') prefix = '-';
-    if (sign && phraseMeta?.assessment === 'positive') prefix = '+';
-    text = prefix + (phraseMeta?.text || '');
     return prev + text;
   }, '');
 }
