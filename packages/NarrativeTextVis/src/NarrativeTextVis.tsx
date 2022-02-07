@@ -4,7 +4,7 @@ import {
   IHeadline,
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
-} from '@antv/text-schema';
+} from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
 import { Headline } from './paragraph';
 import { Section } from './section';

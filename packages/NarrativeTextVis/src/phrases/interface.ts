@@ -1,4 +1,4 @@
-import { IPhrase } from '@antv/text-schema';
+import { IPhrase } from '@antv/narrative-text-schema';
 import { CustomEntityEncoding } from '../interface';
 
 export interface BasicPhraseProps {

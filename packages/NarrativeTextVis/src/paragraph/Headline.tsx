@@ -1,5 +1,5 @@
 import React from 'react';
-import { IHeadline, DefaultCustomPhraseGeneric } from '@antv/text-schema';
+import { IHeadline, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { Phrases } from '../phrases';
 import { classnames } from '../utils/classnames';
 import { getPrefixCls } from '../utils/getPrefixCls';

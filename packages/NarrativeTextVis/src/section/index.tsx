@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISection, DefaultCustomPhraseGeneric, DefaultCustomBlockStructureGeneric } from '@antv/text-schema';
+import { ISection, DefaultCustomPhraseGeneric, DefaultCustomBlockStructureGeneric } from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
 import { classnames as cx } from '../utils/classnames';
 import { getPrefixCls } from '../utils/getPrefixCls';

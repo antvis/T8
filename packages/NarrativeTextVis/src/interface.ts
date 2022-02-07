@@ -5,7 +5,7 @@ import {
   ValueAssessment,
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
-} from '@antv/text-schema';
+} from '@antv/narrative-text-schema';
 
 export type CustomPhraseRender<P = DefaultCustomPhraseGeneric> = (phrase: ICustomPhrase<P>) => ReactNode;
 

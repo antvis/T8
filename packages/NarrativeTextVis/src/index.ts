@@ -6,4 +6,4 @@ export { Paragraph, Headline } from './paragraph';
 export { Phrase } from './phrases';
 export { ArrowUp, ArrowDown } from './assets/icons';
 export * from './tools';
-export * from '@antv/text-schema';
+export * from '@antv/narrative-text-schema';

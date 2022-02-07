@@ -1,5 +1,5 @@
 {
-  "name": "@antv/text-schema",
+  "name": "@antv/narrative-text-schema",
   "version": "0.1.5-alpha.7",
   "description": "Json schema of narrative text visualization",
   "keywords": [

@@ -1,5 +1,9 @@
 import React from 'react';
-import { IParagraph, DefaultCustomPhraseGeneric, DefaultCustomBlockStructureGeneric } from '@antv/text-schema';
+import {
+  IParagraph,
+  DefaultCustomPhraseGeneric,
+  DefaultCustomBlockStructureGeneric,
+} from '@antv/narrative-text-schema';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
 import { WithPhraseProps, WithCustomBlockElement } from '../interface';

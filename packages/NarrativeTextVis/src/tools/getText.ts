@@ -9,7 +9,7 @@ import {
   IBulletItem,
   DefaultCustomBlockStructureGeneric,
   DefaultCustomPhraseGeneric,
-} from '@antv/text-schema';
+} from '@antv/narrative-text-schema';
 import { pad } from 'lodash-es';
 import PhraseParser from '../utils/phrase-parser';
 

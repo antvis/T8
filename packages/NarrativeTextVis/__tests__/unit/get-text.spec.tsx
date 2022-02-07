@@ -1,4 +1,4 @@
-import { ITextSpec } from '@antv/text-schema';
+import { ITextSpec } from '@antv/narrative-text-schema';
 import { getNarrativeText } from '../../src/tools/getText';
 
 describe('get text', () => {
