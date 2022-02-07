@@ -1,4 +1,3 @@
-import { AntVSpec } from '@antv/antv-spec';
 import { IPhrase } from './phrase';
 import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGeneric } from './common';
 
@@ -27,5 +26,5 @@ export type IBulletItem<P extends DefaultCustomPhraseGeneric = DefaultCustomPhra
 
 interface IPlotParagraph {
   type: 'plot';
-  spec: AntVSpec;
+  spec: unknown;
 }

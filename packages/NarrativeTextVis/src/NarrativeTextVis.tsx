@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ITextSpec,
+  INarrativeTextSpec,
   IHeadline,
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
@@ -17,7 +17,7 @@ export type NarrativeTextVisProps<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = WithPhraseProps<P> &
   WithCustomBlockElement<S> & {
-    spec: ITextSpec<S, P>;
+    spec: INarrativeTextSpec<S, P>;
   };
 
 export function NarrativeTextVis<

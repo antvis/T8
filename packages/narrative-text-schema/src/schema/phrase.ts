@@ -96,5 +96,5 @@ type MetaData = {
   /**
    * detail data, 明细数据，用于弹框展示
    */
-  detail?: any;
+  detail?: unknown;
 };

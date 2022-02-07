@@ -2,7 +2,7 @@ import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGen
 import { IPhrase } from './phrase';
 import { IParagraph } from './paragraph';
 
-export type ITextSpec<
+export type INarrativeTextSpec<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = CommonProps & {
@@ -33,4 +33,4 @@ export type ISection<
  * only used for export json-schema generator
  * https://github.com/vega/ts-json-schema-generator/issues/35
  */
-export type ITextSpecGenerator = ITextSpec;
+export type ITextSpecGenerator = INarrativeTextSpec;

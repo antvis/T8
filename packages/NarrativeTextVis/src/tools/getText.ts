@@ -2,7 +2,7 @@
  * get text by spec, used for copy text
  */
 import {
-  ITextSpec,
+  INarrativeTextSpec,
   IParagraph,
   ISection,
   IPhrase,
@@ -118,7 +118,7 @@ export function getNarrativeText<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
-  spec: ITextSpec<S, P>,
+  spec: INarrativeTextSpec<S, P>,
   sign = true,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,

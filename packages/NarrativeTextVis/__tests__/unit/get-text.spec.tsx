@@ -1,9 +1,9 @@
-import { ITextSpec } from '@antv/narrative-text-schema';
+import { INarrativeTextSpec } from '@antv/narrative-text-schema';
 import { getNarrativeText } from '../../src/tools/getText';
 
 describe('get text', () => {
   it('basic narrative', () => {
-    const spec: ITextSpec = {
+    const spec: INarrativeTextSpec = {
       headline: {
         type: 'headline',
         phrases: [{ type: 'text', value: 'Heading' }],
@@ -27,7 +27,7 @@ describe('get text', () => {
   });
 
   it('narrative including custom phrase', () => {
-    const spec: ITextSpec<null, { text: string }> = {
+    const spec: INarrativeTextSpec<null, { text: string }> = {
       sections: [
         {
           paragraphs: [
