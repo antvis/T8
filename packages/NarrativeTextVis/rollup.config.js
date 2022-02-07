@@ -49,7 +49,6 @@ if (format === 'umd') {
   output.globals = {
     react: 'React',
     'react-dom': 'ReactDOM',
-    '@antv/g2plot': 'G2Plot',
   };
 } else {
   output.dir = outDir;

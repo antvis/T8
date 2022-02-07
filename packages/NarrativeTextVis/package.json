@@ -40,7 +40,6 @@
     "prepare": "yarn build"
   },
   "devDependencies": {
-    "@antv/g2plot": "^2.3.29",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^3.0.0",
@@ -76,7 +75,6 @@
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
-    "@antv/g2plot": ">=2.3.29",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   }
