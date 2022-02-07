@@ -51,7 +51,7 @@ function getBulletsText<P extends DefaultCustomPhraseGeneric = DefaultCustomPhra
 ): string {
   let text = '';
   if (spec?.phrases) {
-    text = getPhrases(spec.phrases, sign);
+    text = getPhrases(spec.phrases, sign, getCustomPhraseText);
   }
   if (spec?.subBullet) {
     text = spec.subBullet.bullets?.reduce(
@@ -124,7 +124,7 @@ export function getNarrativeText<
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
   let text = '';
-  if (spec?.headline?.phrases) text += getPhrases<P>(spec.headline.phrases, sign);
+  if (spec?.headline?.phrases) text += getPhrases<P>(spec.headline.phrases, sign, getCustomPhraseText);
   if (spec?.sections) {
     text = spec?.sections?.reduce(
       (prev, curr) =>
