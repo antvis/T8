@@ -1,0 +1,56 @@
+{
+  "name": "word-scale-chart",
+  "version": "0.1.0",
+  "description": "word-scale chart for narrative text visualization",
+  "keywords": [
+    "text",
+    "visualization",
+    "word-scale"
+  ],
+  "author": {
+    "name": "AntV",
+    "url": "https://antv.vision/"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src",
+    "esm",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antvis/T8.git"
+  },
+  "scripts": {
+    "lint": "eslint --ext .ts ./src",
+    "test": "jest",
+    "build:esm": "rimraf es && tsc --module esnext --target es2015 --outDir ./es",
+    "build:cjs": "rimraf lib && tsc --module commonjs --target es5 --outDir ./lib",
+    "build:umd": "rimraf ./dist && rollup -c",
+    "build": "run-p build:cjs build:esm build:umd",
+    "watch:esm": "yarn build:esm --w",
+    "watch:cjs": "yarn build:cjs --w",
+    "clean": "rimraf node_modules & yarn clean:build",
+    "clean:build": "rimraf dist es lib build",
+    "prepare": "yarn build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "jest": "^27.0.6",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.55.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {}
+}
