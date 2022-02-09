@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  ITextSpec,
+  INarrativeTextSpec,
   IHeadline,
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
-} from '@antv/text-schema';
+} from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
 import { Headline } from './paragraph';
 import { Section } from './section';
@@ -17,7 +17,7 @@ export type NarrativeTextVisProps<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = WithPhraseProps<P> &
   WithCustomBlockElement<S> & {
-    spec: ITextSpec<S, P>;
+    spec: INarrativeTextSpec<S, P>;
   };
 
 export function NarrativeTextVis<

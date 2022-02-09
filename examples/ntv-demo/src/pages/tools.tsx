@@ -3,7 +3,7 @@ import { CopyOutlined } from '@ant-design/icons';
 import {
   NarrativeTextVis,
   getNarrativeText,
-  ITextSpec,
+  INarrativeTextSpec,
 } from '@antv/narrative-text-vis';
 import copy from 'copy-to-clipboard';
 import AnchorLayout from '../components/AnchorLayout';
@@ -17,12 +17,12 @@ export default function EventPage() {
   return (
     <AnchorLayout anchorLinks={anchors}>
       <ContentBlock id={anchors[0].id} title={anchors[0].title}>
-        <NarrativeTextVis spec={booking as ITextSpec} />
+        <NarrativeTextVis spec={booking as INarrativeTextSpec} />
         <Button
           type="primary"
           icon={<CopyOutlined />}
           onClick={() => {
-            const r = copy(getNarrativeText(booking as ITextSpec));
+            const r = copy(getNarrativeText(booking as INarrativeTextSpec));
             if (r) {
               message.success('copy success!');
             }

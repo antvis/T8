@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/text-schema';
+import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { isEmpty } from 'lodash-es';
 import { usePhraseParser } from './usePhraseParser';
 import { Custom } from './Custom';

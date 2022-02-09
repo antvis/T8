@@ -1,5 +1,5 @@
 import React, { ReactNode, CSSProperties } from 'react';
-import { IPhrase, ValueAssessment, IEntityType } from '@antv/text-schema';
+import { IPhrase, ValueAssessment, IEntityType } from '@antv/narrative-text-schema';
 import { get, kebabCase } from 'lodash-es';
 import { ArrowDown, ArrowUp } from '../assets/icons';
 import { getPrefixCls } from './getPrefixCls';

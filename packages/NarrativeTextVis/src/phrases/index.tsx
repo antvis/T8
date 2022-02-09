@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/text-schema';
+import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { Phrase } from './Phrase';
 import { WithPhraseProps } from '../interface';
 

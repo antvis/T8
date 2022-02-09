@@ -4,7 +4,7 @@ import { UpCircleFilled, DownCircleFilled } from '@ant-design/icons';
 import {
   NarrativeTextVis,
   Section,
-  ITextSpec,
+  INarrativeTextSpec,
   ICustomPhrase,
   DefaultBlockStructure as S,
   NarrativeTextVisProps,
@@ -71,7 +71,7 @@ const modalShowDetailRender = (phrase: ICustomPhrase<ModalShowDetailMeta>) => {
   return null;
 };
 
-type CustomNarrative = ITextSpec<CustomBlock, ModalShowDetailMeta>;
+type CustomNarrative = INarrativeTextSpec<CustomBlock, ModalShowDetailMeta>;
 
 const extendBooking: CustomNarrative = {
   headline: (booking as CustomNarrative).headline,
@@ -252,7 +252,7 @@ export default function CustomPage() {
         </Form>
 
         <NarrativeTextVis
-          spec={booking as ITextSpec}
+          spec={booking as INarrativeTextSpec}
           customEntityEncoding={customEntityEncoding}
         />
         <HighlightCode

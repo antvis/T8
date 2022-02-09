@@ -2,14 +2,14 @@
  * get text by spec, used for copy text
  */
 import {
-  ITextSpec,
+  INarrativeTextSpec,
   IParagraph,
   ISection,
   IPhrase,
   IBulletItem,
   DefaultCustomBlockStructureGeneric,
   DefaultCustomPhraseGeneric,
-} from '@antv/text-schema';
+} from '@antv/narrative-text-schema';
 import { pad } from 'lodash-es';
 import PhraseParser from '../utils/phrase-parser';
 
@@ -26,18 +26,19 @@ function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGe
 ): string {
   return spec.reduce((prev, curr) => {
     let text = '';
-    if (curr.type === 'custom' && getCustomPhraseText) {
+    if (curr.type === 'custom') {
       if (getCustomPhraseText) {
         text = getCustomPhraseText(curr);
       } else if (curr?.value) {
         text = curr.value;
       }
+    } else {
+      const phraseMeta = new PhraseParser(curr);
+      let prefix = '';
+      if (phraseMeta?.assessment === 'negative') prefix = '-';
+      if (sign && phraseMeta?.assessment === 'positive') prefix = '+';
+      text = prefix + (phraseMeta?.text || '');
     }
-    const phraseMeta = new PhraseParser(curr);
-    let prefix = '';
-    if (phraseMeta?.assessment === 'negative') prefix = '-';
-    if (sign && phraseMeta?.assessment === 'positive') prefix = '+';
-    text = prefix + (phraseMeta?.text || '');
     return prev + text;
   }, '');
 }
@@ -50,7 +51,7 @@ function getBulletsText<P extends DefaultCustomPhraseGeneric = DefaultCustomPhra
 ): string {
   let text = '';
   if (spec?.phrases) {
-    text = getPhrases(spec.phrases, sign);
+    text = getPhrases(spec.phrases, sign, getCustomPhraseText);
   }
   if (spec?.subBullet) {
     text = spec.subBullet.bullets?.reduce(
@@ -117,13 +118,13 @@ export function getNarrativeText<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
-  spec: ITextSpec<S, P>,
+  spec: INarrativeTextSpec<S, P>,
   sign = true,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
   let text = '';
-  if (spec?.headline?.phrases) text += getPhrases<P>(spec.headline.phrases, sign);
+  if (spec?.headline?.phrases) text += getPhrases<P>(spec.headline.phrases, sign, getCustomPhraseText);
   if (spec?.sections) {
     text = spec?.sections?.reduce(
       (prev, curr) =>
