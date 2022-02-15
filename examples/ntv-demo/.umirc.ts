@@ -52,6 +52,12 @@ export default defineConfig({
       icon: 'tool',
       component: '@/pages/tools',
     },
+    {
+      path: '/ws-chart',
+      name: 'Word Scale Charts',
+      icon: 'pieChart',
+      component: '@/pages/ws-chart',
+    },
   ],
   favicon: logoUrl,
   fastRefresh: {},

@@ -1,37 +1,15 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import { IPhrase, ValueAssessment, IEntityType } from '@antv/narrative-text-schema';
 import { get, kebabCase } from 'lodash-es';
-import { ArrowDown, ArrowUp } from '../assets/icons';
 import { getPrefixCls } from './getPrefixCls';
+import { ProportionPieChart } from '../charts';
+import { ArrowDown, ArrowUp } from '../assets/icons';
 import { CustomEntityEncoding, EncodingChannels } from '../interface';
 import { ASSESSMENT_TYPE } from '../constance';
 
 /** text & entity */
 type PhraseType = 'text' | IEntityType | null;
-
-function getDefaultPrefix(type: PhraseType, assessment: ValueAssessment): ReactNode {
-  switch (type) {
-    case 'delta_value':
-      return assessment === 'positive' ? '+' : assessment === 'negative' ? '-' : '';
-    case 'ratio_value':
-      return assessment === 'positive' ? <ArrowUp /> : assessment === 'negative' ? <ArrowDown /> : '';
-    default:
-      return '';
-  }
-}
-
-function getNode(
-  position: 'prefix' | 'suffix',
-  encoding: EncodingChannels,
-  assessment?: ValueAssessment,
-  defaultNode: ReactNode = '',
-): ReactNode {
-  if (assessment) {
-    const assessmentChannel = get(encoding, ['assessment', assessment, position]);
-    if (assessmentChannel) return assessmentChannel;
-  }
-  return get(encoding, position, defaultNode);
-}
+const isNaN = (v: unknown) => Number.isNaN(v);
 
 /**
  * meta info of phrase, including encoding channels
@@ -60,6 +38,8 @@ class PhraseParser {
   private Prefix?: ReactNode;
   /** encoding suffix */
   private Suffix?: ReactNode;
+  /** inline word scale chart */
+  private Chart?: ReactNode;
 
   constructor(phrase: IPhrase, entityEncoding?: CustomEntityEncoding) {
     this.phrase = phrase;
@@ -71,6 +51,7 @@ class PhraseParser {
     this.encodingStyles = this.getEncodingStyles();
     this.Prefix = this.getPrefix();
     this.Suffix = this.getSuffix();
+    this.Chart = this.getChart();
   }
 
   private getType(): PhraseType {
@@ -140,12 +121,20 @@ class PhraseParser {
     return getNode('suffix', this.customEntityEncoding[this.type], this.assessment);
   }
 
+  private getChart(): ReactNode {
+    if (this.phrase.type === 'entity' && this.type === 'proportion') {
+      return <ProportionPieChart data={getProportionNumber(this.text, this.phrase?.metadata.detail as number)} />;
+    }
+    return '';
+  }
+
   public get Content(): ReactNode {
     return (
       <>
         {this.Prefix ? <span style={{ marginRight: 2 }}>{this.Prefix}</span> : null}
         {this.text}
         {this.Suffix}
+        {this.Chart}
       </>
     );
   }
@@ -156,6 +145,39 @@ class PhraseParser {
   //   }
   //   return null;
   // }
+}
+
+function getDefaultPrefix(type: PhraseType, assessment: ValueAssessment): ReactNode {
+  switch (type) {
+    case 'delta_value':
+      return assessment === 'positive' ? '+' : assessment === 'negative' ? '-' : '';
+    case 'ratio_value':
+      return assessment === 'positive' ? <ArrowUp /> : assessment === 'negative' ? <ArrowDown /> : '';
+    default:
+      return '';
+  }
+}
+
+function getNode(
+  position: 'prefix' | 'suffix',
+  encoding: EncodingChannels,
+  assessment?: ValueAssessment,
+  defaultNode: ReactNode = '',
+): ReactNode {
+  if (assessment) {
+    const assessmentChannel = get(encoding, ['assessment', assessment, position]);
+    if (assessmentChannel) return assessmentChannel;
+  }
+  return get(encoding, position, defaultNode);
+}
+
+function getProportionNumber(text: string, value?: number | undefined): number {
+  if (value && !isNaN(value)) return value;
+  if (text?.endsWith('%')) {
+    const percentageValue = text?.replace(/%$/, '');
+    if (!isNaN(Number(percentageValue))) return Number(percentageValue) / 100;
+  }
+  return NaN;
 }
 
 export default PhraseParser;

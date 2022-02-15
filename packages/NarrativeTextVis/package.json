@@ -71,6 +71,7 @@
   },
   "dependencies": {
     "@antv/narrative-text-schema": "^0.1.5-alpha.7",
+    "@antv/word-scale-chart": "^0.1.0",
     "lodash-es": "^4.17.21",
     "uuid": "^8.3.2"
   },

@@ -75,6 +75,11 @@ export const EntityType = [
    * @example 2021-11-19
    * */
   'time_desc',
+  /**
+   * @description proportion 占比
+   * @example 20%
+   * */
+  'proportion',
 ] as const;
 
 export type IEntityType = typeof EntityType[number];
