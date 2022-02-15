@@ -1,5 +1,5 @@
 {
-  "name": "word-scale-chart",
+  "name": "@antv/word-scale-chart",
   "version": "0.1.0",
   "description": "word-scale chart for narrative text visualization",
   "keywords": [
@@ -42,6 +42,7 @@
     "prepare": "yarn build"
   },
   "devDependencies": {
+    "@types/d3-selection": "^3.0.2",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-typescript": "^8.2.5",
@@ -52,5 +53,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.3.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "d3-selection": "^3.0.0"
+  }
 }

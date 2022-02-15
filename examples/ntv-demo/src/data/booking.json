@@ -259,7 +259,14 @@
                           "phrases": [
                             {
                               "type": "text",
-                              "value": "sub node 1.1"
+                              "value": "sub node 1.1, the proportion percentage is "
+                            },
+                            {
+                              "type": "entity",
+                              "value": "45%",
+                              "metadata": {
+                                "entityType": "proportion"
+                              }
                             }
                           ]
                         },
@@ -268,7 +275,14 @@
                           "phrases": [
                             {
                               "type": "text",
-                              "value": "sub node 1.2"
+                              "value": "sub node 1.2, the proportion percentage is "
+                            },
+                            {
+                              "type": "entity",
+                              "value": "65%",
+                              "metadata": {
+                                "entityType": "proportion"
+                              }
                             }
                           ]
                         }

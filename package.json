@@ -36,11 +36,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.17.2",
+    "@babel/preset-env": "^7.16.11",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
+    "babel-jest": "^27.5.1",
     "concurrently": "^6.2.0",
     "devmoji": "^2.3.0",
     "eslint": "^7.2.0",

@@ -1,2 +1,1 @@
-// temp export
-export const foo = 'foo';
+export { ProportionPie } from './proportion-pie';

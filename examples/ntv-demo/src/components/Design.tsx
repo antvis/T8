@@ -128,6 +128,18 @@ const Design: React.FC<
             customEntityEncoding={customEntityEncoding}
           />
         </Descriptions.Item>
+        <Descriptions.Item label="Proportion">
+          <Phrase
+            spec={{
+              type: 'entity',
+              value: '30%',
+              metadata: {
+                entityType: 'proportion',
+              },
+            }}
+            customEntityEncoding={customEntityEncoding}
+          />
+        </Descriptions.Item>
       </Descriptions>
     </div>
   );

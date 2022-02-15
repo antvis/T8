@@ -5,5 +5,6 @@ export { Section } from './section';
 export { Paragraph, Headline } from './paragraph';
 export { Phrase } from './phrases';
 export { ArrowUp, ArrowDown } from './assets/icons';
+export * from './charts';
 export * from './tools';
 export * from '@antv/narrative-text-schema';
