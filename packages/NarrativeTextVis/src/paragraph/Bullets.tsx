@@ -17,7 +17,7 @@ export function Bullets<P extends DefaultCustomPhraseGeneric>({
 }: BulletsProps<P>) {
   if (spec.type === 'bullets') {
     const children = spec.bullets?.map((bullet) => (
-      <li className={getPrefixCls('li')} key={v4()} style={spec.styles}>
+      <li className={getPrefixCls('li')} key={v4()} style={bullet.styles}>
         <Phrases<P>
           spec={bullet.phrases}
           customPhraseRender={customPhraseRender}
