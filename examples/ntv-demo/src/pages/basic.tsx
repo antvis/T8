@@ -55,12 +55,30 @@ export default function BasicPage() {
                   {
                     type: 'bullet-item',
                     phrases: [{ type: 'text', value: 'Bullet one' }],
+                    subBullet: {
+                      type: 'bullets',
+                      isOrder: true,
+                      bullets: [
+                        {
+                          type: 'bullet-item',
+                          phrases: [{ type: 'text', value: 'sub bullet 1.1' }],
+                        },
+                        {
+                          type: 'bullet-item',
+                          phrases: [{ type: 'text', value: 'sub bullet 1.2' }],
+                        },
+                      ],
+                    },
                   },
                   {
                     type: 'bullet-item',
                     phrases: [{ type: 'text', value: 'Bullet two' }],
                   },
                 ],
+              },
+              {
+                type: 'normal',
+                phrases: [{ type: 'text', value: 'Normal Paragraph 2' }],
               },
             ],
           }}

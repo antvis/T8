@@ -1,3 +1,4 @@
+// import less make rollup handle it
 import './styles/index.less';
 
 export { NarrativeTextVis, NarrativeTextVisProps } from './NarrativeTextVis';
