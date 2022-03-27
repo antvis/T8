@@ -1,4 +1,4 @@
-@font-color: #505659;
+@import './var.less';
 
 .@{ntv-prefix}-container {
   font-family: PingFangSC-Regular, sans-serif;
@@ -9,8 +9,8 @@
 
   p,
   li {
-    color: @font-color;
-    font-size: 15px;
+    color: @ntv-font-color;
+    font-size: @ntv-font-size;
     font-family: PingFangSC-Regular, sans-serif;
     line-height: 1.8em;
   }
@@ -54,5 +54,11 @@
 .@{ntv-prefix}-p,
 .@{ntv-prefix}-ul,
 .@{ntv-prefix}-ol {
+  color: @ntv-font-color;
+  font-size: @ntv-font-size;
   font-family: PingFangSC-Regular, sans-serif;
+
+  li {
+    font-size: @ntv-font-size;
+  }
 }

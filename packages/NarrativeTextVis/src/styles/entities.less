@@ -1,10 +1,4 @@
-// default channel encodings
-
-@value-color: #2797fe;
-@dim-color: #f0f0f0;
-@negative-color: #30bf78;
-@positive-color: #f4664a;
-@contribution-color: #722ed1;
+@import './var.less';
 
 .@{ntv-prefix}-value {
   display: flex;
@@ -12,6 +6,7 @@
   align-items: center;
   box-sizing: border-box;
   color: #404040;
+  font-size: @ntv-font-size;
   font-family: Roboto-Medium, sans-serif;
   line-height: 1.5em;
   border-radius: 2px;
@@ -21,7 +16,7 @@
   }
 
   &.@{ntv-prefix}-metric-value {
-    color: @value-color;
+    color: @ntv-value-color;
   }
 
   &.@{ntv-prefix}-other-metric-value {
@@ -29,20 +24,16 @@
   }
 
   &.@{ntv-prefix}-contribute-ratio {
-    color: @contribution-color;
+    color: @ntv-contribution-color;
   }
 
   &.@{ntv-prefix}-value-positive {
-    color: @positive-color;
+    color: @ntv-positive-color;
   }
 
   &.@{ntv-prefix}-value-negative {
-    color: @negative-color;
+    color: @ntv-negative-color;
   }
-
-  // &.@{ntv-prefix}-trend-desc {
-  // color: #000;
-  // }
 
   &.@{ntv-prefix}-dim-value {
     color: #000;
