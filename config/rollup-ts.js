@@ -3,14 +3,14 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 
-export default (name, output = {}, extraPlugins = []) => ({
+export default (name, { plugins = [], ...others } = {}) => ({
   input: './src/index.ts',
   output: {
     file: `./dist/${name}.min.js`,
     format: 'umd',
     sourcemap: false,
     name,
-    ...output,
   },
-  plugins: [resolve(), commonjs(), typescript(), terser(), ...extraPlugins],
+  plugins: [resolve(), commonjs(), typescript(), terser(), ...plugins],
+  ...others,
 });
