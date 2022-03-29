@@ -47,7 +47,7 @@
     "@rollup/plugin-typescript": "^8.2.5",
     "@types/enzyme": "^3.10.9",
     "@types/jest": "^26.0.24",
-    "@types/lodash-es": "^4.17.5",
+    "@types/lodash": "^4.14.180",
     "@types/numeral": "^2.0.1",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
@@ -69,7 +69,7 @@
   "dependencies": {
     "@antv/narrative-text-schema": "^0.1.5",
     "@antv/word-scale-chart": "^0.1.1",
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.17.21",
     "uuid": "^8.3.2"
   },
   "peerDependencies": {

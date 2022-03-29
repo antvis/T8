@@ -1,6 +1,6 @@
 import React from 'react';
 import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
-import { isEmpty } from 'lodash-es';
+import { isEmpty } from 'lodash';
 import { usePhraseParser } from './usePhraseParser';
 import { Custom } from './Custom';
 import { classnames as cx } from '../utils/classnames';

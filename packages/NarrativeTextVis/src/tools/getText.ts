@@ -10,7 +10,7 @@ import {
   DefaultCustomBlockStructureGeneric,
   DefaultCustomPhraseGeneric,
 } from '@antv/narrative-text-schema';
-import { pad } from 'lodash-es';
+import { pad } from 'lodash';
 import PhraseParser from '../utils/phrase-parser';
 
 type GetCustomStructureTextFun<S extends DefaultCustomBlockStructureGeneric = null> = (spec: S) => string;

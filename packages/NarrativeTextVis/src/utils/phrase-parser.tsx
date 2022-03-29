@@ -1,6 +1,6 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import { IPhrase, ValueAssessment, IEntityType } from '@antv/narrative-text-schema';
-import { get, kebabCase } from 'lodash-es';
+import { get, kebabCase } from 'lodash';
 import { getPrefixCls } from './getPrefixCls';
 import { ProportionPieChart } from '../charts';
 import { ArrowDown, ArrowUp } from '../assets/icons';

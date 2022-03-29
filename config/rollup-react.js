@@ -6,6 +6,7 @@ import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 import filesize from 'rollup-plugin-filesize';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import optimizeLodashImports from 'rollup-plugin-optimize-lodash-imports';
 import { kebabCase } from 'lodash';
 
 /**
@@ -34,6 +35,7 @@ export default (name, config = {}) => {
 
   const plugins = [
     peerDepsExternal(),
+    optimizeLodashImports(),
     typescript({
       outDir,
     }),

@@ -6,7 +6,4 @@ module.exports = {
   displayName: 'narrative-text-vis',
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
   testEnvironment: 'jsdom',
-  moduleNameMapper: {
-    '^lodash-es$': 'lodash',
-  },
 };
