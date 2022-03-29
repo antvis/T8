@@ -1,0 +1,75 @@
+{
+  "name": "@antv/narrative-text-editor",
+  "version": "0.1.0",
+  "description": "React component of narrative text editor",
+  "keywords": [
+    "react component",
+    "rich text editor",
+    "narrative text"
+  ],
+  "author": {
+    "name": "AntV",
+    "url": "https://antv.vision/"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/src/index.d.ts",
+  "unpkg": "dist/narrative-text-editor.min.js",
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "test": "jest",
+    "build:esm": "rimraf es && FORMAT=esm rollup -c",
+    "build:cjs": "rimraf lib && FORMAT=cjs rollup -c",
+    "build:umd": "rimraf dist && FORMAT=umd rollup -c",
+    "build": "run-s build:cjs build:esm build:umd",
+    "watch:esm": "rimraf es && FORMAT=esm rollup -c -w",
+    "watch:cjs": "rimraf lib && FORMAT=cjs rollup -c -w",
+    "clean:build": "rimraf dist es lib",
+    "clean:coverage": "rimraf coverage",
+    "clean": "rimraf node_modules && npm run clean:build && npm run clean:coverage",
+    "prepare": "yarn build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@types/jest": "^26.0.24",
+    "@types/lodash": "^4.14.180",
+    "@types/numeral": "^2.0.1",
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.9",
+    "@types/uuid": "^8.3.1",
+    "jest": "^27.0.6",
+    "jest-environment-jsdom": "^27.2.5",
+    "less": "^4.1.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.55.1",
+    "rollup-plugin-postcss": "^4.0.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@antv/narrative-text-schema": "^0.1.5",
+    "@antv/word-scale-chart": "^0.1.1",
+    "lodash": "^4.17.21",
+    "uuid": "^8.3.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  }
+}
