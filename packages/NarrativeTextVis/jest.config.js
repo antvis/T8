@@ -1,4 +1,4 @@
-const base = require('../../jest.config.base.js');
+const base = require('../../config/jest.js');
 
 module.exports = {
   ...base,
@@ -6,7 +6,4 @@ module.exports = {
   displayName: 'narrative-text-vis',
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
   testEnvironment: 'jsdom',
-  moduleNameMapper: {
-    '^lodash-es$': 'lodash',
-  },
 };

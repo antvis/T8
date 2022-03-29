@@ -1,5 +1,5 @@
 import React from 'react';
-import { isFunction } from 'lodash-es';
+import { isFunction } from 'lodash';
 import { ICustomPhrase, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { CustomPhraseRender } from '../interface';
 
