@@ -2,8 +2,6 @@ import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
-import postcss from 'rollup-plugin-postcss';
-import autoprefixer from 'autoprefixer';
 import filesize from 'rollup-plugin-filesize';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import optimizeLodashImports from 'rollup-plugin-optimize-lodash-imports';
@@ -41,14 +39,6 @@ export default (name, config = {}) => {
     }),
     commonjs(),
     resolve(),
-    postcss({
-      minimize: true,
-      sourceMap: false,
-      extensions: ['.less', '.css'],
-      use: [['less', { javascriptEnabled: true }]],
-      plugins: [autoprefixer],
-      extract: 'index.css',
-    }),
     filesize(),
   ];
 

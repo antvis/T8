@@ -49,7 +49,6 @@
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
-    "autoprefixer": "^10.4.4",
     "babel-jest": "^27.5.1",
     "concurrently": "^6.2.0",
     "devmoji": "^2.3.0",
@@ -62,7 +61,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "husky": "^7.0.0",
     "jest": "^27.0.6",
     "jest-extended": "^0.11.5",
@@ -72,10 +71,10 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
+    "rollup": "^2.55.1",
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-optimize-lodash-imports": "^1.0.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
@@ -84,6 +83,7 @@
     "stylelint-declaration-block-no-ignored-properties": "^2.4.0",
     "stylelint-order": "^4.1.0",
     "typescript": "^4.3.5",
+    "tslib": "^2.3.1",
     "ts-jest": "^27.0.4"
   }
 }
