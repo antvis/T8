@@ -1,1 +1,2 @@
-export default 'editor';
+export { NarrativeTextEditor } from './editor';
+export type { NarrativeTextEditorProps } from './types';

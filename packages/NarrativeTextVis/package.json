@@ -37,8 +37,7 @@
     "watch:cjs": "rimraf lib && FORMAT=cjs rollup -c -w",
     "clean:build": "rimraf dist es lib",
     "clean:coverage": "rimraf coverage",
-    "clean": "rimraf node_modules && npm run clean:build && npm run clean:coverage",
-    "prepare": "yarn build"
+    "clean": "rimraf node_modules && npm run clean:build && npm run clean:coverage"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.9",

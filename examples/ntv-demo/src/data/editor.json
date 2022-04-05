@@ -1,0 +1,1351 @@
+[
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "💅 Marks"
+      }
+    ],
+    "id": 10000
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "💧 Basic Marks"
+      }
+    ],
+    "id": 10001
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "The basic marks consist of text formatting such as bold, italic, underline, strikethrough, subscript, superscript, and code."
+      }
+    ],
+    "id": 10002
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "You can customize the type, the component and the hotkey for each of these."
+      }
+    ],
+    "id": 10003
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text is bold.",
+        "bold": true
+      }
+    ],
+    "id": 10004
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text is italic.",
+        "italic": true
+      }
+    ],
+    "id": 10005
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text is underlined.",
+        "underline": true
+      }
+    ],
+    "id": 10006
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text is bold, italic and underlined.",
+        "bold": true,
+        "italic": true,
+        "underline": true
+      }
+    ],
+    "id": 10007
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This is a strikethrough text.",
+        "strikethrough": true
+      }
+    ],
+    "id": 10008
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This is an inline code.",
+        "code": true
+      }
+    ],
+    "id": 10009
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text has white color, black background and a custom font size.",
+        "color": "white",
+        "backgroundColor": "black",
+        "fontSize": "30px"
+      }
+    ],
+    "id": 10010
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text has a custom color used for text and background.",
+        "color": "grey",
+        "backgroundColor": "green"
+      }
+    ],
+    "id": 10011
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text has "
+      },
+      {
+        "text": " ",
+        "backgroundColor": "#dc3735"
+      },
+      {
+        "text": "m",
+        "color": "white",
+        "backgroundColor": "#df4538"
+      },
+      {
+        "text": "u",
+        "color": "white",
+        "backgroundColor": "#e2533a"
+      },
+      {
+        "text": "l",
+        "color": "white",
+        "backgroundColor": "#e6603d"
+      },
+      {
+        "text": "t",
+        "color": "white",
+        "backgroundColor": "#e96f40"
+      },
+      {
+        "text": "i",
+        "color": "white",
+        "backgroundColor": "#ec7d43"
+      },
+      {
+        "text": "p",
+        "color": "white",
+        "backgroundColor": "#ef8a45"
+      },
+      {
+        "text": "l",
+        "color": "white",
+        "backgroundColor": "#f29948"
+      },
+      {
+        "text": "e",
+        "color": "white",
+        "backgroundColor": "#f5a74b"
+      },
+      {
+        "text": " ",
+        "backgroundColor": "#f9b44e"
+      },
+      {
+        "text": "f",
+        "color": "#ff0000"
+      },
+      {
+        "text": "o",
+        "color": "#ff3333"
+      },
+      {
+        "text": "n",
+        "color": "#ff6666"
+      },
+      {
+        "text": "t",
+        "color": "#ff9999"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "c",
+        "color": "#ffcccc"
+      },
+      {
+        "text": "o",
+        "color": "#ffcccc"
+      },
+      {
+        "text": "l",
+        "color": "#ccffcc"
+      },
+      {
+        "text": "o",
+        "color": "#99ff99"
+      },
+      {
+        "text": "r",
+        "color": "#66ff66"
+      },
+      {
+        "text": "s",
+        "color": "#33ff33"
+      },
+      {
+        "text": "and "
+      },
+      {
+        "text": "font",
+        "backgroundColor": "#a58ce1"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "background",
+        "backgroundColor": "#99cc62"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "colors",
+        "backgroundColor": "#e45260"
+      },
+      {
+        "text": "."
+      }
+    ],
+    "id": 10012
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This text is bold, italic, underlined and colored.",
+        "bold": true,
+        "italic": true,
+        "underline": true,
+        "color": "#f92672"
+      }
+    ],
+    "id": 10013
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "🧱 Elements"
+      }
+    ],
+    "id": 10014
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "🔥 Basic Elements"
+      }
+    ],
+    "id": 10015
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "These are the most common elements, known as blocks:"
+      }
+    ],
+    "id": 10016
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "Heading 1"
+      }
+    ],
+    "id": 10017
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "Heading 2"
+      }
+    ],
+    "id": 10018
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "Heading 3"
+      }
+    ],
+    "id": 10019
+  },
+  {
+    "type": "h4",
+    "children": [
+      {
+        "text": "Heading 4"
+      }
+    ],
+    "id": 10020
+  },
+  {
+    "type": "h5",
+    "children": [
+      {
+        "text": "Heading 5"
+      }
+    ],
+    "id": 10021
+  },
+  {
+    "type": "h6",
+    "children": [
+      {
+        "text": "Heading 6"
+      }
+    ],
+    "id": 10022
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "text": "Blockquote"
+      }
+    ],
+    "id": 10023
+  },
+  {
+    "type": "code_block",
+    "lang": "javascript",
+    "children": [
+      {
+        "type": "code_line",
+        "children": [
+          {
+            "text": "const a = 'Hello';"
+          }
+        ]
+      },
+      {
+        "type": "code_line",
+        "children": [
+          {
+            "text": "const b = 'World';"
+          }
+        ]
+      }
+    ],
+    "id": 10024
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This is a paragraph."
+      }
+    ],
+    "id": 10025
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": 10026
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "And this is another paragraph."
+      }
+    ],
+    "id": 10027
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": 10028
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "But between those paragraphs are horizontal rules."
+      }
+    ],
+    "id": 10029
+  },
+  {
+    "type": "h1",
+    "align": "right",
+    "children": [
+      {
+        "text": "Alignment"
+      }
+    ],
+    "id": 10030
+  },
+  {
+    "type": "p",
+    "align": "right",
+    "children": [
+      {
+        "text": "This block text is aligned to the right. Mollitia sed quia nisi. Dolor quisquam reprehenderit omnis dolore provident. Explicabo pariatur aut maiores. Nesciunt similique et. Sunt porro rerum qui eum molestiae voluptatibus libero non. Et minima molestias blanditiis repellat et impedit voluptatem autem dolor."
+      }
+    ],
+    "id": 10031
+  },
+  {
+    "type": "h2",
+    "align": "center",
+    "children": [
+      {
+        "text": "Center"
+      }
+    ],
+    "id": 10032
+  },
+  {
+    "type": "p",
+    "align": "justify",
+    "children": [
+      {
+        "text": "This block text is justified. Et velit id praesentium perspiciatis omnis voluptas officia. Cupiditate facere delectus ex et quia. Numquam non qui velit aut dolorem dolorum nihil. Illum est eligendi eius. Error beatae quia ut sequi fugiat dolores eligendi ea. Laudantium commodi impedit."
+      }
+    ],
+    "id": 10033
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "Changing block indentation"
+      }
+    ],
+    "id": 10034
+  },
+  {
+    "type": "p",
+    "indent": 1,
+    "children": [
+      {
+        "text": "Use the toolbar buttons to control the indentation of specific blocks. You can use these tools to highlight an important piece of information, communicate a hierarchy or just give your content some room."
+      }
+    ],
+    "id": 10035
+  },
+  {
+    "type": "p",
+    "indent": 2,
+    "children": [
+      {
+        "text": "For instance, this paragraph looks like it belongs to the previous one."
+      }
+    ],
+    "id": 10036
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "✍️ List"
+      }
+    ],
+    "id": 10037
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": 10038
+  },
+  {
+    "type": "ul",
+    "children": [
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Bulleted list"
+              }
+            ]
+          },
+          {
+            "type": "ul",
+            "children": [
+              {
+                "type": "li",
+                "children": [
+                  {
+                    "type": "lic",
+                    "children": [
+                      {
+                        "text": "support"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "ul",
+                    "children": [
+                      {
+                        "type": "li",
+                        "children": [
+                          {
+                            "type": "lic",
+                            "children": [
+                              {
+                                "text": "a"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "li",
+                "children": [
+                  {
+                    "type": "lic",
+                    "children": [
+                      {
+                        "text": "nesting"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "ul",
+                    "children": [
+                      {
+                        "type": "li",
+                        "children": [
+                          {
+                            "type": "lic",
+                            "children": [
+                              {
+                                "text": "b"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "c"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 10039
+  },
+  {
+    "type": "ol",
+    "children": [
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Numbered list'"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 10040
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "🔗 Link"
+      }
+    ],
+    "id": 10041
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "In addition to block nodes, you can create inline nodes, like "
+      },
+      {
+        "type": "a",
+        "url": "https://en.wikipedia.org/wiki/Hypertext",
+        "children": [
+          {
+            "text": "hyperlinks"
+          }
+        ]
+      },
+      {
+        "text": "!"
+      }
+    ],
+    "id": 10042
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This example shows hyperlinks in action. It features two ways to add links. You can either add a link via the toolbar icon above, or if you want in on a little secret, copy a URL to your keyboard and paste it while a range of text is selected."
+      }
+    ],
+    "id": 10043
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "📷 Image"
+      }
+    ],
+    "id": 10044
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "In addition to nodes that contain editable text, you can also create other types of nodes, like images or videos."
+      }
+    ],
+    "id": 10045
+  },
+  {
+    "type": "img",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "url": "https://source.unsplash.com/kFrdX5IeQzI",
+    "width": "75%",
+    "id": 10046
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "This example shows images in action. It features two ways to add images. You can either add an image via the toolbar icon above, or if you want in on a little secret, copy an image URL to your keyboard and paste it anywhere in the editor! Additionally, you can customize the toolbar button to load an url asynchronously, for example showing a file picker and uploading a file to Amazon S3. You can also add a caption and resize the image."
+      }
+    ],
+    "id": 10047
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "🏃‍♀️ Autoformat"
+      }
+    ],
+    "id": 10048
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "The editor gives you full control over the logic you can add. For example, it's fairly common to want to add markdown-like shortcuts to editors."
+      }
+    ],
+    "id": 10049
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "While typing, try these (mark rules):"
+      }
+    ],
+    "id": 10050
+  },
+  {
+    "type": "ul",
+    "children": [
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "**",
+                "code": true
+              },
+              {
+                "text": " or "
+              },
+              {
+                "text": "__",
+                "code": true
+              },
+              {
+                "text": " on either side of your text to add **bold* mark."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "*",
+                "code": true
+              },
+              {
+                "text": " or "
+              },
+              {
+                "text": "_",
+                "code": true
+              },
+              {
+                "text": " on either side of your text to add *italic mark."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "`",
+                "code": true
+              },
+              {
+                "text": " on either side of your text to add `inline code mark."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "~~",
+                "code": true
+              },
+              {
+                "text": " on either side of your text to add ~~strikethrough~ mark."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Note that nothing happens when there is a character before, try on:*bold"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "We even support smart quotes, try typing "
+              },
+              {
+                "text": "\"hello\" 'world'",
+                "code": true
+              },
+              {
+                "text": "."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 10051
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "At the beginning of any new block or existing block, try these (block rules):"
+      }
+    ],
+    "id": 10052
+  },
+  {
+    "type": "ul",
+    "children": [
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "*",
+                "code": true
+              },
+              {
+                "text": ", "
+              },
+              {
+                "text": "-",
+                "code": true
+              },
+              {
+                "text": " or "
+              },
+              {
+                "text": "+",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create a bulleted list."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "1.",
+                "code": true
+              },
+              {
+                "text": " or "
+              },
+              {
+                "text": "1)",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create a numbered list."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": ">",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create a block quote."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "```",
+                "code": true
+              },
+              {
+                "text": " to create a code block."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "---",
+                "code": true
+              },
+              {
+                "text": " to create a horizontal rule."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "#",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create an H1 heading."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "##",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create an H2 sub-heading."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "###",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create an H3 sub-heading."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "####",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create an H4 sub-heading."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "#####",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create an H5 sub-heading."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "Type "
+              },
+              {
+                "text": "######",
+                "code": true
+              },
+              {
+                "text": " followed by "
+              },
+              {
+                "text": "space",
+                "code": true
+              },
+              {
+                "text": " to create an H6 sub-heading."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 10053
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "🍦 Soft Break ⇧⏎"
+      }
+    ],
+    "id": 10054
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "You can define a set of rules with:"
+      }
+    ],
+    "id": 10055
+  },
+  {
+    "type": "ul",
+    "children": [
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "hotkey – e.g. press ⇧⏎ anywhere to insert a soft break 👇"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "query – filter the block types where the rule applies, e.g. pressing ⏎ will insert a soft break only inside block quotes and code blocks."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 10056
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "text": "Try here ⏎"
+      }
+    ],
+    "id": 10057
+  },
+  {
+    "type": "code_block",
+    "children": [
+      {
+        "type": "code_line",
+        "children": [
+          {
+            "text": "And ⏎ here."
+          }
+        ]
+      }
+    ],
+    "id": 10058
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "⏎ Exit Break ⏎"
+      }
+    ],
+    "id": 10059
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "You can define a set of rules with:"
+      }
+    ],
+    "id": 10060
+  },
+  {
+    "type": "ul",
+    "children": [
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "hotkey – e.g. press ⌘⏎ to exit to the next block 👇"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "query – Filter the block types where the rule applies."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "level – Path level where the exit is."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "li",
+        "children": [
+          {
+            "type": "lic",
+            "children": [
+              {
+                "text": "before – If true, exit to the previous block. e.g. press ⇧⌘⏎ to exit before the selected block 👆"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 10061
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "text": "Try here ⌘⏎"
+      }
+    ],
+    "id": 10062
+  },
+  {
+    "type": "code_block",
+    "children": [
+      {
+        "type": "code_line",
+        "children": [
+          {
+            "text": "And in the middle ⌘⏎ of the block."
+          }
+        ]
+      }
+    ],
+    "id": 10063
+  }
+]

@@ -1,0 +1,1 @@
+export { linkPlugin } from './link';
