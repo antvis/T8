@@ -4,7 +4,8 @@
  * 1. press ⇧⏎ anywhere to insert a soft break;
  * 2. press ⏎ to continue with code block and blockquote;
  */
-import { createSoftBreakPlugin, ELEMENT_BLOCKQUOTE } from '@udecode/plate';
+import { createSoftBreakPlugin } from '@udecode/plate-break';
+import { ELEMENT_BLOCKQUOTE } from '@udecode/plate-block-quote';
 
 export const softBreakPlugin = createSoftBreakPlugin({
   options: {

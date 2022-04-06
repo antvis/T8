@@ -3,7 +3,8 @@
  * You can use it to align your content to left, right, center or to justify it.
  */
 import React from 'react';
-import { createAlignPlugin, AlignToolbarButton } from '@udecode/plate';
+import { createAlignPlugin } from '@udecode/plate-alignment';
+import { AlignToolbarButton } from '@udecode/plate-ui';
 
 import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined, ColumnWidthOutlined } from '@ant-design/icons';
 

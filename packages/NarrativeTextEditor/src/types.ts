@@ -1,4 +1,4 @@
-import type { TDescendant } from '@udecode/plate';
+import { TDescendant } from '@udecode/plate-core';
 
 export interface NarrativeTextEditorProps {
   /** plate editor key, must unique */

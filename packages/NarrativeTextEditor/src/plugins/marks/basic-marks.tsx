@@ -11,15 +11,14 @@
  */
 import React from 'react';
 import {
-  createBasicMarksPlugin,
-  MarkToolbarButton,
-  usePlateEditorRef,
-  getPluginType,
   MARK_BOLD,
+  createBasicMarksPlugin,
   MARK_ITALIC,
   MARK_UNDERLINE,
   MARK_STRIKETHROUGH,
-} from '@udecode/plate';
+} from '@udecode/plate-basic-marks';
+import { MarkToolbarButton } from '@udecode/plate-ui';
+import { usePlateEditorRef, getPluginType } from '@udecode/plate-core';
 import { BoldOutlined, ItalicOutlined, UnderlineOutlined, StrikethroughOutlined } from '@ant-design/icons';
 
 export const basicMarksPlugin = createBasicMarksPlugin();

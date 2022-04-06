@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeadingToolbar as PlateHeadingToolbar } from '@udecode/plate';
+import { HeadingToolbar as PlateHeadingToolbar } from '@udecode/plate-ui';
 
 import {
   BasicElementToolbarButtons,

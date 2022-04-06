@@ -1,5 +1,6 @@
 import React from 'react';
-import { Plate, ELEMENT_PARAGRAPH } from '@udecode/plate';
+import { Plate } from '@udecode/plate-core';
+import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 

@@ -1,6 +1,7 @@
-import { createPlugins, createPlateUI } from '@udecode/plate';
+import { createPlugins } from '@udecode/plate-core';
+import { createPlateUI } from '@udecode/plate-ui';
 
-import { alignPlugin, basicElementsPlugin, listPlugin, imagePlugins, hrPlugins } from './blocks';
+import { alignPlugin, basicElementsPlugins, listPlugin, imagePlugins, hrPlugins } from './blocks';
 import { linkPlugin } from './inline-elements';
 import { basicMarksPlugin, fontPlugins } from './marks';
 import { resetNodePlugin, softBreakPlugin, exitBreakPlugin, mdPlugin } from './utils';
@@ -10,7 +11,7 @@ import { withStyledPlaceholders, dndPlugin, withStyledDraggables } from './inter
 const getPlugins = () => {
   const plugins = [
     // blocks
-    basicElementsPlugin,
+    ...basicElementsPlugins,
     alignPlugin, // alignment must be used with basic element to take effect
     listPlugin,
     ...imagePlugins,

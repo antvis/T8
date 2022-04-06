@@ -1,22 +1,11 @@
 import React from 'react';
 import { DragIndicator } from '@styled-icons/material/DragIndicator';
-import {
-  ELEMENT_BLOCKQUOTE,
-  ELEMENT_CODE_BLOCK,
-  ELEMENT_H1,
-  ELEMENT_H2,
-  ELEMENT_H3,
-  ELEMENT_H4,
-  ELEMENT_H5,
-  ELEMENT_H6,
-  ELEMENT_IMAGE,
-  ELEMENT_OL,
-  ELEMENT_PARAGRAPH,
-  ELEMENT_UL,
-  grabberTooltipProps,
-  withDraggables,
-  createDndPlugin,
-} from '@udecode/plate';
+import { ELEMENT_H1, ELEMENT_H2, ELEMENT_H3, ELEMENT_H4, ELEMENT_H5, ELEMENT_H6 } from '@udecode/plate-heading';
+import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
+import { ELEMENT_IMAGE } from '@udecode/plate-image';
+import { ELEMENT_BLOCKQUOTE } from '@udecode/plate-block-quote';
+import { ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
+import { grabberTooltipProps, withDraggables, createDndPlugin } from '@udecode/plate-ui-dnd';
 import { Tooltip } from 'antd';
 
 export const dndPlugin = createDndPlugin();
@@ -40,7 +29,6 @@ export const withStyledDraggables = (components: any) =>
         ELEMENT_IMAGE,
         ELEMENT_OL,
         ELEMENT_UL,
-        ELEMENT_CODE_BLOCK,
       ],
       onRenderDragHandle: ({ styles, ...props }) => (
         <Tooltip overlay={grabberTooltipProps.content}>
@@ -118,14 +106,6 @@ export const withStyledDraggables = (components: any) =>
       styles: {
         gutterLeft: {
           paddingTop: 18,
-        },
-      },
-    },
-    {
-      key: ELEMENT_CODE_BLOCK,
-      styles: {
-        gutterLeft: {
-          paddingTop: '0.75rem',
         },
       },
     },

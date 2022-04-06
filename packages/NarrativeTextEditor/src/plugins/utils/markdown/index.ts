@@ -3,7 +3,7 @@
  *
  * >> Create actions with markdown-like syntax.
  */
-import { createAutoformatPlugin } from '@udecode/plate';
+import { createAutoformatPlugin } from '@udecode/plate-autoformat';
 
 import { autoformatRules } from './autoformatRules';
 

@@ -1,4 +1,5 @@
-import { AutoformatRule, ELEMENT_DEFAULT } from '@udecode/plate';
+import { ELEMENT_DEFAULT } from '@udecode/plate-core';
+import { AutoformatRule } from '@udecode/plate-autoformat';
 import { DIGITS, DIGITS_WITH_SPACE } from './autoformatConstants';
 import { formatText } from './autoformatUtils';
 

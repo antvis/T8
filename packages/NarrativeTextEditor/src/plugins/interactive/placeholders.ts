@@ -1,7 +1,9 @@
 /**
  * Support customize placeholder
  */
-import { withPlaceholders, ELEMENT_H1, ELEMENT_PARAGRAPH } from '@udecode/plate';
+import { withPlaceholders } from '@udecode/plate-ui-placeholder';
+import { ELEMENT_H1 } from '@udecode/plate-heading';
+import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 
 export const withStyledPlaceholders = (components: any) =>
   withPlaceholders(components, [

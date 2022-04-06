@@ -5,7 +5,8 @@
  * 2. press ⇧⌘⏎ to exit before the selected block;
  * 3. heading???
  */
-import { createExitBreakPlugin, KEYS_HEADING } from '@udecode/plate';
+import { createExitBreakPlugin } from '@udecode/plate-break';
+import { KEYS_HEADING } from '@udecode/plate-heading';
 
 export const exitBreakPlugin = createExitBreakPlugin({
   options: {

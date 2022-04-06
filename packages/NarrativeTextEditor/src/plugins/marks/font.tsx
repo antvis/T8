@@ -13,10 +13,10 @@ import {
   createFontBackgroundColorPlugin,
   createFontSizePlugin,
   createFontWeightPlugin,
-  ColorPickerToolbarDropdown,
   MARK_COLOR,
   MARK_BG_COLOR,
-} from '@udecode/plate';
+} from '@udecode/plate-font';
+import { ColorPickerToolbarDropdown } from '@udecode/plate-ui-font';
 import { FontColorsOutlined, BgColorsOutlined } from '@ant-design/icons';
 
 export const fontPlugins = [

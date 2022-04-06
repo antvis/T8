@@ -2,24 +2,17 @@
  * Includes the following plugins:
  *
  * createBlockquotePlugin() for the blockquote element
- * createCodeBlockPlugin() for the code_block element
  * createHeadingPlugin() for the h1, h2,... elements
  * createParagraphPlugin() for the p element
  */
 import React from 'react';
-import {
-  createBasicElementsPlugin,
-  BlockToolbarButton,
-  usePlateEditorRef,
-  getPluginType,
-  ELEMENT_H1,
-  ELEMENT_H2,
-  ELEMENT_H3,
-  ELEMENT_PARAGRAPH,
-  ELEMENT_BLOCKQUOTE,
-} from '@udecode/plate';
+import { createBlockquotePlugin, ELEMENT_BLOCKQUOTE } from '@udecode/plate-block-quote';
+import { createHeadingPlugin, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3 } from '@udecode/plate-heading';
+import { createParagraphPlugin, ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
+import { BlockToolbarButton } from '@udecode/plate-ui';
+import { usePlateEditorRef, getPluginType } from '@udecode/plate-core';
 
-export const basicElementsPlugin = createBasicElementsPlugin();
+export const basicElementsPlugins = [createBlockquotePlugin(), createHeadingPlugin(), createParagraphPlugin()];
 
 export const BasicElementToolbarButtons = () => {
   const editor = usePlateEditorRef();

@@ -1,14 +1,5 @@
-import {
-  AutoformatRule,
-  ELEMENT_LI,
-  ELEMENT_OL,
-  ELEMENT_TODO_LI,
-  ELEMENT_UL,
-  setNodes,
-  TElement,
-  TodoListItemNodeData,
-} from '@udecode/plate';
-import { Editor } from 'slate';
+import { AutoformatRule } from '@udecode/plate-autoformat';
+import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { clearBlockFormat, formatList } from './autoformatUtils';
 
 export const autoformatLists: AutoformatRule[] = [
@@ -25,23 +16,5 @@ export const autoformatLists: AutoformatRule[] = [
     match: ['1. ', '1) '],
     preFormat: clearBlockFormat,
     format: (editor) => formatList(editor, ELEMENT_OL),
-  },
-  {
-    mode: 'block',
-    type: ELEMENT_TODO_LI,
-    match: '[] ',
-  },
-  {
-    mode: 'block',
-    type: ELEMENT_TODO_LI,
-    match: '[x] ',
-    format: (editor) =>
-      setNodes<TElement<TodoListItemNodeData>>(
-        editor,
-        { type: ELEMENT_TODO_LI, checked: true },
-        {
-          match: (n) => Editor.isBlock(editor, n),
-        },
-      ),
   },
 ];

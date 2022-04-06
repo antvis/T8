@@ -1,13 +1,12 @@
+import { AutoformatRule } from '@udecode/plate-autoformat';
 import {
-  AutoformatRule,
   MARK_BOLD,
   MARK_CODE,
-  MARK_HIGHLIGHT,
   MARK_ITALIC,
   MARK_STRIKETHROUGH,
   MARK_SUBSCRIPT,
   MARK_SUPERSCRIPT,
-} from '@udecode/plate';
+} from '@udecode/plate-basic-marks';
 
 export const autoformatMarks: AutoformatRule[] = [
   {
@@ -34,16 +33,6 @@ export const autoformatMarks: AutoformatRule[] = [
     mode: 'mark',
     type: MARK_SUBSCRIPT,
     match: '~',
-  },
-  {
-    mode: 'mark',
-    type: MARK_HIGHLIGHT,
-    match: '==',
-  },
-  {
-    mode: 'mark',
-    type: MARK_HIGHLIGHT,
-    match: '≡',
   },
   {
     mode: 'mark',

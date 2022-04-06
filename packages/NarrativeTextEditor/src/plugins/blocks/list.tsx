@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  createListPlugin,
-  usePlateEditorRef,
-  ListToolbarButton,
-  getPluginType,
-  ELEMENT_UL,
-  ELEMENT_OL,
-} from '@udecode/plate';
+import { createListPlugin, ELEMENT_UL, ELEMENT_OL } from '@udecode/plate-list';
+import { usePlateEditorRef, getPluginType } from '@udecode/plate-core';
+import { ListToolbarButton } from '@udecode/plate-ui';
 import { OrderedListOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
 export const listPlugin = createListPlugin();

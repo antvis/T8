@@ -15,7 +15,7 @@ export default function EditorPage() {
   return (
     <AnchorLayout anchorLinks={anchors}>
       <ContentBlock id={anchors[0].id} title={anchors[0].title}>
-        <NarrativeTextEditor id="playground" initialValue={editor} />
+        <NarrativeTextEditor id={anchors[0].id} initialValue={editor} />
         <HighlightCode
           langType="tsx"
           code={`<NarrativeTextEditor id="playground" initialValue={editor} />`}
@@ -24,7 +24,7 @@ export default function EditorPage() {
       <ContentBlock id={anchors[1].id} title={anchors[1].title}>
         <JsonPreview json={value}>
           <NarrativeTextEditor
-            id="basic"
+            id={anchors[1].id}
             initialValue={value}
             onChange={setValue}
           />
