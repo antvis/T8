@@ -67,6 +67,7 @@ export default defineConfig({
   ],
   favicon: logoUrl,
   fastRefresh: {},
+  webpack5: {},
   theme: {
     '@primary-color': '#873bf4',
   },

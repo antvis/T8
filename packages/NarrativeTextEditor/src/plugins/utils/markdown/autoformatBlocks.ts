@@ -1,7 +1,6 @@
 import {
   AutoformatRule,
   ELEMENT_BLOCKQUOTE,
-  ELEMENT_CODE_BLOCK,
   ELEMENT_DEFAULT,
   ELEMENT_H1,
   ELEMENT_H2,
@@ -71,19 +70,6 @@ export const autoformatBlocks: AutoformatRule[] = [
       insertNodes(editor, {
         type: ELEMENT_DEFAULT,
         children: [{ text: '' }],
-      });
-    },
-  },
-  {
-    mode: 'block',
-    type: ELEMENT_CODE_BLOCK,
-    match: '```',
-    triggerAtBlockStart: false,
-    preFormat: clearBlockFormat,
-    format: (editor) => {
-      insertEmptyCodeBlock(editor as PlateEditor, {
-        defaultType: getPluginType(editor as PlateEditor, ELEMENT_DEFAULT),
-        insertNodesOptions: { select: true },
       });
     },
   },

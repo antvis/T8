@@ -40,6 +40,7 @@ export default (name, config = {}) => {
     commonjs(),
     resolve(),
     filesize(),
+    ...extraPlugins,
   ];
 
   if (format === 'umd') {
@@ -57,7 +58,7 @@ export default (name, config = {}) => {
   return {
     input: 'src/index.ts',
     output,
-    plugins: [...plugins, ...extraPlugins],
+    plugins,
     ...others,
   };
 };

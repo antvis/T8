@@ -18,8 +18,6 @@ import {
   createDndPlugin,
 } from '@udecode/plate';
 import { Tooltip } from 'antd';
-import { css } from 'styled-components';
-import tw from 'twin.macro';
 
 export const dndPlugin = createDndPlugin();
 
@@ -62,59 +60,73 @@ export const withStyledDraggables = (components: any) =>
     {
       key: ELEMENT_H1,
       styles: {
-        gutterLeft: css`
-          padding: 2em 0 4px;
-          font-size: 1.875em;
-        `,
-        blockToolbarWrapper: tw`height[1.3em]`,
+        gutterLeft: {
+          padding: '2em 0 4px',
+          fontSize: '1.875em',
+        },
+        blockToolbarWrapper: {
+          height: '1.3em',
+        },
       },
     },
     {
       key: ELEMENT_H2,
       styles: {
-        gutterLeft: css`
-          padding: 1.4em 0 1px;
-          font-size: 1.5em;
-        `,
-        blockToolbarWrapper: tw`height[1.3em]`,
+        gutterLeft: {
+          padding: '1.4em 0 1px',
+          fontSize: '1.5em',
+        },
+        blockToolbarWrapper: {
+          height: '1.3em',
+        },
       },
     },
     {
       key: ELEMENT_H3,
       styles: {
-        gutterLeft: css`
-          padding: 1em 0 1px;
-          font-size: 1.25em;
-        `,
-        blockToolbarWrapper: tw`height[1.3em]`,
+        gutterLeft: {
+          padding: '1em 0 1px',
+          fontSize: '1.25em',
+        },
+        blockToolbarWrapper: {
+          height: '1.3em',
+        },
       },
     },
     {
       keys: [ELEMENT_H4, ELEMENT_H5, ELEMENT_H6],
       styles: {
-        gutterLeft: css`
-          padding: 0.75em 0 0;
-          font-size: 1.1em;
-        `,
-        blockToolbarWrapper: tw`height[1.3em]`,
+        gutterLeft: {
+          padding: '0.75em 0 0',
+          fontSize: '1.1em',
+        },
+        blockToolbarWrapper: {
+          height: '1.3em',
+        },
       },
     },
     {
       keys: [ELEMENT_PARAGRAPH, ELEMENT_UL, ELEMENT_OL],
       styles: {
-        gutterLeft: tw`pt-1`,
+        gutterLeft: {
+          paddingTop: '0.25rem',
+        },
       },
     },
     {
       key: ELEMENT_BLOCKQUOTE,
       styles: {
-        gutterLeft: tw`paddingTop[18px]`,
+        gutterLeft: {
+          paddingTop: 18,
+        },
       },
     },
     {
       key: ELEMENT_CODE_BLOCK,
       styles: {
-        gutterLeft: tw`pt-3`,
+        gutterLeft: {
+          paddingTop: '0.75rem',
+        },
       },
     },
   ]);

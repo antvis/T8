@@ -1,6 +1,5 @@
 import {
   AutoformatBlockRule,
-  ELEMENT_CODE_BLOCK,
   ELEMENT_CODE_LINE,
   getParent,
   isElement,
@@ -18,11 +17,7 @@ export const format = (editor: TEditor, customFormatting: any) => {
     const parentEntry = getParent(editor, editor.selection);
     if (!parentEntry) return;
     const [node] = parentEntry;
-    if (
-      isElement(node) &&
-      !isType(editor as PlateEditor, node, ELEMENT_CODE_BLOCK) &&
-      !isType(editor as PlateEditor, node, ELEMENT_CODE_LINE)
-    ) {
+    if (isElement(node) && !isType(editor as PlateEditor, node, ELEMENT_CODE_LINE)) {
       customFormatting();
     }
   }

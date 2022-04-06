@@ -35,7 +35,7 @@ const getPlugins = () => {
   // `let components = createPlateUI();`
   // `withStyledPlaceholders(components);`
   // `withStyledDraggables(components);`
-  const components = withStyledPlaceholders(createPlateUI());
+  const components = withStyledDraggables(withStyledPlaceholders(createPlateUI()));
 
   return createPlugins(plugins, {
     components,

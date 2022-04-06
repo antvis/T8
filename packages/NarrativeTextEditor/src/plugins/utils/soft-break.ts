@@ -4,7 +4,7 @@
  * 1. press ⇧⏎ anywhere to insert a soft break;
  * 2. press ⏎ to continue with code block and blockquote;
  */
-import { createSoftBreakPlugin, ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE } from '@udecode/plate';
+import { createSoftBreakPlugin, ELEMENT_BLOCKQUOTE } from '@udecode/plate';
 
 export const softBreakPlugin = createSoftBreakPlugin({
   options: {
@@ -13,7 +13,7 @@ export const softBreakPlugin = createSoftBreakPlugin({
       {
         hotkey: 'enter',
         query: {
-          allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE],
+          allow: [ELEMENT_BLOCKQUOTE],
         },
       },
     ],
