@@ -2,7 +2,7 @@
  * Allows you to create hotkeys which insert a line break, without exiting the current block.
  *
  * 1. press ⇧⏎ anywhere to insert a soft break;
- * 2. press ⏎ to continue with code block and blockquote;
+ * 2. press ⏎ to continue with blockquote;
  */
 import { createSoftBreakPlugin } from '@udecode/plate-break';
 import { ELEMENT_BLOCKQUOTE } from '@udecode/plate-block-quote';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BalloonToolbar } from '@udecode/plate-ui';
+import { BalloonToolbar } from '@udecode/plate-ui-toolbar';
 import { BasicMarkToolbarButtons } from '../plugins';
 
 const HoveringToolbar = () => (

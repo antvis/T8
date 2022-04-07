@@ -32,10 +32,11 @@ const getPlugins = () => {
     dndPlugin,
   ];
 
-  // ⚠️ note: hoc must directly wrap plateUI, otherwise it will not work. eg,
-  // `let components = createPlateUI();`
-  // `withStyledPlaceholders(components);`
-  // `withStyledDraggables(components);`
+  // TODO 如果是下方写法就无法生效
+  // let components = createPlateUI();
+  // withStyledPlaceholders(components);
+  // withStyledDraggables(components);
+  // TODO 同时有两个 editor 的时候只有一个能拖拽
   const components = withStyledDraggables(withStyledPlaceholders(createPlateUI()));
 
   return createPlugins(plugins, {

@@ -12,7 +12,6 @@ import { kebabCase } from 'lodash';
  */
 export default (name, config = {}) => {
   const { plugins: extraPlugins = [], globals = {}, ...others } = config;
-
   const format = process.env.FORMAT;
 
   const OUT_DIR_NAME_MAP = {
@@ -32,16 +31,32 @@ export default (name, config = {}) => {
   };
 
   const plugins = [
-    peerDepsExternal(),
+    // Rewrites lodash imports to be specific for easier tree-shaking.
     optimizeLodashImports(),
+
+    // Seamless integration between Rollup and Typescript.
     typescript({
       outDir,
     }),
-    commonjs(),
-    resolve(),
+
+    // Allow Rollup to resolve modules from `node_modules`, since it only
+    // resolves local modules by default.
+    resolve({
+      browser: true,
+    }),
+
+    // Allow Rollup to resolve CommonJS modules, since it only resolves ES2015
+    // modules by default.
+    commonjs({
+      include: /node_modules/,
+    }),
+
     filesize(),
     ...extraPlugins,
   ];
+
+  // If external is not specified, peerDeps external will be removed by default
+  if (!others.external) plugins.unshift(peerDepsExternal());
 
   if (format === 'umd') {
     output.file = `dist/${kebabCase(name)}.min.js`;

@@ -15,7 +15,11 @@ export default function EditorPage() {
   return (
     <AnchorLayout anchorLinks={anchors}>
       <ContentBlock id={anchors[0].id} title={anchors[0].title}>
-        <NarrativeTextEditor id={anchors[0].id} initialValue={editor} />
+        <NarrativeTextEditor
+          id={anchors[0].id}
+          initialValue={editor}
+          style={{ padding: '4px 15px' }}
+        />
         <HighlightCode
           langType="tsx"
           code={`<NarrativeTextEditor id="playground" initialValue={editor} />`}
@@ -27,6 +31,7 @@ export default function EditorPage() {
             id={anchors[1].id}
             initialValue={value}
             onChange={setValue}
+            style={{ padding: '4px 15px' }}
           />
         </JsonPreview>
         <HighlightCode
