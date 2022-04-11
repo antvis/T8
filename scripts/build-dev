@@ -1,0 +1,15 @@
+#!/bin/sh
+
+lerna run build --stream --scope @antv/narrative-text-schema \
+                         --scope @antv/word-scale-chart \
+
+wait
+
+lerna run build --stream --scope @antv/narrative-text-vis
+
+wait
+
+lerna run build --stream --scope @antv/narrative-text-editor
+
+
+wait

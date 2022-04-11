@@ -1,1 +1,1 @@
-export default 'editor';
+export { NarrativeTextEditor, NarrativeTextEditorProps } from './editor';

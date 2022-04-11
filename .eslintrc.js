@@ -32,6 +32,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 1,
     'import/no-extraneous-dependencies': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
     'lines-between-class-members': 'off',
     'no-nested-ternary': 'off',
   },
