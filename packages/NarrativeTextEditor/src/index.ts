@@ -1,1 +1,2 @@
-export { NarrativeTextEditor, NarrativeTextEditorProps } from './editor';
+export { NarrativeTextEditor } from './editor';
+export type { NarrativeTextEditorProps } from './editor';
