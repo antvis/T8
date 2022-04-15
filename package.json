@@ -10,7 +10,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "rimraf .umi && dumi dev",
-    "clean:doc": "rimraf .umi .umi-production dist",
+    "clean:doc": "rimraf .umi .umi-production site-dist",
     "clean": "lerna clean -y && lerna run clean:build && rimraf node_modules",
     "test": "jest",
     "test:schema": "cd ./packages/narrative-text-schema && npm run test",
@@ -26,7 +26,7 @@
     "build": "lerna run build & npm run build:doc",
     "boot": "lerna bootstrap",
     "lint": "lerna run lint",
-    "start:ntv-demo": "npm run build:dev && cd examples/ntv-demo && npm run start",
+    "start:ntv-demo": "cd examples/ntv-demo && npm run start",
     "prepare": "husky install",
     "precommit": "lint-staged",
     "postinstall": "npm run boot"
@@ -57,7 +57,6 @@
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "antd": "^4.19.5",
-    "omit.js": "^2.0.2",
     "babel-jest": "^27.5.1",
     "babel-plugin-import": "^1.13.5",
     "concurrently": "^6.2.0",
@@ -80,6 +79,7 @@
     "lodash": "^4.17.21",
     "lint-staged": "^11.1.1",
     "npm-run-all": "^4.1.5",
+    "omit.js": "^2.0.2",
     "prettier": "^2.3.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
