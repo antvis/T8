@@ -16,55 +16,6 @@ $ npm install lerna -g
 # 安装项目依赖和初始化构建
 $ yarn
 
-# 启动 demo 页面进行调试
-$ yarn start:demo
+# 启动 site 页面进行调试
+$ yarn start
 ```
-
-执行完以上命令，将打开 `examples/ntv-demo` 页面，如果热更新失效，可以试试手动删除 .umi folder（我也不知道为啥 umi 会卡死 🤷‍♀️）
-
-## Todo List
-
-- Chore
-
-  - [x] lerna init
-  - [x] lint (eslint, prettier, commitlint, stylelint)
-  - [x] tsconfig
-  - [x] husky & lint-staged
-  - [x] build
-  - [x] live demo
-  - [x] jest test
-  - [ ] rollup build no response
-  - [ ] publish
-  - [ ] site & mdlint
-
-- Render
-
-  - [x] text-schema
-  - [x] `<NarrativeTextVis />` skeleton
-  - [x] feat: basic render
-  - [x] feat: nested-bullets
-  - [x] feat: entity encoding spec
-  - [x] feat: entity get text from detail data
-  - [ ] feat: theme switch
-  - [ ] default theme with editor
-  - [x] text-schema generator scripts
-  - [x] feat: sparkline
-  - [ ] ...
-
-- Interaction
-
-  - [ ] text-schema with interactive
-  - [x] feat: popover to view detailed data
-  - [ ] feat: link analytic with text
-  - [ ] feat: sparkline global 
-  - [ ] ...
-
-## Show Cases
-
-### 🌟 Analysis Report
-
-How to use `<NarrativeTextVis />` in an analysis report generator system.
-
-  - [ ] basic UI
-  - [ ] config 
-  - [ ] ...
