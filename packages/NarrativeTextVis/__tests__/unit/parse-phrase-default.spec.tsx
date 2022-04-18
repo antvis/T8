@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PhraseParser from '../../src/utils/phrase-parser';
+import PhraseParser from '../../src/phrases/PhraseParser';
 import { getPrefixCls } from '../../src/utils/getPrefixCls';
 
 describe('phrase handler', () => {

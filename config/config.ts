@@ -20,7 +20,7 @@ export default defineConfig({
     ['en-US', 'English'],
   ],
   resolve: {
-    includes: ['docs/', 'packages/NarrativeTextEditor/docs/'],
+    includes: ['docs/', 'packages/NarrativeTextVis/docs/', 'packages/NarrativeTextEditor/docs/'],
   },
   extraBabelIncludes: ['@antv/dumi-theme-antv'],
   extraBabelPlugins: [

@@ -58,12 +58,6 @@ export default defineConfig({
       icon: 'pieChart',
       component: '@/pages/ws-chart',
     },
-    {
-      path: '/editor',
-      name: 'Editor',
-      icon: 'edit',
-      component: '@/pages/editor',
-    },
   ],
   favicon: logoUrl,
   fastRefresh: {},

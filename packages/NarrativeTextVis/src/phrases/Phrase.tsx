@@ -2,6 +2,7 @@ import React from 'react';
 import { PhraseSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { isEmpty } from 'lodash';
 import { usePhraseParser } from './usePhraseParser';
+import { Entity } from '../styled';
 import { Custom } from './Custom';
 import { classnames as cx } from '../utils/classnames';
 import { WithPhraseProps } from '../interface';
@@ -20,13 +21,13 @@ export function Phrase<P extends DefaultCustomPhraseGeneric>({
     return <Custom<P> phrase={phrase} customPhraseRender={customPhraseRender} />;
   }
 
-  const { styles, classNames, Content } = usePhraseParser({ phrase, customEntityEncoding });
+  const { styles, classNames, Content, type, assessment } = usePhraseParser({ phrase, customEntityEncoding });
 
   return isEmpty(styles) && classNames.length === 0 ? (
     <>{Content}</>
   ) : (
-    <span className={cx(...classNames)} style={styles}>
+    <Entity type={type} assessment={assessment} className={cx(...classNames)} style={styles}>
       {Content}
-    </span>
+    </Entity>
   );
 }

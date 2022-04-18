@@ -6,6 +6,7 @@ import {
   DefaultCustomBlockStructureGeneric,
 } from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
+import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
 import { WithPhraseProps, WithCustomBlockElement } from './interface';
@@ -26,7 +27,7 @@ export function NarrativeTextVis<
 >({ spec, customBlockElementRender, ...phraseProps }: NarrativeTextVisProps<S, P>) {
   const { headline, sections, styles, className } = spec;
   return (
-    <div className={cx(className, getPrefixCls('container'))} style={styles}>
+    <Container className={cx(className, getPrefixCls('container'))} style={styles}>
       {headline ? <Headline<P> spec={headline as HeadlineSpec<P>} {...phraseProps} /> : null}
       {sections
         ? sections?.map((section) => (
@@ -38,6 +39,6 @@ export function NarrativeTextVis<
             />
           ))
         : null}
-    </div>
+    </Container>
   );
 }
