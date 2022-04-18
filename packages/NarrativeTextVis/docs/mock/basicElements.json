@@ -1,0 +1,152 @@
+{
+  "headline": {
+    "type": "headline",
+    "phrases": [{ "type": "text", "value": "The title of narrative text" }]
+  },
+  "sections": [
+    {
+      "paragraphs": [
+        {
+          "type": "heading1",
+          "phrases": [{ "type": "text", "value": "heading1" }]
+        },
+        {
+          "type": "heading2",
+          "phrases": [{ "type": "text", "value": "heading2" }]
+        },
+        {
+          "type": "heading3",
+          "phrases": [{ "type": "text", "value": "heading3" }]
+        },
+        {
+          "type": "heading4",
+          "phrases": [{ "type": "text", "value": "heading4" }]
+        },
+        {
+          "type": "heading5",
+          "phrases": [{ "type": "text", "value": "heading5" }]
+        },
+        {
+          "type": "heading6",
+          "phrases": [{ "type": "text", "value": "heading6" }]
+        },
+        {
+          "type": "normal",
+          "phrases": [{ "type": "text", "value": "paragraph" }]
+        },
+        {
+          "type": "bullets",
+          "isOrder": false,
+          "bullets": [
+            {
+              "type": "bullet-item",
+              "phrases": [{ "type": "text", "value": "ul 1" }],
+              "subBullet": {
+                "type": "bullets",
+                "isOrder": false,
+                "bullets": [
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 1"
+                      }
+                    ],
+                    "subBullet": {
+                      "type": "bullets",
+                      "isOrder": false,
+                      "bullets": [
+                        {
+                          "type": "bullet-item",
+                          "phrases": [{ "type": "text", "value": "sub node 1.1" }]
+                        },
+                        {
+                          "type": "bullet-item",
+                          "phrases": [{ "type": "text", "value": "sub node 1.2" }]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [{ "type": "text", "value": "ul 2" }]
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [{ "type": "text", "value": "ul 3" }]
+            }
+          ]
+        },
+        {
+          "type": "bullets",
+          "isOrder": true,
+          "bullets": [
+            {
+              "type": "bullet-item",
+              "phrases": [{ "type": "text", "value": "ol 1" }],
+              "subBullet": {
+                "type": "bullets",
+                "isOrder": true,
+                "bullets": [
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 1"
+                      }
+                    ],
+                    "subBullet": {
+                      "type": "bullets",
+                      "isOrder": true,
+                      "bullets": [
+                        {
+                          "type": "bullet-item",
+                          "phrases": [{ "type": "text", "value": "sub node 1.1" }]
+                        },
+                        {
+                          "type": "bullet-item",
+                          "phrases": [{ "type": "text", "value": "sub node 1.2" }]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [{ "type": "text", "value": "ol 2" }]
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [{ "type": "text", "value": "ol 3" }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

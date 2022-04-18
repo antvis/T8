@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import PhraseParser from '../utils/phrase-parser';
+import PhraseParser from './PhraseParser';
 import { BasicPhraseProps } from './interface';
 
 // TODO phrase update
@@ -15,5 +15,7 @@ export const usePhraseParser = ({ phrase, customEntityEncoding }: BasicPhrasePro
     classNames: phraseMeta.classNames,
     styles: { ...(phraseMeta?.encodingStyles || {}), ...(phrase?.styles || {}) },
     Content: phraseMeta.Content,
+    type: phraseMeta.type,
+    assessment: phraseMeta.assessment,
   };
 };

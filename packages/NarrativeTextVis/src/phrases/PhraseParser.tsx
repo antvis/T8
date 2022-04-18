@@ -1,14 +1,13 @@
 import React, { ReactNode, CSSProperties } from 'react';
-import { PhraseSpec, ValueAssessment, EntityType } from '@antv/narrative-text-schema';
+import { PhraseSpec, ValueAssessment } from '@antv/narrative-text-schema';
 import { get, kebabCase } from 'lodash';
-import { getPrefixCls } from './getPrefixCls';
+import { getPrefixCls } from '../utils/getPrefixCls';
 import { ProportionPieChart } from '../charts';
 import { ArrowDown, ArrowUp } from '../assets/icons';
-import { CustomEntityEncoding, EncodingChannels } from '../interface';
+import { CustomEntityEncoding, EncodingChannels, PhraseType } from '../interface';
 import { ASSESSMENT_TYPE } from '../constance';
 
 /** text & entity */
-type PhraseType = 'text' | EntityType | null;
 const isNaN = (v: unknown) => Number.isNaN(v);
 
 /**
@@ -19,7 +18,7 @@ class PhraseParser {
   private phrase!: PhraseSpec;
   private customEntityEncoding?: CustomEntityEncoding;
   /** clear type */
-  private type!: PhraseType;
+  public type!: PhraseType;
   /**
    * compare assessment -- extensible encoding channel
    * assessment encoding has higher priority then the outer layer

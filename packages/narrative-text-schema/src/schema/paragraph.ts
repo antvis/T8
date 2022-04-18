@@ -4,14 +4,22 @@ import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGen
 export type ParagraphSpec<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = (TextParagraphSpec<P> | BulletsParagraphSpec<P> | S) & CommonProps;
+> = HeadingParagraphSpec<P> | TextParagraphSpec<P> | BulletsParagraphSpec<P> | S;
 
-type TextParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
+// As nouns the difference between heading and headline is that
+// heading is the title or topic of a document, article, chapter, or of a section thereof
+// while headline is a heading or title of an article.
+export type HeadingParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+  type: 'heading1' | 'heading2' | 'heading3' | 'heading4' | 'heading5' | 'heading6';
+  phrases: PhraseSpec<P>[];
+};
+
+export type TextParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
   type: 'normal';
   phrases: PhraseSpec<P>[];
 };
 
-type BulletsParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
+export type BulletsParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
   type: 'bullets';
   isOrder: boolean;
   bullets: BulletItemSpec<P>[];

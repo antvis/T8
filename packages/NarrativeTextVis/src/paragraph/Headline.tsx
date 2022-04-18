@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeadlineSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { classnames } from '../utils/classnames';
 import { getPrefixCls } from '../utils/getPrefixCls';
@@ -13,12 +14,9 @@ export function Headline<P extends DefaultCustomPhraseGeneric = DefaultCustomPhr
   spec,
   ...phraseProps
 }: HeadlineProps<P>) {
-  if (spec && spec.type === 'headline') {
-    return (
-      <h1 className={classnames(getPrefixCls('headline'), spec.className)} style={spec.styles}>
-        <Phrases spec={spec.phrases} {...phraseProps} />
-      </h1>
-    );
-  }
-  return null;
+  return (
+    <StyledHeadline className={classnames(getPrefixCls('headline'), spec.className)} style={spec.styles}>
+      <Phrases spec={spec.phrases} {...phraseProps} />
+    </StyledHeadline>
+  );
 }

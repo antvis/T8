@@ -4,9 +4,12 @@ import {
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
 } from '@antv/narrative-text-schema';
+
+import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
 import { WithPhraseProps, WithCustomBlockElement } from '../interface';
+import { isHeadingParagraph, isTextParagraph, isBulletParagraph } from './helpers';
 
 type ParagraphProps<
   S extends DefaultCustomBlockStructureGeneric = null,
@@ -23,14 +26,16 @@ export function Paragraph<
   if ('customType' in spec && spec.customType && customBlockElementRender) {
     return <>{customBlockElementRender(spec)}</>;
   }
-  switch (spec?.type) {
-    case 'normal':
-      return <TextLine<P> spec={spec} {...phraseProps} />;
-    case 'bullets':
-      return <Bullets<P> spec={spec} {...phraseProps} />;
-    default:
-      return null;
+  if (isHeadingParagraph(spec)) {
+    return <Heading<P> spec={spec} {...phraseProps} />;
   }
+  if (isTextParagraph(spec)) {
+    return <TextLine<P> spec={spec} {...phraseProps} />;
+  }
+  if (isBulletParagraph(spec)) {
+    return <Bullets<P> spec={spec} {...phraseProps} />;
+  }
+  return null;
 }
 
 export { Headline } from './Headline';

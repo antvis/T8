@@ -36,3 +36,5 @@ export type WithCustomBlockElement<S extends DefaultCustomBlockStructureGeneric 
   /** custom block ele render comp, is not defined, it will return null */
   customBlockElementRender?: (spec: S) => ReactNode;
 };
+
+export type PhraseType = 'text' | EntityType | null;
