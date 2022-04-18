@@ -4,12 +4,12 @@ import { UpCircleFilled, DownCircleFilled } from '@ant-design/icons';
 import {
   NarrativeTextVis,
   Section,
-  INarrativeTextSpec,
-  ICustomPhrase,
+  NarrativeTextSpec,
+  CustomPhraseSpec,
   DefaultBlockStructure as S,
   NarrativeTextVisProps,
   Phrase,
-  IPhrase,
+  PhraseSpec,
 } from '@antv/narrative-text-vis';
 import ReactMarkdown from 'react-markdown';
 // @ts-ignore
@@ -49,7 +49,7 @@ type ClickTagMeta = {
   popMsg: string;
 };
 
-const clickTagRender = (phrase: ICustomPhrase<ClickTagMeta>) => (
+const clickTagRender = (phrase: CustomPhraseSpec<ClickTagMeta>) => (
   <Tag
     color="purple"
     onClick={() => {
@@ -61,7 +61,9 @@ const clickTagRender = (phrase: ICustomPhrase<ClickTagMeta>) => (
   </Tag>
 );
 
-const modalShowDetailRender = (phrase: ICustomPhrase<ModalShowDetailMeta>) => {
+const modalShowDetailRender = (
+  phrase: CustomPhraseSpec<ModalShowDetailMeta>,
+) => {
   if (
     phrase.metadata?.interaction === 'click' &&
     phrase.metadata?.show === 'modal'
@@ -71,7 +73,7 @@ const modalShowDetailRender = (phrase: ICustomPhrase<ModalShowDetailMeta>) => {
   return null;
 };
 
-type CustomNarrative = INarrativeTextSpec<CustomBlock, ModalShowDetailMeta>;
+type CustomNarrative = NarrativeTextSpec<CustomBlock, ModalShowDetailMeta>;
 
 const extendBooking: CustomNarrative = {
   headline: (booking as CustomNarrative).headline,
@@ -84,7 +86,7 @@ const extendBooking: CustomNarrative = {
   ],
 };
 
-const ratio_up: IPhrase = {
+const ratio_up: PhraseSpec = {
   type: 'entity',
   value: '10%',
   metadata: {
@@ -93,7 +95,7 @@ const ratio_up: IPhrase = {
   },
 };
 
-const ratio_down: IPhrase = {
+const ratio_down: PhraseSpec = {
   type: 'entity',
   value: '10%',
   metadata: {
@@ -102,7 +104,7 @@ const ratio_down: IPhrase = {
   },
 };
 
-const delta_up: IPhrase = {
+const delta_up: PhraseSpec = {
   type: 'entity',
   value: '20.23',
   metadata: {
@@ -111,7 +113,7 @@ const delta_up: IPhrase = {
   },
 };
 
-const delta_down: IPhrase = {
+const delta_down: PhraseSpec = {
   type: 'entity',
   value: '20.23',
   metadata: {
@@ -252,13 +254,13 @@ export default function CustomPage() {
         </Form>
 
         <NarrativeTextVis
-          spec={booking as INarrativeTextSpec}
+          spec={booking as NarrativeTextSpec}
           customEntityEncoding={customEntityEncoding}
         />
         <HighlightCode
           langType="tsx"
           code={`
-type CustomEntityEncoding = Partial<Record<IEntityType, EncodingChannels>>;
+type CustomEntityEncoding = Partial<Record<EntityType, EncodingChannels>>;
 
 <NarrativeTextVis
   spec={textSpec}

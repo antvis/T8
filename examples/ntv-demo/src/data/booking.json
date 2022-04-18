@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../../packages/text-schema/build/text-schema.json",
+  "$schema": "../../../../packages/narrative-text-schema/build/text-schema.json",
   "sections": [
     {
       "paragraphs": [

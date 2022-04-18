@@ -1,36 +1,36 @@
 import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGeneric } from './common';
-import { IPhrase } from './phrase';
-import { IParagraph } from './paragraph';
+import { PhraseSpec } from './phrase';
+import { ParagraphSpec } from './paragraph';
 
-export type INarrativeTextSpec<
+export type NarrativeTextSpec<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = CommonProps & {
-  headline?: IHeadline<P>;
-  sections?: ISection<S, P>[];
+  headline?: HeadlineSpec<P>;
+  sections?: SectionSpec<S, P>[];
   // TODO 可扩展内容交互
 };
 
-export type IHeadline<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+export type HeadlineSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
   type: 'headline';
-  phrases: IPhrase<P>[];
+  phrases: PhraseSpec<P>[];
 };
 
-type StandardSection<
+type StandardSectionSpec<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = {
-  paragraphs?: IParagraph<S, P>[];
+  paragraphs?: ParagraphSpec<S, P>[];
 };
 
-export type ISection<
+export type SectionSpec<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = (StandardSection<S, P> | S) & CommonProps;
+> = (StandardSectionSpec<S, P> | S) & CommonProps;
 
 /**
  * @deprecated
  * only used for export json-schema generator
  * https://github.com/vega/ts-json-schema-generator/issues/35
  */
-export type ITextSpecGenerator = INarrativeTextSpec;
+export type TextSpecGenerator = NarrativeTextSpec;

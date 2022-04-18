@@ -1,5 +1,5 @@
 import React, { ReactNode, CSSProperties } from 'react';
-import { IPhrase, ValueAssessment, IEntityType } from '@antv/narrative-text-schema';
+import { PhraseSpec, ValueAssessment, EntityType } from '@antv/narrative-text-schema';
 import { get, kebabCase } from 'lodash';
 import { getPrefixCls } from './getPrefixCls';
 import { ProportionPieChart } from '../charts';
@@ -8,7 +8,7 @@ import { CustomEntityEncoding, EncodingChannels } from '../interface';
 import { ASSESSMENT_TYPE } from '../constance';
 
 /** text & entity */
-type PhraseType = 'text' | IEntityType | null;
+type PhraseType = 'text' | EntityType | null;
 const isNaN = (v: unknown) => Number.isNaN(v);
 
 /**
@@ -16,7 +16,7 @@ const isNaN = (v: unknown) => Number.isNaN(v);
  */
 class PhraseParser {
   /** original spec */
-  private phrase!: IPhrase;
+  private phrase!: PhraseSpec;
   private customEntityEncoding?: CustomEntityEncoding;
   /** clear type */
   private type!: PhraseType;
@@ -41,7 +41,7 @@ class PhraseParser {
   /** inline word scale chart */
   private Chart?: ReactNode;
 
-  constructor(phrase: IPhrase, entityEncoding?: CustomEntityEncoding) {
+  constructor(phrase: PhraseSpec, entityEncoding?: CustomEntityEncoding) {
     this.phrase = phrase;
     this.customEntityEncoding = entityEncoding;
     this.type = this.getType();

@@ -1,13 +1,13 @@
 import { ReactNode } from 'react';
 import {
-  IEntityType,
-  ICustomPhrase,
+  EntityType,
+  CustomPhraseSpec,
   ValueAssessment,
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
 } from '@antv/narrative-text-schema';
 
-export type CustomPhraseRender<P = DefaultCustomPhraseGeneric> = (phrase: ICustomPhrase<P>) => ReactNode;
+export type CustomPhraseRender<P = DefaultCustomPhraseGeneric> = (phrase: CustomPhraseSpec<P>) => ReactNode;
 
 type AssessmentEncodingChannels = Omit<EncodingChannels, 'assessment'>;
 
@@ -23,7 +23,7 @@ export interface EncodingChannels {
   assessment?: Partial<Record<ValueAssessment, AssessmentEncodingChannels>>;
 }
 
-export type CustomEntityEncoding = Partial<Record<IEntityType, EncodingChannels>>;
+export type CustomEntityEncoding = Partial<Record<EntityType, EncodingChannels>>;
 
 export type WithPhraseProps<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
   /** custom entity encoding */

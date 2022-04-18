@@ -1,12 +1,12 @@
 import React from 'react';
-import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { ParagraphSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { Phrases } from '../phrases';
 import { classnames as cx } from '../utils/classnames';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { WithPhraseProps } from '../interface';
 
 type TextLineProps<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IParagraph<null, P>;
+  spec: ParagraphSpec<null, P>;
 };
 
 export function TextLine<P extends DefaultCustomPhraseGeneric>({ spec, ...phraseProps }: TextLineProps<P>) {

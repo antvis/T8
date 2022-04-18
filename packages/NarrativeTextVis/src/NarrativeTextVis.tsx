@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  INarrativeTextSpec,
-  IHeadline,
+  NarrativeTextSpec,
+  HeadlineSpec,
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
 } from '@antv/narrative-text-schema';
@@ -17,7 +17,7 @@ export type NarrativeTextVisProps<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = WithPhraseProps<P> &
   WithCustomBlockElement<S> & {
-    spec: INarrativeTextSpec<S, P>;
+    spec: NarrativeTextSpec<S, P>;
   };
 
 export function NarrativeTextVis<
@@ -27,7 +27,7 @@ export function NarrativeTextVis<
   const { headline, sections, styles, className } = spec;
   return (
     <div className={cx(className, getPrefixCls('container'))} style={styles}>
-      {headline ? <Headline<P> spec={headline as IHeadline<P>} {...phraseProps} /> : null}
+      {headline ? <Headline<P> spec={headline as HeadlineSpec<P>} {...phraseProps} /> : null}
       {sections
         ? sections?.map((section) => (
             <Section<S, P>

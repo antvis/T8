@@ -1,10 +1,10 @@
 import React from 'react';
 import { isFunction } from 'lodash';
-import { ICustomPhrase, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { CustomPhraseSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { CustomPhraseRender } from '../interface';
 
 interface Props<P> {
-  phrase: ICustomPhrase<P>;
+  phrase: CustomPhraseSpec<P>;
   customPhraseRender?: CustomPhraseRender<P>;
 }
 

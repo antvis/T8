@@ -1,10 +1,10 @@
 import React from 'react';
-import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { PhraseSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { Phrase } from './Phrase';
 import { WithPhraseProps } from '../interface';
 
 type PhrasesProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IPhrase<P>[];
+  spec: PhraseSpec<P>[];
 };
 
 export function Phrases<P extends DefaultCustomPhraseGeneric>({ spec, ...extraProps }: PhrasesProps<P>) {

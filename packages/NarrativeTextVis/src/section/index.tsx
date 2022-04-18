@@ -1,5 +1,9 @@
 import React from 'react';
-import { ISection, DefaultCustomPhraseGeneric, DefaultCustomBlockStructureGeneric } from '@antv/narrative-text-schema';
+import {
+  SectionSpec,
+  DefaultCustomPhraseGeneric,
+  DefaultCustomBlockStructureGeneric,
+} from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
 import { classnames as cx } from '../utils/classnames';
 import { getPrefixCls } from '../utils/getPrefixCls';
@@ -11,7 +15,7 @@ type SectionProps<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = WithPhraseProps<P> &
   WithCustomBlockElement<S> & {
-    spec: ISection<S, P>;
+    spec: SectionSpec<S, P>;
   };
 
 export function Section<
