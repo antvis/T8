@@ -25,6 +25,11 @@ lib
 es
 dist
 build
+site-dist
 
 # coverage
 coverage
+
+# dumi
+.umi
+.umi-production
