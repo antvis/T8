@@ -5,7 +5,7 @@ import { alignPlugin, basicElementsPlugins, listPlugin, imagePlugins, hrPlugins 
 import { linkPlugin } from './inline-elements';
 import { basicMarksPlugin, fontPlugins } from './marks';
 import { resetNodePlugin, softBreakPlugin, exitBreakPlugin, mdPlugin } from './utils';
-import { withStyledPlaceholders, dndPlugin, withStyledDraggables } from './interactive';
+import { withStyledPlaceholders } from './interactive';
 
 // To plug all the components at once
 const getPlugins = () => {
@@ -29,15 +29,12 @@ const getPlugins = () => {
     softBreakPlugin,
     exitBreakPlugin,
     mdPlugin,
-    dndPlugin,
   ];
 
   // TODO 如果是下方写法就无法生效
   // let components = createPlateUI();
   // withStyledPlaceholders(components);
-  // withStyledDraggables(components);
-  // TODO 同时有两个 editor 的时候只有一个能拖拽
-  const components = withStyledDraggables(withStyledPlaceholders(createPlateUI()));
+  const components = withStyledPlaceholders(createPlateUI());
 
   return createPlugins(plugins, {
     components,

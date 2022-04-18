@@ -1,8 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { Plate, TDescendant } from '@udecode/plate-core';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import getPlugins from './plugins';
 import HeadingToolbar from './components/HeadingToolbar';
@@ -22,20 +20,18 @@ export interface NarrativeTextEditorProps {
 const safeSlateValue = [{ type: ELEMENT_PARAGRAPH, children: [{ text: '' }] }];
 
 export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({ id, initialValue, onChange, style }) => (
-  <DndProvider backend={HTML5Backend}>
-    <Plate
-      id={id}
-      initialValue={initialValue ?? safeSlateValue}
-      onChange={onChange}
-      editableProps={{
-        autoFocus: false,
-        spellCheck: false,
-        style,
-      }}
-      plugins={getPlugins()}
-    >
-      <HeadingToolbar />
-      <HoveringToolbar />
-    </Plate>
-  </DndProvider>
+  <Plate
+    id={id}
+    initialValue={initialValue ?? safeSlateValue}
+    onChange={onChange}
+    editableProps={{
+      autoFocus: false,
+      spellCheck: false,
+      style,
+    }}
+    plugins={getPlugins()}
+  >
+    <HeadingToolbar />
+    <HoveringToolbar />
+  </Plate>
 );
