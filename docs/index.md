@@ -4,7 +4,7 @@ sidebar: false
 banner:
   title: T8 数据解读文本可视化方案
   desc: 
-  image: https://gw.alipayobjects.com/mdn/rms_fabca5/afts/img/A*gM2JRbkGETIAAAAAAAAAAAAAARQnAQ
+  image: https://gw.alipayobjects.com/mdn/rms_e59602/afts/img/A*Vd1HQrFeQnUAAAAAAAAAAAAAARQnAQ
   actions:
     - text: 快速开始 →
       link: /graphin/quick-start/overview
