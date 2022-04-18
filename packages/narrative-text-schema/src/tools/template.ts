@@ -1,4 +1,4 @@
-import { IPhrase, IEntityType } from '../schema';
+import { PhraseSpec, EntityType } from '../schema';
 
 /**
  * parse string template to phrases
@@ -18,17 +18,17 @@ export function generateSentence(
   template: string,
   formattedData?: Record<string, string>,
   originalData?: Record<string, unknown>,
-): IPhrase[] {
+): PhraseSpec[] {
   const splitReg = /(<%= [\s\S]*?(::\w*?)? %>)/;
   const variableReg = /<%= ([\s\S]*?)(\$\$(\w*)\$\$)? %>/;
-  return template.split(splitReg).reduce<IPhrase[]>((prev, curr) => {
+  return template.split(splitReg).reduce<PhraseSpec[]>((prev, curr) => {
     if (curr) {
       const variable = variableReg.exec(curr);
       if (variable && variable[1] && formattedData && typeof formattedData[variable[1]] === 'string') {
         const formattedVal = formattedData[variable[1]];
         if (variable[3]) {
-          const eType = variable[3] as IEntityType;
-          const result: IPhrase = {
+          const eType = variable[3] as EntityType;
+          const result: PhraseSpec = {
             type: 'entity',
             value: formattedVal,
             metadata: {

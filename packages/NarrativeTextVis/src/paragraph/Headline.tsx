@@ -1,12 +1,12 @@
 import React from 'react';
-import { IHeadline, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { HeadlineSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { Phrases } from '../phrases';
 import { classnames } from '../utils/classnames';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { WithPhraseProps } from '../interface';
 
 type HeadlineProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IHeadline<P>;
+  spec: HeadlineSpec<P>;
 };
 
 export function Headline<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric>({

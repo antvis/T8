@@ -2,11 +2,11 @@
  * get text by spec, used for copy text
  */
 import {
-  INarrativeTextSpec,
-  IParagraph,
-  ISection,
-  IPhrase,
-  IBulletItem,
+  NarrativeTextSpec,
+  ParagraphSpec,
+  SectionSpec,
+  PhraseSpec,
+  BulletItemSpec,
   DefaultCustomBlockStructureGeneric,
   DefaultCustomPhraseGeneric,
 } from '@antv/narrative-text-schema';
@@ -16,11 +16,11 @@ import PhraseParser from '../utils/phrase-parser';
 type GetCustomStructureTextFun<S extends DefaultCustomBlockStructureGeneric = null> = (spec: S) => string;
 
 type GetCustomPhraseTextFun<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = (
-  spec: IPhrase<P>,
+  spec: PhraseSpec<P>,
 ) => string;
 
 function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric>(
-  spec: IPhrase<P>[],
+  spec: PhraseSpec<P>[],
   sign = false,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
 ): string {
@@ -44,7 +44,7 @@ function getPhrases<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGe
 }
 
 function getBulletsText<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric>(
-  spec: IBulletItem<P>,
+  spec: BulletItemSpec<P>,
   level = 1,
   sign = false,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
@@ -72,7 +72,7 @@ export function getParagraphText<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
-  spec: IParagraph<S, P>,
+  spec: ParagraphSpec<S, P>,
   sign = false,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
@@ -99,7 +99,7 @@ export function getSectionText<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
-  spec: ISection<S, P>,
+  spec: SectionSpec<S, P>,
   sign = false,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,
@@ -118,7 +118,7 @@ export function getNarrativeText<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 >(
-  spec: INarrativeTextSpec<S, P>,
+  spec: NarrativeTextSpec<S, P>,
   sign = true,
   getCustomStructureText?: GetCustomStructureTextFun<S>,
   getCustomPhraseText?: GetCustomPhraseTextFun<P>,

@@ -1,30 +1,25 @@
-import { IPhrase } from './phrase';
+import { PhraseSpec } from './phrase';
 import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGeneric } from './common';
 
-export type IParagraph<
+export type ParagraphSpec<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = (ITextParagraph<P> | IBulletsParagraph<P> | IPlotParagraph | S) & CommonProps;
+> = (TextParagraphSpec<P> | BulletsParagraphSpec<P> | S) & CommonProps;
 
-type ITextParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
+type TextParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
   type: 'normal';
-  phrases: IPhrase<P>[];
+  phrases: PhraseSpec<P>[];
 };
 
-type IBulletsParagraph<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
+type BulletsParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = {
   type: 'bullets';
   isOrder: boolean;
-  bullets: IBulletItem<P>[];
+  bullets: BulletItemSpec<P>[];
 };
 
-export type IBulletItem<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+export type BulletItemSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
   type: 'bullet-item';
-  phrases: IPhrase<P>[];
+  phrases: PhraseSpec<P>[];
   // nested list
-  subBullet?: IBulletsParagraph<P>;
+  subBullet?: BulletsParagraphSpec<P>;
 };
-
-interface IPlotParagraph {
-  type: 'plot';
-  spec: unknown;
-}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  IParagraph,
+  ParagraphSpec,
   DefaultCustomPhraseGeneric,
   DefaultCustomBlockStructureGeneric,
 } from '@antv/narrative-text-schema';
@@ -13,7 +13,7 @@ type ParagraphProps<
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
 > = WithPhraseProps<P> &
   WithCustomBlockElement<S> & {
-    spec: IParagraph<S, P>;
+    spec: ParagraphSpec<S, P>;
   };
 
 export function Paragraph<

@@ -2,7 +2,7 @@ import {
   NarrativeTextVis,
   Section,
   Paragraph,
-  INarrativeTextSpec,
+  NarrativeTextSpec,
 } from '@antv/narrative-text-vis';
 
 import AnchorLayout from '../components/AnchorLayout';
@@ -95,7 +95,7 @@ export default function BasicPage() {
             Lexio Demo
           </a>
         </blockquote>
-        <NarrativeTextVis spec={booking as INarrativeTextSpec} />
+        <NarrativeTextVis spec={booking as NarrativeTextSpec} />
         <HighlightCode
           langType="tsx"
           code={`<NarrativeTextVis spec={textSpec} />`}

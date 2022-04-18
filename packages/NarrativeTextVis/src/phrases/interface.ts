@@ -1,7 +1,7 @@
-import { IPhrase } from '@antv/narrative-text-schema';
+import { PhraseSpec } from '@antv/narrative-text-schema';
 import { CustomEntityEncoding } from '../interface';
 
 export interface BasicPhraseProps {
-  phrase: IPhrase;
+  phrase: PhraseSpec;
   customEntityEncoding?: CustomEntityEncoding;
 }

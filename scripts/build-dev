@@ -4,3 +4,6 @@
 
 lerna run build --stream --scope @antv/narrative-text-schema \
                          --scope @antv/word-scale-chart \
+
+wait
+lerna run build --stream --scope @antv/narrative-text-vis

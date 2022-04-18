@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Spin, Modal } from 'antd';
-import { ICustomPhrase } from '@antv/narrative-text-vis';
+import { CustomPhraseSpec } from '@antv/narrative-text-vis';
 
 export type ModalShowDetailMeta = {
   interaction: string;
@@ -9,7 +9,7 @@ export type ModalShowDetailMeta = {
 };
 
 interface Props {
-  phrase: ICustomPhrase<ModalShowDetailMeta>;
+  phrase: CustomPhraseSpec<ModalShowDetailMeta>;
 }
 
 export function ModalShowDetail({ phrase }: Props) {

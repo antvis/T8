@@ -1,5 +1,5 @@
 import React from 'react';
-import { IParagraph, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { ParagraphSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
 import { Phrases } from '../phrases';
 import { classnames as cx } from '../utils/classnames';
@@ -7,7 +7,7 @@ import { getPrefixCls } from '../utils/getPrefixCls';
 import { WithPhraseProps } from '../interface';
 
 type BulletsProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IParagraph<null, P>;
+  spec: ParagraphSpec<null, P>;
 };
 
 export function Bullets<P extends DefaultCustomPhraseGeneric>({

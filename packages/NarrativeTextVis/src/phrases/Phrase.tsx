@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPhrase, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { PhraseSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
 import { isEmpty } from 'lodash';
 import { usePhraseParser } from './usePhraseParser';
 import { Custom } from './Custom';
@@ -7,7 +7,7 @@ import { classnames as cx } from '../utils/classnames';
 import { WithPhraseProps } from '../interface';
 
 type PhraseProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: IPhrase<P>;
+  spec: PhraseSpec<P>;
 };
 
 /** <Phrase /> can use independence */

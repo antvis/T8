@@ -2,25 +2,25 @@ import { CSSProperties } from 'react';
 import { DefaultCustomPhraseGeneric } from './common';
 
 // P used for custom phrase;
-export type IPhrase<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> =
-  | ITextPhrase
-  | IEntityPhrase
-  | ICustomPhrase<P>;
+export type PhraseSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> =
+  | TextPhraseSpec
+  | EntityPhraseSpec
+  | CustomPhraseSpec<P>;
 
-export interface ITextPhrase {
+export interface TextPhraseSpec {
   type: 'text';
   value: string;
   styles?: CSSProperties;
 }
 
-export interface IEntityPhrase {
+export interface EntityPhraseSpec {
   type: 'entity';
   value?: string;
   metadata?: MetaData;
   styles?: CSSProperties;
 }
 
-export interface ICustomPhrase<P> {
+export interface CustomPhraseSpec<P> {
   type: 'custom';
   value?: string;
   metadata?: P;
@@ -82,13 +82,13 @@ export const EntityType = [
   'proportion',
 ] as const;
 
-export type IEntityType = typeof EntityType[number];
+export type EntityType = typeof EntityType[number];
 
 type MetaData = {
   /**
    * entity type, 实体类型标记
    * */
-  entityType: IEntityType;
+  entityType: EntityType;
   /**
    * assessment up or down, used for derived value
    * 衍生指标评估参数，指定上涨或者下跌
