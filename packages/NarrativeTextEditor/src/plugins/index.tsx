@@ -6,7 +6,7 @@ import { alignPlugin } from './alignment';
 import { listPlugin } from './list';
 
 import { linkPlugin } from './inline-elements';
-import { basicMarksPlugin, fontPlugins } from './marks';
+import { basicMarkPlugins } from './marks';
 import { resetNodePlugin, softBreakPlugin, exitBreakPlugin, mdPlugin } from './utils';
 import { withStyledPlaceholders } from './placeholders';
 
@@ -19,13 +19,11 @@ const getPlugins = () => {
     paragraphPlugin,
     alignPlugin, // alignment must be used with basic element to take effect
     listPlugin,
+    ...basicMarkPlugins,
 
     // inline elements
-    linkPlugin,
-
-    // marks
-    basicMarksPlugin,
-    ...fontPlugins,
+    // linkPlugin,
+    // ...fontPlugins,
 
     // others
     resetNodePlugin,
@@ -51,7 +49,7 @@ export { HeadingToolbarButtons } from './heading';
 export { ParagraphToolbarButton } from './paragraph';
 export { AlignToolbarButtons } from './alignment';
 export { ListToolbarButtons } from './list';
+export { BasicMarkToolbarButtons } from './marks';
 
 export { LinkToolBarButton } from './inline-elements/link';
-export { BasicMarkToolbarButtons } from './marks/basic-marks';
-export { FontToolbarButtons } from './marks/font';
+export { FontToolbarButtons } from './font/font';

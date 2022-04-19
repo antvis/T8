@@ -10,6 +10,9 @@ export type PhraseSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhras
 export interface TextPhraseSpec {
   type: 'text';
   value: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
   styles?: CSSProperties;
 }
 

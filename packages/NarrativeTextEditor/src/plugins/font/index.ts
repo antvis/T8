@@ -1,0 +1,1 @@
+export { fontPlugins } from './font';

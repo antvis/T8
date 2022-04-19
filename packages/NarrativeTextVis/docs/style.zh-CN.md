@@ -49,7 +49,14 @@ export default () => (
     <Paragraph 
       spec={{
         type: "normal",
-        phrases: [{ type: "text", value: "Single line" }]
+        phrases: [
+          { type: "text", value: "text with marks " }, 
+          { type: "text", value: "bold", bold: true }, 
+          { type: "text", value: " " }, 
+          { type: "text", value: "italic", italic: true },
+          { type: "text", value: " " }, 
+          { type: "text", value: "underline", underline: true },
+        ]
       }} 
     />
     <Paragraph spec={basicElements.sections[0].paragraphs[7]} />

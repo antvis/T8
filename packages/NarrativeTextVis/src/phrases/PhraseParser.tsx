@@ -1,6 +1,7 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import { PhraseSpec, ValueAssessment } from '@antv/narrative-text-schema';
 import { get, kebabCase } from 'lodash';
+import { Bold, Italic, Underline } from '../styled';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { ProportionPieChart } from '../charts';
 import { ArrowDown, ArrowUp } from '../assets/icons';
@@ -128,10 +129,17 @@ class PhraseParser {
   }
 
   public get Content(): ReactNode {
+    let main: ReactNode = this.text;
+    if (this.phrase.type === 'text') {
+      if (this.phrase.bold) main = <Bold>{main}</Bold>;
+      if (this.phrase.italic) main = <Italic>{main}</Italic>;
+      if (this.phrase.underline) main = <Underline>{main}</Underline>;
+    }
+
     return (
       <>
         {this.Prefix ? <span style={{ marginRight: 2 }}>{this.Prefix}</span> : null}
-        {this.text}
+        {main}
         {this.Suffix}
         {this.Chart}
       </>
