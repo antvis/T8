@@ -2,7 +2,8 @@ import React from 'react';
 import { HeadingToolbar as PlateHeadingToolbar } from '@udecode/plate-ui-toolbar';
 
 import {
-  BasicElementToolbarButtons,
+  HeadingToolbarButtons,
+  ParagraphToolbarButton,
   AlignToolbarButtons,
   ListToolbarButtons,
   LinkToolBarButton,
@@ -12,7 +13,8 @@ import {
 
 const HeadingToolbar = () => (
   <PlateHeadingToolbar>
-    <BasicElementToolbarButtons />
+    <HeadingToolbarButtons />
+    <ParagraphToolbarButton />
     <FontToolbarButtons />
     <BasicMarkToolbarButtons />
     <AlignToolbarButtons />

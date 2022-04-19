@@ -27,7 +27,10 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({ id, in
     editableProps={{
       autoFocus: false,
       spellCheck: false,
-      style,
+      style: {
+        fontFamily: 'PingFangSC, sans-serif',
+        ...style,
+      },
     }}
     plugins={getPlugins()}
   >
