@@ -22,7 +22,7 @@ export const H3 = styled.h3`
   margin: 16px 0 5px 0;
 `;
 
-export const H4 = styled.h3`
+export const H4 = styled.h4`
   font-size: 16px;
   line-height: 24px;
   margin: 10px 0 5px 0;
@@ -36,7 +36,7 @@ export const H5 = styled.h5`
 
 export const H6 = styled.h6`
   min-height: 24px;
-  line-height: 1.74;
+  line-height: 24px;
   letter-spacing: 0.008em;
   color: #262626;
   font-size: 15px;

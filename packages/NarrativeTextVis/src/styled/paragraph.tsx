@@ -6,6 +6,6 @@ export const P = styled.p`
   color: ${DEFAULT_FONT_COLOR};
   font-size: ${DEFAULT_FONT_SIZE};
   min-height: 24px;
-  line-height: 1.74;
+  line-height: 24px;
   margin-bottom: 4px;
 `;

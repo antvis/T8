@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { createAlignPlugin } from '@udecode/plate-alignment';
-import { AlignToolbarButton } from '@udecode/plate-ui';
+import { AlignToolbarButton } from '@udecode/plate-ui-alignment';
 
 import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined, ColumnWidthOutlined } from '@ant-design/icons';
 
