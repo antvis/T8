@@ -14,10 +14,10 @@ export const autoformatRules = [
   ...autoformatBlocks,
   ...autoformatLists,
   ...autoformatMarks,
-  ...autoformatSmartQuotes,
-  ...autoformatPunctuation,
-  ...autoformatLegal,
-  ...autoformatLegalHtml,
-  ...autoformatArrow,
-  ...autoformatMath,
+  ...autoformatSmartQuotes, // "" ''
+  ...autoformatPunctuation, // -- ... >> <<
+  ...autoformatLegal, // (c) -> ©
+  ...autoformatLegalHtml, // &copy; -> ©
+  ...autoformatArrow, // => -> ⇒
+  ...autoformatMath, // !==
 ];

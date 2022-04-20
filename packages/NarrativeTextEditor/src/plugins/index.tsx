@@ -4,34 +4,28 @@ import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
 import { alignPlugin } from './alignment';
 import { listPlugin } from './list';
-
-import { linkPlugin } from './inline-elements';
-import { basicMarksPlugin, fontPlugins } from './marks';
-import { resetNodePlugin, softBreakPlugin, exitBreakPlugin, mdPlugin } from './utils';
+import { basicMarkPlugins } from './marks';
+import { fontPlugins } from './font';
 import { withStyledPlaceholders } from './placeholders';
+import { markdownPlugin } from './markdown';
+
+import { softBreakPlugin, exitBreakPlugin } from './utils';
 
 import { createCustomUI } from './ui';
 
-// To plug all the components at once
 const getPlugins = () => {
   const plugins = [
     headingPlugin,
     paragraphPlugin,
     alignPlugin, // alignment must be used with basic element to take effect
     listPlugin,
-
-    // inline elements
-    linkPlugin,
-
-    // marks
-    basicMarksPlugin,
+    ...basicMarkPlugins,
     ...fontPlugins,
 
     // others
-    resetNodePlugin,
-    // softBreakPlugin,
-    // exitBreakPlugin,
-    mdPlugin,
+    markdownPlugin,
+    softBreakPlugin,
+    exitBreakPlugin,
   ];
 
   // TODO 如果是下方写法就无法生效
@@ -51,7 +45,5 @@ export { HeadingToolbarButtons } from './heading';
 export { ParagraphToolbarButton } from './paragraph';
 export { AlignToolbarButtons } from './alignment';
 export { ListToolbarButtons } from './list';
-
-export { LinkToolBarButton } from './inline-elements/link';
-export { BasicMarkToolbarButtons } from './marks/basic-marks';
-export { FontToolbarButtons } from './marks/font';
+export { BasicMarkToolbarButtons } from './marks';
+export { FontToolbarButtons } from './font';

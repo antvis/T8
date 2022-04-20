@@ -7,7 +7,7 @@ import { createAutoformatPlugin } from '@udecode/plate-autoformat';
 
 import { autoformatRules } from './autoformatRules';
 
-export const mdPlugin = createAutoformatPlugin({
+export const markdownPlugin = createAutoformatPlugin({
   options: {
     rules: autoformatRules,
   },
