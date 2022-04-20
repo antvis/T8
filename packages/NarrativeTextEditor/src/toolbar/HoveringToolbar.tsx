@@ -1,29 +1,23 @@
 import React from 'react';
 import { BalloonToolbar } from '@udecode/plate-ui-toolbar';
-import { Space } from 'antd';
 import {
+  HeadingToolbarButtons,
   ParagraphToolbarButton,
   AlignToolbarButtons,
   ListToolbarButtons,
   BasicMarkToolbarButtons,
-  FontToolbarButtons,
+  // TODO 暂时不在 hovering tooltip 中透出，因为点击会消失
+  // FontToolbarButtons,
 } from '../plugins';
 
 const HoveringToolbar = () => (
-  <BalloonToolbar
-    popperOptions={{
-      placement: 'top',
-    }}
-    theme="dark"
-    arrow={false}
-  >
-    <Space>
-      <ParagraphToolbarButton />
-      <BasicMarkToolbarButtons />
-      <AlignToolbarButtons />
-      <ListToolbarButtons />
-      <FontToolbarButtons />
-    </Space>
+  <BalloonToolbar popperOptions={{ placement: 'top' }} arrow={false}>
+    <HeadingToolbarButtons />
+    <ParagraphToolbarButton />
+    <BasicMarkToolbarButtons />
+    <AlignToolbarButtons />
+    <ListToolbarButtons />
+    {/* <FontToolbarButtons /> */}
   </BalloonToolbar>
 );
 

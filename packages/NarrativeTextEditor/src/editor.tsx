@@ -6,6 +6,8 @@ import getPlugins from './plugins';
 import HeadingToolbar from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
 
+import 'tippy.js/dist/tippy.css';
+
 export interface NarrativeTextEditorProps {
   /** plate editor key, must unique */
   id: string;

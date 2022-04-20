@@ -5,26 +5,19 @@
  * Font color
  * Font family, Currently not supported
  * Font size
- * Font weight
  */
 import React from 'react';
 import {
   createFontColorPlugin,
   createFontBackgroundColorPlugin,
   createFontSizePlugin,
-  createFontWeightPlugin,
   MARK_COLOR,
   MARK_BG_COLOR,
 } from '@udecode/plate-font';
-import { ColorPickerToolbarDropdown } from '@udecode/plate-ui-font';
 import { FontColorsOutlined, BgColorsOutlined } from '@ant-design/icons';
+import { ColorPickerToolbarDropdown } from '@udecode/plate-ui-font';
 
-export const fontPlugins = [
-  createFontColorPlugin(),
-  createFontBackgroundColorPlugin(),
-  createFontSizePlugin(),
-  createFontWeightPlugin(),
-];
+export const fontPlugins = [createFontColorPlugin(), createFontBackgroundColorPlugin(), createFontSizePlugin()];
 
 export const FontToolbarButtons = () => (
   <>

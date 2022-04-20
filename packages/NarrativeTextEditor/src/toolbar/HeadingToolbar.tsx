@@ -15,7 +15,7 @@ const HeadingToolbar = () => (
     <HeadingToolbarButtons />
     <ParagraphToolbarButton />
     <BasicMarkToolbarButtons />
-    {/* <FontToolbarButtons /> */}
+    <FontToolbarButtons />
     <AlignToolbarButtons />
     <ListToolbarButtons />
   </PlateHeadingToolbar>

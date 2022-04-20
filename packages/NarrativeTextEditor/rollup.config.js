@@ -1,6 +1,7 @@
 import json from '@rollup/plugin-json';
 import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
+import css from 'rollup-plugin-import-css';
 import rollupConfig from '../../config/rollup-react';
 
 export default rollupConfig('NarrativeTextEditor', {
@@ -14,5 +15,8 @@ export default rollupConfig('NarrativeTextEditor', {
 
     // Register Node.js globals for browserify compatibility.
     globals(),
+
+    // import css file
+    css({ output: 'index.css' }),
   ],
 });
