@@ -14,6 +14,10 @@ import {
 } from '@udecode/plate-heading';
 import { BlockToolbarButton } from '@udecode/plate-ui-toolbar';
 import { NStyledComponents } from '@antv/narrative-text-vis';
+import { LooksOne } from '@styled-icons/material-outlined/LooksOne';
+import { LooksTwo } from '@styled-icons/material-outlined/LooksTwo';
+import { Looks3 } from '@styled-icons/material-outlined/Looks3';
+import { Looks4 } from '@styled-icons/material-outlined/Looks4';
 
 export const headingPlugin = createHeadingPlugin();
 
@@ -21,9 +25,10 @@ export const HeadingToolbarButtons = () => {
   const editor = usePlateEditorRef();
   return (
     <>
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H1)} icon="h1" />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H2)} icon="h2" />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H3)} icon="h3" />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H1)} icon={<LooksOne />} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H2)} icon={<LooksTwo />} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H3)} icon={<Looks3 />} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H4)} icon={<Looks4 />} />
     </>
   );
 };

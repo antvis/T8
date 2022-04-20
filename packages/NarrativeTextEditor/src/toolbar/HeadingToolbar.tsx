@@ -6,7 +6,6 @@ import {
   ParagraphToolbarButton,
   AlignToolbarButtons,
   ListToolbarButtons,
-  LinkToolBarButton,
   BasicMarkToolbarButtons,
   FontToolbarButtons,
 } from '../plugins';
@@ -15,11 +14,10 @@ const HeadingToolbar = () => (
   <PlateHeadingToolbar>
     <HeadingToolbarButtons />
     <ParagraphToolbarButton />
-    <FontToolbarButtons />
     <BasicMarkToolbarButtons />
+    {/* <FontToolbarButtons /> */}
     <AlignToolbarButtons />
     <ListToolbarButtons />
-    <LinkToolBarButton />
   </PlateHeadingToolbar>
 );
 

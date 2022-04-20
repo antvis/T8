@@ -3,8 +3,8 @@ import { Plate, TDescendant } from '@udecode/plate-core';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 
 import getPlugins from './plugins';
-import HeadingToolbar from './components/HeadingToolbar';
-import HoveringToolbar from './components/HoveringToolbar';
+import HeadingToolbar from './toolbar/HeadingToolbar';
+import HoveringToolbar from './toolbar/HoveringToolbar';
 
 export interface NarrativeTextEditorProps {
   /** plate editor key, must unique */
