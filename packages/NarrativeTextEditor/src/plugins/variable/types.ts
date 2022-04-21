@@ -1,12 +1,17 @@
-import { Data, NoData, TComboboxItem } from '@udecode/plate-combobox';
+import { TComboboxItem } from '@udecode/plate-combobox';
 import { TElement } from '@udecode/plate-core';
+import { EntityMetaData } from '@antv/narrative-text-vis';
 
-export interface CreateVariableNode<TData extends Data> {
-  (item: TComboboxItem<TData>): VariableNodeData;
+interface CreateVariableNode {
+  (item: VariableComboboxItem): VariableNodeData;
 }
+
+export type VariableComboboxItemData = EntityMetaData;
+export type VariableComboboxItem = TComboboxItem<VariableComboboxItemData>;
 
 export interface VariableNodeData {
   value: string;
+  metadata: EntityMetaData;
 }
 
 export interface VariableInputNodeData {
@@ -16,8 +21,8 @@ export interface VariableInputNodeData {
 export type VariableNode = TElement<VariableNodeData>;
 export type VariableInputNode = TElement<VariableInputNodeData>;
 
-export interface VariablePlugin<TData extends Data = NoData> {
-  createVariableNode?: CreateVariableNode<TData>;
+export interface VariablePlugin {
+  createVariableNode?: CreateVariableNode;
   id?: string;
   insertSpaceAfterVariable?: boolean;
   trigger?: string;

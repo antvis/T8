@@ -3,6 +3,7 @@ import { getHandler } from '@udecode/plate-core';
 import { getRootProps, StyledElementProps } from '@udecode/plate-styled-components';
 import { useFocused, useSelected } from 'slate-react';
 import styled from 'styled-components';
+import { Phrase } from '@antv/narrative-text-vis';
 import { VariableNode, VariableNodeData } from '../types';
 
 interface VariableElementStyleProps extends VariableElementProps {
@@ -11,14 +12,9 @@ interface VariableElementStyleProps extends VariableElementProps {
 }
 
 const StyledVariableElement = styled.span<VariableElementStyleProps>`
-  margin: 0px 1px;
   vertical-align: baseline;
   display: inline-block;
   box-shadow: ${({ selected, focused }) => selected && focused && '0 0 0 2px #B4D5FF'};
-  padding: 3px 3px 2px;
-  border-radius: 4px;
-  background-color: #eee;
-  font-size: 0.9em;
 `;
 
 // renderElement props
@@ -29,6 +25,7 @@ export interface VariableElementProps extends Omit<StyledElementProps<VariableNo
   prefix?: string;
   onClick?: (variableNode: VariableNode) => void;
   renderLabel?: (variableable: VariableNodeData) => string;
+  element: VariableNode; // make type clearly
 }
 
 export const VariableElement = (props: VariableElementProps) => {
@@ -51,7 +48,17 @@ export const VariableElement = (props: VariableElementProps) => {
       {...nodeProps}
     >
       {prefix}
-      {renderLabel ? renderLabel(element) : element.value}
+      {renderLabel ? (
+        renderLabel(element)
+      ) : (
+        <Phrase
+          spec={{
+            type: 'entity',
+            value: element.value,
+            metadata: element.metadata,
+          }}
+        />
+      )}
       {children}
     </StyledVariableElement>
   );

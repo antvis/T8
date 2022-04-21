@@ -21,7 +21,7 @@ export const createVariablePlugin = createPluginFactory<VariablePlugin>({
   withOverrides: withVariable,
   options: {
     trigger,
-    createVariableNode: (item) => ({ value: item.text }),
+    createVariableNode: (item) => ({ value: item.text, metadata: item.data }),
   },
   plugins: [
     {

@@ -1,12 +1,12 @@
-import { comboboxActions, ComboboxOnSelectItem, comboboxSelectors, Data, NoData } from '@udecode/plate-combobox';
+import { comboboxActions, ComboboxOnSelectItem, comboboxSelectors } from '@udecode/plate-combobox';
 import { getBlockAbove, getPlugin, insertNodes, PlatePluginKey } from '@udecode/plate-core';
 import { Editor, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ELEMENT_VARIABLE, ELEMENT_VARIABLE_INPUT } from '../constants';
-import { VariableNode, VariablePlugin } from '../types';
+import { VariableNode, VariablePlugin, VariableComboboxItemData } from '../types';
 
 export const getVariableOnSelectItem =
-  <TData extends Data = NoData>({ key = ELEMENT_VARIABLE }: PlatePluginKey = {}): ComboboxOnSelectItem<TData> =>
+  ({ key = ELEMENT_VARIABLE }: PlatePluginKey = {}): ComboboxOnSelectItem<VariableComboboxItemData> =>
   (editor, item) => {
     const targetRange = comboboxSelectors.targetRange();
     if (!targetRange) return;
