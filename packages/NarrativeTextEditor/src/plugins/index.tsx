@@ -8,6 +8,7 @@ import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
+import { variablePlugin } from './variable';
 
 import { softBreakPlugin, exitBreakPlugin } from './utils';
 
@@ -26,6 +27,7 @@ const getPlugins = () => {
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
+    variablePlugin,
   ];
 
   // TODO 如果是下方写法就无法生效
@@ -47,3 +49,6 @@ export { AlignToolbarButtons } from './alignment';
 export { ListToolbarButtons } from './list';
 export { BasicMarkToolbarButtons } from './marks';
 export { FontToolbarButtons } from './font';
+
+// other handler
+export { VariableCombobox } from './variable';

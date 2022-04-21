@@ -71,7 +71,8 @@
     "slate-history": "0.66.0",
     "slate-hyperscript": "0.67.0",
     "slate-react": "0.74.2",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "twin.macro": "^2.8.2"
   },
   "peerDependencies": {
     "react": ">=16.9.0",

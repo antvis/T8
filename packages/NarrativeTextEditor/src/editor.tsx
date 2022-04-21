@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { Plate, TDescendant } from '@udecode/plate-core';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 
-import getPlugins from './plugins';
+import getPlugins, { VariableCombobox } from './plugins';
 import HeadingToolbar from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
 
@@ -38,5 +38,12 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({ id, in
   >
     <HeadingToolbar />
     <HoveringToolbar />
+    <VariableCombobox
+      // TODO 用户传入变量配置
+      items={[
+        { key: '0', text: 'Aayla Secura', data: { email: 'aayla_secura@force.com' } },
+        { key: '1', text: 'Adi Gallia', data: { email: 'adi_gallia@force.com' } },
+      ]}
+    />
   </Plate>
 );
