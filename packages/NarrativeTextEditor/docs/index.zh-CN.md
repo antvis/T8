@@ -17,5 +17,5 @@ nav:
 import React from 'react';
 import { NarrativeTextEditor } from '@antv/narrative-text-editor';
 
-export default () => <NarrativeTextEditor  />;
+export default () => <NarrativeTextEditor id="basic"  />;
 ```

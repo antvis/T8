@@ -1,4 +1,5 @@
 import { createPlugins } from '@udecode/plate-core';
+import { createComboboxPlugin } from '@udecode/plate-combobox';
 
 import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
@@ -23,11 +24,13 @@ const getPlugins = () => {
     ...basicMarkPlugins,
     ...fontPlugins,
 
+    createComboboxPlugin(),
+    variablePlugin,
+
     // others
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
-    variablePlugin,
   ];
 
   // TODO 如果是下方写法就无法生效

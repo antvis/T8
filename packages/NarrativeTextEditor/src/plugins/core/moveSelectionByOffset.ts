@@ -11,9 +11,9 @@ export const moveSelectionByOffset: (
   options?: MoveSelectionByOffsetOptions,
 ) => KeyboardEventHandler =
   (editor, { query = () => true } = {}) =>
+  // eslint-disable-next-line consistent-return
   (event) => {
     const { selection } = editor;
-
     if (!selection || Range.isExpanded(selection) || !query(editor)) {
       return false;
     }
@@ -29,6 +29,4 @@ export const moveSelectionByOffset: (
       Transforms.move(editor, { unit: 'offset' });
       return true;
     }
-
-    return false;
   };

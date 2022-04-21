@@ -1,3 +1,6 @@
+/**
+ * reference plate-mention to input variable
+ */
 import { createVariablePlugin } from './createVariablePlugin';
 import { ELEMENT_VARIABLE, ELEMENT_VARIABLE_INPUT } from './constants';
 import { VariableElement } from './VariableElement';

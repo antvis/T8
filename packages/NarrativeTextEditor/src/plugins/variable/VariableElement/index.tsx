@@ -1,8 +1,8 @@
 import React from 'react';
 import { getHandler } from '@udecode/plate-core';
-import { getRootProps, StyledElementProps, createStyles } from '@udecode/plate-styled-components';
+import { getRootProps, StyledElementProps } from '@udecode/plate-styled-components';
 import { useFocused, useSelected } from 'slate-react';
-import tw, { css } from 'twin.macro';
+import styled from 'styled-components';
 import { VariableNode, VariableNodeData } from '../types';
 
 interface VariableElementStyleProps extends VariableElementProps {
@@ -10,22 +10,16 @@ interface VariableElementStyleProps extends VariableElementProps {
   focused?: boolean;
 }
 
-const getVariableElementStyles = (props: VariableElementStyleProps) =>
-  createStyles(
-    { prefixClassNames: 'VariableElement', ...props },
-    {
-      root: [
-        tw`my-0 mx-px align-baseline inline-block`,
-        props.selected && props.focused && tw`boxShadow[0 0 0 2px #B4D5FF]`,
-        css`
-          padding: 3px 3px 2px;
-          border-radius: 4px;
-          background-color: #eee;
-          font-size: 0.9em;
-        `,
-      ],
-    },
-  );
+const StyledVariableElement = styled.span<VariableElementStyleProps>`
+  margin: 0px 1px;
+  vertical-align: baseline;
+  display: inline-block;
+  box-shadow: ${({ selected, focused }) => selected && focused && '0 0 0 2px #B4D5FF'};
+  padding: 3px 3px 2px;
+  border-radius: 4px;
+  background-color: #eee;
+  font-size: 0.9em;
+`;
 
 // renderElement props
 export interface VariableElementProps extends Omit<StyledElementProps<VariableNode>, 'onClick'> {
@@ -38,31 +32,27 @@ export interface VariableElementProps extends Omit<StyledElementProps<VariableNo
 }
 
 export const VariableElement = (props: VariableElementProps) => {
-  const { attributes, children, nodeProps, element, prefix, as, onClick, renderLabel } = props;
+  const { attributes, children, nodeProps, element, prefix, onClick, renderLabel } = props;
 
   const rootProps = getRootProps(props);
 
   const selected = useSelected();
   const focused = useFocused();
 
-  const styles = getVariableElementStyles({ ...props, selected, focused });
-
   return (
-    <span
+    <StyledVariableElement
       {...attributes}
-      as={as}
-      aria-hidden
       data-slate-value={element.value}
-      className={styles.root.className}
-      css={styles.root.css}
       contentEditable={false}
       onClick={getHandler(onClick, element)}
+      selected={selected}
+      focused={focused}
       {...rootProps}
       {...nodeProps}
     >
       {prefix}
       {renderLabel ? renderLabel(element) : element.value}
       {children}
-    </span>
+    </StyledVariableElement>
   );
 };

@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "include": ["./src", "./__tests__", "setupTests.ts"],
-  "files": ["types/twin.d.ts"],
   "compilerOptions": {
     "jsx": "react",
     "downlevelIteration": true

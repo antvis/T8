@@ -24,12 +24,12 @@
     "build:dev": "sh ./scripts/build-dev",
     "build:doc": "dumi build",
     "build": "lerna run build & npm run build:doc",
-    "boot": "lerna bootstrap && npm run build:dev",
+    "boot": "lerna bootstrap",
+    "boot:dev": "lerna bootstrap && npm run build:dev",
     "lint": "lerna run lint",
     "start:ntv-demo": "cd examples/ntv-demo && npm run start",
     "prepare": "husky install",
-    "precommit": "lint-staged",
-    "postinstall": "npm run boot"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
