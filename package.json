@@ -27,7 +27,7 @@
     "boot": "lerna bootstrap",
     "boot:dev": "lerna bootstrap && npm run build:dev",
     "lint": "lerna run lint",
-    "start:ntv-demo": "cd examples/ntv-demo && npm run start",
+    "start:demo": "cd examples/ntv-demo && npm run start",
     "prepare": "husky install",
     "precommit": "lint-staged"
   },
