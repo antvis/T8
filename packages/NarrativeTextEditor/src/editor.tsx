@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plate } from '@udecode/plate-core';
-import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 
+import { safeSlateValue } from './constants';
 import { NarrativeTextEditorProps } from './types';
 import getPlugins, { VariableCombobox } from './plugins';
 import HeadingToolbar from './toolbar/HeadingToolbar';
@@ -9,8 +9,6 @@ import HoveringToolbar from './toolbar/HoveringToolbar';
 import { transferComboboxItemData } from './helpers';
 
 import 'tippy.js/dist/tippy.css';
-
-const safeSlateValue = [{ type: ELEMENT_PARAGRAPH, children: [{ text: '' }] }];
 
 export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   id,

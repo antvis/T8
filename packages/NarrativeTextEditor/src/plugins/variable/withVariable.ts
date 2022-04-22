@@ -85,6 +85,7 @@ export const withVariable: WithOverride<Record<string, any>, VariablePlugin> = (
         : undefined;
 
       if (previousVariableInputPath && !currentVariableInputPath) {
+        // TODO 当前搜索如果输入中文会跳出
         removeVariableInput(editor, previousVariableInputPath);
       }
 
