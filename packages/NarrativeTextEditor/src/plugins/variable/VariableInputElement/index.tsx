@@ -20,9 +20,9 @@ const StyledVariableElement = styled.span<VariableInputElementStyleProps>`
   min-width: 96px;
   position: relative;
   ::before {
-    content: '请输入搜索';
+    content: '输入搜索...';
     position: absolute;
-    left: 0;
+    left: 4px;
     top: 0;
     opacity: 0.25;
   }
