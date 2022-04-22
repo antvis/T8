@@ -14,7 +14,7 @@ interface VariableElementStyleProps extends VariableElementProps {
 const StyledVariableElement = styled.span<VariableElementStyleProps>`
   vertical-align: baseline;
   display: inline-block;
-  box-shadow: ${({ selected, focused }) => selected && focused && '0 0 0 2px #B4D5FF'};
+  background-color: ${({ selected, focused }) => selected && focused && 'rgba(176,209,255,1)'};
 `;
 
 // renderElement props

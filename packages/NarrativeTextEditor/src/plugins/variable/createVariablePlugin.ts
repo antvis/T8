@@ -5,7 +5,7 @@ import { VariablePlugin } from './types';
 import { withVariable } from './withVariable';
 import { ELEMENT_VARIABLE, ELEMENT_VARIABLE_INPUT } from './constants';
 
-const trigger = '$';
+const trigger = '/';
 
 /**
  * Enables support for autocompleting @variables.

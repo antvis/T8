@@ -14,11 +14,18 @@ const StyledVariableElement = styled.span<VariableInputElementStyleProps>`
   margin: 0px 1px;
   vertical-align: baseline;
   display: inline-block;
-  box-shadow: ${({ selected, focused }) => selected && focused && '0 0 0 2px #B4D5FF'};
-  padding: 3px 3px 2px;
-  border-radius: 4px;
-  background-color: #eee;
-  font-size: 0.9em;
+  padding: 0px 2px;
+  border-radius: 2px;
+  background-color: rgba(242, 241, 237, 1);
+  min-width: 96px;
+  position: relative;
+  ::before {
+    content: '请输入搜索';
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.25;
+  }
 `;
 
 // renderElement props
