@@ -14,7 +14,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "types": "es/src/index.d.ts",
+  "types": "es/index.d.ts",
   "unpkg": "dist/narrative-text-editor.min.js",
   "files": [
     "dist",
@@ -65,12 +65,10 @@
     "@styled-icons/material-outlined": "^10.34.0",
     "@udecode/plate": "10.5.3",
     "lodash": "^4.17.21",
-    "react-dnd": "^14.0.2",
-    "react-dnd-html5-backend": "^14.0.0",
     "slate": "0.72.8",
     "slate-history": "0.66.0",
     "slate-hyperscript": "0.67.0",
-    "slate-react": "0.74.2",
+    "slate-react": "0.75.0",
     "styled-components": "^5.3.5"
   },
   "peerDependencies": {

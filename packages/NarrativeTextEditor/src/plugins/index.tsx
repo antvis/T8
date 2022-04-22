@@ -1,4 +1,5 @@
 import { createPlugins } from '@udecode/plate-core';
+import { createComboboxPlugin } from '@udecode/plate-combobox';
 
 import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
@@ -8,6 +9,7 @@ import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
+import { variablePlugin } from './variable';
 
 import { softBreakPlugin, exitBreakPlugin } from './utils';
 
@@ -21,6 +23,9 @@ const getPlugins = () => {
     listPlugin,
     ...basicMarkPlugins,
     ...fontPlugins,
+
+    createComboboxPlugin(),
+    variablePlugin,
 
     // others
     markdownPlugin,
@@ -47,3 +52,6 @@ export { AlignToolbarButtons } from './alignment';
 export { ListToolbarButtons } from './list';
 export { BasicMarkToolbarButtons } from './marks';
 export { FontToolbarButtons } from './font';
+
+// other handler
+export { VariableCombobox } from './variable';

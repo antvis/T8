@@ -16,6 +16,9 @@ $ npm install lerna -g
 # 安装项目依赖和初始化构建
 $ yarn
 
+# 执行 lerna bootstrap，并进行基础类库的打包
+$ yarn boot
+
 # 启动 site 页面进行调试
 $ yarn start
 ```

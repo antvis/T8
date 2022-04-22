@@ -19,7 +19,7 @@ export interface TextPhraseSpec {
 export interface EntityPhraseSpec {
   type: 'entity';
   value?: string;
-  metadata?: MetaData;
+  metadata?: EntityMetaData;
   styles?: CSSProperties;
 }
 
@@ -87,7 +87,7 @@ export const EntityType = [
 
 export type EntityType = typeof EntityType[number];
 
-type MetaData = {
+export type EntityMetaData = {
   /**
    * entity type, 实体类型标记
    * */
