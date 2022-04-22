@@ -50,9 +50,9 @@ export const withVariable: WithOverride<Record<string, any>, VariablePlugin> = (
     const beginningOfLine = previousChar === '';
     const endOfLine = nextChar === '';
     const precededByWhitespace = previousChar === ' ';
-    const followedByWhitespace = nextChar === ' ';
 
-    if ((beginningOfLine || precededByWhitespace) && (endOfLine || followedByWhitespace)) {
+    // input / not require whitespace before char
+    if (endOfLine || beginningOfLine || precededByWhitespace) {
       const data: VariableInputNode = {
         type,
         children: [{ text: '' }],

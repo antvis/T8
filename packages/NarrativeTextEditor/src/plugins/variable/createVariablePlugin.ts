@@ -8,7 +8,7 @@ import { ELEMENT_VARIABLE, ELEMENT_VARIABLE_INPUT } from './constants';
 const trigger = '/';
 
 /**
- * Enables support for autocompleting @variables.
+ * Enables support for autocomplete "/".
  */
 export const createVariablePlugin = createPluginFactory<VariablePlugin>({
   key: ELEMENT_VARIABLE,
