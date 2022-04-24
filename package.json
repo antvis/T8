@@ -29,7 +29,8 @@
     "lint": "lerna run lint",
     "start:demo": "cd examples/ntv-demo && npm run start",
     "prepare": "husky install",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepublish": "npm run build"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
