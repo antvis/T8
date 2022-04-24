@@ -1,6 +1,6 @@
 {
   "name": "@antv/narrative-text-vis",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React component of interactive narrative text",
   "keywords": [
     "react component",
@@ -58,8 +58,8 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@antv/narrative-text-schema": "^0.2.0",
-    "@antv/word-scale-chart": "^0.2.0",
+    "@antv/narrative-text-schema": "^0.2.1",
+    "@antv/word-scale-chart": "^0.2.1",
     "lodash": "^4.17.21",
     "styled-components": "^5.3.5",
     "uuid": "^8.3.2"
