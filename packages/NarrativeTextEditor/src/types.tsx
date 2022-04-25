@@ -30,4 +30,7 @@ export interface NarrativeTextEditorProps {
 
   /** whether show hovering toolbar */
   showHoveringToolbar?: boolean;
+
+  /** read only */
+  readOnly?: boolean;
 }

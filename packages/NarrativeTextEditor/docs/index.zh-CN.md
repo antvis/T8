@@ -27,12 +27,7 @@ import { NarrativeTextEditor } from '@antv/narrative-text-editor';
 export default () => (
   <NarrativeTextEditor
     id="uncontrolled"
-    variableMap={{
-      "startDate": { value: '2022.03', metadata: { entityType: 'time_desc' } },
-      "endDate": { value: '2022.04', metadata: { entityType: 'time_desc' } },
-      "主指标": { value: 'DAU', metadata: { entityType: 'metric_name' } },
-      "指标值": { value: '1.23亿', metadata: { entityType: 'metric_value' } },
-    }} 
+    initialValue={[{ type: 'p', children: [{ text: 'init' }] }]}
   />
 );
 ```
@@ -40,6 +35,88 @@ export default () => (
 ### 受控组件
 
 TODO
+
+```jsx
+/**
+ * debug: true
+ */
+import React, { useState, useEffect } from 'react';
+import { Button } from 'antd';
+import { NarrativeTextEditor } from '@antv/narrative-text-editor';
+
+export default () => {
+  const [value, onChange] = useState();
+  const handleReset = () => {
+    onChange([{ type: 'p', children: [{text: 'reset'}]}])
+  }
+  return (
+    <>
+      <Button onClick={handleReset}>重置</Button>
+      <NarrativeTextEditor
+        id="controlled"
+        Value={value}
+        onChange={onChange}
+        variableMap={{
+          "startDate": { value: '2022.03', metadata: { entityType: 'time_desc' } },
+          "endDate": { value: '2022.04', metadata: { entityType: 'time_desc' } },
+          "主指标": { value: 'DAU', metadata: { entityType: 'metric_name' } },
+          "指标值": { value: '1.23亿', metadata: { entityType: 'metric_value' } },
+        }} 
+      />
+    </>
+  );
+}
+```
+
+### 通过"/"插入变量
+
+配置 `variableMap` 之后，可以通过“/”变量唤起变量列表，选择输入。
+
+```jsx
+import React, { useState } from 'react';
+import { message } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
+import copy from 'copy-to-clipboard';
+import { NarrativeTextEditor } from '@antv/narrative-text-editor';
+
+const initialValue = [
+  { "type":"h1","children":[{"text":"业务月报"}] },
+  {
+    "type":"p", 
+    "children":[
+      {"text":"数据表现："},
+      {"type":"variable","children":[{"text":""}],"value":"DAU","metadata":{"entityType":"metric_name"}},
+      {"text":""},
+    ]
+  }
+];
+
+const variableMap = {
+  "startDate": { value: '2022.03', metadata: { entityType: 'time_desc' } },
+  "endDate": { value: '2022.04', metadata: { entityType: 'time_desc' } },
+  "主指标": { value: 'DAU', metadata: { entityType: 'metric_name' } },
+  "指标值": { value: '1.23亿', metadata: { entityType: 'metric_value' } },
+}
+
+export default () => {
+  const [value, onChange] = useState(initialValue);
+  const onCopy = () => {
+    const r = copy(JSON.stringify(value));
+    if (r) message.success('复制成功');
+  }
+  return (
+    <>
+      <p>复制到剪切板：<CopyOutlined onClick={onCopy} style={{ cursor: 'pointer' }} /></p>
+      <NarrativeTextEditor
+        id="variable"
+        onChange={onChange}
+        initialValue={initialValue}
+        variableMap={variableMap} 
+      />
+    </>
+  )
+};
+```
 
 ### 是否显示工具栏
 
@@ -67,6 +144,37 @@ export default () => {
         id="toolbar" 
         showHeadingToolbar={showHeadingToolbar} 
         showHoveringToolbar={showHoveringToolbar} 
+        style={{
+          border: '1px solid #ccc',
+          padding: '4px'
+        }}
+      />
+    </>
+  )
+};
+```
+
+### 是否只读
+
+只读不允许编辑，且各种工具栏交互都将移除。
+
+```jsx
+import React, { useState } from 'react';
+import { Form, Switch } from 'antd';
+import { NarrativeTextEditor } from '@antv/narrative-text-editor';
+
+export default () => {
+  const [readOnly, setReadOnly] = useState(false);
+  return (
+    <>
+      <Form layout="inline">
+        <Form.Item label="是否只读">
+          <Switch checked={readOnly} onChange={setReadOnly} />
+        </Form.Item>
+      </Form>
+      <NarrativeTextEditor 
+        id="readOnly" 
+        readOnly={readOnly}  
         style={{
           border: '1px solid #ccc',
           padding: '4px'

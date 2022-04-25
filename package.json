@@ -61,6 +61,7 @@
     "babel-jest": "^27.5.1",
     "babel-plugin-import": "^1.13.5",
     "concurrently": "^6.2.0",
+    "copy-to-clipboard": "^3.3.1",
     "devmoji": "^2.3.0",
     "dumi": "^1.1.40",
     "eslint": "^7.2.0",

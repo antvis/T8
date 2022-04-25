@@ -18,6 +18,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   variableMap,
   showHeadingToolbar = true,
   showHoveringToolbar = true,
+  readOnly = false,
 }) => {
   return (
     <>
@@ -28,6 +29,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
         editableProps={{
           autoFocus: false,
           spellCheck: false,
+          readOnly,
           style: {
             fontFamily: 'PingFangSC, sans-serif',
             ...style,
@@ -35,9 +37,9 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
         }}
         plugins={getPlugins()}
       >
-        {showHeadingToolbar && <HeadingToolbar />}
-        {showHoveringToolbar && <HoveringToolbar />}
-        {variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />}
+        {!readOnly && showHeadingToolbar && <HeadingToolbar />}
+        {!readOnly && showHoveringToolbar && <HoveringToolbar />}
+        {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />}
       </Plate>
     </>
   );
