@@ -63,7 +63,7 @@
     "@antv/narrative-text-vis": "^0.2.1",
     "@styled-icons/bootstrap": "^10.34.0",
     "@styled-icons/material-outlined": "^10.34.0",
-    "@udecode/plate": "10.5.3",
+    "@udecode/plate": "10.6.3",
     "lodash": "^4.17.21",
     "slate": "0.72.8",
     "slate-history": "0.66.0",

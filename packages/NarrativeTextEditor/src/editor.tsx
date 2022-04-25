@@ -12,27 +12,33 @@ import 'tippy.js/dist/tippy.css';
 
 export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   id,
-  initialValue,
+  initialValue = safeSlateValue,
   onChange,
   style,
   variableMap,
-}) => (
-  <Plate
-    id={id}
-    initialValue={initialValue ?? safeSlateValue}
-    onChange={onChange}
-    editableProps={{
-      autoFocus: false,
-      spellCheck: false,
-      style: {
-        fontFamily: 'PingFangSC, sans-serif',
-        ...style,
-      },
-    }}
-    plugins={getPlugins()}
-  >
-    <HeadingToolbar />
-    <HoveringToolbar />
-    <VariableCombobox items={transferComboboxItemData(variableMap)} />
-  </Plate>
-);
+  showHeadingToolbar = true,
+  showHoveringToolbar = true,
+}) => {
+  return (
+    <>
+      <Plate
+        id={id}
+        initialValue={initialValue}
+        onChange={onChange}
+        editableProps={{
+          autoFocus: false,
+          spellCheck: false,
+          style: {
+            fontFamily: 'PingFangSC, sans-serif',
+            ...style,
+          },
+        }}
+        plugins={getPlugins()}
+      >
+        {showHeadingToolbar && <HeadingToolbar />}
+        {showHoveringToolbar && <HoveringToolbar />}
+        {variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />}
+      </Plate>
+    </>
+  );
+};

@@ -40,5 +40,12 @@ export const listComponents = {
       `,
     },
   }),
-  [ELEMENT_LI]: withProps(StyledElement, { as: 'li' }),
+  [ELEMENT_LI]: withProps(StyledElement, {
+    as: 'li',
+    styles: {
+      root: `
+        font-size: 14px;
+    `,
+    },
+  }),
 };
