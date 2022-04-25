@@ -10,6 +10,7 @@ export type VariableComboboxItemData = EntityMetaData;
 export type VariableComboboxItem = TComboboxItem<VariableComboboxItemData>;
 
 export interface VariableNodeData {
+  key: string;
   value: string;
   metadata: EntityMetaData;
 }

@@ -35,6 +35,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'lines-between-class-members': 'off',
     'no-nested-ternary': 'off',
+    'arrow-body-style': 'off',
     'no-restricted-syntax': [
       'error',
       {

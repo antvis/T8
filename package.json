@@ -22,14 +22,15 @@
     "build:chart": "cd ./packages/world-scale-chart && npm run build",
     "build:editor": "cd ./packages/NarrativeTextEditor && npm run build",
     "build:dev": "sh ./scripts/build-dev",
-    "build:doc": "dumi build",
-    "build": "lerna run build & npm run build:doc",
+    "build:site": "dumi build",
+    "build": "lerna run build",
     "boot": "lerna bootstrap",
     "boot:dev": "lerna bootstrap && npm run build:dev",
     "lint": "lerna run lint",
     "start:demo": "cd examples/ntv-demo && npm run start",
     "prepare": "husky install",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepublish": "npm run build"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -60,6 +61,7 @@
     "babel-jest": "^27.5.1",
     "babel-plugin-import": "^1.13.5",
     "concurrently": "^6.2.0",
+    "copy-to-clipboard": "^3.3.1",
     "devmoji": "^2.3.0",
     "dumi": "^1.1.40",
     "eslint": "^7.2.0",

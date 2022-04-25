@@ -1,6 +1,6 @@
 {
   "name": "@antv/narrative-text-editor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React component of narrative text editor",
   "keywords": [
     "react component",
@@ -60,10 +60,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@antv/narrative-text-vis": "^0.2.0",
+    "@antv/narrative-text-vis": "^0.2.1",
     "@styled-icons/bootstrap": "^10.34.0",
     "@styled-icons/material-outlined": "^10.34.0",
-    "@udecode/plate": "10.5.3",
+    "@udecode/plate": "10.6.3",
     "lodash": "^4.17.21",
     "slate": "0.72.8",
     "slate-history": "0.66.0",
