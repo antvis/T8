@@ -6,6 +6,9 @@ Text Visualization
 >
 > T8 的命名故事是：T 代表 Text，8 代表一个字节 8 bits，寓意这个工具可以深度透视文本底下的洞察。（当然了，这个名字目前还是暂定的，后面有更好的想法还可以随时修改仓库名，让子弹飞一会儿。）
 
+## 临时官网链接
+https://bbsqq.github.io/antv-t8-site/
+
 ## 如何开发
 
 ```shell

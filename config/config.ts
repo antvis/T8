@@ -5,10 +5,15 @@ import { defineConfig } from 'dumi';
 
 const LOGO_URL = 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png';
 
+// TODO 临时网站部署
+const BASE_PATH = 'antv-t8-site';
+
 export default defineConfig({
   title: 'T8',
   favicon: LOGO_URL,
   logo: LOGO_URL,
+  base: `/${BASE_PATH}`,
+  publicPath: `/${BASE_PATH}/`,
   mode: 'site',
   outputPath: 'site-dist',
   theme: {
