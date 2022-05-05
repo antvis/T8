@@ -30,7 +30,8 @@
     "start:demo": "cd examples/ntv-demo && npm run start",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "release": "lerna publish"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
