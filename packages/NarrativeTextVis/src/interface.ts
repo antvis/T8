@@ -38,3 +38,7 @@ export type WithCustomBlockElement<S extends DefaultCustomBlockStructureGeneric 
 };
 
 export type PhraseType = 'text' | EntityType | null;
+
+export type ThemeProps = {
+  size?: 'normal' | 'small';
+};

@@ -8,13 +8,14 @@ import {
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { WithPhraseProps, WithCustomBlockElement } from '../interface';
+import { WithPhraseProps, WithCustomBlockElement, ThemeProps } from '../interface';
 import { isHeadingParagraph, isTextParagraph, isBulletParagraph } from './helpers';
 
 type ParagraphProps<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = WithPhraseProps<P> &
+> = ThemeProps &
+  WithPhraseProps<P> &
   WithCustomBlockElement<S> & {
     spec: ParagraphSpec<S, P>;
   };
@@ -22,7 +23,7 @@ type ParagraphProps<
 export function Paragraph<
   S extends DefaultCustomBlockStructureGeneric = null,
   P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
->({ spec, customBlockElementRender, ...phraseProps }: ParagraphProps<S, P>) {
+>({ spec, customBlockElementRender, size = 'normal', ...phraseProps }: ParagraphProps<S, P>) {
   if ('customType' in spec && spec.customType && customBlockElementRender) {
     return <>{customBlockElementRender(spec)}</>;
   }
@@ -30,10 +31,10 @@ export function Paragraph<
     return <Heading<P> spec={spec} {...phraseProps} />;
   }
   if (isTextParagraph(spec)) {
-    return <TextLine<P> spec={spec} {...phraseProps} />;
+    return <TextLine<P> spec={spec} size={size} {...phraseProps} />;
   }
   if (isBulletParagraph(spec)) {
-    return <Bullets<P> spec={spec} {...phraseProps} />;
+    return <Bullets<P> spec={spec} size={size} {...phraseProps} />;
   }
   return null;
 }
