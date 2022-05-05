@@ -5,7 +5,7 @@ import { usePhraseParser } from './usePhraseParser';
 import { Entity } from '../styled';
 import { Custom } from './Custom';
 import { classnames as cx } from '../utils/classnames';
-import { WithPhraseProps } from '../interface';
+import { WithPhraseProps, ThemeProps } from '../interface';
 
 type PhraseProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
   spec: PhraseSpec<P>;
@@ -16,7 +16,8 @@ export function Phrase<P extends DefaultCustomPhraseGeneric>({
   spec: phrase,
   customEntityEncoding,
   customPhraseRender,
-}: PhraseProps<P>) {
+  size = 'normal',
+}: ThemeProps & PhraseProps<P>) {
   if (phrase.type === 'custom') {
     return <Custom<P> phrase={phrase} customPhraseRender={customPhraseRender} />;
   }
@@ -26,7 +27,7 @@ export function Phrase<P extends DefaultCustomPhraseGeneric>({
   return isEmpty(styles) && classNames.length === 0 ? (
     <>{Content}</>
   ) : (
-    <Entity type={type} assessment={assessment} className={cx(...classNames)} style={styles}>
+    <Entity size={size} type={type} assessment={assessment} className={cx(...classNames)} style={styles}>
       {Content}
     </Entity>
   );
