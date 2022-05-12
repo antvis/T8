@@ -3,7 +3,6 @@ import { PhraseSpec, ValueAssessment } from '@antv/narrative-text-schema';
 import { get, kebabCase } from 'lodash';
 import { Bold, Italic, Underline } from '../styled';
 import { getPrefixCls } from '../utils/getPrefixCls';
-import { ProportionPieChart } from '../charts';
 import { ArrowDown, ArrowUp } from '../assets/icons';
 import { CustomEntityEncoding, EncodingChannels, PhraseType } from '../interface';
 import { ASSESSMENT_TYPE } from '../constance';
@@ -123,7 +122,7 @@ class PhraseParser {
 
   private getChart(): ReactNode {
     if (this.phrase.type === 'entity' && this.type === 'proportion') {
-      return <ProportionPieChart data={getProportionNumber(this.text, this.phrase?.metadata.detail as number)} />;
+      return <wsc-proportion data={getProportionNumber(this.text, this.phrase?.metadata.detail as number)} />;
     }
     return '';
   }

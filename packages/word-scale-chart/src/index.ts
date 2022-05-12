@@ -1,1 +1,2 @@
-export { ProportionPie } from './proportion-pie';
+import './safeCustomElement';
+import './charts/proportion';
