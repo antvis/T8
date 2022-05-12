@@ -1,5 +1,6 @@
 import { LitElement, css, TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { getElementFontSize } from '../utils';
 
 export class ChartBase extends LitElement {
   connectedCallback() {
@@ -7,9 +8,8 @@ export class ChartBase extends LitElement {
     this.compute?.();
   }
   @property({ type: Number }) size = 14;
-  // eslint-disable-next-line class-methods-use-this
   protected compute() {
-    // extend class will achieve this method
+    this.size = getElementFontSize(this);
   }
   static styles = css`
     svg {

@@ -1,6 +1,6 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import { PhraseSpec, ValueAssessment } from '@antv/narrative-text-schema';
-import { get, kebabCase } from 'lodash';
+import { get, kebabCase, isArray } from 'lodash';
 import { Bold, Italic, Underline } from '../styled';
 import { getPrefixCls } from '../utils/getPrefixCls';
 import { ArrowDown, ArrowUp } from '../assets/icons';
@@ -122,7 +122,11 @@ class PhraseParser {
 
   private getChart(): ReactNode {
     if (this.phrase.type === 'entity' && this.type === 'proportion') {
-      return <wsc-proportion data={getProportionNumber(this.text, this.phrase?.metadata.detail as number)} />;
+      return <wsc-proportion data={getProportionNumber(this.text, this.phrase?.metadata.origin as number)} />;
+    }
+    if (this.phrase.type === 'entity' && this.type === 'trend_desc') {
+      const detailData = this.phrase?.metadata?.detail;
+      if (isArray(detailData) && detailData.length) return <wsc-line data={`[${detailData}]`} />;
     }
     return '';
   }
