@@ -1,7 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["./src", "rollup.config.js"],
+  "include": ["./src"],
   "compilerOptions": {
-    "declarationDir": "./lib"
+    "experimentalDecorators": true,
+    "outDir": "./lib",
+    "target": "es2017",
+    "module": "es2015"
   }
 }

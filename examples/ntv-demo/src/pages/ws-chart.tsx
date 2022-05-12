@@ -1,23 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Form, InputNumber } from 'antd';
-import { ProportionPie } from '@antv/word-scale-chart';
+import '@antv/word-scale-chart';
 import AnchorLayout from '../components/AnchorLayout';
 import ContentBlock from '../components/ContentBlock';
-import HighlightCode from '../components/HighlightCode';
+// import HighlightCode from '../components/HighlightCode';
 import getAnchors from '../utils/get-anchors';
-
-const ProportionPieChart: React.FC<{ data: number; fontSize: number }> = ({
-  data,
-  fontSize,
-}) => {
-  const container = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    if (container.current) {
-      new ProportionPie(container.current, data, { fontSize });
-    }
-  }, [data, fontSize]);
-  return <span ref={container}></span>;
-};
 
 const anchors = getAnchors('ws-chart', ['proportion-pie', 'paragraph']);
 
@@ -40,18 +27,10 @@ export default function WSChartPage() {
           {generatePercentValues().map((value) => (
             <>
               {(value * 100).toFixed(2) + '%'}
-              <ProportionPieChart
-                key={value}
-                data={value}
-                fontSize={fontSize}
-              />
+              <wsc-proportion key={value} data={value} size={fontSize} />
             </>
           ))}
         </div>
-        <HighlightCode
-          langType="js"
-          code={`new ProportionPie(container.current, data)`}
-        />
       </ContentBlock>
     </AnchorLayout>
   );
