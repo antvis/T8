@@ -1,9 +1,11 @@
 import { html, svg, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ChartBase } from './base';
-import { prefix, shadowColor } from './constants';
+import { prefix } from './constants';
 
 const elementTag = `${prefix}-proportion`;
+const shadowColor = '#CDDDFD';
+const fillColor = '#3471F9';
 
 @customElement(elementTag)
 export class Proportion extends ChartBase {
@@ -14,6 +16,7 @@ export class Proportion extends ChartBase {
   @state() angle = 0;
 
   protected compute() {
+    super.compute();
     this.cx = this.size / 2;
     this.cy = this.size / 2;
     this.r = this.size / 2;
@@ -25,10 +28,9 @@ export class Proportion extends ChartBase {
   protected renderArc() {
     const dx = this.cx + this.r * Math.sin(this.angle);
     const dy = this.cy - this.r * Math.cos(this.angle);
-    const mainColor = '#3471F9';
 
     if (this.data === 1) {
-      return svg`<circle cx=${this.cx} cy=${this.cy} r=${this.r} fill=${mainColor}></circle>`;
+      return svg`<circle cx=${this.cx} cy=${this.cy} r=${this.r} fill=${fillColor}></circle>`;
     }
 
     const path = `
@@ -37,7 +39,7 @@ export class Proportion extends ChartBase {
       L ${this.cx} ${this.cy} Z
     `;
 
-    return svg`<path d=${path} fill=${mainColor}></path>`;
+    return svg`<path d=${path} fill=${fillColor}></path>`;
   }
   render(): TemplateResult {
     return html` <svg width=${this.size} height=${this.size}>${this.renderShadow()} ${this.renderArc()}</svg> `;

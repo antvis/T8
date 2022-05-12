@@ -31,7 +31,8 @@
     "test": "jest",
     "build": "rimraf ./lib && tsc --build",
     "demo": "es-dev-server --node-resolve --preserve-symlinks --watch",
-    "dev": "tsc --watch & npm run demo",
+    "watch": "tsc --watch",
+    "dev": "npm run watch & npm run demo",
     "clean": "rimraf node_modules & yarn clean:build",
     "clean:build": "rimraf dist es lib build"
   },

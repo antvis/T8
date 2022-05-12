@@ -181,7 +181,19 @@
             },
             {
               "type": "text",
-              "value": "the increase relative to the same time last quarter was primarily driven by"
+              "value": "the "
+            },
+            {
+              "type": "entity",
+              "value": "increase",
+              "metadata": {
+                "entityType": "trend_desc",
+                "detail": [1, 2, 6, 18, 24, 48]
+              }
+            },
+            {
+              "type": "text",
+              "value": " relative to the same time last quarter was primarily driven by"
             }
           ]
         },
