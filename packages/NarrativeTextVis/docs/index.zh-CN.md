@@ -1,9 +1,9 @@
 ---
-title: Show Case
+title: NarrativeTextVis
 order: 0
 group:
-  path: /show
-  title: 使用示例
+  path: /intro
+  title: 介绍
   order: 0
 nav:
   title: 解读文本可视化
@@ -11,12 +11,18 @@ nav:
   order: 1
 ---
 
-## Booking
+`@antv/narrative-text-vis` 是一套消费 [text-schema](../../schema/intro) 实现的数据解读文本渲染的 React 组件库。引入方式如下：
 
-```jsx
-import React from 'react';
-import { NarrativeTextVis } from '@antv/narrative-text-vis';
-import booking from './mock/booking.json';
-
-export default () => <NarrativeTextVis spec={booking} />;
+```js | pure
+import {
+  NarrativeTextVis,
+  Paragraph,
+  Phrase,
+  // ...
+} from '@antv/narrative-text-vis';
 ```
+
+包括内容如下：
+- 整体解读文本组件 `NarrativeTextVis`；
+- 各级解读结构 `Section`、`Paragraph` 和 `Phrase`；
+- 导出全量 [text-schema](../../schema/intro)

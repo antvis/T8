@@ -15,6 +15,7 @@ export default defineConfig({
   base: `/${BASE_PATH}`,
   publicPath: `/${BASE_PATH}/`,
   mode: 'site',
+  hash: true,
   outputPath: 'site-dist',
   theme: {
     '@s-site-menu-width': '280px',
@@ -25,7 +26,12 @@ export default defineConfig({
     ['en-US', 'English'],
   ],
   resolve: {
-    includes: ['docs/', 'packages/NarrativeTextVis/docs/', 'packages/NarrativeTextEditor/docs/'],
+    includes: [
+      'docs/',
+      'packages/narrative-text-schema/docs/',
+      'packages/NarrativeTextVis/docs/',
+      'packages/NarrativeTextEditor/docs/',
+    ],
   },
   extraBabelIncludes: ['@antv/dumi-theme-antv'],
   extraBabelPlugins: [

@@ -1,10 +1,10 @@
 ---
 title: 主题
-order: 2
+order: 3
 group:
-  path: /show
+  path: /example
   title: 使用示例
-  order: 0
+  order: 1
 nav:
   title: 解读文本可视化
   path: /narrative
