@@ -25,4 +25,5 @@ import {
 包括内容如下：
 - 整体解读文本组件 `NarrativeTextVis`；
 - 各级解读结构 `Section`、`Paragraph` 和 `Phrase`；
-- 导出全量 [text-schema](../../schema/intro)
+- 导出全量 [text-schema](../../schema/intro)；
+- 行内小图 web components 标签；
