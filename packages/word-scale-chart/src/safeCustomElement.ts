@@ -5,7 +5,7 @@ function safeDecorator(fn) {
       return fn.apply(this, args);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(`CustomElement ${args?.[0]} ${error.message}`);
+      console.error(`CustomElement ${args?.[0]} ${error.message}`);
       return false;
     }
   };
