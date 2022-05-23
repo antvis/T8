@@ -1,10 +1,10 @@
 ---
 title: 基本样式
-order: 1
+order: 2
 group:
-  path: /show
+  path: /example
   title: 使用示例
-  order: 0
+  order: 1
 nav:
   title: 解读文本可视化
   path: /narrative
@@ -199,4 +199,33 @@ export default () => (
     </Descriptions>
   </div>
 )
+```
+
+## Inline Chart
+
+行内 mini 图，采用 web components 方案，直接用相关标签即可渲染。
+
+```jsx
+import React from 'react';
+// 
+import '@antv/word-scale-chart';
+export default () => {
+  return (
+    <div>
+      <p>
+        饼图 `wsc-proportion`
+        <wsc-proportion data="0.3"></wsc-proportion>
+        <wsc-proportion data="0.6"></wsc-proportion>
+        <wsc-proportion data="0.9"></wsc-proportion>
+      </p>
+      <br />
+      <p>
+        折线图 `wsc-line`
+        <wsc-line data="[1, 2, 6, 18, 24, 48]"></wsc-line>
+        <wsc-line data="[1, 2, 10, 12, 35, 60, 38, 24]"></wsc-line>
+        <wsc-line data="[52, 44, 42, 21, 15, 6]"></wsc-line>
+      </p>
+    </div>
+  )
+};
 ```

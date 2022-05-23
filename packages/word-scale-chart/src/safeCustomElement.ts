@@ -4,10 +4,9 @@ function safeDecorator(fn) {
     try {
       return fn.apply(this, args);
     } catch (error) {
-      if (error instanceof DOMException && error.message.includes('has already been used with this registry')) {
-        return false;
-      }
-      throw error;
+      // eslint-disable-next-line no-console
+      console.error(`CustomElement ${args?.[0]} ${error.message}`);
+      return false;
     }
   };
 }
