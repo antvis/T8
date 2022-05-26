@@ -32,8 +32,8 @@
     "build:esm": "rimraf es && tsc --module esnext --target es2015 --outDir ./es",
     "build:cjs": "rimraf lib && tsc --module commonjs --target es5 --outDir ./lib",
     "build:umd": "rimraf ./dist && rollup -c",
-    "build": "run-p build:cjs build:esm build:umd",
-    "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t TextSpecGenerator --no-type-check --no-ref-encode > build/text-schema.json",
+    "build": "run-p build:cjs build:esm build:umd schema",
+    "schema": "mkdir -p build && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t NarrativeTextSpec --no-type-check --no-ref-encode > build/text-schema.json",
     "clean": "rimraf node_modules & yarn clean:build",
     "clean:build": "rimraf dist es lib build"
   },

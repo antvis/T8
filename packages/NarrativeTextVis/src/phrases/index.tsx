@@ -1,23 +1,21 @@
 import React from 'react';
-import { PhraseSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { PhraseSpec } from '@antv/narrative-text-schema';
+import { ThemeProps, ExtensionProps } from '../interface';
+import { usePluginCreator } from '../chore/plugin';
 import { Phrase } from './Phrase';
-import { WithPhraseProps, ThemeProps } from '../interface';
 
-type PhrasesProps<P extends DefaultCustomPhraseGeneric> = ThemeProps &
-  WithPhraseProps<P> & {
-    spec: PhraseSpec<P>[];
+type PhrasesProps = ThemeProps &
+  ExtensionProps & {
+    spec: PhraseSpec[];
   };
 
-export function Phrases<P extends DefaultCustomPhraseGeneric>({
-  spec,
-  size = 'normal',
-  ...extraProps
-}: PhrasesProps<P>) {
+export function Phrases({ spec, size = 'normal', pluginManager, plugins }: PhrasesProps) {
+  const innerPluginManager = usePluginCreator(pluginManager, plugins);
   return (
     <>
       {spec?.map((phrase, index) => {
         const key = `${index}-${phrase.value}`;
-        return <Phrase key={key} spec={phrase} size={size} {...extraProps} />;
+        return <Phrase key={key} size={size} spec={phrase} pluginManager={innerPluginManager} />;
       })}
     </>
   );

@@ -1,34 +1,70 @@
 import React from 'react';
-import { PhraseSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
-import { isEmpty } from 'lodash';
-import { usePhraseParser } from './usePhraseParser';
+import {
+  PhraseSpec,
+  EntityPhraseSpec,
+  CustomPhraseSpec,
+  isTextPhrase,
+  isEntityPhrase,
+} from '@antv/narrative-text-schema';
+import { isFunction, kebabCase } from 'lodash';
 import { Entity } from '../styled';
-import { Custom } from './Custom';
-import { classnames as cx } from '../utils/classnames';
-import { WithPhraseProps, ThemeProps } from '../interface';
+import { getPrefixCls, classnames as cx, functionalize } from '../utils';
+import { ThemeProps, ExtensionProps } from '../interface';
+import { usePluginCreator, PhraseDescriptor, AnyObject } from '../chore/plugin';
 
-type PhraseProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: PhraseSpec<P>;
-};
+type PhraseProps = ThemeProps &
+  ExtensionProps & {
+    spec: PhraseSpec;
+  };
 
-/** <Phrase /> can use independence */
-export function Phrase<P extends DefaultCustomPhraseGeneric>({
-  spec: phrase,
-  customEntityEncoding,
-  customPhraseRender,
-  size = 'normal',
-}: ThemeProps & PhraseProps<P>) {
-  if (phrase.type === 'custom') {
-    return <Custom<P> phrase={phrase} customPhraseRender={customPhraseRender} />;
-  }
+function renderPhraseByDescriptor(
+  spec: EntityPhraseSpec | CustomPhraseSpec,
+  descriptor: PhraseDescriptor<AnyObject>,
+  theme: ThemeProps,
+) {
+  const { overwrite, classNames, style: descriptorStyle, onHover, onClick, content } = descriptor || {};
+  const { value = '', metadata = {}, styles: specStyles = {} } = spec;
 
-  const { styles, classNames, Content, type, assessment } = usePhraseParser({ phrase, customEntityEncoding });
-
-  return isEmpty(styles) && classNames.length === 0 ? (
-    <>{Content}</>
-  ) : (
-    <Entity size={size} type={type} assessment={assessment} className={cx(...classNames)} style={styles}>
-      {Content}
+  const defaultNode = (
+    <Entity
+      {...theme}
+      style={{
+        ...specStyles,
+        ...functionalize(descriptorStyle, {})(spec?.value, metadata as any),
+      }}
+      className={cx(
+        getPrefixCls('value'),
+        isEntityPhrase(spec) ? getPrefixCls(kebabCase(spec.metadata.entityType)) : '',
+        ...functionalize(classNames, [])(spec?.value, metadata as any),
+      )}
+      onClick={
+        isFunction(onClick)
+          ? () => {
+              onClick(spec?.value, metadata);
+            }
+          : undefined
+      }
+      onMouseEnter={
+        isFunction(onHover)
+          ? () => {
+              onHover(spec?.value, metadata);
+            }
+          : undefined
+      }
+    >
+      {content(value, metadata)}
     </Entity>
   );
+  if (isFunction(overwrite)) return overwrite(defaultNode, value, metadata);
+  return defaultNode;
+}
+
+/** <Phrase /> can use independence */
+export function Phrase({ spec: phrase, size = 'normal', pluginManager, plugins }: PhraseProps) {
+  const innerPluginManager = usePluginCreator(pluginManager, plugins);
+  const defaultText = <>{phrase.value}</>;
+  if (isTextPhrase(phrase)) return defaultText;
+  const descriptor = innerPluginManager?.getPhraseDescriptorBySpec(phrase);
+  if (descriptor) return <>{renderPhraseByDescriptor(phrase, descriptor, { size })}</>;
+  return defaultText;
 }

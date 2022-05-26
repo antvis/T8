@@ -6,5 +6,5 @@ export { Phrase } from './phrases';
 export { ArrowUp, ArrowDown } from './assets/icons';
 export * from './line-charts';
 export * as NStyledComponents from './styled';
-export * from './tools';
 export * from '@antv/narrative-text-schema';
+export {} from './chore/plugin';

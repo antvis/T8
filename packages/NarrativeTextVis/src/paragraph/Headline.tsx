@@ -1,22 +1,20 @@
 import React from 'react';
-import { HeadlineSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { HeadlineSpec } from '@antv/narrative-text-schema';
 import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
-import { classnames } from '../utils/classnames';
-import { getPrefixCls } from '../utils/getPrefixCls';
-import { WithPhraseProps } from '../interface';
+import { getPrefixCls, classnames as cx } from '../utils';
+import { ExtensionProps } from '../interface';
+import { usePluginCreator } from '../chore/plugin';
 
-type HeadlineProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: HeadlineSpec<P>;
+type HeadlineProps = ExtensionProps & {
+  spec: HeadlineSpec;
 };
 
-export function Headline<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric>({
-  spec,
-  ...phraseProps
-}: HeadlineProps<P>) {
+export function Headline({ spec, pluginManager, plugins }: HeadlineProps) {
+  const innerPluginManager = usePluginCreator(pluginManager, plugins);
   return (
-    <StyledHeadline className={classnames(getPrefixCls('headline'), spec.className)} style={spec.styles}>
-      <Phrases spec={spec.phrases} {...phraseProps} />
+    <StyledHeadline className={cx(getPrefixCls('headline'), spec.className)} style={spec.styles}>
+      <Phrases spec={spec.phrases} pluginManager={innerPluginManager} />
     </StyledHeadline>
   );
 }
