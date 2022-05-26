@@ -30,7 +30,6 @@ export class Line extends ChartBase {
     this.yScale = scaleLinear([0, this.height], [min, max]);
   }
   protected renderLine() {
-    console.log('this.data: ', this.data);
     if (this.data?.length === 0) return null;
     if (this.xScale && this.yScale) {
       const points: [number, number][] = this.data.map((item, index) => [

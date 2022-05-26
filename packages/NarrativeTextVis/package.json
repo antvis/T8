@@ -59,7 +59,6 @@
   },
   "dependencies": {
     "@antv/narrative-text-schema": "^0.2.2",
-    "@antv/word-scale-chart": "^0.3.1",
     "lodash": "^4.17.21",
     "styled-components": "^5.3.5",
     "uuid": "^8.3.2"
