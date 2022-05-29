@@ -203,8 +203,6 @@ export default () => (
 
 ## Inline Chart
 
-行内 mini 图，采用 web components 方案，直接用相关标签即可渲染。
-
 ```jsx
 import React from 'react';
 import { ProportionChart, SingleLineChart } from '@antv/narrative-text-vis';
@@ -226,6 +224,7 @@ export default () => {
         <SingleLineChart data={[1, 2, 6, 18, 24, 48]}/>
         <SingleLineChart data={[1, 2, 10, 12, 35, 60, 38, 24]} />
         <SingleLineChart data={[52, 44, 42, 21, 15, 6]} />
+        <SingleLineChart data={[10, 10, 10]} />
       </p>
     </div>
   )

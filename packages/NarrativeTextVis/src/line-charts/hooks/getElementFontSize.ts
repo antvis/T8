@@ -1,4 +1,4 @@
-const DEFAULT_FONT_SIZE = 14;
+export const DEFAULT_FONT_SIZE = 14;
 
 function getStyle(ele: Element, style: string): string | undefined {
   // @ts-ignore currentStyle for IE

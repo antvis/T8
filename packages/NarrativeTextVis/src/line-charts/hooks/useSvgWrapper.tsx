@@ -1,5 +1,5 @@
 import React, { useRef, useState, useLayoutEffect } from 'react';
-import { getElementFontSize } from './getElementFontSize';
+import { getElementFontSize, DEFAULT_FONT_SIZE } from './getElementFontSize';
 
 type SvgReactFC = React.FC<React.SVGProps<SVGSVGElement>>;
 
@@ -8,7 +8,7 @@ export const useSvgWrapper = () => {
   const [size, setSize] = useState<number>();
   useLayoutEffect(() => {
     if (ele.current) {
-      setSize(getElementFontSize(ele.current, 14));
+      setSize(getElementFontSize(ele.current, DEFAULT_FONT_SIZE));
     }
   }, []);
   const Svg: SvgReactFC = ({ children, ...otherProps }) => {

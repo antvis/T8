@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { scaleLinear, Scale } from './scaleLinear';
+import { DEFAULT_FONT_SIZE } from '../hooks/getElementFontSize';
+
+// adjust to draw line width
+const SCALE_ADJUST = 2;
 
 class Line {
   protected data: number[] = [];
-  protected size = 14;
+  protected size = DEFAULT_FONT_SIZE;
   protected height = this.size;
   protected width = this.getWidth();
   protected xScale: Scale | undefined;
@@ -25,8 +29,8 @@ class Line {
     this.height = this.size;
     this.width = this.getWidth();
     this.xScale = scaleLinear([0, this.width], [0, this.data?.length - 1]);
-    const [min, max] = [Math.min(0, Math.min(...this.data)), Math.max(...this.data)];
-    this.yScale = scaleLinear([0, this.height], [min, max]);
+    const [min, max] = [Math.min(...this.data), Math.max(...this.data)];
+    this.yScale = scaleLinear([SCALE_ADJUST, this.height - SCALE_ADJUST], [min, max]);
     this.points = this.data.map((item, index) => [this.xScale?.(index), this.height - this.yScale?.(item)]);
   }
 
