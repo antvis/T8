@@ -12,27 +12,24 @@ import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
 import { ThemeProps, ExtensionProps } from '../interface';
 
-import { usePluginCreator } from '../chore/plugin';
-
 type ParagraphProps = ThemeProps &
   ExtensionProps & {
     spec: ParagraphSpec;
   };
 
-export function Paragraph({ spec, pluginManager, plugins, size = 'normal' }: ParagraphProps) {
-  const innerPluginManager = usePluginCreator(pluginManager, plugins);
+export function Paragraph({ spec, pluginManager, size = 'normal' }: ParagraphProps) {
   if (isCustomParagraph(spec)) {
-    const plugin = innerPluginManager.getBlockDescriptor(spec.customType);
-    if (plugin && plugin?.render) return <>{plugin.render(spec)}</>;
+    const descriptor = pluginManager.getBlockDescriptor(spec.customType);
+    if (descriptor && descriptor?.render) return <>{descriptor.render(spec)}</>;
   }
   if (isHeadingParagraph(spec)) {
-    return <Heading spec={spec} pluginManager={innerPluginManager} />;
+    return <Heading spec={spec} pluginManager={pluginManager} />;
   }
   if (isTextParagraph(spec)) {
-    return <TextLine spec={spec} size={size} pluginManager={innerPluginManager} />;
+    return <TextLine spec={spec} size={size} pluginManager={pluginManager} />;
   }
   if (isBulletParagraph(spec)) {
-    return <Bullets spec={spec} size={size} pluginManager={innerPluginManager} />;
+    return <Bullets spec={spec} size={size} pluginManager={pluginManager} />;
   }
   return null;
 }

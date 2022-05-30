@@ -7,4 +7,4 @@ export { ArrowUp, ArrowDown } from './assets/icons';
 export * from './line-charts';
 export * as NStyledComponents from './styled';
 export * from '@antv/narrative-text-schema';
-export {} from './chore/plugin';
+export * from './chore/plugin';

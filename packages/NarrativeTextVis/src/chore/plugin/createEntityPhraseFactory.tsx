@@ -13,7 +13,7 @@ export const createEntityPhraseFactory =
   ): PhraseDescriptor<EntityMetaData> => {
     const entityFactory = createPhraseFactory(true);
 
-    let entityDescriptor = defaultDescriptor;
+    let entityDescriptor = cloneDeep(defaultDescriptor);
     if (customDescriptor) {
       entityDescriptor =
         mode === 'overwrite' ? customDescriptor : getMergedDescriptor(defaultDescriptor, customDescriptor);
@@ -58,7 +58,7 @@ function getMergedDescriptor(
   defaultDescriptor: SpecificEntityPhraseDescriptor,
   customDescriptor: SpecificEntityPhraseDescriptor,
 ) {
-  const result = cloneDeep({ ...defaultDescriptor, ...customDescriptor });
-  result.encoding = cloneDeep({ ...(defaultDescriptor?.encoding || {}), ...(customDescriptor?.encoding || {}) });
+  const result = { ...defaultDescriptor, ...customDescriptor };
+  result.encoding = { ...(defaultDescriptor?.encoding || {}), ...(customDescriptor?.encoding || {}) };
   return result;
 }

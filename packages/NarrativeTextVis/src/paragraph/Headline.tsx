@@ -4,17 +4,16 @@ import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../utils';
 import { ExtensionProps } from '../interface';
-import { usePluginCreator } from '../chore/plugin';
+import { presetPluginManager } from '../chore/plugin';
 
 type HeadlineProps = ExtensionProps & {
   spec: HeadlineSpec;
 };
 
-export function Headline({ spec, pluginManager, plugins }: HeadlineProps) {
-  const innerPluginManager = usePluginCreator(pluginManager, plugins);
+export function Headline({ spec, pluginManager = presetPluginManager }: HeadlineProps) {
   return (
     <StyledHeadline className={cx(getPrefixCls('headline'), spec.className)} style={spec.styles}>
-      <Phrases spec={spec.phrases} pluginManager={innerPluginManager} />
+      <Phrases spec={spec.phrases} pluginManager={pluginManager} />
     </StyledHeadline>
   );
 }

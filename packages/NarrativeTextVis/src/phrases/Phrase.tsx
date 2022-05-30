@@ -10,7 +10,7 @@ import { isFunction, kebabCase } from 'lodash';
 import { Entity } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize } from '../utils';
 import { ThemeProps, ExtensionProps } from '../interface';
-import { usePluginCreator, PhraseDescriptor, AnyObject } from '../chore/plugin';
+import { PhraseDescriptor, AnyObject, presetPluginManager } from '../chore/plugin';
 
 type PhraseProps = ThemeProps &
   ExtensionProps & {
@@ -22,8 +22,8 @@ function renderPhraseByDescriptor(
   descriptor: PhraseDescriptor<AnyObject>,
   theme: ThemeProps,
 ) {
-  const { overwrite, classNames, style: descriptorStyle, onHover, onClick, content } = descriptor || {};
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
+  const { overwrite, classNames, style: descriptorStyle, onHover, onClick, content = () => value } = descriptor || {};
 
   const defaultNode = (
     <Entity
@@ -60,11 +60,10 @@ function renderPhraseByDescriptor(
 }
 
 /** <Phrase /> can use independence */
-export function Phrase({ spec: phrase, size = 'normal', pluginManager, plugins }: PhraseProps) {
-  const innerPluginManager = usePluginCreator(pluginManager, plugins);
+export function Phrase({ spec: phrase, size = 'normal', pluginManager = presetPluginManager }: PhraseProps) {
   const defaultText = <>{phrase.value}</>;
   if (isTextPhrase(phrase)) return defaultText;
-  const descriptor = innerPluginManager?.getPhraseDescriptorBySpec(phrase);
+  const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
   if (descriptor) return <>{renderPhraseByDescriptor(phrase, descriptor, { size })}</>;
   return defaultText;
 }

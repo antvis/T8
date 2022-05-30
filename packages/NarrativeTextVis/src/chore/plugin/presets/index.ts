@@ -20,3 +20,13 @@ export const presetPlugins = [
   createTimeDesc(),
   createTrendDesc(),
 ];
+
+export { createMetricName } from './createMetricName';
+export { createMetricValue } from './createMetricValue';
+export { createDeltaValue, createRatioValue } from './createCompare';
+export { createOtherMetricValue } from './createOtherMetricValue';
+export { createContributeRatio } from './createContributeRatio';
+export { createDimensionValue } from './createDimensionValue';
+export { createProportion } from './createProportion';
+export { createTimeDesc } from './createTimeDesc';
+export { createTrendDesc } from './createTrendDesc';

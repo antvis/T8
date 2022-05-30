@@ -6,23 +6,24 @@ import { Headline } from './paragraph';
 import { Section } from './section';
 import { ThemeProps, ExtensionProps } from './interface';
 import { classnames as cx, getPrefixCls } from './utils';
-import { usePluginCreator } from './chore/plugin';
+import { presetPluginManager } from './chore/plugin';
 
 export type NarrativeTextVisProps = ThemeProps &
   ExtensionProps & {
     spec: NarrativeTextSpec;
   };
 
-export function NarrativeTextVis({ spec, size = 'normal', plugins, pluginManager }: NarrativeTextVisProps) {
+export function NarrativeTextVis({
+  spec,
+  size = 'normal',
+  pluginManager = presetPluginManager,
+}: NarrativeTextVisProps) {
   const { headline, sections, styles, className } = spec;
-  const innerPluginManager = usePluginCreator(pluginManager, plugins);
   return (
     <Container size={size} className={cx(className, getPrefixCls('container'))} style={styles}>
-      {headline ? <Headline spec={headline} pluginManager={innerPluginManager} /> : null}
+      {headline ? <Headline spec={headline} pluginManager={pluginManager} /> : null}
       {sections
-        ? sections?.map((section) => (
-            <Section key={v4()} size={size} spec={section} pluginManager={innerPluginManager} />
-          ))
+        ? sections?.map((section) => <Section key={v4()} size={size} spec={section} pluginManager={pluginManager} />)
         : null}
     </Container>
   );

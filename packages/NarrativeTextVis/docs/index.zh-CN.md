@@ -27,3 +27,14 @@ import {
 - 各级解读结构 `Section`、`Paragraph` 和 `Phrase`；
 - 导出全量 [text-schema](../../schema/intro)；
 - 行内小图 web components 标签；
+
+
+## Show Case
+
+```jsx
+import React from 'react';
+import { NarrativeTextVis } from '@antv/narrative-text-vis';
+import booking from './mock/booking.json';
+
+export default () => <NarrativeTextVis spec={booking} />;
+```

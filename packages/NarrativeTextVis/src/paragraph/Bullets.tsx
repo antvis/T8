@@ -5,19 +5,18 @@ import { Bullet, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../utils';
 import { ThemeProps, ExtensionProps } from '../interface';
-import { usePluginCreator } from '../chore/plugin';
+import { presetPluginManager } from '../chore/plugin';
 
 type BulletsProps = ThemeProps &
   ExtensionProps & {
     spec: BulletsParagraphSpec;
   };
 
-export function Bullets({ spec, size = 'normal', plugins, pluginManager }: BulletsProps) {
-  const innerPluginManager = usePluginCreator(pluginManager, plugins);
+export function Bullets({ spec, size = 'normal', pluginManager = presetPluginManager }: BulletsProps) {
   const children = spec.bullets?.map((bullet) => (
     <Li className={getPrefixCls('li')} key={v4()} style={bullet.styles}>
-      <Phrases spec={bullet.phrases} size={size} />
-      {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} size={size} pluginManager={innerPluginManager} /> : null}
+      <Phrases spec={bullet.phrases} size={size} pluginManager={pluginManager} />
+      {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} size={size} pluginManager={pluginManager} /> : null}
     </Li>
   ));
 
