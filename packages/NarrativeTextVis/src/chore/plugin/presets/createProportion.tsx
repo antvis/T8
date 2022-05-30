@@ -1,10 +1,11 @@
 import React from 'react';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { ProportionChart } from '../../../line-charts';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
-    inlineChart: (value, { origin }) => <wsc-proportion data={getProportionNumber(value, origin as number)} />,
+    inlineChart: (value, { origin }) => <ProportionChart data={getProportionNumber(value, origin as number)} />,
   },
 };
 
