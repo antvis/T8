@@ -1,4 +1,4 @@
-import { createPlugins } from '@udecode/plate-core';
+import { createPlugins, PlatePlugin } from '@udecode/plate-core';
 // import { createComboboxPlugin } from '@udecode/plate-combobox';
 
 import { headingPlugin } from './heading';
@@ -9,13 +9,14 @@ import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
-import { variablePlugin } from './variable';
+// TODO 处理原变量列表与自定义交互
+// import { variablePlugin } from './variable';
 
 import { softBreakPlugin, exitBreakPlugin } from './utils';
 
 import { createCustomUI } from './ui';
 
-const getPlugins = () => {
+const getPlugins = (extraPlugins: PlatePlugin[]) => {
   const plugins = [
     headingPlugin,
     paragraphPlugin,
@@ -25,12 +26,13 @@ const getPlugins = () => {
     ...fontPlugins,
 
     // createComboboxPlugin(),
-    variablePlugin,
+    // variablePlugin,
 
     // others
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
+    ...extraPlugins,
   ];
 
   // TODO 如果是下方写法就无法生效

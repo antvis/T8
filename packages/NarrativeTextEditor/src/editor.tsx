@@ -1,9 +1,10 @@
 import React, { useEffect, CSSProperties } from 'react';
-import { Plate, usePlateEditorRef, TDescendant, PlateStoreState } from '@udecode/plate-core';
+import { Plate, usePlateEditorRef, TDescendant, PlateStoreState, PlatePlugin } from '@udecode/plate-core';
+import { isObject } from 'lodash';
 
 import { safeSlateValue } from './constants';
 import getPlugins, { VariableCombobox } from './plugins';
-import HeadingToolbar from './toolbar/HeadingToolbar';
+import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
 // import { transferComboboxItemData, updateVariables } from './helpers';
 import { MyValue } from './types';
@@ -25,6 +26,8 @@ export interface NarrativeTextEditorProps {
   /** editor value change */
   onChange?: (val: TDescendant[]) => void;
 
+  plugins?: PlatePlugin[];
+
   /** editor inline style */
   style?: CSSProperties;
 
@@ -32,10 +35,10 @@ export interface NarrativeTextEditorProps {
   // variableMap?: VariableMap;
 
   /** whether show heading toolbar */
-  showHeadingToolbar?: boolean;
+  showHeadingToolbar?: boolean | HeadingToolbarProps;
 
   /** whether show hovering toolbar */
-  showHoveringToolbar?: boolean;
+  // showHoveringToolbar?: boolean;
 
   /** read only */
   readOnly?: boolean;
@@ -53,11 +56,12 @@ export interface NarrativeTextEditorProps {
 export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   id,
   initialValue = safeSlateValue,
+  plugins: extraPlugins = [],
   onChange,
   style,
   // variableMap,
   showHeadingToolbar = true,
-  showHoveringToolbar = true,
+  // showHoveringToolbar = true,
   readOnly = false,
 }) => {
   return (
@@ -75,11 +79,14 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
             ...style,
           },
         }}
-        plugins={getPlugins()}
+        plugins={getPlugins(extraPlugins)}
       >
         {/* {variableMap && <VariableListener variableMap={variableMap} />} */}
-        {!readOnly && showHeadingToolbar && <HeadingToolbar />}
-        {!readOnly && showHoveringToolbar && <HoveringToolbar />}
+        {!readOnly && showHeadingToolbar && (
+          <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
+        )}
+        {/* {!readOnly && showHoveringToolbar && <HoveringToolbar />} */}
+        {/* TODO 暂时隐藏变量列表交互 */}
         {/* {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />} */}
       </Plate>
     </>
