@@ -1,5 +1,5 @@
 import { createPlugins } from '@udecode/plate-core';
-import { createComboboxPlugin } from '@udecode/plate-combobox';
+// import { createComboboxPlugin } from '@udecode/plate-combobox';
 
 import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
@@ -24,7 +24,7 @@ const getPlugins = () => {
     ...basicMarkPlugins,
     ...fontPlugins,
 
-    createComboboxPlugin(),
+    // createComboboxPlugin(),
     variablePlugin,
 
     // others

@@ -7,6 +7,7 @@ import { ELEMENT_VARIABLE, VariableNode } from '../plugins/variable';
 /** update variable node, recording variableMap */
 export function updateVariables(editor: PlateEditor, variableMap: VariableMap): void {
   const nodeEntries = getNodes<VariableNode>(editor, {
+    // TODO variable 用到的函数，之后一起处理
     match: { type: getPluginType(editor, ELEMENT_VARIABLE) },
     at: [],
   });
@@ -21,7 +22,7 @@ export function updateVariables(editor: PlateEditor, variableMap: VariableMap): 
       }
     } else {
       // variable removed
-      Transforms.removeNodes(editor, { at: path });
+      Transforms.removeNodes(editor as any, { at: path });
       insertNodes(editor, { text: '' }, { at: path });
     }
   }

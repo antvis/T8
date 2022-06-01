@@ -1,4 +1,4 @@
-import { getParent, isElement, PlateEditor, TEditor } from '@udecode/plate-core';
+import { getParentNode, isElement, PlateEditor, TEditor } from '@udecode/plate-core';
 import { AutoformatBlockRule } from '@udecode/plate-autoformat';
 import { toggleList, unwrapList } from '@udecode/plate-list';
 
@@ -6,7 +6,7 @@ export const clearBlockFormat: AutoformatBlockRule['preFormat'] = (editor) => un
 
 const format = (editor: TEditor, customFormatting: any) => {
   if (editor.selection) {
-    const parentEntry = getParent(editor, editor.selection);
+    const parentEntry = getParentNode(editor, editor.selection);
     if (!parentEntry) return;
     const [node] = parentEntry;
     if (isElement(node)) {
