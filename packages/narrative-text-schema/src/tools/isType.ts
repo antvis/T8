@@ -13,28 +13,32 @@ import {
   TextPhraseSpec,
 } from '../schema';
 
+function isObject(val: any) {
+  return typeof val === 'object';
+}
+
 export function isCustomSection(spec: SectionSpec): spec is CustomMetaData {
-  return 'customType' in spec;
+  return isObject(spec) && 'customType' in spec;
 }
 
 export function isCustomParagraph(spec: ParagraphSpec): spec is CustomMetaData {
-  return 'customType' in spec;
+  return isObject(spec) && 'customType' in spec;
 }
 
 export function isStandardSection(spec: SectionSpec): spec is StandardSectionSpec {
-  return 'paragraphs' in spec && Array.isArray(spec.paragraphs);
+  return isObject(spec) && 'paragraphs' in spec && Array.isArray(spec?.paragraphs);
 }
 
 export function isTextParagraph(spec: ParagraphSpec): spec is TextParagraphSpec {
-  return spec?.type === 'normal' && Array.isArray(spec?.phrases);
+  return isObject(spec) && spec?.type === 'normal' && Array.isArray(spec?.phrases);
 }
 
 export function isBulletParagraph(spec: ParagraphSpec): spec is BulletsParagraphSpec {
-  return spec?.type === 'bullets' && Array.isArray(spec?.bullets);
+  return isObject(spec) && spec?.type === 'bullets' && Array.isArray(spec?.bullets);
 }
 
 export function isHeadingParagraph(spec: ParagraphSpec): spec is HeadingParagraphSpec {
-  if ('type' in spec && isString(spec.type)) {
+  if (isObject(spec) && 'type' in spec && isString(spec.type)) {
     const weight = getHeadingWeight(spec?.type);
     return spec.type.startsWith('heading') && !Number.isNaN(weight);
   }
