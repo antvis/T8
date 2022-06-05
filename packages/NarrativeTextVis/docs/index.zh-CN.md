@@ -1,5 +1,5 @@
 ---
-title: NarrativeTextVis
+title: 快速开始
 order: 0
 group:
   path: /intro
@@ -37,3 +37,5 @@ import booking from './mock/booking.json';
 
 export default () => <NarrativeTextVis spec={booking} />;
 ```
+
+更详细的 API 及示例请看 [基本样式与 API](./example/style)。
