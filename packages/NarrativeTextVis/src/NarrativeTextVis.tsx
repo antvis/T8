@@ -10,6 +10,10 @@ import { presetPluginManager } from './chore/plugin';
 
 export type NarrativeTextVisProps = ThemeProps &
   ExtensionProps & {
+    /**
+     * @description specification of narrative text spec
+     * @description.zh-CN Narrative 描述 json 信息
+     */
     spec: NarrativeTextSpec;
   };
 

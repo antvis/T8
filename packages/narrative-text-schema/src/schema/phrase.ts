@@ -110,7 +110,7 @@ export type TypeOrMetaReturnType<T> = T | ((value: string, metadata: EntityMetaD
 export type EntityEncoding<NodeType> = Partial<{
   color: TypeOrMetaReturnType<string>;
   bgColor: TypeOrMetaReturnType<string>;
-  fontsize: TypeOrMetaReturnType<string | number>;
+  fontSize: TypeOrMetaReturnType<string | number>;
   fontWeight: TypeOrMetaReturnType<string | number>;
   underline: TypeOrMetaReturnType<boolean>;
   prefix: TypeOrMetaReturnType<NodeType>;

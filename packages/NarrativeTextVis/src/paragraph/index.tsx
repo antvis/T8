@@ -14,6 +14,10 @@ import { ThemeProps, ExtensionProps } from '../interface';
 
 type ParagraphProps = ThemeProps &
   ExtensionProps & {
+    /**
+     * @description specification of paragraph text spec
+     * @description.zh-CN 段落描述 json 信息
+     */
     spec: ParagraphSpec;
   };
 

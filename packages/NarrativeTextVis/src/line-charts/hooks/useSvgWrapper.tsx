@@ -5,7 +5,7 @@ type SvgReactFC = React.FC<React.SVGProps<SVGSVGElement>>;
 
 export const useSvgWrapper = () => {
   const ele = useRef(null);
-  const [size, setSize] = useState<number>();
+  const [size, setSize] = useState<number>(DEFAULT_FONT_SIZE);
   useLayoutEffect(() => {
     if (ele.current) {
       setSize(getElementFontSize(ele.current, DEFAULT_FONT_SIZE));

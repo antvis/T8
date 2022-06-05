@@ -22,7 +22,7 @@ export const createEntityPhraseFactory =
     // transfer entity descriptor to common descriptor
     if (entityDescriptor.encoding) {
       // handle style
-      const { color, bgColor, fontsize, fontWeight, underline } = entityDescriptor.encoding;
+      const { color, bgColor, fontSize, fontWeight, underline } = entityDescriptor.encoding;
       const commonStyleFn = functionalize<CSSProperties>(entityDescriptor?.style, {});
 
       const encodingStyle = (value: string, metadata: EntityMetaData): CSSProperties => {
@@ -30,7 +30,7 @@ export const createEntityPhraseFactory =
           ...commonStyleFn(value, metadata),
           color: functionalize<string>(color, undefined)(value, metadata),
           backgroundColor: functionalize<string>(bgColor, undefined)(value, metadata),
-          fontSize: functionalize<number | string>(fontsize, undefined)(value, metadata),
+          fontSize: functionalize<number | string>(fontSize, undefined)(value, metadata),
           fontWeight: functionalize<number | string>(fontWeight, undefined)(value, metadata),
           textDecoration: functionalize<boolean>(underline, false)(value, metadata) ? 'underline' : undefined,
         };

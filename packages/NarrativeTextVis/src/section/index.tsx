@@ -10,6 +10,10 @@ import { presetPluginManager } from '../chore/plugin';
 
 type SectionProps = ThemeProps &
   ExtensionProps & {
+    /**
+     * @description specification of section text spec
+     * @description.zh-CN Section 描述 json 信息
+     */
     spec: SectionSpec;
   };
 
