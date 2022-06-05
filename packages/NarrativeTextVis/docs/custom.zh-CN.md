@@ -76,6 +76,11 @@ type EntityEncoding<NodeType> = Partial<{
 }>;
 ```
 
+Q：overwrite 和 content 有什么区别？应该怎么定义？
+
+A：我们将实体节点 encoding 结构规范如下图，建议通过具体位置来完成映射制定，overwrite 通常是为了完成制定位置无法描述的内容，如 tooltip。由于 content 与 overwrite 都可以返回 ReactNode，您可以自由的选择合适的方式进行短语描述。
+![EntityPhrase 结构](https://gw.alipayobjects.com/mdn/rms_fabca5/afts/img/A*ZuuOSovBOjQAAAAAAAAAAAAAARQnAQ)
+
 下面是一个示例，通过插件改变了指标名的样式及对比差值和对比差率的默认展示方式。
 
 ```jsx
