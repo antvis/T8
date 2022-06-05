@@ -1,6 +1,6 @@
 ---
 title: 升级指南
-order: 0
+order: 1
 group:
   path: /intro
   title: 介绍

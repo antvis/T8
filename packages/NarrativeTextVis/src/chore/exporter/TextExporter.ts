@@ -73,7 +73,7 @@ export class TextExporter extends PluginManager {
   }
   getPhrasesText(spec: PhraseSpec[]) {
     return spec.reduce((prev, curr) => {
-      let text = '';
+      let text = curr?.value;
       if (isEntityPhrase(curr) || isCustomPhrase(curr)) {
         const descriptor = this.getPhraseDescriptorBySpec(curr);
         if (descriptor && descriptor?.getText) {

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { ValueAssessment } from '@antv/narrative-text-schema';
+import { ValueAssessment, EntityMetaData } from '@antv/narrative-text-schema';
 import { ArrowDown, ArrowUp } from '../../../assets/icons';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
@@ -14,6 +14,7 @@ const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
     prefix: (value, { assessment }) => getComparePrefix(assessment, ['-', '+']),
   },
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
+  getText: getAssessmentText,
 };
 
 export const createDeltaValue = createEntityPhraseFactory('delta_value', defaultDeltaValueDescriptor);
@@ -24,6 +25,7 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
     prefix: (value, { assessment }) => getComparePrefix(assessment, [<ArrowDown />, <ArrowUp />]),
   },
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
+  getText: getAssessmentText,
 };
 
 export const createRatioValue = createEntityPhraseFactory('ratio_value', defaultRatioValueDescriptor);
@@ -40,4 +42,8 @@ function getComparePrefix(assessment: ValueAssessment, [neg, pos]: [ReactNode, R
   if (assessment === 'negative') prefix = neg;
   if (assessment === 'positive') prefix = pos;
   return prefix;
+}
+
+function getAssessmentText(value: string, metadata: EntityMetaData) {
+  return `${metadata?.assessment === 'negative' ? '-' : ''}${value}`;
 }
