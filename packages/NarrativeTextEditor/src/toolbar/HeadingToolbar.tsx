@@ -45,6 +45,6 @@ export default HeadingToolbar;
 
 function parseExtraContent(extra: HeadingToolbarProps['toolbarExtraContent']): ToolbarExtraContentMap {
   if (!extra) return {};
-  if (extra && typeof extra === 'object' && !React.isValidElement(extra)) return extra as any;
+  if (extra && typeof extra === 'object' && !React.isValidElement(extra)) return extra as ToolbarExtraContentMap;
   return { right: extra };
 }

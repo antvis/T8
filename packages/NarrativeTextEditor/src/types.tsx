@@ -69,12 +69,11 @@ export interface RichText extends TText {
  * Inline Elements
  */
 
-export interface TLinkElement extends LinkElement {
+export interface MyInlineElement extends LinkElement {
   type: typeof ELEMENT_LINK;
   children: RichText[];
 }
 
-export type MyInlineElement = TLinkElement;
 export type MyInlineDescendant = MyInlineElement | RichText;
 export type MyInlineChildren = MyInlineDescendant[];
 
