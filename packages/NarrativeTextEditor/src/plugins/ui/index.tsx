@@ -11,6 +11,3 @@ export const createCustomUI = () => ({
   ...basicMarkComponents,
   // ...variableComponents,
 });
-
-// TODO 调试时使用
-// export { createPlateUI as createCustomUI } from '@udecode/plate';

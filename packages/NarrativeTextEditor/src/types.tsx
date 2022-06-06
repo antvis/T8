@@ -1,3 +1,5 @@
+// FIXME plate 11.x 之后需要自己指定类型，当前文件先直接 copy 官网 ts demo，之后再详细梳理
+
 import { PluginOptions } from '@babel/core';
 import {
   createPlateEditor,

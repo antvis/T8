@@ -9,7 +9,7 @@ import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
-// TODO 处理原变量列表与自定义交互
+// TODO 处理原变量列表与自定义交互，暂时隐藏变量列表插件
 // import { variablePlugin } from './variable';
 
 import { softBreakPlugin, exitBreakPlugin } from './utils';

@@ -23,6 +23,8 @@ const customInlineElementWrapper = (Component: CustomInlineComponent) => (props:
       data-slate-value={element.value}
       className={className}
       contentEditable={false}
+      // Default wrapping
+      style={{ whiteSpace: 'normal' }}
       {...rootProps}
       {...nodeProps}
     >

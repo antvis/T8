@@ -5,7 +5,7 @@ import { isObject } from 'lodash';
 import { safeSlateValue } from './constants';
 import getPlugins, { VariableCombobox } from './plugins';
 import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
-import HoveringToolbar from './toolbar/HoveringToolbar';
+// import HoveringToolbar from './toolbar/HoveringToolbar';
 // import { transferComboboxItemData, updateVariables } from './helpers';
 import { MyValue } from './types';
 
@@ -44,6 +44,7 @@ export interface NarrativeTextEditorProps {
   readOnly?: boolean;
 }
 
+// TODO 暂时去掉变量列表相关交互
 // Listen variable map changes and update variable
 // const VariableListener: React.FC<Pick<NarrativeTextEditorProps, 'variableMap'>> = ({ variableMap }) => {
 //   const editor = usePlateEditorRef();
@@ -86,7 +87,6 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
           <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
         )}
         {/* {!readOnly && showHoveringToolbar && <HoveringToolbar />} */}
-        {/* TODO 暂时隐藏变量列表交互 */}
         {/* {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />} */}
       </Plate>
     </>

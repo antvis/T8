@@ -1,10 +1,10 @@
-import { getParentNode, isElement, PlateEditor, TEditor } from '@udecode/plate-core';
+import { getParentNode, isElement, PlateEditor, Value } from '@udecode/plate-core';
 import { AutoformatBlockRule } from '@udecode/plate-autoformat';
 import { toggleList, unwrapList } from '@udecode/plate-list';
 
-export const clearBlockFormat: AutoformatBlockRule['preFormat'] = (editor) => unwrapList(editor as PlateEditor);
+export const clearBlockFormat: AutoformatBlockRule['preFormat'] = (editor) => unwrapList(editor);
 
-const format = (editor: TEditor, customFormatting: any) => {
+export const format = <V extends Value>(editor: PlateEditor<V>, customFormatting: any) => {
   if (editor.selection) {
     const parentEntry = getParentNode(editor, editor.selection);
     if (!parentEntry) return;
@@ -15,14 +15,14 @@ const format = (editor: TEditor, customFormatting: any) => {
   }
 };
 
-export const formatList = (editor: TEditor, elementType: string) => {
+export const formatList = <V extends Value>(editor: PlateEditor<V>, elementType: string) => {
   format(editor, () =>
-    toggleList(editor as PlateEditor, {
+    toggleList(editor, {
       type: elementType,
     }),
   );
 };
 
-export const formatText = (editor: TEditor, text: string) => {
+export const formatText = <V extends Value>(editor: PlateEditor<V>, text: string) => {
   format(editor, () => editor.insertText(text));
 };

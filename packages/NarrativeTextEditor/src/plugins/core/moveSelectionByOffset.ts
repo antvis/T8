@@ -6,6 +6,7 @@ export interface MoveSelectionByOffsetOptions {
   query?: (editor: PlateEditor) => boolean;
 }
 
+// TODO 变量 mention 处理时再处理类型问题
 export const moveSelectionByOffset: (
   editor: PlateEditor,
   options?: MoveSelectionByOffsetOptions,
