@@ -1,40 +1,39 @@
 import React from 'react';
 import {
   ParagraphSpec,
-  DefaultCustomPhraseGeneric,
-  DefaultCustomBlockStructureGeneric,
+  isCustomParagraph,
+  isHeadingParagraph,
+  isTextParagraph,
+  isBulletParagraph,
 } from '@antv/narrative-text-schema';
 
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { WithPhraseProps, WithCustomBlockElement, ThemeProps } from '../interface';
-import { isHeadingParagraph, isTextParagraph, isBulletParagraph } from './helpers';
+import { ThemeProps, ExtensionProps } from '../interface';
 
-type ParagraphProps<
-  S extends DefaultCustomBlockStructureGeneric = null,
-  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = ThemeProps &
-  WithPhraseProps<P> &
-  WithCustomBlockElement<S> & {
-    spec: ParagraphSpec<S, P>;
+type ParagraphProps = ThemeProps &
+  ExtensionProps & {
+    /**
+     * @description specification of paragraph text spec
+     * @description.zh-CN 段落描述 json 信息
+     */
+    spec: ParagraphSpec;
   };
 
-export function Paragraph<
-  S extends DefaultCustomBlockStructureGeneric = null,
-  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
->({ spec, customBlockElementRender, size = 'normal', ...phraseProps }: ParagraphProps<S, P>) {
-  if ('customType' in spec && spec.customType && customBlockElementRender) {
-    return <>{customBlockElementRender(spec)}</>;
+export function Paragraph({ spec, pluginManager, size = 'normal' }: ParagraphProps) {
+  if (isCustomParagraph(spec)) {
+    const descriptor = pluginManager.getBlockDescriptor(spec.customType);
+    if (descriptor && descriptor?.render) return <>{descriptor.render(spec)}</>;
   }
   if (isHeadingParagraph(spec)) {
-    return <Heading<P> spec={spec} {...phraseProps} />;
+    return <Heading spec={spec} pluginManager={pluginManager} />;
   }
   if (isTextParagraph(spec)) {
-    return <TextLine<P> spec={spec} size={size} {...phraseProps} />;
+    return <TextLine spec={spec} size={size} pluginManager={pluginManager} />;
   }
   if (isBulletParagraph(spec)) {
-    return <Bullets<P> spec={spec} size={size} {...phraseProps} />;
+    return <Bullets spec={spec} size={size} pluginManager={pluginManager} />;
   }
   return null;
 }

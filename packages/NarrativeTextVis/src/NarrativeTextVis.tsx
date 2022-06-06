@@ -1,45 +1,33 @@
 import React from 'react';
-import {
-  NarrativeTextSpec,
-  HeadlineSpec,
-  DefaultCustomPhraseGeneric,
-  DefaultCustomBlockStructureGeneric,
-} from '@antv/narrative-text-schema';
+import { NarrativeTextSpec } from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
 import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
-import { WithPhraseProps, WithCustomBlockElement, ThemeProps } from './interface';
-import { classnames as cx } from './utils/classnames';
-import { getPrefixCls } from './utils/getPrefixCls';
+import { ThemeProps, ExtensionProps } from './interface';
+import { classnames as cx, getPrefixCls } from './utils';
+import { presetPluginManager } from './chore/plugin';
 
-export type NarrativeTextVisProps<
-  S extends DefaultCustomBlockStructureGeneric = null,
-  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = ThemeProps &
-  WithPhraseProps<P> &
-  WithCustomBlockElement<S> & {
-    spec: NarrativeTextSpec<S, P>;
+export type NarrativeTextVisProps = ThemeProps &
+  ExtensionProps & {
+    /**
+     * @description specification of narrative text spec
+     * @description.zh-CN Narrative 描述 json 信息
+     */
+    spec: NarrativeTextSpec;
   };
 
-export function NarrativeTextVis<
-  S extends DefaultCustomBlockStructureGeneric = null,
-  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
->({ spec, customBlockElementRender, size = 'normal', ...phraseProps }: NarrativeTextVisProps<S, P>) {
+export function NarrativeTextVis({
+  spec,
+  size = 'normal',
+  pluginManager = presetPluginManager,
+}: NarrativeTextVisProps) {
   const { headline, sections, styles, className } = spec;
   return (
     <Container size={size} className={cx(className, getPrefixCls('container'))} style={styles}>
-      {headline ? <Headline<P> spec={headline as HeadlineSpec<P>} {...phraseProps} /> : null}
+      {headline ? <Headline spec={headline} pluginManager={pluginManager} /> : null}
       {sections
-        ? sections?.map((section) => (
-            <Section<S, P>
-              key={v4()}
-              size={size}
-              spec={section}
-              customBlockElementRender={customBlockElementRender}
-              {...phraseProps}
-            />
-          ))
+        ? sections?.map((section) => <Section key={v4()} size={size} spec={section} pluginManager={pluginManager} />)
         : null}
     </Container>
   );

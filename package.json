@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@antv/dumi-theme-antv": "0.2.1",
+    "@antv/g2plot": "^2.4.16",
     "@babel/core": "^7.17.2",
     "@babel/preset-env": "^7.16.11",
     "@commitlint/cli": "^13.1.0",

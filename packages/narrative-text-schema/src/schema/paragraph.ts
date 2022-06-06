@@ -1,33 +1,30 @@
 import { PhraseSpec } from './phrase';
-import { CommonProps, DefaultCustomBlockStructureGeneric, DefaultCustomPhraseGeneric } from './common';
+import { CommonProps, CustomMetaData } from './common';
 
-export type ParagraphSpec<
-  S extends DefaultCustomBlockStructureGeneric = null,
-  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = HeadingParagraphSpec<P> | TextParagraphSpec<P> | BulletsParagraphSpec<P> | S;
+export type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomMetaData;
 
 // As nouns the difference between heading and headline is that
 // heading is the title or topic of a document, article, chapter, or of a section thereof
 // while headline is a heading or title of an article.
-export type HeadingParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+export type HeadingParagraphSpec = CommonProps & {
   type: 'heading1' | 'heading2' | 'heading3' | 'heading4' | 'heading5' | 'heading6';
-  phrases: PhraseSpec<P>[];
+  phrases: PhraseSpec[];
 };
 
-export type TextParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+export type TextParagraphSpec = CommonProps & {
   type: 'normal';
-  phrases: PhraseSpec<P>[];
+  phrases: PhraseSpec[];
 };
 
-export type BulletsParagraphSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+export type BulletsParagraphSpec = CommonProps & {
   type: 'bullets';
   isOrder: boolean;
-  bullets: BulletItemSpec<P>[];
+  bullets: BulletItemSpec[];
 };
 
-export type BulletItemSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = CommonProps & {
+export type BulletItemSpec = CommonProps & {
   type: 'bullet-item';
-  phrases: PhraseSpec<P>[];
+  phrases: PhraseSpec[];
   // nested list
-  subBullet?: BulletsParagraphSpec<P>;
+  subBullet?: BulletsParagraphSpec;
 };

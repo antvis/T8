@@ -1,11 +1,8 @@
 import { CSSProperties } from 'react';
-import { DefaultCustomPhraseGeneric } from './common';
+import { CustomMetaData } from './common';
 
 // P used for custom phrase;
-export type PhraseSpec<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> =
-  | TextPhraseSpec
-  | EntityPhraseSpec
-  | CustomPhraseSpec<P>;
+export type PhraseSpec = TextPhraseSpec | EntityPhraseSpec | CustomPhraseSpec<CustomMetaData>;
 
 export interface TextPhraseSpec {
   type: 'text';
@@ -23,7 +20,7 @@ export interface EntityPhraseSpec {
   styles?: CSSProperties;
 }
 
-export interface CustomPhraseSpec<P> {
+export interface CustomPhraseSpec<P extends CustomMetaData = CustomMetaData> {
   type: 'custom';
   value?: string;
   metadata?: P;
@@ -106,3 +103,17 @@ export type EntityMetaData = {
    */
   detail?: unknown;
 };
+
+export type TypeOrMetaReturnType<T> = T | ((value: string, metadata: EntityMetaData) => T);
+
+/** entity phrase encoding channel */
+export type EntityEncoding<NodeType> = Partial<{
+  color: TypeOrMetaReturnType<string>;
+  bgColor: TypeOrMetaReturnType<string>;
+  fontSize: TypeOrMetaReturnType<string | number>;
+  fontWeight: TypeOrMetaReturnType<string | number>;
+  underline: TypeOrMetaReturnType<boolean>;
+  prefix: TypeOrMetaReturnType<NodeType>;
+  suffix: TypeOrMetaReturnType<NodeType>;
+  inlineChart: TypeOrMetaReturnType<NodeType>;
+}>;

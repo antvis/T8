@@ -1,24 +1,23 @@
 import React from 'react';
-import { HeadingParagraphSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { HeadingParagraphSpec, getHeadingWeight } from '@antv/narrative-text-schema';
 import { isNaN } from 'lodash';
 import * as Elements from '../styled';
 import { Phrases } from '../phrases';
-import { classnames as cx } from '../utils/classnames';
-import { getPrefixCls } from '../utils/getPrefixCls';
-import { WithPhraseProps } from '../interface';
-import { getHeadingWeight } from './helpers';
+import { getPrefixCls, classnames as cx } from '../utils';
+import { ExtensionProps } from '../interface';
+import { presetPluginManager } from '../chore/plugin';
 
-type HeadingProps<P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: HeadingParagraphSpec<P>;
+type HeadingProps = ExtensionProps & {
+  spec: HeadingParagraphSpec;
 };
 
-export function Heading<P extends DefaultCustomPhraseGeneric>({ spec, ...phraseProps }: HeadingProps<P>) {
+export function Heading({ spec, pluginManager = presetPluginManager }: HeadingProps) {
   const weight = getHeadingWeight(spec.type);
   if (isNaN(weight)) return null;
   const Tag = Elements[`H${weight}`];
   return (
     <Tag className={cx(getPrefixCls(`h${weight}`), spec.className)} style={spec.styles}>
-      <Phrases<P> spec={spec.phrases} {...phraseProps} />
+      <Phrases spec={spec.phrases} pluginManager={pluginManager} />
     </Tag>
   );
 }

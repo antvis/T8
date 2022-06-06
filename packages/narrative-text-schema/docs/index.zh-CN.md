@@ -164,7 +164,7 @@ interface EntityPhraseSpec {
 }
 
 // 自定义短语类型
-interface CustomPhraseSpec<P> {
+interface CustomPhraseSpec<P extends CustomMetaData = CustomMetaData> {
   type: 'custom';
   value?: string;
   metadata?: P;

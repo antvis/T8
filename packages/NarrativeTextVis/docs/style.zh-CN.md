@@ -1,5 +1,5 @@
 ---
-title: 基本样式
+title: 基本样式与 API
 order: 2
 group:
   path: /example
@@ -20,6 +20,7 @@ import basicElements from './mock/basicElements.json';
 
 export default () => <NarrativeTextVis spec={basicElements} />;
 ```
+<API src="../src/NarrativeTextVis.tsx" hideTitle />
 
 ## Section
 
@@ -30,6 +31,9 @@ import basicElements from './mock/basicElements.json';
 
 export default () => <Section spec={basicElements.sections[0]} />;
 ```
+
+<API src="../src/section/index.tsx" hideTitle />
+
 
 ## Paragraph
 
@@ -63,6 +67,9 @@ export default () => (
   </>
 );
 ```
+
+<API src="../src/paragraph/index.tsx" hideTitle />
+
 
 ## Phrase
 
@@ -200,6 +207,8 @@ export default () => (
   </div>
 )
 ```
+<API src="../src/phrases/Phrase.tsx" hideTitle />
+
 
 ## Inline Chart
 

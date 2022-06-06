@@ -1,44 +1,37 @@
 import React from 'react';
-import {
-  SectionSpec,
-  DefaultCustomPhraseGeneric,
-  DefaultCustomBlockStructureGeneric,
-} from '@antv/narrative-text-schema';
+import { SectionSpec, isCustomSection, isStandardSection } from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
-import { classnames as cx } from '../utils/classnames';
-import { getPrefixCls } from '../utils/getPrefixCls';
-import { WithPhraseProps, WithCustomBlockElement, ThemeProps } from '../interface';
+import { isFunction } from 'lodash';
+import { getPrefixCls, classnames as cx } from '../utils';
+import { ThemeProps, ExtensionProps } from '../interface';
 import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
+import { presetPluginManager } from '../chore/plugin';
 
-type SectionProps<
-  S extends DefaultCustomBlockStructureGeneric = null,
-  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
-> = ThemeProps &
-  WithPhraseProps<P> &
-  WithCustomBlockElement<S> & {
-    spec: SectionSpec<S, P>;
+type SectionProps = ThemeProps &
+  ExtensionProps & {
+    /**
+     * @description specification of section text spec
+     * @description.zh-CN Section 描述 json 信息
+     */
+    spec: SectionSpec;
   };
 
-export function Section<
-  S extends DefaultCustomBlockStructureGeneric = null,
-  P extends DefaultCustomPhraseGeneric = DefaultCustomPhraseGeneric,
->({ spec, customBlockElementRender, size = 'normal', ...phraseProps }: SectionProps<S, P>) {
+export function Section({ spec, size = 'normal', pluginManager = presetPluginManager }: SectionProps) {
+  const renderCustomSection = () => {
+    if (isCustomSection(spec)) {
+      const descriptor = pluginManager.getBlockDescriptor(spec.customType);
+      if (descriptor && isFunction(descriptor?.render)) {
+        return descriptor.render(spec);
+      }
+    }
+    return null;
+  };
   return (
     <Container size={size} as="section" className={cx(getPrefixCls('section'), spec.className)} style={spec.styles}>
-      {'paragraphs' in spec
-        ? spec?.paragraphs?.map((p) => (
-            <Paragraph<S, P>
-              key={v4()}
-              spec={p}
-              size={size}
-              customBlockElementRender={customBlockElementRender}
-              {...phraseProps}
-            />
-          ))
-        : customBlockElementRender
-        ? customBlockElementRender(spec as S)
-        : null}
+      {renderCustomSection()}
+      {isStandardSection(spec) &&
+        spec.paragraphs.map((p) => <Paragraph key={v4()} spec={p} size={size} pluginManager={pluginManager} />)}
     </Container>
   );
 }

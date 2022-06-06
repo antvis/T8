@@ -1,5 +1,5 @@
 ---
-title: NarrativeTextVis
+title: 快速开始
 order: 0
 group:
   path: /intro
@@ -26,4 +26,16 @@ import {
 - 整体解读文本组件 `NarrativeTextVis`；
 - 各级解读结构 `Section`、`Paragraph` 和 `Phrase`；
 - 导出全量 [text-schema](../../schema/intro)；
-- 行内小图 web components 标签；
+
+
+## Show Case
+
+```jsx
+import React from 'react';
+import { NarrativeTextVis } from '@antv/narrative-text-vis';
+import booking from './mock/booking.json';
+
+export default () => <NarrativeTextVis spec={booking} />;
+```
+
+更详细的 API 及示例请看 [基本样式与 API](./example/style)。

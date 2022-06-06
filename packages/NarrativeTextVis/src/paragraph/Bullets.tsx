@@ -1,33 +1,22 @@
 import React from 'react';
-import { BulletsParagraphSpec, DefaultCustomPhraseGeneric } from '@antv/narrative-text-schema';
+import { BulletsParagraphSpec } from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
 import { Bullet, Li } from '../styled';
 import { Phrases } from '../phrases';
-import { classnames as cx } from '../utils/classnames';
-import { getPrefixCls } from '../utils/getPrefixCls';
-import { WithPhraseProps, ThemeProps } from '../interface';
+import { getPrefixCls, classnames as cx } from '../utils';
+import { ThemeProps, ExtensionProps } from '../interface';
+import { presetPluginManager } from '../chore/plugin';
 
-type BulletsProps<P extends DefaultCustomPhraseGeneric> = WithPhraseProps<P> & {
-  spec: BulletsParagraphSpec<P>;
-};
+type BulletsProps = ThemeProps &
+  ExtensionProps & {
+    spec: BulletsParagraphSpec;
+  };
 
-export function Bullets<P extends DefaultCustomPhraseGeneric>({
-  spec,
-  customPhraseRender,
-  customEntityEncoding,
-  size = 'normal',
-}: ThemeProps & BulletsProps<P>) {
+export function Bullets({ spec, size = 'normal', pluginManager = presetPluginManager }: BulletsProps) {
   const children = spec.bullets?.map((bullet) => (
     <Li className={getPrefixCls('li')} key={v4()} style={bullet.styles}>
-      <Phrases<P>
-        spec={bullet.phrases}
-        size={size}
-        customPhraseRender={customPhraseRender}
-        customEntityEncoding={customEntityEncoding}
-      />
-      {bullet?.subBullet ? (
-        <Bullets<P> spec={bullet?.subBullet} size={size} customPhraseRender={customPhraseRender} />
-      ) : null}
+      <Phrases spec={bullet.phrases} size={size} pluginManager={pluginManager} />
+      {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} size={size} pluginManager={pluginManager} /> : null}
     </Li>
   ));
 
