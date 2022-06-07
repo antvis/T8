@@ -1,3 +1,7 @@
+/**
+ * 默认富文本编辑行为
+ */
+
 import { createPlugins, PlatePlugin } from '@udecode/plate-core';
 // import { createComboboxPlugin } from '@udecode/plate-combobox';
 

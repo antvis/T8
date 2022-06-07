@@ -3,7 +3,7 @@ import { Plate, usePlateEditorRef, TDescendant, PlateStoreState, PlatePlugin } f
 import { isObject } from 'lodash';
 
 import { safeSlateValue } from './constants';
-import getPlugins, { VariableCombobox } from './plugins';
+import getPlugins, { VariableCombobox } from './preset-plugins';
 import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
 // import HoveringToolbar from './toolbar/HoveringToolbar';
 // import { transferComboboxItemData, updateVariables } from './helpers';
