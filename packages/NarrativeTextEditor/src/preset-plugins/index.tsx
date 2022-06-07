@@ -1,5 +1,9 @@
-import { createPlugins } from '@udecode/plate-core';
-import { createComboboxPlugin } from '@udecode/plate-combobox';
+/**
+ * 默认富文本编辑行为
+ */
+
+import { createPlugins, PlatePlugin } from '@udecode/plate-core';
+// import { createComboboxPlugin } from '@udecode/plate-combobox';
 
 import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
@@ -9,13 +13,14 @@ import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
-import { variablePlugin } from './variable';
+// TODO 处理原变量列表与自定义交互，暂时隐藏变量列表插件
+// import { variablePlugin } from './variable';
 
 import { softBreakPlugin, exitBreakPlugin } from './utils';
 
 import { createCustomUI } from './ui';
 
-const getPlugins = () => {
+const getPlugins = (extraPlugins: PlatePlugin[]) => {
   const plugins = [
     headingPlugin,
     paragraphPlugin,
@@ -24,13 +29,14 @@ const getPlugins = () => {
     ...basicMarkPlugins,
     ...fontPlugins,
 
-    createComboboxPlugin(),
-    variablePlugin,
+    // createComboboxPlugin(),
+    // variablePlugin,
 
     // others
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
+    ...extraPlugins,
   ];
 
   // TODO 如果是下方写法就无法生效

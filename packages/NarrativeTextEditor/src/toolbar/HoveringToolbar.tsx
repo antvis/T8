@@ -8,7 +8,7 @@ import {
   BasicMarkToolbarButtons,
   // TODO 暂时不在 hovering tooltip 中透出，因为点击会消失
   // FontToolbarButtons,
-} from '../plugins';
+} from '../preset-plugins';
 
 const HoveringToolbar = () => (
   <BalloonToolbar popperOptions={{ placement: 'top' }} arrow={false}>

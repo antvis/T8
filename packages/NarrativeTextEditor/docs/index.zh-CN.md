@@ -27,7 +27,9 @@ import { NarrativeTextEditor } from '@antv/narrative-text-editor';
 export default () => (
   <NarrativeTextEditor
     id="uncontrolled"
-    initialValue={[{ type: 'p', children: [{ text: 'init' }] }]}
+    initialValue={[
+      { type: 'p', children: [{ text: 'init' }] }
+    ]}
   />
 );
 ```
@@ -61,6 +63,110 @@ export default () => {
   );
 }
 ```
+
+### 自定义扩展
+
+```jsx
+import React, { useState } from 'react';
+import { Drawer, Button, Input, Popover } from 'antd';
+import { PieChartOutlined, EditOutlined, CheckOutlined, NumberOutlined } from '@ant-design/icons';
+import { NarrativeTextEditor, createCustomInlinePlugin, createCustomBlockPlugin, CustomBlockToolbarButton, CustomInlineToolbarButton  } from '@antv/narrative-text-editor';
+
+// 自定义行内元素
+const ELEMENT_VARIABLE = 'variable';
+const CustomVariable = ({ element, onChange }) => {
+  const [value, setValue] = useState(element?.data);
+  const onConfirm = () => {
+    onChange({ data: value });
+  };
+  return (
+    <Popover 
+      placement="bottomLeft" 
+      content={
+        <>
+          <Input value={value} onChange={e => setValue(e.target.value)} />
+          <CheckOutlined onClick={onConfirm} />
+        </>
+      }
+    >
+      <span style={{ 
+        padding: 4,
+        margin: 4,
+        backgroundColor: "#efefef"
+      }}>
+        {element?.data || '...'}
+      </span>
+    </Popover>
+  )
+}
+
+// 自定义快级元素
+const ELEMENT_CHART = 'chart';
+const CustomChart = ({ element, onChange }) => {
+  const [value, setValue] = useState(element?.data);
+  const [visible, setVisible] = useState(false);
+  const onConfirm = () => {
+    setVisible(false);
+    onChange({ data: value });
+  };
+  return (
+    <div style={{ border: '1px solid #ccc', borderRadius: 4, margin: '2px 0', padding: 12  }}>
+      {element?.data}
+      <EditOutlined onClick={() => setVisible(true)} />
+      <Drawer 
+        title="设置图表信息"
+        visible={visible}
+        placement="bottom"
+        extra={
+          <Button type="primary" onClick={onConfirm}>
+            确定
+          </Button>
+        }
+        onClose={() => setVisible(false)}
+      >
+        <Input value={value} onChange={e => setValue(e.target.value)} />
+      </Drawer>
+    </div>
+  );
+};
+
+export default () => {
+  return (
+    <NarrativeTextEditor 
+      id="custom"
+      initialValue={[
+        { type: 'h2', children: [{ text: '本季度业绩突出' }] },
+        { type: 'p', children: [
+            { text: '近一周 xxx 业绩' },
+            { text: '' },
+            { type: ELEMENT_VARIABLE, children: [{ text: '' }], data: "1.23",  },
+            { text: '' },
+          ] },
+        { type: ELEMENT_CHART, children: [{ text: '' }], data: 'line' },
+        { type: 'p', children: [{ text: '' }] },
+      ]}
+      plugins={[
+        createCustomInlinePlugin(ELEMENT_VARIABLE, CustomVariable),
+        createCustomBlockPlugin(ELEMENT_CHART, CustomChart),
+      ]}
+      showHeadingToolbar={{
+        toolbarExtraContent: (
+          <>
+            <CustomInlineToolbarButton 
+              type={ELEMENT_VARIABLE} 
+              icon={<NumberOutlined />} 
+            />
+            <CustomBlockToolbarButton 
+              type={ELEMENT_CHART} 
+              icon={<PieChartOutlined />} 
+            />
+          </>
+        )
+      }} 
+    />)
+}
+```
+
 
 ### 通过"/"插入变量
 

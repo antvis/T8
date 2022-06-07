@@ -6,6 +6,7 @@ export interface MoveSelectionByOffsetOptions {
   query?: (editor: PlateEditor) => boolean;
 }
 
+// TODO 变量 mention 处理时再处理类型问题
 export const moveSelectionByOffset: (
   editor: PlateEditor,
   options?: MoveSelectionByOffsetOptions,
@@ -20,13 +21,13 @@ export const moveSelectionByOffset: (
 
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      Transforms.move(editor, { unit: 'offset', reverse: true });
+      Transforms.move(editor as any, { unit: 'offset', reverse: true });
       return true;
     }
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
-      Transforms.move(editor, { unit: 'offset' });
+      Transforms.move(editor as any, { unit: 'offset' });
       return true;
     }
   };
