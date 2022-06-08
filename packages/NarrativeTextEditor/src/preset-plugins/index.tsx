@@ -11,6 +11,7 @@ import { alignPlugin } from './alignment';
 import { listPlugin } from './list';
 import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
+import { linkPlugin } from './link';
 import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
 // TODO 处理原变量列表与自定义交互，暂时隐藏变量列表插件
@@ -26,6 +27,7 @@ const getPlugins = (extraPlugins: PlatePlugin[]) => {
     paragraphPlugin,
     alignPlugin, // alignment must be used with basic element to take effect
     listPlugin,
+    linkPlugin,
     ...basicMarkPlugins,
     ...fontPlugins,
 
@@ -58,6 +60,7 @@ export { AlignToolbarButtons } from './alignment';
 export { ListToolbarButtons } from './list';
 export { BasicMarkToolbarButtons } from './marks';
 export { FontToolbarButtons } from './font';
+export { LinkToolbarButton } from './link';
 
 // other handler
 export { VariableCombobox } from './variable';

@@ -8,6 +8,7 @@ import {
   ListToolbarButtons,
   BasicMarkToolbarButtons,
   FontToolbarButtons,
+  LinkToolbarButton,
 } from '../preset-plugins';
 
 type ToolbarExtraContentMap = { left?: ReactNode; right?: ReactNode };
@@ -36,6 +37,7 @@ const HeadingToolbar: React.FC<HeadingToolbarProps> = ({ toolbarExtraContent, ce
       <FontToolbarButtons />
       <AlignToolbarButtons />
       <ListToolbarButtons />
+      <LinkToolbarButton />
       {extra?.right}
     </PlateHeadingToolbar>
   );
