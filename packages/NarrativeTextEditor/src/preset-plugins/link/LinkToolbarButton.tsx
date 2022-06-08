@@ -13,6 +13,8 @@ import {
   unwrapNodes,
   collapseSelection,
   getLeafNode,
+  PlateEditor,
+  Value,
 } from '@udecode/plate-core';
 import { createLinkPlugin, ELEMENT_LINK, TLinkElement, wrapLink } from '@udecode/plate-link';
 import { LinkToolbarButton as PlateLinkToolbarButton } from '@udecode/plate-ui-link';
@@ -22,7 +24,7 @@ export const linkPlugin = createLinkPlugin({
   component: LinkElement,
 });
 
-function insertEmptyLink(editor) {
+function insertEmptyLink(editor: PlateEditor<Value>) {
   insertNodes<TLinkElement>(editor, {
     type: getPluginType(editor, ELEMENT_LINK),
     url: '',
