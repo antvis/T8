@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { Value, findNodePath, useEditorRef, setNodes, insertText } from '@udecode/plate-core';
+import {
+  Value,
+  findNodePath,
+  useEditorRef,
+  setNodes,
+  insertText,
+  unwrapNodes,
+  getPluginType,
+} from '@udecode/plate-core';
 import { StyledElementProps, getRootProps } from '@udecode/plate-styled-components';
-import { TLinkElement } from '@udecode/plate-link';
+import { TLinkElement, ELEMENT_LINK } from '@udecode/plate-link';
 import { PopToolbar } from '../../components/PopToolbar';
 import { LinkPopEditOverlay, LinkFormValue } from './LinkPopEditOverlay';
 import { getLinkElementStyles } from './LinkElement.styles';
@@ -21,11 +29,22 @@ export const LinkElement = <V extends Value>(props: StyledElementProps<V, TLinkE
     setVisible(false);
   };
 
+  const unlink = () => {
+    const path = findNodePath(editor, element);
+    unwrapNodes(editor, {
+      at: path,
+      match: {
+        type: getPluginType(editor, ELEMENT_LINK),
+      },
+      split: true,
+    });
+  };
+
   return (
     <PopToolbar
       visible={visible}
       onVisibleChange={setVisible}
-      overlay={<LinkPopEditOverlay element={element} onChange={onChange} />}
+      overlay={<LinkPopEditOverlay visible={visible} element={element} onChange={onChange} unlink={unlink} />}
     >
       <a
         target="_blank"
