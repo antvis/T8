@@ -2,6 +2,7 @@ import React, { useEffect, CSSProperties } from 'react';
 import { Plate, usePlateEditorRef, TDescendant, PlateStoreState, PlatePlugin } from '@udecode/plate-core';
 import { isObject } from 'lodash';
 
+import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
 import getPlugins, { VariableCombobox } from './preset-plugins';
 import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
@@ -67,6 +68,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
 }) => {
   return (
     <>
+      <GlobalStyle />
       <Plate
         id={id}
         initialValue={initialValue}

@@ -28,7 +28,14 @@ export default () => (
   <NarrativeTextEditor
     id="uncontrolled"
     initialValue={[
-      { type: 'p', children: [{ text: 'init' }] }
+      { 
+        type: 'p', 
+        children: [
+          { text: 'init ' },
+          { type: 'a', url: 'https://antv.vision/', children: [{ text: 'AntV' }] },
+          { text: '' },
+        ] 
+      }
     ]}
   />
 );
