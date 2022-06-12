@@ -48,7 +48,7 @@ import { ELEMENT_H1 } from '@udecode/plate-heading';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { ELEMENT_LINK, TLinkElement as LinkElement } from '@udecode/plate-link';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL } from '@udecode/plate-list';
-import { VariableNodeData } from './preset-plugins/variable';
+import { VariableNodeData } from './plugins/variable';
 
 /**
  * Text

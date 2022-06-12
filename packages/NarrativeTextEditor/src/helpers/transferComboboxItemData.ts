@@ -1,7 +1,7 @@
 import { keys, map } from 'lodash';
 
 import { VariableMap } from '../types';
-import { VariableComboboxItem } from '../preset-plugins/variable';
+import { VariableComboboxItem } from '../plugins/variable';
 
 export const transferComboboxItemData = (varMap: VariableMap): VariableComboboxItem[] =>
   map(keys(varMap), (key) => ({

@@ -1,15 +1,9 @@
 import React from 'react';
-import { createPluginFactory, useEditorRef, findNodePath, setNodes } from '@udecode/plate-core';
+import { useEditorRef, findNodePath, setNodes } from '@udecode/plate-core';
 import { StyledElementProps, getRootProps } from '@udecode/plate-styled-components';
+import { CustomElementComponent } from './custom.type';
 
-interface CustomInlineComponentProps {
-  onChange: (value: any) => void;
-  element: StyledElementProps['element'];
-}
-
-type CustomInlineComponent = React.FC<CustomInlineComponentProps>;
-
-const customInlineElementWrapper = (Component: CustomInlineComponent) => (props: StyledElementProps) => {
+export const customInlineElementWrapper = (Component: CustomElementComponent) => (props: StyledElementProps) => {
   const { attributes, children, nodeProps, element, className } = props;
   const rootProps = getRootProps(props);
   const editor = useEditorRef();
@@ -33,13 +27,3 @@ const customInlineElementWrapper = (Component: CustomInlineComponent) => (props:
     </span>
   );
 };
-
-export const createCustomInlinePlugin = (key: string, component: CustomInlineComponent) =>
-  createPluginFactory({
-    key,
-    isElement: true,
-    isInline: true,
-    isVoid: true,
-  })({
-    component: customInlineElementWrapper(component),
-  });

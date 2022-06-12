@@ -9,7 +9,7 @@ import {
   BasicMarkToolbarButtons,
   FontToolbarButtons,
   LinkToolbarButton,
-} from '../preset-plugins';
+} from '../plugins';
 
 type ToolbarExtraContentMap = { left?: ReactNode; right?: ReactNode };
 export interface HeadingToolbarProps {

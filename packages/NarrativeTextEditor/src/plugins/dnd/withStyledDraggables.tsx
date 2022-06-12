@@ -6,7 +6,7 @@ import { ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { withDraggables } from '@udecode/plate-ui-dnd';
 import { css } from 'styled-components';
 
-export const withStyledDraggables = (components) => {
+export const withStyledDraggables = (components, extraKeys: string[] = []) => {
   return withDraggables(components, [
     {
       keys: [ELEMENT_PARAGRAPH, ELEMENT_UL, ELEMENT_OL],
@@ -23,8 +23,9 @@ export const withStyledDraggables = (components) => {
         ELEMENT_H6,
         ELEMENT_OL,
         ELEMENT_UL,
+        ...extraKeys,
       ],
-      onRenderDragHandle: ({ styles, ...props }) => {
+      onRenderDragHandle: () => {
         return (
           <DragIndicator
             style={{

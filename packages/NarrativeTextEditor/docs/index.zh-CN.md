@@ -34,7 +34,8 @@ export default () => (
           { text: 'init ' },
           { type: 'a', url: 'https://antv.vision/', children: [{ text: 'AntV' }] },
           { text: '' },
-        ] 
+        ],
+        id: 0
       }
     ]}
   />
@@ -77,7 +78,7 @@ export default () => {
 import React, { useState } from 'react';
 import { Drawer, Button, Input, Popover } from 'antd';
 import { PieChartOutlined, EditOutlined, CheckOutlined, NumberOutlined } from '@ant-design/icons';
-import { NarrativeTextEditor, createCustomInlinePlugin, createCustomBlockPlugin, CustomBlockToolbarButton, CustomInlineToolbarButton  } from '@antv/narrative-text-editor';
+import { NarrativeTextEditor, CustomBlockToolbarButton, CustomInlineToolbarButton  } from '@antv/narrative-text-editor';
 
 // 自定义行内元素
 const ELEMENT_VARIABLE = 'variable';
@@ -142,19 +143,30 @@ export default () => {
     <NarrativeTextEditor 
       id="custom"
       initialValue={[
-        { type: 'h2', children: [{ text: '本季度业绩突出' }] },
-        { type: 'p', children: [
+        { type: 'h2', children: [{ text: '本季度业绩突出' }], id: 1 },
+        { type: 'p', 
+          children: [
             { text: '近一周 xxx 业绩' },
             { text: '' },
             { type: ELEMENT_VARIABLE, children: [{ text: '' }], data: "1.23",  },
             { text: '' },
-          ] },
-        { type: ELEMENT_CHART, children: [{ text: '' }], data: 'line' },
-        { type: 'p', children: [{ text: '' }] },
+          ],
+          id: 2
+        },
+        { type: ELEMENT_CHART, children: [{ text: '' }], data: 'line', id: 3 },
+        { type: 'p', children: [{ text: '' }], id: 4 },
       ]}
       plugins={[
-        createCustomInlinePlugin(ELEMENT_VARIABLE, CustomVariable),
-        createCustomBlockPlugin(ELEMENT_CHART, CustomChart),
+        {
+          key: ELEMENT_VARIABLE,
+          component: CustomVariable,
+          isInline: true,
+        },
+        {
+          key: ELEMENT_CHART,
+          component: CustomChart,
+          isInline: false,
+        }
       ]}
       showHeadingToolbar={{
         toolbarExtraContent: (

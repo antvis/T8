@@ -6,7 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
-import getPlugins from './preset-plugins';
+import getPlugins, { CustomPlugin } from './plugins';
 import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
 import { MyValue } from './types';
@@ -28,7 +28,7 @@ export interface NarrativeTextEditorProps {
   /** editor value change */
   onChange?: (val: TDescendant[]) => void;
 
-  plugins?: PlatePlugin[];
+  plugins?: CustomPlugin[];
 
   /** editor inline style */
   style?: CSSProperties;
@@ -67,7 +67,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
             readOnly,
             style: {
               fontFamily: 'PingFangSC, sans-serif',
-              overflow: 'auto',
+              // overflow: 'auto',
               ...style,
             },
           }}

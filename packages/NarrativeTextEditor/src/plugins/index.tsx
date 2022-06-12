@@ -2,8 +2,7 @@
  * 默认富文本编辑行为
  */
 
-import { createPlugins, PlatePlugin } from '@udecode/plate-core';
-import { dndPlugins, withStyledDraggables } from './dnd';
+import { createPlugins, createPluginFactory } from '@udecode/plate-core';
 
 import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
@@ -12,14 +11,18 @@ import { listPlugin } from './list';
 import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { linkPlugin } from './link';
-import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
-
 import { softBreakPlugin, exitBreakPlugin } from './utils';
+
+import { withStyledPlaceholders } from './placeholders';
+import { dndPlugins, withStyledDraggables } from './dnd';
 
 import { createCustomUI } from './ui';
 
-const getPlugins = (extraPlugins: PlatePlugin[]) => {
+import { CustomPlugin } from './custom';
+
+const getPlugins = (extraPlugins: CustomPlugin[]) => {
+  const extraKeys = extraPlugins.filter(({ isInline }) => !isInline).map(({ key }) => key);
   const plugins = [
     headingPlugin,
     paragraphPlugin,
@@ -28,20 +31,27 @@ const getPlugins = (extraPlugins: PlatePlugin[]) => {
     linkPlugin,
     ...basicMarkPlugins,
     ...fontPlugins,
+    ...dndPlugins,
+
+    // custom
+    ...extraPlugins.map(({ key, isInline }) =>
+      createPluginFactory({
+        key,
+        isElement: true,
+        isInline,
+        isVoid: true,
+      })(),
+    ),
 
     // others
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
-    ...dndPlugins,
-
-    // custom
-    ...extraPlugins,
   ];
 
-  let components = createCustomUI();
+  let components = createCustomUI(extraPlugins);
   components = withStyledPlaceholders(components);
-  components = withStyledDraggables(components);
+  components = withStyledDraggables(components, extraKeys);
 
   return createPlugins(plugins, {
     components,
@@ -59,5 +69,4 @@ export { BasicMarkToolbarButtons } from './marks';
 export { FontToolbarButtons } from './font';
 export { LinkToolbarButton } from './link';
 
-// other handler
-export { VariableCombobox } from './variable';
+export type { CustomPlugin } from './custom';
