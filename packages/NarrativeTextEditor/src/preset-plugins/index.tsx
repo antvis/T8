@@ -18,6 +18,7 @@ import { markdownPlugin } from './markdown';
 // import { variablePlugin } from './variable';
 
 import { softBreakPlugin, exitBreakPlugin } from './utils';
+import { createCommandPanelPlugin } from './commandPanel';
 
 import { createCustomUI } from './ui';
 
@@ -38,6 +39,8 @@ const getPlugins = (extraPlugins: PlatePlugin[]) => {
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
+    createCommandPanelPlugin(),
+
     ...extraPlugins,
   ];
 
@@ -64,3 +67,4 @@ export { LinkToolbarButton } from './link';
 
 // other handler
 export { VariableCombobox } from './variable';
+export { CommandPanel } from './commandPanel';

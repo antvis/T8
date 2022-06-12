@@ -1,10 +1,10 @@
-import React, { useEffect, CSSProperties } from 'react';
-import { Plate, usePlateEditorRef, TDescendant, PlateStoreState, PlatePlugin } from '@udecode/plate-core';
+import React, { CSSProperties } from 'react';
+import { Plate, TDescendant, PlateStoreState, PlatePlugin } from '@udecode/plate-core';
 import { isObject } from 'lodash';
 
 import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
-import getPlugins, { VariableCombobox } from './preset-plugins';
+import getPlugins, { CommandPanel } from './preset-plugins';
 import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
 // import HoveringToolbar from './toolbar/HoveringToolbar';
 // import { transferComboboxItemData, updateVariables } from './helpers';
@@ -79,6 +79,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
           readOnly,
           style: {
             fontFamily: 'PingFangSC, sans-serif',
+            position: 'relative',
             ...style,
           },
         }}
@@ -88,6 +89,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
         {!readOnly && showHeadingToolbar && (
           <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
         )}
+        <CommandPanel />
         {/* {!readOnly && showHoveringToolbar && <HoveringToolbar />} */}
         {/* {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />} */}
       </Plate>
