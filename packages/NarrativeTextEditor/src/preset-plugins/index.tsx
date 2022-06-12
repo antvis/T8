@@ -3,7 +3,7 @@
  */
 
 import { createPlugins, PlatePlugin } from '@udecode/plate-core';
-// import { createComboboxPlugin } from '@udecode/plate-combobox';
+import { dndPlugins, withStyledDraggables } from './dnd';
 
 import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
@@ -14,8 +14,6 @@ import { fontPlugins } from './font';
 import { linkPlugin } from './link';
 import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
-// TODO 处理原变量列表与自定义交互，暂时隐藏变量列表插件
-// import { variablePlugin } from './variable';
 
 import { softBreakPlugin, exitBreakPlugin } from './utils';
 
@@ -31,20 +29,19 @@ const getPlugins = (extraPlugins: PlatePlugin[]) => {
     ...basicMarkPlugins,
     ...fontPlugins,
 
-    // createComboboxPlugin(),
-    // variablePlugin,
-
     // others
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
+    ...dndPlugins,
+
+    // custom
     ...extraPlugins,
   ];
 
-  // TODO 如果是下方写法就无法生效
-  // let components = createPlateUI();
-  // withStyledPlaceholders(components);
-  const components = withStyledPlaceholders(createCustomUI());
+  let components = createCustomUI();
+  components = withStyledPlaceholders(components);
+  components = withStyledDraggables(components);
 
   return createPlugins(plugins, {
     components,
