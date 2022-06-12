@@ -24,5 +24,16 @@ export const CustomBlockToolbarButton = ({ id, type, ...props }: CustomBlockTool
     });
   };
 
-  return <ToolbarButton onMouseDown={handleInsertBlockElement} {...props} />;
+  return (
+    <ToolbarButton
+      styles={{
+        root: {
+          minWidth: 28,
+          width: 'auto',
+        },
+      }}
+      onMouseDown={handleInsertBlockElement}
+      {...props}
+    />
+  );
 };

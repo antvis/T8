@@ -6,7 +6,7 @@ import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
 import getPlugins, { VariableCombobox } from './preset-plugins';
 import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
-// import HoveringToolbar from './toolbar/HoveringToolbar';
+import HoveringToolbar from './toolbar/HoveringToolbar';
 // import { transferComboboxItemData, updateVariables } from './helpers';
 import { MyValue } from './types';
 
@@ -39,7 +39,7 @@ export interface NarrativeTextEditorProps {
   showHeadingToolbar?: boolean | HeadingToolbarProps;
 
   /** whether show hovering toolbar */
-  // showHoveringToolbar?: boolean;
+  showHoveringToolbar?: boolean;
 
   /** read only */
   readOnly?: boolean;
@@ -63,7 +63,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   style,
   // variableMap,
   showHeadingToolbar = true,
-  // showHoveringToolbar = true,
+  showHoveringToolbar = true,
   readOnly = false,
 }) => {
   return (
@@ -85,10 +85,8 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
         plugins={getPlugins(extraPlugins)}
       >
         {/* {variableMap && <VariableListener variableMap={variableMap} />} */}
-        {!readOnly && showHeadingToolbar && (
-          <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
-        )}
-        {/* {!readOnly && showHoveringToolbar && <HoveringToolbar />} */}
+        {showHeadingToolbar && <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />}
+        {!readOnly && showHoveringToolbar && <HoveringToolbar />}
         {/* {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />} */}
       </Plate>
     </>

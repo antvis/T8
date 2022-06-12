@@ -161,11 +161,11 @@ export default () => {
           <>
             <CustomInlineToolbarButton 
               type={ELEMENT_VARIABLE} 
-              icon={<NumberOutlined />} 
+              icon={<Button size='small' style={{ marginRight: 8 }} icon={<NumberOutlined />}>变量</Button>} 
             />
             <CustomBlockToolbarButton 
               type={ELEMENT_CHART} 
-              icon={<PieChartOutlined />} 
+              icon={<Button size='small' icon={<PieChartOutlined />}>图表</Button>} 
             />
           </>
         )
