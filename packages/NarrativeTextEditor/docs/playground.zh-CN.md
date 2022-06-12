@@ -19,6 +19,6 @@ import { NarrativeTextEditor } from '@antv/narrative-text-editor';
 import editor from './mock/editor.json';
 
 export default () => (
-  <NarrativeTextEditor id="playground" initialValue={editor} />
+  <NarrativeTextEditor id="playground" initialValue={editor} style={{ height: 480 }} />
 );
 ```

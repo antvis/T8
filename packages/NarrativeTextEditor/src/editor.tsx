@@ -67,7 +67,9 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
             readOnly,
             style: {
               fontFamily: 'PingFangSC, sans-serif',
-              // overflow: 'auto',
+              overflow: 'auto',
+              // make drag handler visible
+              padding: '0 18px',
               ...style,
             },
           }}

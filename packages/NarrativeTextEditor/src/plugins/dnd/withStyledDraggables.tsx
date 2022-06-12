@@ -4,7 +4,7 @@ import { ELEMENT_H1, ELEMENT_H2, ELEMENT_H3, ELEMENT_H4, ELEMENT_H5, ELEMENT_H6 
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { withDraggables } from '@udecode/plate-ui-dnd';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const withStyledDraggables = (components, extraKeys: string[] = []) => {
   return withDraggables(components, [
@@ -25,16 +25,21 @@ export const withStyledDraggables = (components, extraKeys: string[] = []) => {
         ELEMENT_UL,
         ...extraKeys,
       ],
-      onRenderDragHandle: () => {
+      onRenderDragHandle: ({ className, styles }) => {
+        const Button = styled.button`
+          ${styles}
+          overflow: visible;
+        `;
         return (
-          <DragIndicator
-            style={{
-              width: 18,
-              height: 18,
-              color: 'rgba(55, 53, 47, 0.3)',
-              cursor: 'pointer',
-            }}
-          />
+          <Button className={className}>
+            <DragIndicator
+              style={{
+                width: 18,
+                height: 18,
+                color: 'rgba(55, 53, 47, 0.3)',
+              }}
+            />
+          </Button>
         );
       },
     },
@@ -42,44 +47,31 @@ export const withStyledDraggables = (components, extraKeys: string[] = []) => {
       key: ELEMENT_H1,
       styles: {
         gutterLeft: css`
-          padding: 2em 0 4px;
-          font-size: 1.875em;
+          padding-top: 28px;
         `,
-        blockToolbarWrapper: {
-          marginTop: -26,
-        },
       },
     },
     {
       key: ELEMENT_H2,
       styles: {
         gutterLeft: css`
-          padding: 1.4em 0 1px;
-          font-size: 1.5em;
+          padding-top: 21px;
         `,
-        blockToolbarWrapper: {
-          marginTop: -8,
-        },
       },
     },
     {
       key: ELEMENT_H3,
       styles: {
         gutterLeft: css`
-          padding: 1em 0 1px;
-          font-size: 1.25em;
+          padding-top: 16px;
         `,
-        blockToolbarWrapper: {
-          marginTop: -2,
-        },
       },
     },
     {
       keys: [ELEMENT_H4, ELEMENT_H5],
       styles: {
         gutterLeft: css`
-          padding: 0.75em 0 0;
-          font-size: 1.1em;
+          padding-top: 6px;
         `,
       },
     },
@@ -87,23 +79,17 @@ export const withStyledDraggables = (components, extraKeys: string[] = []) => {
       keys: [ELEMENT_H6],
       styles: {
         gutterLeft: css`
-          padding: 0.75em 0 0;
-          font-size: 1.1em;
+          margin-top: -2px;
         `,
-        blockToolbarWrapper: {
-          marginTop: -12,
-        },
       },
     },
     {
       keys: [ELEMENT_PARAGRAPH, ELEMENT_UL, ELEMENT_OL],
       styles: {
-        gutterLeft: {
-          marginTop: -12,
-        },
-        blockToolbarWrapper: {
-          marginTop: 12,
-        },
+        gutterLeft: css`
+          height: auto;
+          margin-top: -2px;
+        `,
       },
     },
   ]);
