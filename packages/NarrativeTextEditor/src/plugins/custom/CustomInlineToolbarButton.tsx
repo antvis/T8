@@ -23,5 +23,17 @@ export const CustomInlineToolbarButton = ({ id, type: typeKey, ...props }: Custo
     insertNodes(editor, { text: '' });
   };
 
-  return <ToolbarButton active={isActive} onMouseDown={handleInsertInlineElement} {...props} />;
+  return (
+    <ToolbarButton
+      styles={{
+        root: {
+          minWidth: 28,
+          width: 'auto',
+        },
+      }}
+      active={isActive}
+      onMouseDown={handleInsertInlineElement}
+      {...props}
+    />
+  );
 };

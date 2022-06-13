@@ -1,7 +1,7 @@
 {
   "version": "independent",
   "npmClient": "yarn",
-  "packages": ["packages/*", "examples/*"],
+  "packages": ["packages/*"],
   "command": {
     "publish": {
       "registry": "https://registry.npmjs.org/"

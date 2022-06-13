@@ -1,13 +1,14 @@
-import React, { useEffect, CSSProperties } from 'react';
-import { Plate, usePlateEditorRef, TDescendant, PlateStoreState, PlatePlugin } from '@udecode/plate-core';
+import React, { CSSProperties } from 'react';
+import { Plate, TDescendant, PlateStoreState } from '@udecode/plate-core';
 import { isObject } from 'lodash';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
-import getPlugins, { VariableCombobox } from './preset-plugins';
+import getPlugins, { CustomPlugin } from './plugins';
 import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
-// import HoveringToolbar from './toolbar/HoveringToolbar';
-// import { transferComboboxItemData, updateVariables } from './helpers';
+import HoveringToolbar from './toolbar/HoveringToolbar';
 import { MyValue } from './types';
 
 import 'tippy.js/dist/tippy.css';
@@ -27,33 +28,23 @@ export interface NarrativeTextEditorProps {
   /** editor value change */
   onChange?: (val: TDescendant[]) => void;
 
-  plugins?: PlatePlugin[];
+  plugins?: CustomPlugin[];
 
   /** editor inline style */
   style?: CSSProperties;
-
-  /** enter variables via shortcut keys  */
-  // variableMap?: VariableMap;
 
   /** whether show heading toolbar */
   showHeadingToolbar?: boolean | HeadingToolbarProps;
 
   /** whether show hovering toolbar */
-  // showHoveringToolbar?: boolean;
+  showHoveringToolbar?: boolean;
+
+  /** editor block element draggable */
+  draggable: boolean;
 
   /** read only */
   readOnly?: boolean;
 }
-
-// TODO 暂时去掉变量列表相关交互
-// Listen variable map changes and update variable
-// const VariableListener: React.FC<Pick<NarrativeTextEditorProps, 'variableMap'>> = ({ variableMap }) => {
-//   const editor = usePlateEditorRef();
-//   useEffect(() => {
-//     updateVariables(editor, variableMap);
-//   }, [variableMap]);
-//   return null;
-// };
 
 export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   id,
@@ -61,36 +52,39 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   plugins: extraPlugins = [],
   onChange,
   style,
-  // variableMap,
   showHeadingToolbar = true,
-  // showHoveringToolbar = true,
+  showHoveringToolbar = true,
   readOnly = false,
+  draggable = true,
 }) => {
   return (
     <>
       <GlobalStyle />
-      <Plate
-        id={id}
-        initialValue={initialValue}
-        onChange={onChange}
-        editableProps={{
-          autoFocus: false,
-          spellCheck: false,
-          readOnly,
-          style: {
-            fontFamily: 'PingFangSC, sans-serif',
-            ...style,
-          },
-        }}
-        plugins={getPlugins(extraPlugins)}
-      >
-        {/* {variableMap && <VariableListener variableMap={variableMap} />} */}
-        {!readOnly && showHeadingToolbar && (
-          <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
-        )}
-        {/* {!readOnly && showHoveringToolbar && <HoveringToolbar />} */}
-        {/* {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />} */}
-      </Plate>
+      <DndProvider backend={HTML5Backend}>
+        <Plate
+          id={id}
+          initialValue={initialValue}
+          onChange={onChange}
+          editableProps={{
+            autoFocus: false,
+            spellCheck: false,
+            readOnly,
+            style: {
+              fontFamily: 'PingFangSC, sans-serif',
+              overflow: 'auto',
+              // make drag handler visible
+              padding: !readOnly && draggable ? '0 18px' : undefined,
+              ...style,
+            },
+          }}
+          plugins={getPlugins({ extraPlugins, draggable })}
+        >
+          {!readOnly && showHeadingToolbar && (
+            <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
+          )}
+          {!readOnly && showHoveringToolbar && <HoveringToolbar />}
+        </Plate>
+      </DndProvider>
     </>
   );
 };

@@ -2,7 +2,7 @@ import { PlateEditor, getPluginType, getNodes, setNodes, insertNodes } from '@ud
 import { Transforms } from 'slate';
 import { isEqual } from 'lodash';
 import { VariableMap } from '../types';
-import { ELEMENT_VARIABLE, VariableNode } from '../preset-plugins/variable';
+import { ELEMENT_VARIABLE, VariableNode } from '../plugins/variable';
 
 /** update variable node, recording variableMap */
 export function updateVariables(editor: PlateEditor, variableMap: VariableMap): void {

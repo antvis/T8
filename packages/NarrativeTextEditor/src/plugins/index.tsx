@@ -2,8 +2,7 @@
  * 默认富文本编辑行为
  */
 
-import { createPlugins, PlatePlugin } from '@udecode/plate-core';
-// import { createComboboxPlugin } from '@udecode/plate-combobox';
+import { createPlugins, createPluginFactory } from '@udecode/plate-core';
 
 import { headingPlugin } from './heading';
 import { paragraphPlugin } from './paragraph';
@@ -12,16 +11,18 @@ import { listPlugin } from './list';
 import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { linkPlugin } from './link';
-import { withStyledPlaceholders } from './placeholders';
 import { markdownPlugin } from './markdown';
-// TODO 处理原变量列表与自定义交互，暂时隐藏变量列表插件
-// import { variablePlugin } from './variable';
-
 import { softBreakPlugin, exitBreakPlugin } from './utils';
+
+import { withStyledPlaceholders } from './placeholders';
+import { dndPlugins, withStyledDraggables } from './dnd';
 
 import { createCustomUI } from './ui';
 
-const getPlugins = (extraPlugins: PlatePlugin[]) => {
+import { CustomPlugin } from './custom';
+
+const getPlugins = ({ extraPlugins, draggable }: { extraPlugins: CustomPlugin[]; draggable: boolean }) => {
+  const extraKeys = extraPlugins.filter(({ isInline }) => !isInline).map(({ key }) => key);
   const plugins = [
     headingPlugin,
     paragraphPlugin,
@@ -30,21 +31,29 @@ const getPlugins = (extraPlugins: PlatePlugin[]) => {
     linkPlugin,
     ...basicMarkPlugins,
     ...fontPlugins,
+    ...dndPlugins,
 
-    // createComboboxPlugin(),
-    // variablePlugin,
+    // custom
+    ...extraPlugins.map(({ key, isInline }) =>
+      createPluginFactory({
+        key,
+        isElement: true,
+        isInline,
+        isVoid: true,
+      })(),
+    ),
 
     // others
     markdownPlugin,
     softBreakPlugin,
     exitBreakPlugin,
-    ...extraPlugins,
   ];
 
-  // TODO 如果是下方写法就无法生效
-  // let components = createPlateUI();
-  // withStyledPlaceholders(components);
-  const components = withStyledPlaceholders(createCustomUI());
+  let components = createCustomUI(extraPlugins);
+  components = withStyledPlaceholders(components);
+  if (draggable) {
+    components = withStyledDraggables(components, extraKeys);
+  }
 
   return createPlugins(plugins, {
     components,
@@ -62,5 +71,4 @@ export { BasicMarkToolbarButtons } from './marks';
 export { FontToolbarButtons } from './font';
 export { LinkToolbarButton } from './link';
 
-// other handler
-export { VariableCombobox } from './variable';
+export type { CustomPlugin } from './custom';
