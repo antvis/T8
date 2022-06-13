@@ -14,8 +14,10 @@ export const editorPropsToSpec = (elements: TDescendant[]) => {
         return {
           type: 'entity',
           value: element.value,
-          key: element.key,
-          metadata: element.metadata,
+          metadata: {
+            ...element.metadata,
+            id: element.key,
+          },
         };
       case 'h1':
         return {

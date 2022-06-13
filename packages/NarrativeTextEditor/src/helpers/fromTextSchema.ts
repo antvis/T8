@@ -30,8 +30,8 @@ export const specToEditorProps = (
           text: phrase.value,
         };
       case 'entity': {
-        // 如果没有 phrase 上没有 key 属性 则用序号代替 variable key
-        const variableKey = (phrase as any).key || `variable_${(variableIndex += 1)}`;
+        // 如果没有 phrase 上没有 id 属性 则用序号代替 variable key
+        const variableKey = (phrase.metadata as any)?.id || `variable_${(variableIndex += 1)}`;
         variableMap[variableKey] = {
           ...phrase,
         };

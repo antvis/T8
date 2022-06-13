@@ -102,6 +102,10 @@ export type EntityMetaData = {
    * detail data, 明细数据，用于弹框展示
    */
   detail?: unknown;
+  /** 变量 id，用于标识变量 */
+  id?: string;
+  /** 变量名 */
+  name?: string;
 };
 
 export type TypeOrMetaReturnType<T> = T | ((value: string, metadata: EntityMetaData) => T);
