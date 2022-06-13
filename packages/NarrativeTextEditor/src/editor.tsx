@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Plate, TDescendant, PlateStoreState, PlatePlugin } from '@udecode/plate-core';
+import { Plate, TDescendant, PlateStoreState } from '@udecode/plate-core';
 import { isObject } from 'lodash';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -39,6 +39,9 @@ export interface NarrativeTextEditorProps {
   /** whether show hovering toolbar */
   showHoveringToolbar?: boolean;
 
+  /** editor block element draggable */
+  draggable: boolean;
+
   /** read only */
   readOnly?: boolean;
 }
@@ -52,6 +55,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   showHeadingToolbar = true,
   showHoveringToolbar = true,
   readOnly = false,
+  draggable = true,
 }) => {
   return (
     <>
@@ -69,11 +73,11 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
               fontFamily: 'PingFangSC, sans-serif',
               overflow: 'auto',
               // make drag handler visible
-              padding: '0 18px',
+              padding: !readOnly && draggable ? '0 18px' : undefined,
               ...style,
             },
           }}
-          plugins={getPlugins(extraPlugins)}
+          plugins={getPlugins({ extraPlugins, draggable })}
         >
           {!readOnly && showHeadingToolbar && (
             <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />

@@ -21,7 +21,7 @@ import { createCustomUI } from './ui';
 
 import { CustomPlugin } from './custom';
 
-const getPlugins = (extraPlugins: CustomPlugin[]) => {
+const getPlugins = ({ extraPlugins, draggable }: { extraPlugins: CustomPlugin[]; draggable: boolean }) => {
   const extraKeys = extraPlugins.filter(({ isInline }) => !isInline).map(({ key }) => key);
   const plugins = [
     headingPlugin,
@@ -51,7 +51,9 @@ const getPlugins = (extraPlugins: CustomPlugin[]) => {
 
   let components = createCustomUI(extraPlugins);
   components = withStyledPlaceholders(components);
-  components = withStyledDraggables(components, extraKeys);
+  if (draggable) {
+    components = withStyledDraggables(components, extraKeys);
+  }
 
   return createPlugins(plugins, {
     components,

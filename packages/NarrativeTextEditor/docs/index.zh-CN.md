@@ -294,6 +294,26 @@ export default () => {
 };
 ```
 
+### 取消可拖拽
+
+当前工具栏有两种，一种是顶部的工具栏，另一种是通过刷选文本出现在刷选范围上的快捷操作工具栏，都可以通过属性配置是否显示。
+
+```jsx
+import React from 'react';
+import { NarrativeTextEditor } from '@antv/narrative-text-editor';
+
+export default () => {
+  return (
+    <>
+      <NarrativeTextEditor 
+        id="draggable" 
+        draggable={false} 
+      />
+    </>
+  )
+};
+```
+
 ### 是否只读
 
 只读不允许编辑，且各种工具栏交互都将移除。
@@ -317,7 +337,6 @@ export default () => {
         readOnly={readOnly}  
         style={{
           border: '1px solid #ccc',
-          padding: '4px'
         }}
       />
     </>
