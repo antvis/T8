@@ -191,7 +191,12 @@ export default () => {
 
 配置 `variableMap` 之后，可以通过“/”变量唤起变量列表，选择输入。
 
+🚧 施工中...
+
 ```jsx
+/**
+ * debug: true
+ */
 import React, { useState } from 'react';
 import { message, Form, Input, Space } from 'antd';
 import { CopyOutlined, MinusCircleOutlined } from '@ant-design/icons';

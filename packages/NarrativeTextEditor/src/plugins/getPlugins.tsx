@@ -53,7 +53,7 @@ const getPlugins = ({
     exitBreakPlugin,
   ];
 
-  let components = createCustomUI();
+  let components = createCustomUI(extraPlugins);
   if (placeholders) {
     components = withPlaceholders(components, placeholders);
   }
