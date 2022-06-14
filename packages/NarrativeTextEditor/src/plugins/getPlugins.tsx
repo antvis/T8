@@ -21,11 +21,17 @@ import { dndPlugins, withStyledDraggables } from './dnd';
 
 import { createCustomUI } from './createCustomUI';
 
-const getPlugins = ({
-  plugins: extraPlugins,
-  draggable,
-  placeholders,
-}: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'placeholders'>) => {
+const DEFAULT_PLACEHOLDERS: NarrativeTextEditorProps['placeholders'] = [
+  {
+    key: 'p',
+    placeholder: '请输入...',
+    hideOnBlur: true,
+  },
+];
+
+const getPlugins = (props: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'placeholders'>) => {
+  const { plugins: extraPlugins, draggable } = props;
+  let { placeholders = DEFAULT_PLACEHOLDERS } = props;
   const extraKeys = extraPlugins.filter(({ isInline }) => !isInline).map(({ key }) => key);
   const plugins = [
     headingPlugin,
@@ -54,7 +60,8 @@ const getPlugins = ({
   ];
 
   let components = createCustomUI(extraPlugins);
-  if (placeholders) {
+  if (placeholders === true) placeholders = DEFAULT_PLACEHOLDERS;
+  if (Array.isArray(placeholders) && placeholders.length > 0) {
     components = withPlaceholders(components, placeholders);
   }
   if (draggable) {

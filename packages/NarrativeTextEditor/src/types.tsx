@@ -206,7 +206,7 @@ export interface NarrativeTextEditorProps {
 
   // TODO editor 整体空白时的 placeholder
   /** config placeholder by element key */
-  placeholders?: Array<PlaceholderProps<Value> & { key: BlockKey; keys: BlockKey[] }>;
+  placeholders?: boolean | Array<Partial<PlaceholderProps<Value> & { key: BlockKey; keys: BlockKey[] }>>;
 
   /** read only */
   readOnly?: boolean;
