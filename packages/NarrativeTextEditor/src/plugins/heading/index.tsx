@@ -33,6 +33,7 @@ export const HeadingToolbarButtons = () => {
   );
 };
 
+// TODO 这里替换了 plate styled components 之后，placeholder 依然不生效
 export const headingComponents = {
   [ELEMENT_H1]: NStyledComponents.H1,
   [ELEMENT_H2]: NStyledComponents.H2,

@@ -21,7 +21,6 @@ export const paragraphComponent = {
     as: 'p',
     styles: {
       root: `
-        font-family: PingFangSC, sans-serif;
         color: #262626;
         font-size: 14px;
         min-height: 24px;
