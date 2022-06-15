@@ -1,6 +1,6 @@
 import { BulletsParagraphSpec, EntityPhraseSpec, NarrativeTextSpec, ParagraphSpec, PhraseSpec } from '../schema';
 
-// 抽取 spec 中的 变量列表
+// extract the variables from the schema
 export const getVariableMap = (spec: NarrativeTextSpec) => {
   const variableMap: Record<string, EntityPhraseSpec> = {};
   const { headline, sections } = spec;
@@ -49,7 +49,7 @@ export const getVariableMap = (spec: NarrativeTextSpec) => {
   let variableIndex = 0;
   allPhrases.forEach((phrase) => {
     if (phrase.type === 'entity') {
-      const variableKey = phrase.metadata?.id || `variable_${(variableIndex += 1)}`;
+      const variableKey = phrase.metadata?.sourceId || `variable_${(variableIndex += 1)}`;
       variableMap[variableKey] = phrase;
     }
   });

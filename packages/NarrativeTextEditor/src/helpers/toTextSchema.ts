@@ -1,9 +1,8 @@
 import type { HeadlineSpec, NarrativeTextSpec, ParagraphSpec, PhraseSpec } from '@antv/narrative-text-vis';
 import type { TDescendant } from '@udecode/plate';
 
-// 将 NarrativeVisEditor 的 content value 转换为 text-schema
+// convert the content value of NarrativeVisEditor to text-schema
 export const editorPropsToSpec = (elements: TDescendant[]) => {
-  // 将内置元素转换成 spec
   const convertElement = (element: TDescendant) => {
     const getChildren = (children: TDescendant[]): PhraseSpec[] => {
       return children?.map((child) => convertElement(child) as PhraseSpec).filter((phrase: PhraseSpec) => phrase);
@@ -16,7 +15,7 @@ export const editorPropsToSpec = (elements: TDescendant[]) => {
           value: element.value,
           metadata: {
             ...element.metadata,
-            id: element.key,
+            sourceId: element.key,
           },
         };
       case 'h1':
@@ -61,16 +60,16 @@ export const editorPropsToSpec = (elements: TDescendant[]) => {
         };
       }
       default: {
-        // TODO 支持 custom 元素
+        // TODO test custom elements
         if (element.text) {
           return {
+            ...element,
             type: 'text',
-            value: element.text || element.value,
+            value: element.text,
           };
         }
         return {
-          type: 'text',
-          value: '',
+          ...element,
         };
       }
     }
@@ -78,8 +77,8 @@ export const editorPropsToSpec = (elements: TDescendant[]) => {
 
   const paragraphs: ParagraphSpec[] = [];
   const spec: NarrativeTextSpec = {
-    // TODO editor 实际上没有 headline 和 sections 的划分，也没有多个 section
     headline: undefined,
+    // the main body of editor content to one section
     sections: [
       {
         paragraphs,
