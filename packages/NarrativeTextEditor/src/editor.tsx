@@ -1,61 +1,29 @@
-import React, { CSSProperties } from 'react';
-import { Plate, TDescendant, PlateStoreState } from '@udecode/plate-core';
+import React from 'react';
+import { Plate } from '@udecode/plate-core';
 import { isObject } from 'lodash';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
-import getPlugins, { CustomPlugin } from './plugins';
-import HeadingToolbar, { HeadingToolbarProps } from './toolbar/HeadingToolbar';
+import getPlugins from './plugins/getPlugins';
+import HeadingToolbar from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
-import { MyValue } from './types';
+import type { NarrativeTextEditorProps } from './types';
 
 import 'tippy.js/dist/tippy.css';
-
-export interface NarrativeTextEditorProps {
-  /** editor key, must unique */
-  id: string;
-
-  /** uncontrolled initial value */
-  initialValue?: PlateStoreState<MyValue>['value'];
-
-  // TODO 由于 slate 升级后 value 不再作为受控组件生效，暂时不提供受控组件的使用方式
-  //  https://github.com/ianstormtaylor/slate/issues/4612
-  /** controlled value */
-  // value?: TDescendant[];
-
-  /** editor value change */
-  onChange?: (val: TDescendant[]) => void;
-
-  plugins?: CustomPlugin[];
-
-  /** editor inline style */
-  style?: CSSProperties;
-
-  /** whether show heading toolbar */
-  showHeadingToolbar?: boolean | HeadingToolbarProps;
-
-  /** whether show hovering toolbar */
-  showHoveringToolbar?: boolean;
-
-  /** editor block element draggable */
-  draggable: boolean;
-
-  /** read only */
-  readOnly?: boolean;
-}
 
 export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   id,
   initialValue = safeSlateValue,
-  plugins: extraPlugins = [],
+  plugins = [],
   onChange,
   style,
   showHeadingToolbar = true,
   showHoveringToolbar = true,
   readOnly = false,
   draggable = true,
+  placeholders,
 }) => {
   return (
     <>
@@ -77,7 +45,7 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
               ...style,
             },
           }}
-          plugins={getPlugins({ extraPlugins, draggable })}
+          plugins={getPlugins({ plugins, draggable, placeholders })}
         >
           {!readOnly && showHeadingToolbar && (
             <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />

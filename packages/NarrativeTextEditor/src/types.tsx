@@ -1,6 +1,7 @@
 // FIXME plate 11.x 之后需要自己指定类型，当前文件先直接 copy 官网 ts demo，之后再详细梳理
 
 import { PluginOptions } from '@babel/core';
+import { CSSProperties } from 'react';
 import {
   createPlateEditor,
   CreatePlateEditorOptions,
@@ -42,13 +43,24 @@ import {
   usePlateEditorState,
   usePlateSelectors,
   WithOverride,
+  TDescendant,
+  PlateStoreState,
+  Value,
 } from '@udecode/plate-core';
 
-import { ELEMENT_H1 } from '@udecode/plate-heading';
+import { ELEMENT_H1, KEYS_HEADING } from '@udecode/plate-heading';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { ELEMENT_LINK, TLinkElement as LinkElement } from '@udecode/plate-link';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL } from '@udecode/plate-list';
+import { PlaceholderProps } from '@udecode/plate-ui-placeholder';
+
+import { CustomPlugin } from './plugins/custom';
+import { HeadingToolbarProps } from './toolbar/HeadingToolbar';
 import { VariableNodeData } from './plugins/variable';
+
+export const BLOCK_KEYS = [...KEYS_HEADING, ELEMENT_PARAGRAPH, ELEMENT_UL, ELEMENT_OL] as const;
+
+export type BlockKey = typeof BLOCK_KEYS[number];
 
 /**
  * Text
@@ -162,6 +174,43 @@ export const useTPlateSelectors = (id?: string) => usePlateSelectors<MyValue, My
 export const getTPlateSelectors = (id?: string) => getPlateSelectors<MyValue, MyEditor>(id);
 export const getTPlateActions = (id?: string) => getPlateActions<MyValue, MyEditor>(id);
 export type VariableMap = Record<string, VariableNodeData>;
+
+export interface NarrativeTextEditorProps {
+  /** editor key, must unique */
+  id: string;
+
+  /** uncontrolled initial value */
+  initialValue?: PlateStoreState<MyValue>['value'];
+
+  // TODO 由于 slate 升级后 value 不再作为受控组件生效，暂时不提供受控组件的使用方式
+  //  https://github.com/ianstormtaylor/slate/issues/4612
+  /** controlled value */
+  // value?: TDescendant[];
+
+  /** editor value change */
+  onChange?: (val: TDescendant[]) => void;
+
+  plugins?: CustomPlugin[];
+
+  /** editor inline style */
+  style?: CSSProperties;
+
+  /** whether show heading toolbar */
+  showHeadingToolbar?: boolean | HeadingToolbarProps;
+
+  /** whether show hovering toolbar */
+  showHoveringToolbar?: boolean;
+
+  /** editor block element draggable */
+  draggable?: boolean;
+
+  // TODO editor 整体空白时的 placeholder
+  /** config placeholder by element key */
+  placeholders?: boolean | Array<Partial<PlaceholderProps<Value> & { key: BlockKey; keys: BlockKey[] }>>;
+
+  /** read only */
+  readOnly?: boolean;
+}
 
 /**
  * Utils

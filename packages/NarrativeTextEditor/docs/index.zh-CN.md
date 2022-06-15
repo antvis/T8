@@ -74,6 +74,8 @@ export default () => {
 
 ### 自定义扩展
 
+通过扩展自定义快级元素和自定义行内元素，会生成不可编辑的元素，可获取 element data 及 onChange 改变事件，元素内状态自理，数据将通过 onChange 记录到 editor data 中。
+
 ```jsx
 import React, { useState } from 'react';
 import { Drawer, Button, Input, Popover } from 'antd';
@@ -191,7 +193,12 @@ export default () => {
 
 配置 `variableMap` 之后，可以通过“/”变量唤起变量列表，选择输入。
 
+🚧 施工中...
+
 ```jsx
+/**
+ * debug: true
+ */
 import React, { useState } from 'react';
 import { message, Form, Input, Space } from 'antd';
 import { CopyOutlined, MinusCircleOutlined } from '@ant-design/icons';
@@ -296,7 +303,7 @@ export default () => {
 
 ### 取消可拖拽
 
-当前工具栏有两种，一种是顶部的工具栏，另一种是通过刷选文本出现在刷选范围上的快捷操作工具栏，都可以通过属性配置是否显示。
+配置 `draggable` `false` 取消默认快级元素拖拽行为。
 
 ```jsx
 import React from 'react';
@@ -313,6 +320,33 @@ export default () => {
   )
 };
 ```
+
+### Placeholder
+
+配置 `placeholders` 做空状态下行级元素占位配置。
+
+```jsx
+import React from 'react';
+import { NarrativeTextEditor } from '@antv/narrative-text-editor';
+
+export default () => {
+  return (
+    <>
+      <NarrativeTextEditor 
+        id="placeholder" 
+        placeholders={[
+          {
+            key: 'p', // 'h1' ~ 'h6', 'p', 'ul', 'ol'
+            placeholder: 'Type a paragraph',
+            hideOnBlur: true,
+          }
+        ]} 
+      />
+    </>
+  )
+};
+```
+
 
 ### 是否只读
 
