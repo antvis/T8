@@ -10,6 +10,7 @@ export interface TextPhraseSpec {
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;
+  url?: string;
   styles?: CSSProperties;
 }
 

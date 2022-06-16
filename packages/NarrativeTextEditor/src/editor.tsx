@@ -1,56 +1,58 @@
-import React, { useEffect } from 'react';
-import { Plate, usePlateEditorRef } from '@udecode/plate-core';
+import React from 'react';
+import { Plate } from '@udecode/plate-core';
+import { isObject } from 'lodash';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
+import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
-import { NarrativeTextEditorProps } from './types';
-import getPlugins, { VariableCombobox } from './plugins';
+import getPlugins from './plugins/getPlugins';
 import HeadingToolbar from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
-import { transferComboboxItemData, updateVariables } from './helpers';
+import type { NarrativeTextEditorProps } from './types';
 
 import 'tippy.js/dist/tippy.css';
-
-// Listen variable map changes and update variable
-const VariableListener: React.FC<Pick<NarrativeTextEditorProps, 'variableMap'>> = ({ variableMap }) => {
-  const editor = usePlateEditorRef();
-  useEffect(() => {
-    updateVariables(editor, variableMap);
-  }, [variableMap]);
-  return null;
-};
 
 export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   id,
   initialValue = safeSlateValue,
+  plugins = [],
   onChange,
   style,
-  variableMap,
   showHeadingToolbar = true,
   showHoveringToolbar = true,
   readOnly = false,
+  draggable = true,
+  placeholders,
 }) => {
   return (
     <>
-      <Plate
-        id={id}
-        initialValue={initialValue}
-        onChange={onChange}
-        editableProps={{
-          autoFocus: false,
-          spellCheck: false,
-          readOnly,
-          style: {
-            fontFamily: 'PingFangSC, sans-serif',
-            ...style,
-          },
-        }}
-        plugins={getPlugins()}
-      >
-        {variableMap && <VariableListener variableMap={variableMap} />}
-        {!readOnly && showHeadingToolbar && <HeadingToolbar />}
-        {!readOnly && showHoveringToolbar && <HoveringToolbar />}
-        {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />}
-      </Plate>
+      <GlobalStyle />
+      <DndProvider backend={HTML5Backend}>
+        <Plate
+          id={id}
+          initialValue={initialValue}
+          onChange={onChange}
+          editableProps={{
+            autoFocus: false,
+            spellCheck: false,
+            readOnly,
+            style: {
+              fontFamily: 'PingFangSC, sans-serif',
+              overflow: 'auto',
+              // make drag handler visible
+              padding: !readOnly && draggable ? '0 18px' : undefined,
+              ...style,
+            },
+          }}
+          plugins={getPlugins({ plugins, draggable, placeholders })}
+        >
+          {!readOnly && showHeadingToolbar && (
+            <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
+          )}
+          {!readOnly && showHoveringToolbar && <HoveringToolbar />}
+        </Plate>
+      </DndProvider>
     </>
   );
 };

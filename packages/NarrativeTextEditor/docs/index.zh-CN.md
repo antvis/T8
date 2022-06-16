@@ -27,7 +27,17 @@ import { NarrativeTextEditor } from '@antv/narrative-text-editor';
 export default () => (
   <NarrativeTextEditor
     id="uncontrolled"
-    initialValue={[{ type: 'p', children: [{ text: 'init' }] }]}
+    initialValue={[
+      { 
+        type: 'p', 
+        children: [
+          { text: 'init ' },
+          { type: 'a', url: 'https://antv.vision/', children: [{ text: 'AntV' }] },
+          { text: '' },
+        ],
+        id: 0
+      }
+    ]}
   />
 );
 ```
@@ -62,11 +72,133 @@ export default () => {
 }
 ```
 
+### 自定义扩展
+
+通过扩展自定义快级元素和自定义行内元素，会生成不可编辑的元素，可获取 element data 及 onChange 改变事件，元素内状态自理，数据将通过 onChange 记录到 editor data 中。
+
+```jsx
+import React, { useState } from 'react';
+import { Drawer, Button, Input, Popover } from 'antd';
+import { PieChartOutlined, EditOutlined, CheckOutlined, NumberOutlined } from '@ant-design/icons';
+import { NarrativeTextEditor, CustomBlockToolbarButton, CustomInlineToolbarButton  } from '@antv/narrative-text-editor';
+
+// 自定义行内元素
+const ELEMENT_VARIABLE = 'variable';
+const CustomVariable = ({ element, onChange }) => {
+  const [value, setValue] = useState(element?.data);
+  const onConfirm = () => {
+    onChange({ data: value });
+  };
+  return (
+    <Popover 
+      placement="bottomLeft" 
+      content={
+        <>
+          <Input value={value} onChange={e => setValue(e.target.value)} />
+          <CheckOutlined onClick={onConfirm} />
+        </>
+      }
+    >
+      <span style={{ 
+        padding: 4,
+        margin: 4,
+        backgroundColor: "#efefef"
+      }}>
+        {element?.data || '...'}
+      </span>
+    </Popover>
+  )
+}
+
+// 自定义快级元素
+const ELEMENT_CHART = 'chart';
+const CustomChart = ({ element, onChange }) => {
+  const [value, setValue] = useState(element?.data);
+  const [visible, setVisible] = useState(false);
+  const onConfirm = () => {
+    setVisible(false);
+    onChange({ data: value });
+  };
+  return (
+    <div style={{ border: '1px solid #ccc', borderRadius: 4, margin: '2px 0', padding: 12  }}>
+      {element?.data}
+      <EditOutlined onClick={() => setVisible(true)} />
+      <Drawer 
+        title="设置图表信息"
+        visible={visible}
+        placement="bottom"
+        extra={
+          <Button type="primary" onClick={onConfirm}>
+            确定
+          </Button>
+        }
+        onClose={() => setVisible(false)}
+      >
+        <Input value={value} onChange={e => setValue(e.target.value)} />
+      </Drawer>
+    </div>
+  );
+};
+
+export default () => {
+  return (
+    <NarrativeTextEditor 
+      id="custom"
+      initialValue={[
+        { type: 'h2', children: [{ text: '本季度业绩突出' }], id: 1 },
+        { type: 'p', 
+          children: [
+            { text: '近一周 xxx 业绩' },
+            { text: '' },
+            { type: ELEMENT_VARIABLE, children: [{ text: '' }], data: "1.23",  },
+            { text: '' },
+          ],
+          id: 2
+        },
+        { type: ELEMENT_CHART, children: [{ text: '' }], data: 'line', id: 3 },
+        { type: 'p', children: [{ text: '' }], id: 4 },
+      ]}
+      plugins={[
+        {
+          key: ELEMENT_VARIABLE,
+          component: CustomVariable,
+          isInline: true,
+        },
+        {
+          key: ELEMENT_CHART,
+          component: CustomChart,
+          isInline: false,
+        }
+      ]}
+      showHeadingToolbar={{
+        toolbarExtraContent: (
+          <>
+            <CustomInlineToolbarButton 
+              type={ELEMENT_VARIABLE} 
+              icon={<Button size='small' style={{ marginRight: 8 }} icon={<NumberOutlined />}>变量</Button>} 
+            />
+            <CustomBlockToolbarButton 
+              type={ELEMENT_CHART} 
+              icon={<Button size='small' icon={<PieChartOutlined />}>图表</Button>} 
+            />
+          </>
+        )
+      }} 
+    />)
+}
+```
+
+
 ### 通过"/"插入变量
 
 配置 `variableMap` 之后，可以通过“/”变量唤起变量列表，选择输入。
 
+🚧 施工中...
+
 ```jsx
+/**
+ * debug: true
+ */
 import React, { useState } from 'react';
 import { message, Form, Input, Space } from 'antd';
 import { CopyOutlined, MinusCircleOutlined } from '@ant-design/icons';
@@ -169,6 +301,53 @@ export default () => {
 };
 ```
 
+### 取消可拖拽
+
+配置 `draggable` `false` 取消默认快级元素拖拽行为。
+
+```jsx
+import React from 'react';
+import { NarrativeTextEditor } from '@antv/narrative-text-editor';
+
+export default () => {
+  return (
+    <>
+      <NarrativeTextEditor 
+        id="draggable" 
+        draggable={false} 
+      />
+    </>
+  )
+};
+```
+
+### Placeholder
+
+配置 `placeholders` 做空状态下行级元素占位配置。
+
+```jsx
+import React from 'react';
+import { NarrativeTextEditor } from '@antv/narrative-text-editor';
+
+export default () => {
+  return (
+    <>
+      <NarrativeTextEditor 
+        id="placeholder" 
+        placeholders={[
+          {
+            key: 'p', // 'h1' ~ 'h6', 'p', 'ul', 'ol'
+            placeholder: 'Type a paragraph',
+            hideOnBlur: true,
+          }
+        ]} 
+      />
+    </>
+  )
+};
+```
+
+
 ### 是否只读
 
 只读不允许编辑，且各种工具栏交互都将移除。
@@ -192,7 +371,6 @@ export default () => {
         readOnly={readOnly}  
         style={{
           border: '1px solid #ccc',
-          padding: '4px'
         }}
       />
     </>

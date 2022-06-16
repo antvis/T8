@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run dev",
-    "dev": "rimraf .umi && dumi dev",
+    "dev": "rimraf .umi && NODE_OPTIONS=\"--max-old-space-size=102400\" dumi dev",
     "clean:doc": "rimraf .umi .umi-production site-dist",
     "clean": "lerna clean -y && lerna run clean:build && rimraf node_modules",
     "test": "jest",
@@ -30,7 +30,7 @@
     "start:demo": "cd examples/ntv-demo && npm run start",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "prepublish": "npm run build",
+    "prepublish": "npm run boot && npm run build",
     "release": "lerna publish"
   },
   "lint-staged": {
