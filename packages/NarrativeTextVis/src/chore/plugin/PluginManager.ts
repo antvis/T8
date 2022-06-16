@@ -15,7 +15,7 @@ export class PluginManager {
   protected entities: Partial<Record<EntityType, PhraseDescriptor<EntityMetaData>>> = {};
   protected customPhrases: Record<string, PhraseDescriptor<AnyObject>> = {};
   protected customBlocks: Record<string, BlockDescriptor<AnyObject>> = {};
-  constructor(plugins: PluginType[]) {
+  constructor(plugins?: PluginType[]) {
     this.registerAll(getPlugins(plugins));
   }
   register(plugin: PluginType) {
