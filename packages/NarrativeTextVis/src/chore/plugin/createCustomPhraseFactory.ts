@@ -1,7 +1,6 @@
-import { CustomMetaData } from '@antv/narrative-text-schema';
-import { PhraseDescriptor, CustomPhraseDescriptor } from './plugin-protocol.type';
+import { PhraseDescriptor, CustomPhraseDescriptor, AnyObject } from './plugin-protocol.type';
 import { createPhraseFactory } from './createPhraseFactory';
 
-export const createCustomPhraseFactory = <MetaData extends CustomMetaData>(
+export const createCustomPhraseFactory = <MetaData = AnyObject>(
   descriptor: Omit<CustomPhraseDescriptor<MetaData>, 'isEntity'>,
 ): PhraseDescriptor<MetaData> => createPhraseFactory(false)<MetaData>(descriptor);
