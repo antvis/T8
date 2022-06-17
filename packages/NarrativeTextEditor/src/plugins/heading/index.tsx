@@ -19,16 +19,18 @@ import { H2 } from '@styled-icons/remix-editor/H2';
 import { H3 } from '@styled-icons/remix-editor/H3';
 import { H4 } from '@styled-icons/remix-editor/H4';
 
+import { getStyledToolbarIcon } from '../core';
+
 export const headingPlugin = createHeadingPlugin();
 
 export const HeadingToolbarButtons = () => {
   const editor = usePlateEditorRef();
   return (
     <>
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H1)} icon={<H1 />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H2)} icon={<H2 />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H3)} icon={<H3 />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H4)} icon={<H4 />} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H1)} icon={<H1 />} styles={getStyledToolbarIcon()} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H2)} icon={<H2 />} styles={getStyledToolbarIcon()} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H3)} icon={<H3 />} styles={getStyledToolbarIcon()} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H4)} icon={<H4 />} styles={getStyledToolbarIcon()} />
     </>
   );
 };

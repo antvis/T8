@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 import { HeadingToolbar as PlateHeadingToolbar } from '@udecode/plate-ui-toolbar';
 
 import {
@@ -17,16 +17,19 @@ export interface HeadingToolbarProps {
   toolbarExtraContent?: ReactNode | ToolbarExtraContentMap;
   /** Centers toolbar items */
   centered?: boolean;
+  /** toolbar style */
+  style?: CSSProperties;
 }
 
-const HeadingToolbar: React.FC<HeadingToolbarProps> = ({ toolbarExtraContent, centered }) => {
+const HeadingToolbar: React.FC<HeadingToolbarProps> = ({ toolbarExtraContent, centered, style }) => {
   const extra = parseExtraContent(toolbarExtraContent);
   return (
     <PlateHeadingToolbar
       style={{
         padding: '4px 12px',
-        marginBottom: 12,
         borderBottom: '1px solid #eee',
+        margin: '0 0 12px 0',
+        ...style,
         justifyContent: centered ? 'center' : undefined,
       }}
     >
