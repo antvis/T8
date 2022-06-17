@@ -41,6 +41,7 @@
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-replace": "^4.0.0",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.180",
     "@types/react": "^17.0.15",
