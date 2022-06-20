@@ -29,6 +29,7 @@ export const withStyledDraggables = (components, extraKeys: string[] = []) => {
         const Button = styled.button`
           ${styles}
           overflow: visible;
+          margin-right: 2px;
         `;
         return (
           <Button className={className}>

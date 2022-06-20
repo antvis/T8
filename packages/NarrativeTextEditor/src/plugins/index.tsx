@@ -6,4 +6,4 @@ export { BasicMarkToolbarButtons } from './marks';
 export { FontToolbarButtons } from './font';
 export { LinkToolbarButton } from './link';
 
-export type { CustomPlugin } from './custom';
+export type { CustomElementComponent } from './custom';
