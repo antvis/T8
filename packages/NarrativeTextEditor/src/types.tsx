@@ -190,7 +190,11 @@ export interface NarrativeTextEditorProps {
   /** editor value change */
   onChange?: (val: TDescendant[]) => void;
 
+  /** custom non editable element plugins */
   plugins?: CustomPlugin[];
+
+  /** expansible by raw plate plugin */
+  platePlugins?: PlatePlugin[];
 
   /** editor inline style */
   style?: CSSProperties;
@@ -210,12 +214,18 @@ export interface NarrativeTextEditorProps {
 
   /** read only */
   readOnly?: boolean;
+
+  /** single line */
+  singleLine?: boolean;
 }
+
+export type TemplateEditorProps = NarrativeTextEditorProps & {
+  variableMap: VariableMap;
+};
 
 /**
  * Utils
  */
-
 export const createTPlateEditor = (options: CreatePlateEditorOptions<MyValue, MyEditor> = {}) =>
   createPlateEditor<MyValue, MyEditor>(options);
 export const createTPluginFactory = <P = PluginOptions,>(defaultPlugin: PlatePlugin<NoInfer<P>, MyValue, MyEditor>) =>

@@ -17,13 +17,16 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   id,
   initialValue = safeSlateValue,
   plugins = [],
+  platePlugins = [],
   onChange,
   style,
+  singleLine = false,
   showHeadingToolbar = true,
   showHoveringToolbar = true,
   readOnly = false,
   draggable = true,
   placeholders,
+  children,
 }) => {
   return (
     <>
@@ -45,12 +48,13 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
               ...style,
             },
           }}
-          plugins={getPlugins({ plugins, draggable, placeholders })}
+          plugins={getPlugins({ plugins, platePlugins, draggable, placeholders, singleLine })}
         >
           {!readOnly && showHeadingToolbar && (
             <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
           )}
           {!readOnly && showHoveringToolbar && <HoveringToolbar />}
+          {children}
         </Plate>
       </DndProvider>
     </>
