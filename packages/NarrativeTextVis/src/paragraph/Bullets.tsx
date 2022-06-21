@@ -1,7 +1,7 @@
 import React from 'react';
 import { BulletsParagraphSpec } from '@antv/narrative-text-schema';
 import { v4 } from 'uuid';
-import { Bullet, Li } from '../styled';
+import { Ol, Ul, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../utils';
 import { ThemeProps, ExtensionProps } from '../interface';
@@ -21,10 +21,11 @@ export function Bullets({ spec, size = 'normal', pluginManager = presetPluginMan
   ));
 
   const tag = spec.isOrder ? 'ol' : 'ul';
+  const Comp = spec.isOrder ? Ol : Ul;
 
   return (
-    <Bullet as={tag} size={size} className={cx(getPrefixCls(tag), spec.className)} style={spec.styles}>
+    <Comp as={tag} size={size} className={cx(getPrefixCls(tag), spec.className)} style={spec.styles}>
       {children}
-    </Bullet>
+    </Comp>
   );
 }

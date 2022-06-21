@@ -1,8 +1,7 @@
-import { StyledElementProps } from '@udecode/plate-styled-components';
-
+// TODO 完善类型定义
 interface CustomElementComponentProps {
   onChange: (value: any) => void;
-  element: StyledElementProps['element'];
+  element: any;
 }
 
 export type CustomElementComponent = React.FC<CustomElementComponentProps>;

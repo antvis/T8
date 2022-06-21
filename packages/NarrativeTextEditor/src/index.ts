@@ -1,4 +1,5 @@
 export { NarrativeTextEditor } from './editor';
+export { CustomBlockToolbarButton, CustomInlineToolbarButton } from './plugins/custom';
+
 export type { NarrativeTextEditorProps } from './types';
-export { PopToolbar } from './components/PopToolbar';
-export * from './plugins/custom';
+export type { CustomElementComponent } from './plugins/custom';
