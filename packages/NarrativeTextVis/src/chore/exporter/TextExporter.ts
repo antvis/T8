@@ -77,7 +77,7 @@ export class TextExporter extends PluginManager {
       if (isEntityPhrase(curr) || isCustomPhrase(curr)) {
         const descriptor = this.getPhraseDescriptorBySpec(curr);
         if (descriptor && descriptor?.getText) {
-          text = descriptor.getText(curr.value, curr.metadata as any);
+          text = descriptor.getText(curr.value, curr.metadata);
         }
       }
       return prev + text;
