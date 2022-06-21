@@ -1,5 +1,5 @@
 import type { HeadlineSpec, NarrativeTextSpec, ParagraphSpec, PhraseSpec } from '@antv/narrative-text-vis';
-import type { TDescendant } from '@udecode/plate';
+import type { TDescendant } from '@udecode/plate-core';
 
 // convert the content value of NarrativeVisEditor to text-schema
 export const editorPropsToSpec = (elements: TDescendant[]) => {
