@@ -14,10 +14,10 @@ import { basicMarkPlugins } from './marks';
 import { fontPlugins } from './font';
 import { linkPlugin } from './link';
 import { markdownPlugin } from './markdown';
-import { singleLinePlugin } from './singleLine';
-import { softBreakPlugin, exitBreakPlugin } from './utils';
-
 import { dndPlugins, withStyledDraggables } from './dnd';
+import { singleLinePlugin } from './singleLine';
+
+import { softBreakPlugin, exitBreakPlugin } from './utils';
 
 import { createCustomUI } from './createCustomUI';
 
@@ -58,6 +58,8 @@ const getPlugins = (
         isElement: true,
         isInline,
         isVoid: true,
+        // TODO 增加扩展判断，如果是文本行首删除则不用删除整个 custom block
+        // withCustom: withCustom
       })(),
     );
     plugins = plugins.concat(extraPlatePlugin);

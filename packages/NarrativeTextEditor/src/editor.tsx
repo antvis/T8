@@ -3,12 +3,14 @@ import { Plate } from '@udecode/plate-core';
 import { isObject } from 'lodash';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { GlobalStyle } from './globalStyles';
 import { safeSlateValue } from './constants';
 import getPlugins from './plugins/getPlugins';
 import HeadingToolbar from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
+import { ErrorFallback } from './ErrorFallback';
 import type { NarrativeTextEditorProps } from './types';
 
 import 'tippy.js/dist/tippy.css';
@@ -29,7 +31,8 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   children,
 }) => {
   return (
-    <>
+    // @ts-ignore @types/react 版本冲突
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <GlobalStyle />
       {!readOnly && showHeadingToolbar && (
         <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
@@ -57,6 +60,6 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
           {children}
         </Plate>
       </DndProvider>
-    </>
+    </ErrorBoundary>
   );
 };

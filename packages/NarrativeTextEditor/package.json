@@ -69,6 +69,7 @@
     "lodash": "^4.17.21",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
+    "react-error-boundary": "^3.1.4",
     "slate": "0.78.0",
     "slate-history": "0.66.0",
     "slate-hyperscript": "0.77.0",
