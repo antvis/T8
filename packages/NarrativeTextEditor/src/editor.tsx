@@ -20,17 +20,20 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
   platePlugins = [],
   onChange,
   style,
-  singleLine = false,
   showHeadingToolbar = true,
   showHoveringToolbar = true,
   readOnly = false,
   draggable = true,
+  singleLine = false,
   placeholders,
   children,
 }) => {
   return (
     <>
       <GlobalStyle />
+      {!readOnly && showHeadingToolbar && (
+        <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
+      )}
       <DndProvider backend={HTML5Backend}>
         <Plate
           id={id}
@@ -50,9 +53,6 @@ export const NarrativeTextEditor: React.FC<NarrativeTextEditorProps> = ({
           }}
           plugins={getPlugins({ plugins, platePlugins, draggable, placeholders, singleLine })}
         >
-          {!readOnly && showHeadingToolbar && (
-            <HeadingToolbar {...(isObject(showHeadingToolbar) ? showHeadingToolbar : {})} />
-          )}
           {!readOnly && showHoveringToolbar && <HoveringToolbar />}
           {children}
         </Plate>

@@ -219,7 +219,7 @@ export interface NarrativeTextEditorProps {
   singleLine?: boolean;
 }
 
-export type TemplateEditorProps = NarrativeTextEditorProps & {
+export type TemplateEditorProps = Omit<NarrativeTextEditorProps, 'plugins' | 'platePlugins'> & {
   variableMap: VariableMap;
 };
 

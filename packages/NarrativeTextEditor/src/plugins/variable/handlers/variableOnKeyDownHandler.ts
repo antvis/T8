@@ -1,6 +1,6 @@
 import { PlateEditor } from '@udecode/plate-core';
+import { removeMentionInput as removeVariableInput } from '@udecode/plate-mention';
 import { findVariableInput } from '../queries';
-import { removeVariableInput } from '../transforms';
 import { KeyboardEventHandler, moveSelectionByOffset, MoveSelectionByOffsetOptions } from '../../core';
 
 export const variableOnKeyDownHandler: (

@@ -16,16 +16,12 @@ const VariableListener: React.FC<Pick<TemplateEditorProps, 'variableMap'>> = ({ 
 };
 
 /**
+ * @
  * template editor with variable map
  */
-export const TemplateEditor: React.FC<TemplateEditorProps> = ({
-  platePlugins = [],
-  readOnly,
-  variableMap,
-  ...extraProps
-}) => {
+export const TemplateEditor: React.FC<TemplateEditorProps> = ({ readOnly, variableMap, ...extraProps }) => {
   return (
-    <NarrativeTextEditor platePlugins={[...variablePlugins, ...platePlugins]} readOnly={readOnly} {...extraProps}>
+    <NarrativeTextEditor platePlugins={variablePlugins} readOnly={readOnly} {...extraProps}>
       <VariableListener variableMap={variableMap} />
       {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />}
     </NarrativeTextEditor>

@@ -1,4 +1,5 @@
-import { PlateEditor } from '@udecode/plate-core';
+import { PlateEditor, Value } from '@udecode/plate-core';
 import { findVariableInput } from './findVariableInput';
 
-export const isSelectionInVariableInput = (editor: PlateEditor) => findVariableInput(editor) !== undefined;
+export const isSelectionInVariableInput = <V extends Value>(editor: PlateEditor<V>) =>
+  findVariableInput(editor) !== undefined;

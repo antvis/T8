@@ -5,3 +5,4 @@
 export * from './moveSelectionByOffset';
 export * from './KeyboardEventHandler';
 export * from './getStyledToolbarIcon';
+export * from './isBeginningOfLine';

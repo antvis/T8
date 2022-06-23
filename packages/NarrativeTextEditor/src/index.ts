@@ -8,6 +8,7 @@ type NarrativeTextEditor = typeof InnerNarrativeTextEditor & {
 export const NarrativeTextEditor = InnerNarrativeTextEditor as NarrativeTextEditor;
 NarrativeTextEditor.Template = TemplateEditor;
 
+export { ELEMENT_VARIABLE, ELEMENT_VARIABLE_INPUT } from './plugins/variable';
 export { CustomBlockToolbarButton, CustomInlineToolbarButton } from './plugins/custom';
 
 export type { NarrativeTextEditorProps, TemplateEditorProps } from './types';
