@@ -4,6 +4,7 @@ import { headingComponents } from './heading';
 import { paragraphComponent } from './paragraph';
 import { listComponents } from './list';
 import { basicMarkComponents } from './marks';
+import { variableComponents } from './variable';
 import { customBlockElementWrapper, customInlineElementWrapper, CustomPlugin } from './custom';
 
 export const createCustomUI = (extraPlugin: CustomPlugin[] = []): Record<string, PlatePluginComponent<any>> => {
@@ -17,5 +18,6 @@ export const createCustomUI = (extraPlugin: CustomPlugin[] = []): Record<string,
     ...listComponents,
     ...basicMarkComponents,
     ...extraComps,
+    ...variableComponents,
   };
 };

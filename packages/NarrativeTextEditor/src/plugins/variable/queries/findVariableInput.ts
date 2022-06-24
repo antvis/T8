@@ -1,7 +1,10 @@
-import { findNode, FindNodeOptions, getPluginType, PlateEditor } from '@udecode/plate-core';
+import { findNode, FindNodeOptions, getPluginType, PlateEditor, Value } from '@udecode/plate-core';
 import { ELEMENT_VARIABLE_INPUT } from '../constants';
 
-export const findVariableInput = (editor: PlateEditor, options?: Omit<FindNodeOptions, 'match'>) =>
+export const findVariableInput = <V extends Value>(
+  editor: PlateEditor<V>,
+  options?: Omit<FindNodeOptions<V>, 'match'>,
+) =>
   findNode(editor, {
     ...options,
     match: { type: getPluginType(editor, ELEMENT_VARIABLE_INPUT) },

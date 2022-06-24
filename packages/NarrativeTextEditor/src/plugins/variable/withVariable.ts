@@ -1,17 +1,31 @@
 /* eslint-disable no-param-reassign */
+import {
+  getPlugin,
+  insertNodes,
+  WithPlatePlugin,
+  Value,
+  PlateEditor,
+  getEditorString,
+  getRange,
+  getPointBefore,
+  getPointAfter,
+  setSelection,
+  TText,
+} from '@udecode/plate-core';
 import { comboboxActions } from '@udecode/plate-combobox';
-import { getPlugin, insertNodes, WithOverride } from '@udecode/plate-core';
-import { Editor, Node, Range, Transforms } from 'slate';
-import { removeVariableInput } from './transforms';
+import { removeMentionInput as removeVariableInput } from '@udecode/plate-mention';
+import { Node, Range } from 'slate';
+
 import { ELEMENT_VARIABLE_INPUT } from './constants';
 import { findVariableInput, isNodeVariableInput, isSelectionInVariableInput } from './queries';
 import { VariableInputNode, VariablePlugin } from './types';
 
-export const withVariable: WithOverride<Record<string, any>, VariablePlugin> = (
-  editor,
-  { options: { id, trigger, inputCreation } },
+export const withVariable = <V extends Value = Value, E extends PlateEditor<V> = PlateEditor<V>>(
+  editor: E,
+  { options: { id, trigger, inputCreation } }: WithPlatePlugin<VariablePlugin, V, E>,
 ) => {
-  const { type } = getPlugin(editor, ELEMENT_VARIABLE_INPUT);
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const { type } = getPlugin<{}, V>(editor, ELEMENT_VARIABLE_INPUT);
 
   const { apply, insertBreak, insertText, deleteBackward } = editor;
 
@@ -37,14 +51,14 @@ export const withVariable: WithOverride<Record<string, any>, VariablePlugin> = (
     }
 
     // Make sure a variable input is created at the beginning of line or after a whitespace
-    const previousChar = Editor.string(
+    const previousChar = getEditorString(
       editor,
-      Editor.range(editor, editor.selection, Editor.before(editor, editor.selection)),
+      getRange(editor, editor.selection, getPointBefore(editor, editor.selection)),
     );
 
-    const nextChar = Editor.string(
+    const nextChar = getEditorString(
       editor,
-      Editor.range(editor, editor.selection, Editor.after(editor, editor.selection)),
+      getRange(editor, editor.selection, getPointAfter(editor, editor.selection)),
     );
 
     const beginningOfLine = previousChar === '';
@@ -98,13 +112,13 @@ export const withVariable: WithOverride<Record<string, any>, VariablePlugin> = (
         return;
       }
 
-      const text = operation.node.children[0]?.text ?? '';
+      const text = ((operation.node as VariableInputNode).children as TText[])[0]?.text ?? '';
 
       if (inputCreation === undefined || operation.node[inputCreation.key] === inputCreation.value) {
         // Needed for undo - after an undo a variable insert we only receive
         // an insert_node with the variable input, i.e. nothing indicating that it
         // was an undo.
-        Transforms.setSelection(editor, {
+        setSelection(editor, {
           anchor: { path: operation.path.concat([0]), offset: text.length },
           focus: { path: operation.path.concat([0]), offset: text.length },
         });

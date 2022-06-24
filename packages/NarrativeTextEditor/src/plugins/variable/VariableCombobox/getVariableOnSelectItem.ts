@@ -1,7 +1,18 @@
+import {
+  getBlockAbove,
+  getPlugin,
+  insertNodes,
+  PlatePluginKey,
+  isEndPoint,
+  withoutNormalizing,
+  insertText,
+  select,
+  withoutMergingHistory,
+  moveSelection,
+  deleteText,
+  removeNodes,
+} from '@udecode/plate-core';
 import { comboboxActions, ComboboxOnSelectItem, comboboxSelectors } from '@udecode/plate-combobox';
-import { getBlockAbove, getPlugin, insertNodes, PlatePluginKey } from '@udecode/plate-core';
-import { Editor, Transforms } from 'slate';
-import { HistoryEditor } from 'slate-history';
 import { ELEMENT_VARIABLE, ELEMENT_VARIABLE_INPUT } from '../constants';
 import { VariableNode, VariablePlugin, VariableComboboxItemData } from '../types';
 
@@ -14,21 +25,21 @@ export const getVariableOnSelectItem =
     const {
       type,
       options: { insertSpaceAfterVariable, createVariableNode },
-    } = getPlugin<VariablePlugin>(editor, key);
+    } = getPlugin<VariablePlugin>(editor as any, key);
 
     const pathAbove = getBlockAbove(editor)?.[1];
-    const isBlockEnd = editor.selection && pathAbove && Editor.isEnd(editor, editor.selection.anchor, pathAbove);
+    const isBlockEnd = editor.selection && pathAbove && isEndPoint(editor, editor.selection.anchor, pathAbove);
 
-    Editor.withoutNormalizing(editor, () => {
+    withoutNormalizing(editor, () => {
       // insert a space to fix the bug
       if (isBlockEnd) {
-        Transforms.insertText(editor, ' ');
+        insertText(editor, ' ');
       }
 
-      Transforms.select(editor, targetRange);
+      select(editor, targetRange);
 
-      HistoryEditor.withoutMerging(editor, () =>
-        Transforms.removeNodes(editor, {
+      withoutMergingHistory(editor, () =>
+        removeNodes(editor, {
           match: (node: any) => node.type === ELEMENT_VARIABLE_INPUT,
         }),
       );
@@ -37,14 +48,14 @@ export const getVariableOnSelectItem =
         type,
         children: [{ text: '' }],
         ...createVariableNode(item),
-      });
+      } as VariableNode);
 
       // move the selection after the element
-      Transforms.move(editor);
+      moveSelection(editor, { unit: 'offset' });
 
       // delete the inserted space
       if (isBlockEnd && !insertSpaceAfterVariable) {
-        Transforms.delete(editor);
+        deleteText(editor);
       }
     });
 

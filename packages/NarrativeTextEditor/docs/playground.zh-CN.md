@@ -1,6 +1,6 @@
 ---
 title: Playground
-order: 0
+order: 2
 group:
   path: /example
   title: 使用示例

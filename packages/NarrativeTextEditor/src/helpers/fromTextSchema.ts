@@ -8,7 +8,7 @@ import type {
   TextParagraphSpec,
 } from '@antv/narrative-text-vis';
 import type { TDescendant } from '@udecode/plate';
-import type { NarrativeTextEditorProps } from '../types';
+import type { VariableMap, NarrativeTextEditorProps } from '../types';
 
 /**
  * Convert text-schema to the props of NarrativeVisEditor
@@ -20,7 +20,7 @@ export const specToEditorProps = (
   spec: NarrativeTextSpec,
 ): {
   content?: NarrativeTextEditorProps['initialValue'];
-  variableMap: NarrativeTextEditorProps['variableMap'];
+  variableMap: VariableMap;
 } => {
   const variableMap = {};
   const content: TDescendant[] = [];

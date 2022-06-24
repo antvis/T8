@@ -83,8 +83,8 @@ import { PieChartOutlined, EditOutlined, CheckOutlined, NumberOutlined } from '@
 import { NarrativeTextEditor, CustomBlockToolbarButton, CustomInlineToolbarButton  } from '@antv/narrative-text-editor';
 
 // 自定义行内元素
-const ELEMENT_VARIABLE = 'variable';
-const CustomVariable = ({ element, onChange }) => {
+const ELEMENT_VARIABLE = 'var';
+const CustomVariable = ({ selected, focused, element, onChange }) => {
   const [value, setValue] = useState(element?.data);
   const onConfirm = () => {
     onChange({ data: value });
@@ -102,7 +102,7 @@ const CustomVariable = ({ element, onChange }) => {
       <span style={{ 
         padding: 4,
         margin: 4,
-        backgroundColor: "#efefef"
+        backgroundColor:  selected & focused? "rgb(211 194 234)" : "#efefef",
       }}>
         {element?.data || '...'}
       </span>
@@ -112,7 +112,7 @@ const CustomVariable = ({ element, onChange }) => {
 
 // 自定义快级元素
 const ELEMENT_CHART = 'chart';
-const CustomChart = ({ element, onChange }) => {
+const CustomChart = ({ selected, focused, element, onChange }) => {
   const [value, setValue] = useState(element?.data);
   const [visible, setVisible] = useState(false);
   const onConfirm = () => {
@@ -120,7 +120,12 @@ const CustomChart = ({ element, onChange }) => {
     onChange({ data: value });
   };
   return (
-    <div style={{ border: '1px solid #ccc', borderRadius: 4, margin: '2px 0', padding: 12  }}>
+    <div 
+      style={{ 
+        border: `1px solid ${selected & focused? "#873bf4" : "#efefef"}`, 
+        borderRadius: 4, margin: '2px 0', padding: 12  
+      }}
+    >
       {element?.data}
       <EditOutlined onClick={() => setVisible(true)} />
       <Drawer 
@@ -186,83 +191,6 @@ export default () => {
       }} 
     />)
 }
-```
-
-
-### 通过"/"插入变量
-
-配置 `variableMap` 之后，可以通过“/”变量唤起变量列表，选择输入。
-
-🚧 施工中...
-
-```jsx
-/**
- * debug: true
- */
-import React, { useState } from 'react';
-import { message, Form, Input, Space } from 'antd';
-import { CopyOutlined, MinusCircleOutlined } from '@ant-design/icons';
-import copy from 'copy-to-clipboard';
-import { remove } from 'lodash';
-import { NarrativeTextEditor } from '@antv/narrative-text-editor';
-
-const initialValue = [
-  { "type":"h1","children":[{"text":"业务月报"}, {"text":""}] },
-  {
-    "type":"p", 
-    "children":[
-      {"text":"数据表现："},
-      {"type":"variable","children":[{"text":""}],"value":"DAU","metadata":{"entityType":"metric_name"},"key":"主指标"},
-      {"text":""},
-    ]
-  }
-];
-
-const initialVariableMap = {
-  "startDate": { value: '2022.03', metadata: { entityType: 'time_desc' } },
-  "endDate": { value: '2022.04', metadata: { entityType: 'time_desc' } },
-  "主指标": { value: 'DAU', metadata: { entityType: 'metric_name' } },
-  "指标值": { value: '1.23亿', metadata: { entityType: 'metric_value' } },
-}
-
-export default () => {
-  const [value, onChange] = useState(initialValue);
-  const [keys, setKeys] = useState(Object.keys(initialVariableMap));
-  const [variableMap, setVariableMap] = useState(initialVariableMap);
-  const onCopy = () => {
-    const r = copy(JSON.stringify(value));
-    if (r) message.success('复制成功');
-  }
-  const handleChangeVarText = (key, newVal) => {
-    setVariableMap({...variableMap, [key]: { ...variableMap[key], value: newVal } })
-  }
-  const handleRemoveKey = (key) => {
-    setKeys(remove(keys, item => item !== key ));
-    const newVariableMap = { ...variableMap };
-    delete newVariableMap[key];
-    console.log('newVariableMap: ', newVariableMap);
-    setVariableMap(newVariableMap);
-  }
-  return (
-    <>
-      <p>复制到剪切板：<CopyOutlined onClick={onCopy} style={{ cursor: 'pointer' }} /></p>
-      <Form layout="inline">
-        {keys.map(key => (
-          <Form.Item label={key} key={key}>
-            <Input style={{ width: '80%' }} value={variableMap[key].value} onChange={e => { handleChangeVarText(key, e.target.value) }} /> &ensp;
-            <MinusCircleOutlined style={{ cursor: 'pointer' }} onClick={() => { handleRemoveKey(key) }} />
-          </Form.Item>
-        ))}
-      </Form>
-      <NarrativeTextEditor
-        id="variable"
-        onChange={onChange}
-        initialValue={initialValue}
-        variableMap={variableMap} 
-      />
-    </>
-  )
-};
 ```
 
 ### 是否显示工具栏

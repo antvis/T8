@@ -1,12 +1,15 @@
 import React from 'react';
 import { useEditorRef, findNodePath, setNodes } from '@udecode/plate-core';
 import { StyledElementProps, getRootProps } from '@udecode/plate-styled-components';
+import { useFocused, useSelected } from 'slate-react';
 import { CustomElementComponent } from './custom.type';
 
 export const customInlineElementWrapper = (Component: CustomElementComponent) => (props: StyledElementProps) => {
   const { attributes, children, nodeProps, element, className } = props;
   const rootProps = getRootProps(props);
   const editor = useEditorRef();
+  const selected = useSelected();
+  const focused = useFocused();
   const onChange = (value: any) => {
     const path = findNodePath(editor, element);
     setNodes(editor, value, { at: path });
@@ -22,7 +25,7 @@ export const customInlineElementWrapper = (Component: CustomElementComponent) =>
       {...rootProps}
       {...nodeProps}
     >
-      <Component element={element} onChange={onChange} />
+      <Component selected={selected} focused={focused} element={element} onChange={onChange} />
       {children}
     </span>
   );

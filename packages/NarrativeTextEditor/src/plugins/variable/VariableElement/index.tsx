@@ -1,24 +1,24 @@
 import React from 'react';
-import { getHandler } from '@udecode/plate-core';
+import { getHandler, Value } from '@udecode/plate-core';
 import { getRootProps, StyledElementProps } from '@udecode/plate-styled-components';
 import { useFocused, useSelected } from 'slate-react';
 import styled from 'styled-components';
 import { Phrase } from '@antv/narrative-text-vis';
 import { VariableNode, VariableNodeData } from '../types';
 
-interface VariableElementStyleProps extends VariableElementProps {
+interface VariableElementStyleProps<V extends Value> extends VariableElementProps<V> {
   selected?: boolean;
   focused?: boolean;
 }
 
-const StyledVariableElement = styled.span<VariableElementStyleProps>`
+const StyledVariableElement = styled.span<VariableElementStyleProps<Value>>`
   vertical-align: baseline;
   display: inline-block;
   background-color: ${({ selected, focused }) => selected && focused && 'rgba(176,209,255,1)'};
 `;
 
 // renderElement props
-export interface VariableElementProps extends Omit<StyledElementProps<VariableNode>, 'onClick'> {
+export interface VariableElementProps<V extends Value> extends Omit<StyledElementProps<V, VariableNode>, 'onClick'> {
   /**
    * Prefix rendered before variable
    */
@@ -28,7 +28,7 @@ export interface VariableElementProps extends Omit<StyledElementProps<VariableNo
   element: VariableNode; // make type clearly
 }
 
-export const VariableElement = (props: VariableElementProps) => {
+export const VariableElement = <V extends Value>(props: VariableElementProps<V>) => {
   const { attributes, children, nodeProps, element, prefix, onClick, renderLabel } = props;
 
   const rootProps = getRootProps(props);

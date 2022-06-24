@@ -3,7 +3,7 @@ import { getHandler } from '@udecode/plate-core';
 import { getRootProps, StyledElementProps } from '@udecode/plate-styled-components';
 import { useFocused, useSelected } from 'slate-react';
 import styled from 'styled-components';
-import { VariableNode, VariableNodeData } from '../types';
+import { VariableNodeData } from '../types';
 
 interface VariableInputElementStyleProps extends VariableInputElementProps {
   selected?: boolean;
@@ -20,7 +20,7 @@ const StyledVariableElement = styled.span<VariableInputElementStyleProps>`
   min-width: 96px;
   position: relative;
   ::before {
-    content: '输入搜索...';
+    content: '输入英文进行搜索...';
     position: absolute;
     left: 4px;
     top: 0;
@@ -29,12 +29,12 @@ const StyledVariableElement = styled.span<VariableInputElementStyleProps>`
 `;
 
 // renderElement props
-export interface VariableInputElementProps extends Omit<StyledElementProps<VariableNode>, 'onClick'> {
+export interface VariableInputElementProps extends StyledElementProps {
   /**
    * Prefix rendered before variable
    */
   prefix?: string;
-  onClick?: (variableNode: VariableNode) => void;
+  onClick?: (variableNode: any) => void;
   renderLabel?: (variableable: VariableNodeData) => string;
 }
 

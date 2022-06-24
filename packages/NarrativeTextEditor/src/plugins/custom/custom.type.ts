@@ -1,5 +1,7 @@
 // TODO 完善类型定义
 interface CustomElementComponentProps {
+  selected: boolean;
+  focused: boolean;
   onChange: (value: any) => void;
   element: any;
 }

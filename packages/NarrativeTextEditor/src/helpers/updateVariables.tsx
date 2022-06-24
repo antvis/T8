@@ -1,4 +1,4 @@
-import { PlateEditor, getPluginType, getNodes, setNodes, insertNodes } from '@udecode/plate-core';
+import { PlateEditor, getPluginType, getNodeEntries, setNodes, insertNodes } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { isEqual } from 'lodash';
 import { VariableMap } from '../types';
@@ -6,7 +6,7 @@ import { ELEMENT_VARIABLE, VariableNode } from '../plugins/variable';
 
 /** update variable node, recording variableMap */
 export function updateVariables(editor: PlateEditor, variableMap: VariableMap): void {
-  const nodeEntries = getNodes<VariableNode>(editor, {
+  const nodeEntries = getNodeEntries<VariableNode>(editor, {
     // TODO variable 用到的函数，之后一起处理
     match: { type: getPluginType(editor, ELEMENT_VARIABLE) },
     at: [],
