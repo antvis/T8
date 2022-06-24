@@ -4,12 +4,12 @@ import {
   withPlateEventProvider,
   usePlateEditorState,
   insertNodes,
-  removeNodes,
+  // removeNodes,
   getPluginType,
 } from '@udecode/plate-core';
 import { ToolbarButton, ToolbarButtonProps } from '@udecode/plate-ui-toolbar';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
-import { isBeginningOfLine } from '../core';
+// import { isBeginningOfLine } from '../core';
 
 interface CustomBlockToolbarButtonProps extends ToolbarButtonProps {
   type: string;
@@ -26,7 +26,8 @@ export const CustomBlockToolbarButton = withPlateEventProvider(
       try {
         const initialData = beforeInsert ? await beforeInsert() : {};
 
-        if (isBeginningOfLine(editor)) removeNodes(editor);
+        // TODO 期望如果当前行是空的时候，直接 replace，而非在下面创建新的，目前 isBeginningOfLine 判断有 bug，先注释掉
+        // if (isBeginningOfLine(editor)) removeNodes(editor);
         insertNodes(editor, {
           type: getPluginType(editor, type),
           ...initialData,

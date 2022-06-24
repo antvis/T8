@@ -16,7 +16,7 @@ const VariableListener: React.FC<Pick<TemplateEditorProps, 'variableMap'>> = ({ 
 };
 
 /**
- * @
+ * @beta
  * template editor with variable map
  */
 export const TemplateEditor: React.FC<TemplateEditorProps> = ({ readOnly, variableMap, ...extraProps }) => {
