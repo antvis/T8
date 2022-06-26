@@ -5,6 +5,7 @@ import { terser } from 'rollup-plugin-terser';
 import filesize from 'rollup-plugin-filesize';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import optimizeLodashImports from 'rollup-plugin-optimize-lodash-imports';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { kebabCase } from 'lodash';
 
 /**
@@ -13,6 +14,7 @@ import { kebabCase } from 'lodash';
 export default (name, config = {}) => {
   const { plugins: extraPlugins = [], globals = {}, ...others } = config;
   const format = process.env.FORMAT;
+  const enableAnalysis = process.env.ANALYSIS;
 
   const OUT_DIR_NAME_MAP = {
     esm: 'es',
@@ -68,6 +70,10 @@ export default (name, config = {}) => {
     };
   } else {
     output.dir = outDir;
+  }
+
+  if (enableAnalysis) {
+    plugins.push(visualizer({ gzipSize: true }));
   }
 
   return {

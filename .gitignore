@@ -33,3 +33,6 @@ coverage
 # dumi
 .umi
 .umi-production
+
+# analysis
+stats.html

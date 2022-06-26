@@ -34,6 +34,7 @@
     "build": "run-s build:cjs build:esm build:umd",
     "watch:esm": "rimraf es && FORMAT=esm rollup -c -w",
     "watch:cjs": "rimraf lib && FORMAT=cjs rollup -c -w",
+    "analysis": "FORMAT=esm ANALYSIS=true rollup -c",
     "clean:build": "rimraf dist es lib",
     "clean:coverage": "rimraf coverage",
     "clean": "rimraf node_modules && npm run clean:build && npm run clean:coverage"
