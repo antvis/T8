@@ -42,30 +42,27 @@ export default () => (
 );
 ```
 
-### 受控组件
-
-TODO
+### 通过 editorRef 更新 value
 
 ```jsx
-/**
- * debug: true
- */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import { NarrativeTextEditor } from '@antv/narrative-text-editor';
 
+const initialValue = [{ type: 'p', children: [{ text: 'input something...' }] }]
+
 export default () => {
-  const [value, onChange] = useState();
-  const handleReset = () => {
-    onChange([{ type: 'p', children: [{text: 'reset'}]}])
+  const editorRef = useRef();
+  const changeValue = () => {
+    editorRef?.current?.setValue([{ type: 'p', children: [{text: `${Date.now()}`}]}])
   }
   return (
     <>
-      <Button onClick={handleReset}>重置</Button>
+      <Button onClick={changeValue}>写入当前时间戳</Button>
       <NarrativeTextEditor
         id="controlled"
-        Value={value}
-        onChange={onChange}
+        ref={editorRef}
+        initialValue={initialValue}
       />
     </>
   );

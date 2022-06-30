@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, forwardRef, ForwardRefRenderFunction } from 'react';
 import { usePlateEditorRef } from '@udecode/plate-core';
 
-import { NarrativeTextEditor } from './editor';
-import { TemplateEditorProps } from './types';
+import NarrativeTextEditor from './editor';
+import { TemplateEditorProps, NarrativeTextEditorRef } from './types';
 import { variablePlugins, VariableCombobox } from './plugins/variable';
 import { transferComboboxItemData, updateVariables } from './helpers';
 
@@ -19,11 +19,16 @@ const VariableListener: React.FC<Pick<TemplateEditorProps, 'variableMap'>> = ({ 
  * @beta
  * template editor with variable map
  */
-export const TemplateEditor: React.FC<TemplateEditorProps> = ({ readOnly, variableMap, ...extraProps }) => {
+const TemplateEditor: ForwardRefRenderFunction<NarrativeTextEditorRef, TemplateEditorProps> = (
+  { readOnly, variableMap, ...extraProps },
+  ref,
+) => {
   return (
-    <NarrativeTextEditor platePlugins={variablePlugins} readOnly={readOnly} {...extraProps}>
+    <NarrativeTextEditor ref={ref} platePlugins={variablePlugins} readOnly={readOnly} {...extraProps}>
       <VariableListener variableMap={variableMap} />
       {!readOnly && variableMap && <VariableCombobox items={transferComboboxItemData(variableMap)} />}
     </NarrativeTextEditor>
   );
 };
+
+export default React.memo(forwardRef(TemplateEditor));

@@ -94,8 +94,8 @@ export default () => {
 用于配置模版段落。
 
 ```jsx
-import React from 'react';
-import { remove } from 'lodash';
+import React, { useRef } from 'react';
+import { Button } from 'antd';
 import { NarrativeTextEditor, ELEMENT_VARIABLE } from '@antv/narrative-text-editor';
 
 const initialVariableMap = {
@@ -117,16 +117,24 @@ const initialValue = [
 ];
 
 export default () => {
+  const editorRef = useRef();
+  const handleReset = () => {
+    editorRef?.current?.setValue(initialValue);
+  }
   return (
-    <NarrativeTextEditor.Template
-      id="singleLine"
-      initialValue={initialValue}
-      variableMap={initialVariableMap}
-      singleLine
-      showHeadingToolbar={false}
-      showHoveringToolbar={false}
-      draggable={false}
-    />
+    <>
+      <Button onClick={handleReset}>重置</Button>
+      <NarrativeTextEditor.Template
+        id="singleLine"
+        ref={editorRef}
+        initialValue={initialValue}
+        variableMap={initialVariableMap}
+        singleLine
+        showHeadingToolbar={false}
+        showHoveringToolbar={false}
+        draggable={false}
+      />
+    </>
   )
 };
 ```
