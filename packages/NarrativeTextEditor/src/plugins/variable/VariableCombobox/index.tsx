@@ -36,9 +36,9 @@ export const VariableCombobox = ({ pluginKey = ELEMENT_VARIABLE, id = pluginKey,
           {item.key}: &ensp;
           <Phrase
             spec={{
-              type: 'entity',
+              type: item?.data ? 'text' : 'entity',
               value: item.text,
-              metadata: item.data,
+              metadata: item?.data,
             }}
           />
         </>
