@@ -12,7 +12,8 @@ export type VariableComboboxItem = TComboboxItem<VariableComboboxItemData>;
 export interface VariableNodeData extends TElement {
   key: string;
   value: string;
-  metadata: EntityMetaData;
+  // TODO 模版编辑应该还需要支持一些纯文本变量的
+  metadata?: EntityMetaData;
 }
 
 export interface VariableInputNodeData extends TElement {
