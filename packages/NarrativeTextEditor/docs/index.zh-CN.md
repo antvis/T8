@@ -264,6 +264,18 @@ export default () => {
             key: 'p', // 'h1' ~ 'h6', 'p', 'ul', 'ol'
             placeholder: 'Type a paragraph',
             hideOnBlur: true,
+          },
+          {
+            key: 'whole',
+            placeholder: ({ children, attributes }) => (
+              <div {...attributes}>
+                <p>{children}</p>
+                <pre>
+                  Use the renderPlaceholder prop to customize rendering of the
+                  placeholder
+                </pre>
+              </div>
+            )
           }
         ]} 
       />

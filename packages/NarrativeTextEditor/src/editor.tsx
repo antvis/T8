@@ -6,7 +6,7 @@ import React, {
   ForwardRefRenderFunction,
   useEffect,
 } from 'react';
-import { Plate, usePlateEditorRef, PlateEditor, TDescendant, moveSelection, setSelection } from '@udecode/plate-core';
+import { Plate, usePlateEditorRef, PlateEditor, TDescendant, setSelection } from '@udecode/plate-core';
 import { isObject } from 'lodash';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -18,14 +18,14 @@ import getPlugins from './plugins/getPlugins';
 import HeadingToolbar from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
 import { ErrorFallback } from './ErrorFallback';
-import { NarrativeTextEditorProps, NarrativeTextEditorRef } from './types';
+import { NarrativeTextEditorProps, NarrativeTextEditorRef, WholePlaceholder } from './types';
 
 import 'tippy.js/dist/tippy.css';
 
 const NarrativeTextEditor: ForwardRefRenderFunction<NarrativeTextEditorRef, NarrativeTextEditorProps> = (
   {
     id,
-    initialValue = safeSlateValue,
+    initialValue,
     plugins = [],
     platePlugins = [],
     onChange,
@@ -42,6 +42,7 @@ const NarrativeTextEditor: ForwardRefRenderFunction<NarrativeTextEditorRef, Narr
 ) => {
   const [editor, setEditor] = useState<PlateEditor>();
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const renderPlaceholder = getRenderPlaceholder(placeholders);
 
   const setValue = (newValue: TDescendant[]) => {
     if (editor) {
@@ -79,6 +80,7 @@ const NarrativeTextEditor: ForwardRefRenderFunction<NarrativeTextEditorRef, Narr
             autoFocus: false,
             spellCheck: false,
             readOnly,
+            renderPlaceholder,
             style: {
               fontFamily: 'PingFangSC, sans-serif',
               overflow: 'auto',
@@ -107,4 +109,11 @@ function EditorInsGetter({ getEditor }: { getEditor: (editor: PlateEditor) => vo
     getEditor(editor);
   }, [editor]);
   return null;
+}
+
+function getRenderPlaceholder(placeholders: NarrativeTextEditorProps['placeholders']): WholePlaceholder {
+  if (Array.isArray(placeholders)) {
+    return placeholders?.find((item) => item.key === 'whole')?.renderPlaceholder as WholePlaceholder;
+  }
+  return undefined;
 }

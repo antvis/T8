@@ -1,5 +1,6 @@
 import { CSSProperties, PropsWithChildren } from 'react';
 import { PlateStoreState, Value, TDescendant, PlatePlugin } from '@udecode/plate-core';
+import { EditableProps } from 'slate-react/dist/components/editable';
 
 import { KEYS_HEADING } from '@udecode/plate-heading';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
@@ -16,6 +17,7 @@ export type BlockKey = typeof BLOCK_KEYS[number];
 
 export type VariableMap = Record<string, VariableNodeData>;
 
+export type WholePlaceholder = EditableProps['renderPlaceholder'];
 export type NarrativeTextEditorProps = PropsWithChildren<{
   /** editor key, must unique */
   id: string;
@@ -51,7 +53,14 @@ export type NarrativeTextEditorProps = PropsWithChildren<{
 
   // TODO editor 整体空白时的 placeholder
   /** config placeholder by element key */
-  placeholders?: boolean | Array<Partial<PlaceholderProps<Value> & { key: BlockKey; keys: BlockKey[] }>>;
+  placeholders?:
+    | boolean
+    | Array<
+        | Partial<PlaceholderProps<Value> & { key: BlockKey; keys: BlockKey[] }>
+        // whole editor empty placeholder
+        // TODO 使用更严格的类型定义约束 renderPlaceholder
+        | { key: 'whole'; renderPlaceholder?: WholePlaceholder }
+      >;
 
   /** read only */
   readOnly?: boolean;

@@ -33,7 +33,7 @@ const getPlugins = (
   props: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'platePlugins' | 'placeholders' | 'singleLine'>,
 ) => {
   const { plugins: extraPlugins, draggable, singleLine, platePlugins } = props;
-  let { placeholders = DEFAULT_PLACEHOLDERS } = props;
+  const { placeholders = DEFAULT_PLACEHOLDERS } = props;
   const extraDraggableKeys = extraPlugins.filter(({ isInline }) => !isInline).map(({ key }) => key);
 
   let plugins = [
@@ -76,14 +76,17 @@ const getPlugins = (
     plugins = plugins.concat(dndPlugins);
   }
 
-  let components = createCustomUI(extraPlugins);
-  if (placeholders === true) placeholders = DEFAULT_PLACEHOLDERS;
-  if (Array.isArray(placeholders) && placeholders.length > 0) {
-    components = withPlaceholders(components, placeholders);
-  }
-  if (draggable) {
-    components = withStyledDraggables(components, extraDraggableKeys);
-  }
+  const components = createCustomUI(extraPlugins);
+  // if (placeholders === true) placeholders = DEFAULT_PLACEHOLDERS;
+  // if (Array.isArray(placeholders) && placeholders.length > 0) {
+  //   components = withPlaceholders(
+  //     components,
+  //     placeholders.filter((item) => item.key !== 'whole'),
+  //   );
+  // }
+  // if (draggable) {
+  //   components = withStyledDraggables(components, extraDraggableKeys);
+  // }
 
   return createPlugins(plugins, {
     components,
