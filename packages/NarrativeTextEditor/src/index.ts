@@ -13,3 +13,4 @@ export { CustomBlockToolbarButton, CustomInlineToolbarButton } from './plugins/c
 
 export type { NarrativeTextEditorProps, NarrativeTextEditorRef, TemplateEditorProps } from './types';
 export type { CustomElementComponent } from './plugins/custom';
+export { useEditorRef } from '@udecode/plate-core';
