@@ -13,4 +13,6 @@ export { CustomBlockToolbarButton, CustomInlineToolbarButton } from './plugins/c
 
 export type { NarrativeTextEditorProps, NarrativeTextEditorRef, TemplateEditorProps } from './types';
 export type { CustomElementComponent } from './plugins/custom';
+// TODO 不知道为啥，项目里 install plate，再 import 就不行，都从 t8 里 import 就可以
+// 也许它们创建了不同的上下文🤔，先从 T8 里面 export 出去满足业务更灵活的使用编辑器 api
 export { useEditorRef } from '@udecode/plate-core';
