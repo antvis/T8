@@ -53,9 +53,9 @@ export const VariableElement = <V extends Value>(props: VariableElementProps<V>)
       ) : (
         <Phrase
           spec={{
-            type: 'entity',
+            type: element?.metadata ? 'entity' : 'text',
             value: element.value,
-            metadata: element.metadata,
+            metadata: element?.metadata,
           }}
         />
       )}

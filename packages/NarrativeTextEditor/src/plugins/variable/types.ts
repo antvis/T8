@@ -12,7 +12,7 @@ export type VariableComboboxItem = TComboboxItem<VariableComboboxItemData>;
 export interface VariableNodeData extends TElement {
   key: string;
   value: string;
-  metadata: EntityMetaData;
+  metadata?: EntityMetaData;
 }
 
 export interface VariableInputNodeData extends TElement {
