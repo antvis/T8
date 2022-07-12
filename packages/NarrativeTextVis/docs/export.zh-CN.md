@@ -22,6 +22,7 @@ import { CopyOutlined } from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
 import { NarrativeTextVis, TextExporter, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
 import booking from './mock/booking.json';
+import basic from './mock/basicElements.json';
 
 const exporter = new TextExporter();
 
@@ -60,8 +61,53 @@ export default () => {
 }
 ```
 
-## 导出 md
-施工中...
+## 导出 Markdown
+
+```jsx
+import React from 'react';
+import { Space, Button, message } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
+import copy from 'copy-to-clipboard';
+import { NarrativeTextVis, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
+import booking from './mock/booking.json';
+import {MarkdownExporter} from '../src/chore/exporter/MarkdownExporter.ts'; 
+
+function getSignAssessmentText(value, metadata) {
+  return `${metadata?.assessment === 'negative' ? '-' : metadata?.assessment === 'positive'? '+': ''}${value}`;
+}
+
+const exportMarkdown = new MarkdownExporter();
+
+const exportMarkdownWithSign = new MarkdownExporter([
+  createRatioValue({ getText: getSignAssessmentText }),
+  createDeltaValue({ getText: getSignAssessmentText }),
+]);
+
+export default () => {
+  return (
+    <>
+      <Space>
+        <Button 
+          type="primary"
+          icon={<CopyOutlined/>} 
+          onClick={() => {
+            const res = copy(exportMarkdown.getNarrativeText(booking));
+            if (res) message.success('复制成功');
+          }}
+        >复制默认Markdown</Button>
+        <Button 
+          icon={<CopyOutlined/>} 
+          onClick={() => {
+            const res = copy(exportMarkdownWithSign.getNarrativeText(booking));
+            if (res) message.success('复制成功');
+          }}
+        >复制带正号Markdown</Button>
+      </Space>
+      <NarrativeTextVis spec={booking} />
+    </>
+  )
+}
+```
 
 ## 导出富文本
 施工中...
