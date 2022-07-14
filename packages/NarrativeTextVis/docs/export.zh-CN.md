@@ -21,7 +21,6 @@ import { Space, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
 import { NarrativeTextVis, TextExporter, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
-import { MarkdownExporter } from '../src/chore/exporter/MarkdownExporter.ts'; 
 import booking from './mock/booking.json';
 
 const exporter = new TextExporter();
@@ -68,8 +67,7 @@ import React from 'react';
 import { Space, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
-import { NarrativeTextVis, TextExporter, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
-import { MarkdownExporter } from '../src/chore/exporter/MarkdownExporter.ts'; 
+import { NarrativeTextVis, MarkdownExporter, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
 import basic from './mock/basicElements.json';
 
 function getSignAssessmentText(value, metadata) {
