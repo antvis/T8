@@ -16,12 +16,9 @@ import {
 import { pad } from 'lodash';
 import { PluginManager } from '../plugin';
 
-// MarkdownExporter根据TextExporter改写，支持导出为Markdown格式
-// 目前尚不支持粗体、斜体、下划线等
 export class MarkdownExporter extends PluginManager {
   getNarrativeText(spec: NarrativeTextSpec) {
     let text = '';
-    // 文本标题下添加分割线，区分文本标题与普通一级标题
     if (spec?.headline?.phrases) text += `# ${this.getPhrasesText(spec.headline.phrases)}\r\n\r\n---`;
     if (spec?.sections) {
       text = spec?.sections?.reduce((prev, curr) => `${prev}${prev ? '\r\n' : ''}${this.getSectionText(curr)}`, text);
@@ -42,10 +39,9 @@ export class MarkdownExporter extends PluginManager {
   }
   getParagraphText(spec: ParagraphSpec) {
     if (isTextParagraph(spec)) return this.getPhrasesText(spec.phrases);
-    // 增加单独的isHeadingParagraph判断块
     if (isHeadingParagraph(spec)) {
-      return `${'#'.repeat(parseInt(spec.type.slice(-1)))} ${this.getPhrasesText(spec.phrases)}`
-    };
+      return `${'#'.repeat(parseInt(spec.type.slice(-1), 10))} ${this.getPhrasesText(spec.phrases)}`;
+    }
     if (isBulletParagraph(spec)) {
       return spec.bullets?.reduce(
         (prev, curr, index) =>
@@ -69,7 +65,6 @@ export class MarkdownExporter extends PluginManager {
     if (spec?.subBullet) {
       text = spec.subBullet.bullets?.reduce(
         (prev, curr, index) =>
-          // padding个数按markdown语法要求修改为4个
           `${prev}\r\n${pad('', level * 4)}${spec.subBullet.isOrder ? `${index + 1}. ` : '- '}${this.getBulletsText(
             curr,
             level + 1,
