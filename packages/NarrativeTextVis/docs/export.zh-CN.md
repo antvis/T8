@@ -62,13 +62,15 @@ export default () => {
 
 ## 导出 Markdown
 
+`MarkdownExporter` 与 `TextExporter`用法相似
+
 ```jsx
 import React from 'react';
 import { Space, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
 import { NarrativeTextVis, MarkdownExporter, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
-import basic from './mock/basicElements.json';
+import sample from './mock/markdownSample.json';
 
 function getSignAssessmentText(value, metadata) {
   return `${metadata?.assessment === 'negative' ? '-' : metadata?.assessment === 'positive'? '+': ''}${value}`;
@@ -89,19 +91,19 @@ export default () => {
           type="primary"
           icon={<CopyOutlined/>} 
           onClick={() => {
-            const res = copy(exportMarkdown.getNarrativeText(basic));
+            const res = copy(exportMarkdown.getNarrativeMarkdown(sample));
             if (res) message.success('复制成功');
           }}
         >复制默认Markdown</Button>
         <Button 
           icon={<CopyOutlined/>} 
           onClick={() => {
-            const res = copy(exportMarkdownWithSign.getNarrativeText(basic));
+            const res = copy(exportMarkdownWithSign.getNarrativeMarkdown(sample));
             if (res) message.success('复制成功');
           }}
         >复制带正号Markdown</Button>
       </Space>
-      <NarrativeTextVis spec={basic} />
+      <NarrativeTextVis spec={sample} />
     </>
   )
 }
