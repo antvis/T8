@@ -78,10 +78,9 @@ function getSignAssessmentText(value, metadata) {
 
 const exportMarkdown = new TextExporter();
 
-// todo: change getText() to getMarkdown()
 const exportMarkdownWithSign = new TextExporter([
-  createRatioValue({ getText: getSignAssessmentText }),
-  createDeltaValue({ getText: getSignAssessmentText }),
+  createRatioValue({ getMarkdown: getSignAssessmentText }),
+  createDeltaValue({ getMarkdown: getSignAssessmentText }),
 ]);
 
 export default () => {

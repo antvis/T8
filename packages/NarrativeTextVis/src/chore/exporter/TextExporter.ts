@@ -13,6 +13,7 @@ import {
   isCustomParagraph,
   isCustomPhrase,
   isEntityPhrase,
+  getHeadingWeight,
 } from '@antv/narrative-text-schema';
 import { pad } from 'lodash';
 import { PluginManager } from '../plugin';
@@ -101,8 +102,13 @@ export class TextExporter extends PluginManager {
     }
     if (isCustomSection(spec)) {
       const descriptor = this.getBlockDescriptor(spec.customType);
-      if (descriptor && descriptor?.getText) {
-        return descriptor.getText(spec);
+      if (descriptor) {
+        if (descriptor?.getMarkdown) {
+          return descriptor.getMarkdown(spec);
+        }
+        if (descriptor?.getText) {
+          return descriptor.getText(spec);
+        }
       }
     }
     return '';
@@ -110,8 +116,7 @@ export class TextExporter extends PluginManager {
   getParagraphMarkdown(spec: ParagraphSpec) {
     if (isTextParagraph(spec)) return this.getPhrasesMarkdown(spec.phrases);
     if (isHeadingParagraph(spec)) {
-      // 10 refers parsing into decimal number
-      return `${'#'.repeat(parseInt(spec.type.slice(-1), 10))} ${this.getPhrasesMarkdown(spec.phrases)}`;
+      return `${'#'.repeat(getHeadingWeight(spec.type))} ${this.getPhrasesMarkdown(spec.phrases)}`;
     }
     if (isBulletParagraph(spec)) {
       return spec.bullets?.reduce(
@@ -122,8 +127,13 @@ export class TextExporter extends PluginManager {
     }
     if (isCustomParagraph(spec)) {
       const descriptor = this.getBlockDescriptor(spec.customType);
-      if (descriptor && descriptor?.getText) {
-        return descriptor.getText(spec);
+      if (descriptor) {
+        if (descriptor?.getMarkdown) {
+          return descriptor.getMarkdown(spec);
+        }
+        if (descriptor?.getText) {
+          return descriptor.getText(spec);
+        }
       }
     }
     return '';
@@ -152,12 +162,15 @@ export class TextExporter extends PluginManager {
       let text = curr?.value;
       if (isEntityPhrase(curr) || isCustomPhrase(curr)) {
         const descriptor = this.getPhraseDescriptorBySpec(curr);
-        if (descriptor && descriptor?.getText) {
-          text = descriptor.getText(curr.value, curr.metadata);
+        if (descriptor) {
+          if (descriptor?.getMarkdown) {
+            return descriptor.getMarkdown(curr.value, curr.metadata);
+          }
+          if (descriptor?.getText) {
+            return descriptor.getText(curr.value, curr.metadata);
+          }
         }
-      }
-      // isTextPhrase
-      else {
+      } else {
         if (curr.bold) {
           text = `**${text}**`;
         }

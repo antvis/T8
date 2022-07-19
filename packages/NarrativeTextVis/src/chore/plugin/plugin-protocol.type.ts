@@ -19,6 +19,8 @@ export interface PhraseDescriptor<MetaData> {
   onHover?: (value: string, metadata: MetaData) => string;
   onClick?: (value: string, metadata: MetaData) => string;
   getText?: (value: string, metadata: MetaData) => string;
+  getMarkdown?: (value: string, metadata: MetaData) => string;
+
   /**
    * overwrite will be the highest priority to render node if it defined
    * @param node the program result node
@@ -57,6 +59,7 @@ export interface BlockDescriptor<MetaData> {
   style?: CSSProperties | ((metadata: MetaData) => CSSProperties);
   render?: (metadata: MetaData) => ReactNode;
   getText?: (metadata: MetaData) => string;
+  getMarkdown?: (metadata: MetaData) => string;
 }
 
 export type AnyObject = Record<string, unknown>;
