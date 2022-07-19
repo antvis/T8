@@ -62,23 +62,24 @@ export default () => {
 
 ## 导出 Markdown
 
-`MarkdownExporter` 与 `TextExporter`用法相似
+在`TextExporter`中调用`getNarrativeMarkdown()`即可导出Markdown文本。类似的，可通过定制 plugin descriptor 中的 getMarkdown 定义复制行为。
 
 ```jsx
 import React from 'react';
 import { Space, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
-import { NarrativeTextVis, MarkdownExporter, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
+import { NarrativeTextVis, TextExporter, createRatioValue, createDeltaValue } from '@antv/narrative-text-vis';
 import sample from './mock/markdownSample.json';
 
 function getSignAssessmentText(value, metadata) {
   return `${metadata?.assessment === 'negative' ? '-' : metadata?.assessment === 'positive'? '+': ''}${value}`;
 }
 
-const exportMarkdown = new MarkdownExporter();
+const exportMarkdown = new TextExporter();
 
-const exportMarkdownWithSign = new MarkdownExporter([
+// todo: change getText() to getMarkdown()
+const exportMarkdownWithSign = new TextExporter([
   createRatioValue({ getText: getSignAssessmentText }),
   createDeltaValue({ getText: getSignAssessmentText }),
 ]);
