@@ -26,7 +26,8 @@ import booking from './mock/booking.json';
 const exporter = new TextExporter();
 
 function getSignAssessmentText(value, metadata) {
-  return `${metadata?.assessment === 'negative' ? '-' : metadata?.assessment === 'positive'? '+': ''}${value}`;
+  if (metadata?.assessment === 'negative') return `-${value}`
+  return `${metadata?.assessment === 'positive'? '+': ''}${value}`;
 }
 
 const exportWithSign = new TextExporter([
@@ -73,7 +74,8 @@ import { NarrativeTextVis, TextExporter, createRatioValue, createDeltaValue } fr
 import sample from './mock/markdownSample.json';
 
 function getSignAssessmentText(value, metadata) {
-  return `${metadata?.assessment === 'negative' ? '-' : metadata?.assessment === 'positive'? '+': ''}${value}`;
+  if (metadata?.assessment === 'negative') return `-${value}`
+  return `${metadata?.assessment === 'positive'? '+': ''}${value}`;
 }
 
 const exportMarkdown = new TextExporter();
