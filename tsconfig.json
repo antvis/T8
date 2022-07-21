@@ -10,7 +10,8 @@
     "pretty": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "declaration": true
+    "declaration": true,
+    "inlineSourceMap": true
   },
   "exclude": ["node_modules", "**/es", "**/lib", "**/dist", "**/build"]
 }
