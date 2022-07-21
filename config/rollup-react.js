@@ -26,7 +26,7 @@ export default (name, config = {}) => {
     name,
     format,
     preserveModules: format === 'es',
-    sourcemap: 'inline',
+    sourcemap: true,
     preserveModulesRoot: 'src',
   };
 

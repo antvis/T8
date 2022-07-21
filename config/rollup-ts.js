@@ -5,6 +5,7 @@ import { terser } from 'rollup-plugin-terser';
 
 export default (name, { plugins = [], ...others } = {}) => ({
   input: './src/index.ts',
+  sourcemap: true,
   output: {
     file: `./dist/${name}.min.js`,
     format: 'umd',
