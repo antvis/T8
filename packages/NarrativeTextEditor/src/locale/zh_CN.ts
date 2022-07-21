@@ -1,0 +1,21 @@
+/** 组件库所有国际化中文资源 */
+export default {
+  h1: '一级标题',
+  h2: '二级标题',
+  h3: '三级标题',
+  h4: '四级标题',
+  alignLeft: '左对齐',
+  alignCenter: '居中对齐',
+  alignRight: '右对齐',
+  alignColumnWidth: '两端对齐',
+  textParagraph: 'p标签',  
+  italic: '斜体',
+  bold: '粗体',
+  underline: '下划线',
+  insertLink: '插入链接',
+  unorderedList: '无序列表',
+  orderedList: '有序列表',
+  textColor: '字体颜色',
+  highlightColor: '背景颜色',
+  placeholder: '请输入...',
+};

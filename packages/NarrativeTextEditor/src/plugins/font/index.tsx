@@ -16,8 +16,10 @@ import {
 } from '@udecode/plate-font';
 import { FontColorsOutlined, BgColorsOutlined } from '@ant-design/icons';
 import { ColorPickerToolbarDropdown } from '@udecode/plate-ui-font';
+import { useLocale } from '../../components/ConfigProvider/hooks';
 
 export const fontPlugins = [createFontColorPlugin(), createFontBackgroundColorPlugin(), createFontSizePlugin()];
+const locale = useLocale();
 
 export const FontToolbarButtons = () => (
   <>
@@ -25,13 +27,13 @@ export const FontToolbarButtons = () => (
       pluginKey={MARK_COLOR}
       icon={<FontColorsOutlined />}
       selectedIcon={null}
-      tooltip={{ content: 'Text color' }}
+      tooltip={{ content: locale['textColor'] }}
     />
     <ColorPickerToolbarDropdown
       pluginKey={MARK_BG_COLOR}
       icon={<BgColorsOutlined />}
       selectedIcon={null}
-      tooltip={{ content: 'Highlight color' }}
+      tooltip={{ content: locale['highlightColor'] }}
     />
   </>
 );

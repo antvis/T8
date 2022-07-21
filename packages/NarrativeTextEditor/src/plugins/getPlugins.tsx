@@ -20,11 +20,12 @@ import { singleLinePlugin } from './singleLine';
 import { softBreakPlugin, exitBreakPlugin } from './utils';
 
 import { createCustomUI } from './createCustomUI';
+import intl from '../locale';
 
 const DEFAULT_PLACEHOLDERS: NarrativeTextEditorProps['placeholders'] = [
   {
     key: 'p',
-    placeholder: '请输入...',
+    placeholder: intl.get('placeholder'),
     hideOnBlur: true,
   },
 ];

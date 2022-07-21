@@ -1,0 +1,21 @@
+/** 组件库所有国际化英文资源 */
+export default {
+  h1: 'Heading level 1',
+  h2: 'Heading level 2',
+  h3: 'Heading level 3',
+  h4: 'Heading level 4',
+  alignLeft: 'Left alignment',
+  alignCenter: ' Center alignment中对齐',
+  alignRight: 'Right alignment',
+  alignColumnWidth: 'Column width alignment',
+  textParagraph: 'Text',
+  italic: 'Italic',
+  bold: 'Bold',
+  underline: 'Underline',
+  insertLink: 'Insert link',
+  unorderedList: 'Unordered list',
+  orderedList: 'Ordered list',
+  textColor: 'Text color',
+  highlightColor: 'Highlight color',
+  placeholder: 'Please input ...',
+};

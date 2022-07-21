@@ -71,7 +71,7 @@ export default () => {
 
 ### 自定义扩展
 
-通过扩展自定义快级元素和自定义行内元素，会生成不可编辑的元素，可获取 element data 及 onChange 改变事件，元素内状态自理，数据将通过 onChange 记录到 editor data 中。
+通过扩展自定义块级元素和自定义行内元素，会生成不可编辑的元素，可获取 element data 及 onChange 改变事件，元素内状态自理，数据将通过 onChange 记录到 editor data 中。
 
 ```jsx
 import React, { useState } from 'react';
@@ -107,7 +107,7 @@ const CustomVariable = ({ selected, focused, element, onChange }) => {
   )
 }
 
-// 自定义快级元素
+// 自定义块级元素
 const ELEMENT_CHART = 'chart';
 const CustomChart = ({ selected, focused, element, onChange }) => {
   const [value, setValue] = useState(element?.data);

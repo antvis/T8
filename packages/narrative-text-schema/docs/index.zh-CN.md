@@ -76,7 +76,7 @@ type NarrativeTextSpec = CommonProps & {
   sections?: SectionSpec[];
 };
 
-// 默认自定义快级元素结构
+// 默认自定义块级元素结构
 interface DefaultBlockStructure extends ExcludeKeys {
   customType: string;
   [key: string]: unknown;

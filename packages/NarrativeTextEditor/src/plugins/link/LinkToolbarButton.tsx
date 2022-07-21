@@ -19,6 +19,7 @@ import {
 import { createLinkPlugin, ELEMENT_LINK, TLinkElement, wrapLink } from '@udecode/plate-link';
 import { LinkToolbarButton as PlateLinkToolbarButton } from '@udecode/plate-ui-link';
 import { LinkElement } from './LinkElement';
+import { useLocale } from '../../components/ConfigProvider/hooks';
 
 export const linkPlugin = createLinkPlugin({
   component: LinkElement,
@@ -35,6 +36,7 @@ function insertEmptyLink(editor: PlateEditor<Value>) {
 export const LinkToolbarButton = withPlateEventProvider(() => {
   const editor = usePlateEditorState();
   const type = getPluginType(editor, ELEMENT_LINK);
+  const locale = useLocale();
 
   const handleInsertLink = (event) => {
     if (!editor) return;
@@ -71,5 +73,5 @@ export const LinkToolbarButton = withPlateEventProvider(() => {
       insertEmptyLink(editor);
     }
   };
-  return <PlateLinkToolbarButton icon={<LinkOutlined />} onMouseDown={handleInsertLink} />;
+  return <PlateLinkToolbarButton icon={<LinkOutlined />} onMouseDown={handleInsertLink} tooltip={{ content: locale['insertLink'] }}/>;
 });

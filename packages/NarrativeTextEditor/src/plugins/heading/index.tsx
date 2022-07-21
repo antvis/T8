@@ -20,17 +20,19 @@ import { H3 } from '@styled-icons/remix-editor/H3';
 import { H4 } from '@styled-icons/remix-editor/H4';
 
 import { getStyledToolbarIcon } from '../core';
+import { useLocale } from '../../components/ConfigProvider/hooks';
 
 export const headingPlugin = createHeadingPlugin();
 
 export const HeadingToolbarButtons = () => {
   const editor = usePlateEditorRef();
+  const locale = useLocale();
   return (
     <>
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H1)} icon={<H1 />} styles={getStyledToolbarIcon()} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H2)} icon={<H2 />} styles={getStyledToolbarIcon()} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H3)} icon={<H3 />} styles={getStyledToolbarIcon()} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H4)} icon={<H4 />} styles={getStyledToolbarIcon()} />
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H1)} icon={<H1 />} styles={getStyledToolbarIcon()} tooltip={{ content: locale['h1'] }}/>
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H2)} icon={<H2 />} styles={getStyledToolbarIcon()} tooltip={{ content: locale['h2'] }}/>
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H3)} icon={<H3 />} styles={getStyledToolbarIcon()} tooltip={{ content: locale['h3'] }}/>
+      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H4)} icon={<H4 />} styles={getStyledToolbarIcon()} tooltip={{ content: locale['h4'] }}/>
     </>
   );
 };
