@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 
-import enUS from '../../locale/en_US';
+import zhCN from '../../locale/zh_CN';
 
 import type { ConfigLocaleProps } from './types';
 
 export const DEFAULT_CONTEXT = {
-  // Default Language: English
-  locale: enUS,
+  // Default Language: Chinese
+  locale: zhCN,
 };
 
 export const ConfigContext = createContext<ConfigLocaleProps>(DEFAULT_CONTEXT);

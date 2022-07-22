@@ -36,7 +36,6 @@ module.exports = {
     'lines-between-class-members': 'off',
     'no-nested-ternary': 'off',
     'arrow-body-style': 'off',
-    "react-hooks/rules-of-hooks": "error",
     'no-restricted-syntax': [
       'error',
       {

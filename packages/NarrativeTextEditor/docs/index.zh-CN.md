@@ -310,9 +310,9 @@ export default () => {
 
 ```jsx
 import React from 'react';
-import { NarrativeTextEditor, ConfigProvider, enTest } from '@antv/narrative-text-editor';
+import { NarrativeTextEditor, ConfigProvider, enUS } from '@antv/narrative-text-editor';
 export default () => (
-  <ConfigProvider locale={enTest}>
+  <ConfigProvider locale={enUS}>
     <NarrativeTextEditor
       id="switchTozhCN"
       initialValue={[
