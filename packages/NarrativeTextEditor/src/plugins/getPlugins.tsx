@@ -21,18 +21,23 @@ import { softBreakPlugin, exitBreakPlugin } from './utils';
 
 import { createCustomUI } from './createCustomUI';
 
-const DEFAULT_PLACEHOLDERS: NarrativeTextEditorProps['placeholders'] = [
-  {
-    key: 'p',
-    placeholder: '请输入...',
-    hideOnBlur: true,
-  },
-];
+const getDefaultPlaceholders = (locale: Record<string, string>): NarrativeTextEditorProps['placeholders'] => {
+  return (
+    [
+      {
+        key: 'p',
+        placeholder: locale['placeholder'],
+        hideOnBlur: true,
+      },
+    ]
+  )
+};
 
 const getPlugins = (
-  props: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'platePlugins' | 'placeholders' | 'singleLine'>,
+  props: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'platePlugins' | 'placeholders' | 'singleLine' | 'locale'>,
 ) => {
-  const { plugins: extraPlugins, draggable, singleLine, platePlugins } = props;
+  const { plugins: extraPlugins, draggable, singleLine, platePlugins, locale } = props;
+  const DEFAULT_PLACEHOLDERS = getDefaultPlaceholders(locale);
   let { placeholders = DEFAULT_PLACEHOLDERS } = props;
   const extraDraggableKeys = extraPlugins.filter(({ isInline }) => !isInline).map(({ key }) => key);
 

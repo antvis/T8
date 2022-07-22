@@ -8,16 +8,19 @@ import { createParagraphPlugin, ELEMENT_PARAGRAPH } from '@udecode/plate-paragra
 import { BlockToolbarButton } from '@udecode/plate-ui-toolbar';
 import { TextParagraph } from '@styled-icons/bootstrap/TextParagraph';
 import { getStyledToolbarIcon } from '../core';
+import { useLocale } from '../../components/ConfigProvider/hooks';
 
 export const paragraphPlugin = createParagraphPlugin();
 
 export const ParagraphToolbarButton = () => {
   const editor = usePlateEditorRef();
+  const locale = useLocale();
   return (
     <BlockToolbarButton
       type={getPluginType(editor, ELEMENT_PARAGRAPH)}
       icon={<TextParagraph />}
       styles={getStyledToolbarIcon()}
+      tooltip={{ content: locale['textParagraph'] }}
     />
   );
 };

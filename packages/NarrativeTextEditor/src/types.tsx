@@ -58,6 +58,9 @@ export type NarrativeTextEditorProps = PropsWithChildren<{
 
   /** single line */
   singleLine?: boolean;
+
+  /** locale */
+  locale?: Record<string, string>;
 }>;
 
 export interface NarrativeTextEditorRef {
