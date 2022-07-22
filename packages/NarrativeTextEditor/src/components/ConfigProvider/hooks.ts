@@ -1,11 +1,11 @@
-/** 提供函数组件获取全局配置的 hook */
+/** Provide hooks for function components to get global configuration */
 
 import { useContext } from 'react';
 
 import { ConfigContext } from './context';
 
 /**
- * 从上下文中获取国际化信息
+ * Get language information from context
  * */
 export const useLocale = () => {
   const { locale } = useContext(ConfigContext);

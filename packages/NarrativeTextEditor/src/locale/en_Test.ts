@@ -17,5 +17,5 @@ export default {
   orderedList: 'Ordered list',
   textColor: 'Text color',
   highlightColor: 'Highlight color',
-  placeholder: 'Please input ...',
+  placeholder: '***',
 };

@@ -303,4 +303,33 @@ export default () => {
 };
 ```
 
+
+### 国际化
+
+默认英文， 切换成自定义语言
+
+```jsx
+import React from 'react';
+import { NarrativeTextEditor, ConfigProvider, enTest } from '@antv/narrative-text-editor';
+export default () => (
+  <ConfigProvider locale={enTest}>
+    <NarrativeTextEditor
+      id="switchTozhCN"
+      initialValue={[
+        { 
+          type: 'p', 
+          children: [
+            { text: 'init ' },
+            { type: 'a', url: 'https://antv.vision/', children: [{ text: 'AntV' }] },
+            { text: '' },
+          ],
+          id: 'zhcn'
+        }
+      ]}
+    />
+  </ConfigProvider>
+);
+```
+
+
 <API src="../src/editor.tsx" />

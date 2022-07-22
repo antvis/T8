@@ -1,7 +1,8 @@
-# 国际化
+# Switch between English and Chinese
 
-## 如何使用
+## How to use
 
-- Step1：添加语言资料：进入 `src/locale` 下同时添加中英文，推荐使用 `${scope}.key` 的方式添加；
-- Step2：获取语言资料：
-  - 在函数组件中推荐使用 `useLocale` 获取语言资料，详情见 `components/ConfigProvider/hook` 下的类型定义；
+- Step1: Add language information
+  - Add language information to folders `src/locale` using the `${scope}.key` format.
+- Step2：Use language information
+  - It is recommended to use `useLocale` in function components to get the language information, see the corresponding definition under `components/ConfigProvider/hook` for details.

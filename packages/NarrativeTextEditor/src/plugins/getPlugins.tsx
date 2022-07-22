@@ -20,21 +20,21 @@ import { singleLinePlugin } from './singleLine';
 import { softBreakPlugin, exitBreakPlugin } from './utils';
 
 import { createCustomUI } from './createCustomUI';
-import intl from '../locale';
 
 const DEFAULT_PLACEHOLDERS: NarrativeTextEditorProps['placeholders'] = [
   {
     key: 'p',
-    placeholder: intl.get('placeholder'),
+    placeholder: 'Please input ...',
     hideOnBlur: true,
   },
 ];
 
 const getPlugins = (
-  props: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'platePlugins' | 'placeholders' | 'singleLine'>,
+  props: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'platePlugins' | 'placeholders' | 'singleLine' | 'locale'>,
 ) => {
-  const { plugins: extraPlugins, draggable, singleLine, platePlugins } = props;
-  let { placeholders = DEFAULT_PLACEHOLDERS } = props;
+  const { plugins: extraPlugins, draggable, singleLine, platePlugins, locale } = props;
+  const UPDATE_DEFAULT_PLACEHOLDERS = [{...DEFAULT_PLACEHOLDERS[0], placeholder: locale['placeholder']}];
+  let { placeholders = UPDATE_DEFAULT_PLACEHOLDERS } = props;
   const extraDraggableKeys = extraPlugins.filter(({ isInline }) => !isInline).map(({ key }) => key);
 
   let plugins = [

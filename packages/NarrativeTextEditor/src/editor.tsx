@@ -19,6 +19,7 @@ import HeadingToolbar from './toolbar/HeadingToolbar';
 import HoveringToolbar from './toolbar/HoveringToolbar';
 import { ErrorFallback } from './ErrorFallback';
 import { NarrativeTextEditorProps, NarrativeTextEditorRef } from './types';
+import { useLocale } from './components/ConfigProvider/hooks';
 
 import 'tippy.js/dist/tippy.css';
 
@@ -42,7 +43,7 @@ const NarrativeTextEditor: ForwardRefRenderFunction<NarrativeTextEditorRef, Narr
 ) => {
   const [editor, setEditor] = useState<PlateEditor>();
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-
+  const locale = useLocale();
   const setValue = (newValue: TDescendant[]) => {
     if (editor) {
       // 重置前先把选区移到编辑器开头，避免重置之后选区失效报错
@@ -87,7 +88,7 @@ const NarrativeTextEditor: ForwardRefRenderFunction<NarrativeTextEditorRef, Narr
               ...style,
             },
           }}
-          plugins={getPlugins({ plugins, platePlugins, draggable, placeholders, singleLine })}
+          plugins={getPlugins({ plugins, platePlugins, draggable, placeholders, singleLine, locale })}
         >
           <EditorInsGetter getEditor={setEditor} />
           {!readOnly && showHoveringToolbar && <HoveringToolbar />}

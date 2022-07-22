@@ -1,4 +1,4 @@
 export type ConfigLocaleProps = {
-  /** 国际化资源文件，key-value 形式 */
+  /** format of resource file: key-value */
   locale: Record<string, string>;
 }

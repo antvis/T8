@@ -1,4 +1,4 @@
-/** 组件库所有国际化中文资源 */
+/** Switch to Chinese */
 export default {
   h1: '一级标题',
   h2: '二级标题',
