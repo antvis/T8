@@ -5,10 +5,10 @@ import React from 'react';
 import { usePlateEditorRef, getPluginType, withProps } from '@udecode/plate-core';
 import { StyledElement } from '@udecode/plate-styled-components';
 import { createParagraphPlugin, ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
-import { BlockToolbarButton } from '@udecode/plate-ui-toolbar';
 import { TextParagraph } from '@styled-icons/bootstrap/TextParagraph';
 import { getStyledToolbarIcon } from '../core';
 import { useLocale } from '../../components/ConfigProvider/hooks';
+import { BlockToolbarButton } from '../../components/BlockToolbarButton';
 
 export const paragraphPlugin = createParagraphPlugin();
 
@@ -20,7 +20,7 @@ export const ParagraphToolbarButton = () => {
       type={getPluginType(editor, ELEMENT_PARAGRAPH)}
       icon={<TextParagraph />}
       styles={getStyledToolbarIcon()}
-      tooltip={{ content: locale['textParagraph'] }}
+      tooltip={{ content: locale.textParagraph }}
     />
   );
 };

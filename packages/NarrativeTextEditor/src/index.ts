@@ -17,4 +17,5 @@ export type { CustomElementComponent } from './plugins/custom';
 // 也许它们创建了不同的上下文🤔，先从 T8 里面 export 出去满足业务更灵活的使用编辑器 api
 export { useEditorRef } from '@udecode/plate-core';
 export * from './locale';
-export { default as ConfigProvider } from './components/ConfigProvider'
+export { default as ConfigProvider } from './components/ConfigProvider';
+export { BLOCK_KEYS } from './constants';
