@@ -5,9 +5,9 @@ import React from 'react';
 import { usePlateEditorRef, getPluginType, withProps } from '@udecode/plate-core';
 import { StyledElement } from '@udecode/plate-styled-components';
 import { createListPlugin, ELEMENT_UL, ELEMENT_OL, ELEMENT_LI } from '@udecode/plate-list';
-import { ListToolbarButton } from '@udecode/plate-ui-list';
 import { OrderedListOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { useLocale } from '../../components/ConfigProvider/hooks';
+import { ListToolbarButton } from '../../components/ListToolbarButton';
 
 export const listPlugin = createListPlugin();
 
@@ -16,8 +16,16 @@ export const ListToolbarButtons = () => {
   const locale = useLocale();
   return (
     <>
-      <ListToolbarButton type={getPluginType(editor, ELEMENT_UL)} icon={<UnorderedListOutlined />} tooltip={{ content: locale['unorderedList'] }}/>
-      <ListToolbarButton type={getPluginType(editor, ELEMENT_OL)} icon={<OrderedListOutlined />} tooltip={{ content: locale['orderedList'] }}/>
+      <ListToolbarButton
+        type={getPluginType(editor, ELEMENT_UL)}
+        icon={<UnorderedListOutlined />}
+        tooltip={{ content: locale.unorderedList }}
+      />
+      <ListToolbarButton
+        type={getPluginType(editor, ELEMENT_OL)}
+        icon={<OrderedListOutlined />}
+        tooltip={{ content: locale.orderedList }}
+      />
     </>
   );
 };

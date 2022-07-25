@@ -1,18 +1,11 @@
 import { CSSProperties, PropsWithChildren } from 'react';
 import { PlateStoreState, Value, TDescendant, PlatePlugin } from '@udecode/plate-core';
-
-import { KEYS_HEADING } from '@udecode/plate-heading';
-import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
-import { ELEMENT_UL, ELEMENT_OL } from '@udecode/plate-list';
 import { PlaceholderProps } from '@udecode/plate-ui-placeholder';
 
 import { CustomPlugin } from './plugins/custom';
 import { HeadingToolbarProps } from './toolbar/HeadingToolbar';
 import { VariableNodeData } from './plugins/variable';
-
-export const BLOCK_KEYS = [...KEYS_HEADING, ELEMENT_PARAGRAPH, ELEMENT_UL, ELEMENT_OL] as const;
-
-export type BlockKey = typeof BLOCK_KEYS[number];
+import { BlockKey } from './constants';
 
 export type VariableMap = Record<string, VariableNodeData>;
 

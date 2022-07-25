@@ -22,19 +22,20 @@ import { softBreakPlugin, exitBreakPlugin } from './utils';
 import { createCustomUI } from './createCustomUI';
 
 const getDefaultPlaceholders = (locale: Record<string, string>): NarrativeTextEditorProps['placeholders'] => {
-  return (
-    [
-      {
-        key: 'p',
-        placeholder: locale['placeholder'],
-        hideOnBlur: true,
-      },
-    ]
-  )
+  return [
+    {
+      key: 'p',
+      placeholder: locale.placeholder,
+      hideOnBlur: true,
+    },
+  ];
 };
 
 const getPlugins = (
-  props: Pick<NarrativeTextEditorProps, 'draggable' | 'plugins' | 'platePlugins' | 'placeholders' | 'singleLine' | 'locale'>,
+  props: Pick<
+    NarrativeTextEditorProps,
+    'draggable' | 'plugins' | 'platePlugins' | 'placeholders' | 'singleLine' | 'locale'
+  >,
 ) => {
   const { plugins: extraPlugins, draggable, singleLine, platePlugins, locale } = props;
   const DEFAULT_PLACEHOLDERS = getDefaultPlaceholders(locale);

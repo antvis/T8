@@ -8,7 +8,7 @@ export default {
   alignCenter: '居中对齐',
   alignRight: '右对齐',
   alignColumnWidth: '两端对齐',
-  textParagraph: 'p标签',  
+  textParagraph: '正文',
   italic: '斜体',
   bold: '粗体',
   underline: '下划线',
