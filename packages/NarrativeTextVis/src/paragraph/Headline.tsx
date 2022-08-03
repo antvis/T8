@@ -3,17 +3,34 @@ import { HeadlineSpec } from '@antv/narrative-text-schema';
 import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../utils';
-import { ExtensionProps } from '../interface';
+import { ExtensionProps, ParagraphEvents } from '../interface';
 import { presetPluginManager } from '../chore/plugin';
 
-type HeadlineProps = ExtensionProps & {
-  spec: HeadlineSpec;
-};
+type HeadlineProps = ExtensionProps &
+  ParagraphEvents & {
+    spec: HeadlineSpec;
+  };
 
-export function Headline({ spec, pluginManager = presetPluginManager }: HeadlineProps) {
+export function Headline({ spec, pluginManager = presetPluginManager, ...events }: HeadlineProps) {
+  const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
+  const onClick = () => {
+    onClickParagraph?.(spec);
+  };
+  const onMouseEnter = () => {
+    onMouseEnterParagraph?.(spec);
+  };
+  const onMouseLeave = () => {
+    onMouseLeaveParagraph?.(spec);
+  };
   return (
-    <StyledHeadline className={cx(getPrefixCls('headline'), spec.className)} style={spec.styles}>
-      <Phrases spec={spec.phrases} pluginManager={pluginManager} />
+    <StyledHeadline
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={cx(getPrefixCls('headline'), spec.className)}
+      style={spec.styles}
+    >
+      <Phrases spec={spec.phrases} pluginManager={pluginManager} {...phraseEvents} />
     </StyledHeadline>
   );
 }

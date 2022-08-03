@@ -10,10 +10,11 @@ import {
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { ThemeProps, ExtensionProps } from '../interface';
+import { ThemeProps, ExtensionProps, ParagraphEvents } from '../interface';
 
 type ParagraphProps = ThemeProps &
-  ExtensionProps & {
+  ExtensionProps &
+  ParagraphEvents & {
     /**
      * @description specification of paragraph text spec
      * @description.zh-CN 段落描述 json 信息
@@ -21,21 +22,36 @@ type ParagraphProps = ThemeProps &
     spec: ParagraphSpec;
   };
 
-export function Paragraph({ spec, pluginManager, size = 'normal' }: ParagraphProps) {
+export function Paragraph({ spec, pluginManager, size = 'normal', ...events }: ParagraphProps) {
+  const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
+  const onClick = () => {
+    onClickParagraph?.(spec);
+  };
+  const onMouseEnter = () => {
+    onMouseEnterParagraph?.(spec);
+  };
+  const onMouseLeave = () => {
+    onMouseLeaveParagraph?.(spec);
+  };
+  let content = null;
   if (isCustomParagraph(spec)) {
     const descriptor = pluginManager.getBlockDescriptor(spec.customType);
-    if (descriptor && descriptor?.render) return <>{descriptor.render(spec)}</>;
+    if (descriptor && descriptor?.render) content = descriptor.render(spec);
   }
   if (isHeadingParagraph(spec)) {
-    return <Heading spec={spec} pluginManager={pluginManager} />;
+    content = <Heading spec={spec} pluginManager={pluginManager} {...phraseEvents} />;
   }
   if (isTextParagraph(spec)) {
-    return <TextLine spec={spec} size={size} pluginManager={pluginManager} />;
+    content = <TextLine spec={spec} size={size} pluginManager={pluginManager} {...phraseEvents} />;
   }
   if (isBulletParagraph(spec)) {
-    return <Bullets spec={spec} size={size} pluginManager={pluginManager} />;
+    content = <Bullets spec={spec} size={size} pluginManager={pluginManager} {...events} />;
   }
-  return null;
+  return content ? (
+    <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      {content}
+    </div>
+  ) : null;
 }
 
 export { Headline } from './Headline';
