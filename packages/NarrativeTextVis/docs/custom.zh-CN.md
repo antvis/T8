@@ -240,7 +240,10 @@ const textSpec = {
                 { type: "text", value: "从" },
                 { 
                   type: "entity", 
-                  value: "公司数" 
+                  value: "公司数",
+                  metadata: {
+                    entityType: "metric_name",
+                  }
                 },
                 { type: "text", value: "上看，" },
                 { 

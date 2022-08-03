@@ -3,13 +3,14 @@ import { SectionSpec, isCustomSection, isStandardSection } from '@antv/narrative
 import { v4 } from 'uuid';
 import { isFunction } from 'lodash';
 import { getPrefixCls, classnames as cx } from '../utils';
-import { ThemeProps, ExtensionProps } from '../interface';
+import { ThemeProps, ExtensionProps, SectionEvents } from '../interface';
 import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
 import { presetPluginManager } from '../chore/plugin';
 
 type SectionProps = ThemeProps &
-  ExtensionProps & {
+  ExtensionProps &
+  SectionEvents & {
     /**
      * @description specification of section text spec
      * @description.zh-CN Section 描述 json 信息
@@ -17,7 +18,17 @@ type SectionProps = ThemeProps &
     spec: SectionSpec;
   };
 
-export function Section({ spec, size = 'normal', pluginManager = presetPluginManager }: SectionProps) {
+export function Section({ spec, size = 'normal', pluginManager = presetPluginManager, ...events }: SectionProps) {
+  const { onClickSection, onMouseEnterSection, onMouseLeaveSection, ...paragraphEvents } = events || {};
+  const onClick = () => {
+    onClickSection?.(spec);
+  };
+  const onMouseEnter = () => {
+    onMouseEnterSection?.(spec);
+  };
+  const onMouseLeave = () => {
+    onMouseLeaveSection?.(spec);
+  };
   const renderCustomSection = () => {
     if (isCustomSection(spec)) {
       const descriptor = pluginManager.getBlockDescriptor(spec.customType);
@@ -28,10 +39,20 @@ export function Section({ spec, size = 'normal', pluginManager = presetPluginMan
     return null;
   };
   return (
-    <Container size={size} as="section" className={cx(getPrefixCls('section'), spec.className)} style={spec.styles}>
+    <Container
+      size={size}
+      as="section"
+      className={cx(getPrefixCls('section'), spec.className)}
+      style={spec.styles}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {renderCustomSection()}
       {isStandardSection(spec) &&
-        spec.paragraphs.map((p) => <Paragraph key={v4()} spec={p} size={size} pluginManager={pluginManager} />)}
+        spec.paragraphs.map((p) => (
+          <Paragraph key={v4()} spec={p} size={size} pluginManager={pluginManager} {...paragraphEvents} />
+        ))}
     </Container>
   );
 }
