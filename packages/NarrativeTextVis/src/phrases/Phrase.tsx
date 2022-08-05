@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
   PhraseSpec,
   EntityPhraseSpec,
@@ -6,7 +6,7 @@ import {
   isTextPhrase,
   isEntityPhrase,
 } from '@antv/narrative-text-schema';
-import { isFunction, kebabCase } from 'lodash';
+import { isFunction, kebabCase, isEmpty } from 'lodash';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize } from '../utils';
 import { ThemeProps, ExtensionProps, PhraseEvents } from '../interface';
@@ -40,7 +40,7 @@ function renderPhraseByDescriptor(
     events?.onMouseLeavePhrase?.(spec);
   };
 
-  const defaultNode = (
+  let defaultNode: ReactNode = (
     <Entity
       {...theme}
       style={{
@@ -52,19 +52,29 @@ function renderPhraseByDescriptor(
         isEntityPhrase(spec) ? getPrefixCls(kebabCase(spec.metadata.entityType)) : '',
         ...functionalize(classNames, [])(spec?.value, metadata as any),
       )}
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       {content(value, metadata)}
     </Entity>
   );
-  if (isFunction(overwrite)) return overwrite(defaultNode, value, metadata);
-  return defaultNode;
+  if (isFunction(overwrite)) {
+    defaultNode = overwrite(defaultNode, value, metadata);
+  }
+  return !isEmpty(events) || isFunction(onClick) || isFunction(onHover) ? (
+    <span onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      {defaultNode}
+    </span>
+  ) : (
+    defaultNode
+  );
 }
 
 /** <Phrase /> can use independence */
-export function Phrase({ spec: phrase, size = 'normal', pluginManager = presetPluginManager, ...events }: PhraseProps) {
+export const Phrase: React.FC<PhraseProps> = ({
+  spec: phrase,
+  size = 'normal',
+  pluginManager = presetPluginManager,
+  ...events
+}) => {
   const onClick = () => {
     events?.onClickPhrase?.(phrase);
   };
@@ -74,12 +84,12 @@ export function Phrase({ spec: phrase, size = 'normal', pluginManager = presetPl
   const onMouseLeave = () => {
     events?.onMouseLeavePhrase?.(phrase);
   };
-  let defaultText = events ? (
+  let defaultText = !isEmpty(events) ? (
     <span onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {phrase.value}
     </span>
   ) : (
-    phrase.value
+    <>{phrase.value}</>
   );
   if (isTextPhrase(phrase)) {
     if (phrase.bold) defaultText = <Bold>{defaultText}</Bold>;
@@ -93,7 +103,11 @@ export function Phrase({ spec: phrase, size = 'normal', pluginManager = presetPl
       );
     return defaultText;
   }
+
   const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
-  if (descriptor) return <>{renderPhraseByDescriptor(phrase, descriptor, { size }, events)}</>;
+  if (descriptor) {
+    return <>{renderPhraseByDescriptor(phrase, descriptor, { size }, events)}</>;
+  }
+
   return defaultText;
-}
+};
