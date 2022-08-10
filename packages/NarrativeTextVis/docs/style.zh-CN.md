@@ -8,7 +8,7 @@ group:
 nav:
   title: 解读文本可视化
   path: /narrative
-  order: 1
+  order: 2
 ---
 
 ## NarrativeTextVis
@@ -81,7 +81,7 @@ import { NarrativeTextVisProps, Phrase } from '@antv/narrative-text-vis';
 export default () => (
   <div style={{ marginBottom: 48 }}>
     <Descriptions title="Data marking specification" bordered size="small">
-      <Descriptions.Item label="Metric Name">
+      <Descriptions.Item label="指标名 metric_name">
         <Phrase
           spec={{
             type: 'entity',
@@ -92,7 +92,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Metric Value">
+      <Descriptions.Item label="指标值 metric_value">
         <Phrase
           spec={{
             type: 'entity',
@@ -103,7 +103,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Other Metric Value">
+      <Descriptions.Item label="其他指标 other_metric_value">
         <Phrase
           spec={{
             type: 'entity',
@@ -114,7 +114,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Delta Value">
+      <Descriptions.Item label="差值 delta_value">
         <Phrase
           spec={{
             type: 'entity',
@@ -127,7 +127,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Ratio Value">
+      <Descriptions.Item label="比率 ratio_value">
         <Phrase
           spec={{
             type: 'entity',
@@ -139,7 +139,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Contribution">
+      <Descriptions.Item label="贡献度 contribute_ratio">
         <Phrase
           spec={{
             type: 'entity',
@@ -150,7 +150,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Trend Description">
+      <Descriptions.Item label="趋势描述 trend_desc">
         <Phrase
           spec={{
             type: 'entity',
@@ -165,7 +165,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Drill Down Dimension">
+      <Descriptions.Item label="维度值 dim_value">
         <Phrase
           spec={{
             type: 'entity',
@@ -181,7 +181,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Time Description">
+      <Descriptions.Item label="时间描述 time_desc">
         <Phrase
           spec={{
             type: 'entity',
@@ -192,7 +192,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="Proportion">
+      <Descriptions.Item label="占比 proportion">
         <Phrase
           spec={{
             type: 'entity',

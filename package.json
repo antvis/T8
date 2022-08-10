@@ -88,6 +88,7 @@
     "prettier": "^2.3.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-json-view": "^1.21.3",
     "rimraf": "^3.0.2",
     "rollup": "^2.55.1",
     "rollup-plugin-filesize": "^9.1.1",

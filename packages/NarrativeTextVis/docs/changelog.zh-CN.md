@@ -8,7 +8,7 @@ group:
 nav:
   title: 解读文本可视化
   path: /narrative
-  order: 1
+  order: 2
 ---
 
 感谢您的使用，目前 `@antv/narrative-text-vis` 仍在 0.x 阶段，minor 版本稳定。ChangeLog 主要描述 minor 版本升级方式，暂不记录 patch 版本变更内容。

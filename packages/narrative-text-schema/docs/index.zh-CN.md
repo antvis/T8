@@ -8,7 +8,7 @@ group:
 nav:
   title: 解读文本 schema
   path: /schema
-  order: 0
+  order: 1
 ---
 
 ## 是什么

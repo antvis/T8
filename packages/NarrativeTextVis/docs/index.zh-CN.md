@@ -8,7 +8,7 @@ group:
 nav:
   title: 解读文本可视化
   path: /narrative
-  order: 1
+  order: 2
 ---
 
 `@antv/narrative-text-vis` 是一套消费 [text-schema](../../schema/intro) 实现的数据解读文本渲染的 React 组件库。引入方式如下：
