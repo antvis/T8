@@ -8,7 +8,7 @@ group:
 nav:
   title: 解读编辑器
   path: /editor
-  order: 2
+  order: 3
 ---
 
 # Template Editor

@@ -8,7 +8,7 @@ group:
 nav:
   title: 解读文本可视化
   path: /narrative
-  order: 1
+  order: 2
 ---
 
 ## 通过 Size 定义主题大小
