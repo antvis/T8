@@ -7,9 +7,7 @@ export const Entity = styled.span<ThemeProps>`
   display: inline-block;
   align-items: center;
   box-sizing: border-box;
-  font-size: ${({ size = 'normal' }) => {
-    return size === 'small' ? SMALL_FONT_SIZE : DEFAULT_FONT_SIZE;
-  }};
+  font-size: ${({ size = 'normal' }) => (size === 'small' ? SMALL_FONT_SIZE : DEFAULT_FONT_SIZE)};
   font-family: Roboto-Medium, sans-serif;
   line-height: 1.5em;
   border-radius: 2px;

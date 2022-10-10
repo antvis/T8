@@ -1,32 +1,28 @@
-import { CSSProperties } from 'react';
-import { CustomMetaData } from './common';
+import { CustomMetaData, CommonProps } from './common';
 
 // P used for custom phrase;
 export type PhraseSpec = TextPhraseSpec | EntityPhraseSpec | CustomPhraseSpec<CustomMetaData>;
 
-export interface TextPhraseSpec {
+export type TextPhraseSpec = CommonProps & {
   type: 'text';
   value: string;
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;
   url?: string;
-  styles?: CSSProperties;
-}
+};
 
-export interface EntityPhraseSpec {
+export type EntityPhraseSpec = CommonProps & {
   type: 'entity';
   value?: string;
   metadata?: EntityMetaData;
-  styles?: CSSProperties;
-}
+};
 
-export interface CustomPhraseSpec<P extends CustomMetaData = CustomMetaData> {
+export type CustomPhraseSpec<P extends CustomMetaData = CustomMetaData> = CommonProps & {
   type: 'custom';
   value?: string;
   metadata?: P;
-  styles?: CSSProperties;
-}
+};
 
 export type ValueAssessment = 'positive' | 'negative' | 'equal';
 

@@ -19,7 +19,7 @@ export function Phrases({ spec, size = 'normal', pluginManager = presetPluginMan
     <>
       {spec?.map((phrase, index) => {
         const key = `${index}-${phrase.value}`;
-        return <Phrase key={key} size={size} spec={phrase} pluginManager={pluginManager} {...events} />;
+        return <Phrase key={phrase.key || key} size={size} spec={phrase} pluginManager={pluginManager} {...events} />;
       })}
     </>
   );

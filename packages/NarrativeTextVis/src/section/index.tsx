@@ -51,7 +51,7 @@ export function Section({ spec, size = 'normal', pluginManager = presetPluginMan
       {renderCustomSection()}
       {isStandardSection(spec) &&
         spec.paragraphs.map((p) => (
-          <Paragraph key={v4()} spec={p} size={size} pluginManager={pluginManager} {...paragraphEvents} />
+          <Paragraph key={p.key || v4()} spec={p} size={size} pluginManager={pluginManager} {...paragraphEvents} />
         ))}
     </Container>
   );
