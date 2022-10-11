@@ -135,7 +135,7 @@ export default () => {
 
 ```ts | pure
 // MetaData 传入自定义节点 metadata 信息对应 CustomPhrase 的 metadata 结构
-type CreateCustomPhraseFactory = <MetaData extends CustomMetaData>(descriptor: CustomPhraseDescriptor<MetaData>)=> PhraseDescriptor<MetaData>;
+type CreateCustomPhraseFactory = <MetaData extends CustomBlockElement>(descriptor: CustomPhraseDescriptor<MetaData>)=> PhraseDescriptor<MetaData>;
 
 interface CustomPhraseDescriptor<MetaData> {
   /** 唯一标识 key 必传，相同的 key 前面的将被后面的覆盖 */

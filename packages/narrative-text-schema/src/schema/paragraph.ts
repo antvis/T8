@@ -1,7 +1,7 @@
 import { PhraseSpec } from './phrase';
-import { CommonProps, CustomMetaData } from './common';
+import { CommonProps, CustomBlockElement } from './common';
 
-export type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomMetaData;
+export type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomBlockElement;
 
 // As nouns the difference between heading and headline is that
 // heading is the title or topic of a document, article, chapter, or of a section thereof
