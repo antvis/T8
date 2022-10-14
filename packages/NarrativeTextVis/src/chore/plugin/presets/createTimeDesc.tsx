@@ -1,9 +1,10 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { seedToken } from '../../../theme';
 
 const defaultTimeDescDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
-    underline: true,
+    color: seedToken.colorDimensionValue,
   },
 };
 

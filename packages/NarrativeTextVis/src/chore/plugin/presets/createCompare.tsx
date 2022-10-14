@@ -4,9 +4,7 @@ import { ArrowDown, ArrowUp } from '../../../assets/icons';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { getPrefixCls } from '../../../utils';
-
-const ENTITY_NEG_COLOR = '#30bf78';
-const ENTITY_POS_COLOR = '#f4664a';
+import { seedToken } from '../../../theme';
 
 const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
@@ -32,8 +30,8 @@ export const createRatioValue = createEntityPhraseFactory('ratio_value', default
 
 function getCompareColor(assessment: ValueAssessment) {
   let color;
-  if (assessment === 'positive') color = ENTITY_POS_COLOR;
-  if (assessment === 'negative') color = ENTITY_NEG_COLOR;
+  if (assessment === 'positive') color = seedToken.colorPositive;
+  if (assessment === 'negative') color = seedToken.colorNegative;
   return color;
 }
 
