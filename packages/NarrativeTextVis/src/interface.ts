@@ -53,4 +53,6 @@ export type NarrativeEvents = SectionEvents &
     onClickNarrative: (spec: NarrativeTextSpec) => void;
     onMouseEnterNarrative: (spec: NarrativeTextSpec) => void;
     onMouseLeaveNarrative: (spec: NarrativeTextSpec) => void;
+    onCopySuccess: (e?: ClipboardEvent) => void;
+    onCopyFailure: (e?: ClipboardEvent) => void;
   }>;
