@@ -69,7 +69,7 @@ export function NarrativeTextVis({
       if(!copyNarrative) {
          // 如果没有传递复制方法，默认行为是拦截用户复制操作(使用快捷键或右键选择复制均会触发)，将转换后的内容放进剪切板
         event.preventDefault();
-        copyToClipboard(plainText, html, onCopySuccess, onCopyFailure);
+        copyToClipboard(html, plainText, onCopySuccess, onCopyFailure);
       } else {
         copyNarrative({spec, plainText, html})
       }
