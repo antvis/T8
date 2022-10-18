@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "@antv/narrative-text-schema": "^0.3.6",
+    "canvg": "^4.0.1",
     "is-hotkey": "^0.2.0",
     "lodash": "^4.17.21",
     "styled-components": "^5.3.5",
