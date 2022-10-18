@@ -77,7 +77,13 @@ export function NarrativeTextVis({
       {headline ? <Headline spec={headline} pluginManager={pluginManager} {...sectionEvents} /> : null}
       {sections
         ? sections?.map((section) => (
-            <Section key={v4()} size={size} spec={section} pluginManager={pluginManager} {...sectionEvents} />
+            <Section
+              key={section.key || v4()}
+              size={size}
+              spec={section}
+              pluginManager={pluginManager}
+              {...sectionEvents}
+            />
           ))
         : null}
     </Container>

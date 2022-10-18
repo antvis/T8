@@ -29,7 +29,7 @@ export function Bullets({ spec, size = 'normal', pluginManager = presetPluginMan
     return (
       <Li
         className={cx(getPrefixCls('li'), bullet.className)}
-        key={v4()}
+        key={spec.key || v4()}
         style={bullet.styles}
         onClick={onClickLi}
         onMouseEnter={onMouseEnterLi}

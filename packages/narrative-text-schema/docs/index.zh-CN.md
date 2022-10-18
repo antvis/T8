@@ -86,6 +86,7 @@ interface DefaultBlockStructure extends ExcludeKeys {
 type CommonProps = {
   styles?: CSSProperties;
   className?: string;
+  key?: string; // 用于控制局部刷新
 };
 ```
 
