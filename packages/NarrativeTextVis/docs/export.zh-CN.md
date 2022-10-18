@@ -15,8 +15,6 @@ nav:
 
 `TextExporter` 默认参数与 `PluginManager` 一致，可通过制定 plugin descriptor 中的 getText 定义复制行为。
 
-同时，通过 `onCopyByKeyboard` 可以监听文本范围刷选复制的事件。
-
 ```jsx
 import React from 'react';
 import { Space, Button, message } from 'antd';
@@ -58,10 +56,7 @@ export default () => {
         >复制带正号的文本</Button>
       </Space>
       <NarrativeTextVis 
-        spec={booking} 
-        onCopyByKeyboard={() => {
-          message.info('通过 Ctrl+C 复制成功');
-        }} 
+        spec={booking}
       />
     </>
   )

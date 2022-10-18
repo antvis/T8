@@ -18,7 +18,6 @@ export type NarrativeTextVisProps = ThemeProps &
      * @description.zh-CN Narrative 描述 json 信息
      */
     spec: NarrativeTextSpec;
-    onCopyByKeyboard?: () => void;
     /**
      * @description the function to be called when copy event is listened. If it is undefined, the default behavior is to put the transformed html and plain text into user's clipboard
      * @description.监听到 copy 事件时执行的函数，可用于控制复制的内容和复制行为，如果不传，默认将会把转换后的富文本和纯文本内容放入剪切板
@@ -29,7 +28,6 @@ export type NarrativeTextVisProps = ThemeProps &
 export function NarrativeTextVis({
   spec,
   size = 'normal',
-  onCopyByKeyboard,
   pluginManager = presetPluginManager,
   copyNarrative,
   ...events
@@ -46,26 +44,6 @@ export function NarrativeTextVis({
   const onMouseLeave = () => {
     onMouseLeaveNarrative?.(spec);
   };
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      try {
-        if (isHotkey('mod+c', event) && narrativeDomRef.current && elementContainsSelection(narrativeDomRef.current)) {
-          onCopyByKeyboard?.();
-        }
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error(`Listen copy by keyboard error，${e}`);
-      }
-    };
-
-    if (onCopyByKeyboard) window.addEventListener('keydown', onKeyDown);
-
-    return () => {
-      if (onCopyByKeyboard) window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [onCopyByKeyboard]);
-
 
   useEffect(() => {
     const onCopy = async (event: ClipboardEvent) => {
