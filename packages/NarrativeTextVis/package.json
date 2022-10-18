@@ -63,7 +63,8 @@
     "is-hotkey": "^0.2.0",
     "lodash": "^4.17.21",
     "styled-components": "^5.3.5",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "canvg": "^4.0.1"
   },
   "peerDependencies": {
     "react": ">=16.9.0",

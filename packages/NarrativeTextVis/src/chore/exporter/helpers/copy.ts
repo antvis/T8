@@ -1,5 +1,12 @@
 import { transformHtml } from "./transformHtml";
 
+/**
+ * put data to clipboard using execCommand api
+ * @param htmlStr the html string to be put into clipboard
+ * @param plainText the plain text to be put into clipboard
+ * @param onSuccess function to be called when the copy succeed
+ * @param onError function to be called when the copy fail
+ */
 const execCopyCommand = (
   htmlStr: string,
   plainText?: string,
@@ -40,13 +47,13 @@ export const copyToClipboard = (
       onSuccess?.();
     });
   } catch (err) {
-    /** 由于 ClipboardItem 有些情况不能调用，用 execCommand api 作为 fallback*/
+    /** use the execCommand api as the fallback, in case that ClipboardItem is not available*/
     execCopyCommand(htmlString, plainText, onSuccess, onError);
   }
 };
 
 export const getSelectionContentForCopy = async () => {
-  // 获取选中区域的 html
+  // get the html string of selection
   const doms = window.getSelection()?.getRangeAt(0).cloneContents();
   const container = document.createElement('div');
   if (doms) {
