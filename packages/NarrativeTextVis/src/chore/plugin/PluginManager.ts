@@ -3,7 +3,6 @@ import { isArray } from 'lodash';
 import {
   PhraseDescriptor,
   BlockDescriptor,
-  AnyObject,
   PluginType,
   isBlockDescriptor,
   isEntityDescriptor,
@@ -13,8 +12,8 @@ import { presetPlugins } from './presets';
 
 export class PluginManager {
   protected entities: Partial<Record<EntityType, PhraseDescriptor<EntityMetaData>>> = {};
-  protected customPhrases: Record<string, PhraseDescriptor<AnyObject>> = {};
-  protected customBlocks: Record<string, BlockDescriptor<AnyObject>> = {};
+  protected customPhrases: Record<string, PhraseDescriptor<any>> = {};
+  protected customBlocks: Record<string, BlockDescriptor<any>> = {};
   constructor(plugins?: PluginType[]) {
     this.registerAll(getPlugins(plugins));
   }
