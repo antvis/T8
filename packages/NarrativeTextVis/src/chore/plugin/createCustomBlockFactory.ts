@@ -1,7 +1,7 @@
-import { AnyObject, BlockDescriptor } from './plugin-protocol.type';
+import { BlockDescriptor } from './plugin-protocol.type';
 
-export const createCustomBlockFactory = <MetaData = AnyObject>(
-  descriptor: Omit<BlockDescriptor<MetaData>, 'isBlock'>,
-): BlockDescriptor<MetaData> => {
+export const createCustomBlockFactory = <CustomBlockSpec = any>(
+  descriptor: Omit<BlockDescriptor<CustomBlockSpec>, 'isBlock'>,
+): BlockDescriptor<CustomBlockSpec> => {
   return { ...descriptor, isBlock: true };
 };

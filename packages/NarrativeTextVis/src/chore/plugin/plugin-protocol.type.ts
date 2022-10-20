@@ -52,28 +52,28 @@ export type EntityPhrasePlugin = (
   mode?: CustomEntityMode,
 ) => PhraseDescriptor<EntityMetaData>;
 
-export interface BlockDescriptor<MetaData> {
+export interface BlockDescriptor<CustomBlockSpec> {
   key: string;
   isBlock: true;
-  className?: string | ((metadata: MetaData) => string);
-  style?: CSSProperties | ((metadata: MetaData) => CSSProperties);
-  render?: (metadata: MetaData) => ReactNode;
-  getText?: (metadata: MetaData) => string;
-  getMarkdown?: (metadata: MetaData) => string;
+  className?: string | ((spec: CustomBlockSpec) => string);
+  style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
+  render?: (spec: CustomBlockSpec) => ReactNode;
+  getText?: (spec: CustomBlockSpec) => string;
+  getMarkdown?: (spec: CustomBlockSpec) => string;
 }
 
 export type AnyObject = Record<string, unknown>;
 
-export type PluginType = PhraseDescriptor<AnyObject> | BlockDescriptor<AnyObject>;
+export type PluginType = PhraseDescriptor<any> | BlockDescriptor<any>;
 
-export function isBlockDescriptor(plugin: PluginType): plugin is BlockDescriptor<AnyObject> {
+export function isBlockDescriptor(plugin: PluginType): plugin is BlockDescriptor<any> {
   return 'isBlock' in plugin && plugin.isBlock;
 }
 
-export function isEntityDescriptor(plugin: PluginType): plugin is PhraseDescriptor<AnyObject> {
+export function isEntityDescriptor(plugin: PluginType): plugin is PhraseDescriptor<any> {
   return 'isEntity' in plugin && plugin.isEntity;
 }
 
-export function isCustomPhraseDescriptor(plugin: PluginType): plugin is PhraseDescriptor<AnyObject> {
+export function isCustomPhraseDescriptor(plugin: PluginType): plugin is PhraseDescriptor<any> {
   return 'isEntity' in plugin && !plugin.isEntity;
 }
