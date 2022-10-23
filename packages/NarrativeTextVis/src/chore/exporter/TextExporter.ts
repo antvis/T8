@@ -53,7 +53,7 @@ export class TextExporter extends PluginManager {
         (prev, curr, index) =>
           // if is ordered bullet, add '1. xxxxxx'
           // else, add '· xxxxxx'
-          `${prev}${prev ? '\r\n' : ''}${spec.isOrder ? `${index + 1}` : '· '}${this.getBulletsText(curr, level)}`,
+          `${prev}${prev ? '\r\n' : ''}${spec.isOrder ? `${index + 1}. ` : '· '}${this.getBulletsText(curr, level)}`,
         '',
       );
     }
