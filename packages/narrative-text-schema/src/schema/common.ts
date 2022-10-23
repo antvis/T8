@@ -4,11 +4,19 @@ import { CSSProperties } from 'react';
 export type CommonProps = {
   styles?: CSSProperties;
   className?: string;
+  key?: string;
 };
 
 /** basic block element structure, used for extends */
-export interface CustomMetaData {
+export type CustomBlockElement = CommonProps & {
   // customType is required for custom block structure
   customType: string;
   [key: string]: unknown;
-}
+};
+
+/** custom phrase metadata */
+export type CustomMetaData = {
+  // customType is required for custom block structure
+  customType: string;
+  [key: string]: unknown;
+};

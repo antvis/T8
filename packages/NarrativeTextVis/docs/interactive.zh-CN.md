@@ -17,6 +17,7 @@ nav:
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import moment from 'moment';
 import Mock from 'mockjs';
+import { isEqual } from 'lodash';
 import { Spin, DatePicker, Select, message, Input } from 'antd';
 import { RedditOutlined } from '@ant-design/icons';
 import * as Charts from '@antv/g2plot';
@@ -40,9 +41,11 @@ function fetchData(compareDate = moment().subtract(1, 'week').format(DATE_FORMAT
       resolve({
         sections: [
           {
+            key: 'insight',
             paragraphs: [
               {
                 type: "normal",
+                key: 'explain',
                 phrases: [
                   { type: "text", value: "当日 " },
                   { type: "entity", value: baseData.date, metadata: { entityType: "time_desc" } },
@@ -88,6 +91,7 @@ function fetchData(compareDate = moment().subtract(1, 'week').format(DATE_FORMAT
               },
               {
                 customType: "plot",
+                key: 'plot',
                 // 服务端告诉前端可选的图表类型范围，用于切换
                 chartTypes: ["Line", "Scatter"],
                 data: mockData,
@@ -103,13 +107,31 @@ function fetchData(compareDate = moment().subtract(1, 'week').format(DATE_FORMAT
 const Chart = ({ chartTypes, config }) => {
   const container = useRef();
   const plot = useRef();
+  const prevConfig = useRef(config);
   const [chatType, setChartType] = useState(chartTypes[0]); 
+
   useEffect(() => {
+    if (container.current) {
+      // 在局部刷新机制下，判断如果有 plot 需要比对 config 然后进行销毁
+      if (plot.current) {
+        if (isEqual(prevConfig.current, config)) return;
+        plot?.current?.destroy();
+      }
+      plot.current = new Charts[chatType](container.current, config);
+      prevConfig.current = config;
+      plot.current.render();
+    }
+  }, [config]);
+
+  // 如果是图表类型变化，必然重新渲染
+  useEffect(() => {
+    if (plot.current) plot?.current?.destroy();
     if (container.current) {
       plot.current = new Charts[chatType](container.current, config);
       plot.current.render();
     }
-  }, [chatType, config])
+  }, [chatType]);
+
   return (
     <>
       <div style={{ textAlign: 'right', marginBottom: 12 }}>
@@ -119,7 +141,6 @@ const Chart = ({ chartTypes, config }) => {
           style={{ width: 100 }}
           options={chartTypes.map(t => ({ label: t, value: t }))} 
           onChange={value => {
-            plot?.current?.destroy();
             setChartType(value);
           }} 
         />
@@ -221,9 +242,7 @@ export default () => {
   }, [getTextSpecFormServer]);
 
   return (
-    <Spin spinning={loading}>
-      <NarrativeTextVis spec={textSpec} pluginManager={pluginManager} />
-    </Spin>
+    <NarrativeTextVis spec={textSpec} pluginManager={pluginManager} />
   )
 }
 ```

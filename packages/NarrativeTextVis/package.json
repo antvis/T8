@@ -1,6 +1,6 @@
 {
   "name": "@antv/narrative-text-vis",
-  "version": "0.3.9",
+  "version": "0.3.11",
   "description": "React component of interactive narrative text",
   "keywords": [
     "react component",
@@ -59,7 +59,8 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@antv/narrative-text-schema": "^0.3.5",
+    "@antv/narrative-text-schema": "^0.3.6",
+    "canvg": "^4.0.1",
     "is-hotkey": "^0.2.0",
     "lodash": "^4.17.21",
     "styled-components": "^5.3.5",

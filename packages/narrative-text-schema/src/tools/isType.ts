@@ -1,7 +1,7 @@
 import {
   SectionSpec,
   ParagraphSpec,
-  CustomMetaData,
+  CustomBlockElement,
   StandardSectionSpec,
   TextParagraphSpec,
   BulletsParagraphSpec,
@@ -17,11 +17,11 @@ function isObject(val: any) {
   return typeof val === 'object';
 }
 
-export function isCustomSection(spec: SectionSpec): spec is CustomMetaData {
+export function isCustomSection(spec: SectionSpec): spec is CustomBlockElement {
   return isObject(spec) && 'customType' in spec;
 }
 
-export function isCustomParagraph(spec: ParagraphSpec): spec is CustomMetaData {
+export function isCustomParagraph(spec: ParagraphSpec): spec is CustomBlockElement {
   return isObject(spec) && 'customType' in spec;
 }
 

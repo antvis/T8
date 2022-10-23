@@ -16,6 +16,7 @@ import {
 } from '@antv/narrative-text-schema';
 import { pad } from 'lodash';
 import { PluginManager } from '../plugin';
+import { ImageExtra, transformHtml } from './helpers/transformHtml';
 
 export class TextExporter extends PluginManager {
   /**
@@ -77,7 +78,7 @@ export class TextExporter extends PluginManager {
           // if is ordered bullet, add paddings + '1. xxxxxx'
           // else, add paddings + '· xxxxxx'
           // padding number here is 2
-          `${prev}\r\n${pad('', level * 2)}${spec.subBullet.isOrder ? `${index + 1}` : '· '}${this.getBulletsText(
+          `${prev}\r\n${pad('', level * 2)}${spec.subBullet.isOrder ? `${index + 1}. ` : '· '}${this.getBulletsText(
             curr,
             level + 1,
           )}`,
@@ -207,5 +208,17 @@ export class TextExporter extends PluginManager {
       }
       return prev + text;
     }, '');
+  }
+
+  /**
+   * get html string of narrative-vis content in container, the svg and canvas elements are converted to image by default
+   * @param container the container of narrative-vis content
+   * @param imageExtra the jump link to add to the image element
+   * @param replaceType replace the svg and canvas elements with image or text, so that they can be copied and pasted into some rich-text editors
+   */
+  async getNarrativeHtml(container: HTMLElement, imageExtra?: ImageExtra, replaceType: 'image' | 'text' | 'none' = 'image') {
+    const elements = container?.getElementsByClassName('ntv-container');
+    const transformedHtml = await transformHtml({elements, imageExtra, replaceType});
+    return transformedHtml;
   }
 }

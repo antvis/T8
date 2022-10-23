@@ -10,7 +10,7 @@ import { isFunction, kebabCase, isEmpty } from 'lodash';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize } from '../utils';
 import { ThemeProps, ExtensionProps, PhraseEvents } from '../interface';
-import { PhraseDescriptor, AnyObject, presetPluginManager } from '../chore/plugin';
+import { PhraseDescriptor, presetPluginManager } from '../chore/plugin';
 
 type PhraseProps = ThemeProps &
   ExtensionProps &
@@ -20,7 +20,7 @@ type PhraseProps = ThemeProps &
 
 function renderPhraseByDescriptor(
   spec: EntityPhraseSpec | CustomPhraseSpec,
-  descriptor: PhraseDescriptor<AnyObject>,
+  descriptor: PhraseDescriptor<any>,
   theme: ThemeProps,
   events: PhraseEvents,
 ) {
