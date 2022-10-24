@@ -1,9 +1,11 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { seedToken } from '../../../theme';
 
 const defaultMetricNameDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
-    fontWeight: 'bold',
+    fontWeight: 500,
+    color: seedToken.colorMetricName,
   },
 };
 

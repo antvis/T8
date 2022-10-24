@@ -9,3 +9,4 @@ export * as NStyledComponents from './styled';
 export * from '@antv/narrative-text-schema';
 export * from './chore/plugin';
 export * from './chore/exporter';
+export { seedToken } from './theme';

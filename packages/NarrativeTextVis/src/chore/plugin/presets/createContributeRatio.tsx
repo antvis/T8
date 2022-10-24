@@ -1,11 +1,10 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
-
-export const ENTITY_CONTRIB_COLOR = '#722ed1';
+import { seedToken } from '../../../theme';
 
 const defaultContributeRatioDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
-    color: ENTITY_CONTRIB_COLOR,
+    color: seedToken.colorConclusion,
   },
 };
 
