@@ -1,4 +1,6 @@
-import {
+import { isObject, isString } from '../utils';
+import { EntityType } from '../schema';
+import type {
   SectionSpec,
   ParagraphSpec,
   CustomBlockElement,
@@ -9,13 +11,8 @@ import {
   PhraseSpec,
   CustomPhraseSpec,
   EntityPhraseSpec,
-  EntityType,
   TextPhraseSpec,
 } from '../schema';
-
-function isObject(val: any) {
-  return typeof val === 'object';
-}
 
 export function isCustomSection(spec: SectionSpec): spec is CustomBlockElement {
   return isObject(spec) && 'customType' in spec;
@@ -63,8 +60,4 @@ export function getHeadingWeight(pType: string) {
     if (weight >= 1 && weight <= 6) return weight;
   }
   return NaN;
-}
-
-function isString(val: unknown): val is string {
-  return typeof val === 'string';
 }
