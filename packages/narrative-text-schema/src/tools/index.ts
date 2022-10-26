@@ -1,3 +1,3 @@
 export { generateSentence } from './template';
-export * from './isType';
+export * from './isSpecType';
 export { getVariableMap } from './getVariables';

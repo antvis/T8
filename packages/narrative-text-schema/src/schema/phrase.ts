@@ -103,25 +103,6 @@ export type EntityMetaData = {
   sourceId?: string;
 };
 
-/** 变量源数据信息 */
-export type VariableSourceMap = Record<
-  string, // sourceId
-  {
-    id?: string; // id of the variable
-    name?: string; // name of the variable
-    desc?: string;
-    /**
-     * TODO describe the relations of the variables
-     * 计算公式
-     * @example 独立变量，取数逻辑，需要与后端共同约定，通常是业务侧自己定义消费 max{性别}.单价
-     * @example 依赖变量 (id1 - id2)*20
-     * @example 条件判断 (id1 - id2) > 0? "增长": "减少"
-     */
-    formula?: string;
-    [key: string]: unknown;
-  }
->;
-
 export type TypeOrMetaReturnType<T> = T | ((value: string, metadata: EntityMetaData) => T);
 
 /** entity phrase encoding channel */
