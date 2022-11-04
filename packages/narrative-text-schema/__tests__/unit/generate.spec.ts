@@ -5,6 +5,7 @@ import type { Structure, StructureTemp, Variable, NarrativeTextSpec } from '../.
 const structures: Structure[] = [{ template: 'System &{s1} includes, &{s2}.', displayType: 'paragraph' }];
 
 const structureTemps: StructureTemp[] = [
+  // ${systemIcon[icon]}
   { templateId: 's1', template: '${systemName}', variableId: 'var2' },
   {
     templateId: 's2',
@@ -22,14 +23,19 @@ const variables: Variable[] = [
       { name: 'y', age: 18 },
     ],
     dataMetaMap: {
-      name: { entityType: 'dim_value', name: 'Name' },
-      age: { entityType: 'metric_value', name: 'Age' },
+      name: { type: 'dim_value', name: 'Name' },
+      age: { type: 'metric_value', name: 'Age' },
     },
   },
   {
     variableId: 'var2',
     // can used for constants
-    dataValue: { systemName: 'github' },
+    dataValue: {
+      systemIcon: {
+        icon: 'GithubOutlined',
+      },
+      systemName: 'github',
+    },
   },
 ];
 
@@ -43,6 +49,7 @@ describe('generate sentence by template and data', () => {
               type: 'normal',
               phrases: [
                 { type: 'text', value: 'System ' },
+                // { type: 'custom', value: '-', metadata: { customType: 'icon', icon: 'GithubOutlined' } },
                 { type: 'text', value: 'github' },
                 { type: 'text', value: ' includes, ' },
                 { type: 'text', value: 'user ' },

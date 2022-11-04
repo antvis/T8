@@ -46,6 +46,10 @@ export function isCustomPhrase(spec: PhraseSpec): spec is CustomPhraseSpec {
   return spec?.type === 'custom' && !!spec?.metadata?.customType;
 }
 
+export function isEntityType(type: string): type is EntityType {
+  return EntityType.includes(type as any);
+}
+
 export function isEntityPhrase(spec: PhraseSpec): spec is EntityPhraseSpec {
   return spec?.type === 'entity' && EntityType.includes(spec?.metadata?.entityType);
 }

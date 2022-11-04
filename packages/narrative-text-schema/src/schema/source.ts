@@ -1,6 +1,6 @@
-import type { EntityType } from './phrase';
+import type { AnyObject } from './utility';
 
-export type Datum = Record<string, string | number>;
+export type PhraseDatum = Record<string, string | number | AnyObject>;
 
 export type DataMeta = {
   /** id of datum, default same as name */
@@ -8,9 +8,9 @@ export type DataMeta = {
   /** name of datum */
   name?: string;
   /**
-   * datum domain type
+   * datum spec type
    */
-  entityType?: EntityType | undefined;
+  type?: string;
   /** description datum */
   desc?: string;
   /**

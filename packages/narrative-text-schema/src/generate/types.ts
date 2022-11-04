@@ -1,4 +1,4 @@
-import type { Datum, DataMetaMap } from '../schema';
+import type { PhraseDatum, DataMetaMap } from '../schema';
 
 // TODO 暂时只实现普通段落，之后还会有 bullets，heading 等
 export type StructureDisplayType = 'phrase' | 'paragraph';
@@ -30,7 +30,10 @@ export type Structure = {
  */
 export type StructureTemp = {
   templateId: string;
-  /** template string, use ${} reference variable */
+  /**
+   * template string, use ${} reference variable
+   * TODO variable also can present as ${xxx[type]} ???
+   */
   template: string;
   /**
    * template display as
@@ -64,7 +67,7 @@ export type StructureTemp = {
  */
 export type Variable = {
   variableId: string;
-  dataValue: Datum | Datum[];
+  dataValue: PhraseDatum | PhraseDatum[];
   dataMetaMap?: DataMetaMap;
 };
 

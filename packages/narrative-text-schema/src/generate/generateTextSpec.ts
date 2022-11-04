@@ -1,6 +1,16 @@
-import { isUndefined, arr2map } from '../utils';
-import type { NarrativeTextSpec, ParagraphSpec, PhraseSpec, TextParagraphSpec, TextPhraseSpec } from '../schema';
+import { isUndefined, isString, isNull, isNumber, arr2map, isObject } from '../utils';
+import { isEntityType } from '../tools';
+import type {
+  NarrativeTextSpec,
+  ParagraphSpec,
+  PhraseSpec,
+  TextParagraphSpec,
+  TextPhraseSpec,
+  PhraseDatum,
+} from '../schema';
 import type { Structure, Variable, StructureTemp } from './types';
+
+const VALUE_NULL = '-';
 
 /**
  * use structure and variables to generate narrative text spec
@@ -112,16 +122,28 @@ function getSentences(
           };
         }
 
-        const data = isUndefined(datum[varName]) ? '-' : `${datum[varName]}`;
+        const value = getValue(datum[varName]);
         const dataMeta = dataMetaMap?.[varName];
-        if (dataMeta?.entityType) {
-          return { type: 'entity', value: data, metadata: { entityType: dataMeta?.entityType } };
+        if (dataMeta?.type) {
+          if (isEntityType(dataMeta.type)) {
+            return { type: 'entity', value, metadata: { entityType: dataMeta?.type } };
+          }
+          const entranceMeta = isObject(dataMetaMap?.[varName]) ? { ...dataMetaMap?.[varName] } : {};
+          return { type: 'custom', value, metadata: { customType: dataMeta?.type, ...entranceMeta } };
         }
-        return { type: 'text', value: data };
+        return { type: 'text', value };
       }
       return { type: 'text', value: str };
     });
   });
+}
+
+function getValue(value: PhraseDatum[keyof PhraseDatum]): string {
+  if (isString(value)) return value;
+  if (isUndefined(value) || isNull(value)) return VALUE_NULL;
+  if (isNumber(value)) return `${value}`;
+  if (isObject(value) && 'toString' in value) return value.toString();
+  return VALUE_NULL;
 }
 
 export default generateTextSpec;
