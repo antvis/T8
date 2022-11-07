@@ -6,6 +6,7 @@ const defaultTimeDescDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
     color: seedToken.colorDimensionValue,
   },
+  tooltip: false,
 };
 
 export const createTimeDesc = createEntityPhraseFactory('time_desc', defaultTimeDescDescriptor);

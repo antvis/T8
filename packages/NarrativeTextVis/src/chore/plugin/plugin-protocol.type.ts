@@ -1,5 +1,6 @@
-import { CSSProperties, ReactNode } from 'react';
-import { EntityMetaData, EntityEncoding, EntityType } from '@antv/narrative-text-schema';
+import type { CSSProperties, ReactNode } from 'react';
+import type { TooltipProps } from 'antd';
+import type { EntityMetaData, EntityEncoding, EntityType } from '@antv/narrative-text-schema';
 
 /**
  * description for phrase render
@@ -14,6 +15,15 @@ export interface PhraseDescriptor<MetaData> {
    * @param metadata phrase spec metadata
    */
   content?: (value: string, metadata: MetaData) => ReactNode;
+  /**
+   * tooltip of phrases
+   */
+  tooltip?:
+    | false
+    | (TooltipProps & {
+        // overwrite antd tooltip title props
+        title: (value: string, metadata: MetaData) => ReactNode;
+      });
   classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
   style?: CSSProperties | ((value: string, metadata: MetaData) => CSSProperties);
   onHover?: (value: string, metadata: MetaData) => string;

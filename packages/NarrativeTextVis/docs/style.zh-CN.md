@@ -96,9 +96,10 @@ export default () => (
         <Phrase
           spec={{
             type: 'entity',
-            value: '901632.11',
+            value: '90.1w',
             metadata: {
               entityType: 'metric_value',
+              origin: 901632.11,
             },
           }}
         />
@@ -110,6 +111,7 @@ export default () => (
             value: '30%',
             metadata: {
               entityType: 'other_metric_value',
+              origin: 0.30012,
             },
           }}
         />
@@ -123,6 +125,7 @@ export default () => (
               entityType: 'delta_value',
               assessment: 'positive',
               detail: ['120.12', '220.45'],
+              origin: 100.33456,
             },
           }}
         />
@@ -135,6 +138,7 @@ export default () => (
             metadata: {
               entityType: 'ratio_value',
               assessment: 'negative',
+              origin: 0.30012,
             },
           }}
         />
@@ -146,6 +150,7 @@ export default () => (
             value: '20%',
             metadata: {
               entityType: 'contribute_ratio',
+              origin: 0.2000077,
             },
           }}
         />
@@ -199,6 +204,7 @@ export default () => (
             value: '30%',
             metadata: {
               entityType: 'proportion',
+              origin: 0.30012,
             },
           }}
         />

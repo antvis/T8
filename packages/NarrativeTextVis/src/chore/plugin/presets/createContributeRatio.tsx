@@ -6,6 +6,9 @@ const defaultContributeRatioDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
     color: seedToken.colorConclusion,
   },
+  tooltip: {
+    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+  },
 };
 
 export const createContributeRatio = createEntityPhraseFactory('contribute_ratio', defaultContributeRatioDescriptor);

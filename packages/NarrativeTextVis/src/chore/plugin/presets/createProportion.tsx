@@ -7,6 +7,9 @@ const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
     inlineChart: (value, { origin }) => <ProportionChart data={getProportionNumber(value, origin as number)} />,
   },
+  tooltip: {
+    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+  },
 };
 
 export const createProportion = createEntityPhraseFactory('proportion', defaultProportionDescriptor);

@@ -13,6 +13,9 @@ const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   },
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
+  tooltip: {
+    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+  },
 };
 
 export const createDeltaValue = createEntityPhraseFactory('delta_value', defaultDeltaValueDescriptor);
@@ -24,6 +27,9 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
   },
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
+  tooltip: {
+    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+  },
 };
 
 export const createRatioValue = createEntityPhraseFactory('ratio_value', defaultRatioValueDescriptor);

@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Tooltip } from 'antd';
 import {
   PhraseSpec,
   EntityPhraseSpec,
@@ -25,7 +26,15 @@ function renderPhraseByDescriptor(
   events: PhraseEvents,
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
-  const { overwrite, classNames, style: descriptorStyle, onHover, onClick, content = () => value } = descriptor || {};
+  const {
+    overwrite,
+    classNames,
+    style: descriptorStyle,
+    onHover,
+    tooltip,
+    onClick,
+    content = () => value,
+  } = descriptor || {};
 
   const handleClick = () => {
     onClick?.(spec?.value, metadata);
@@ -59,12 +68,23 @@ function renderPhraseByDescriptor(
   if (isFunction(overwrite)) {
     defaultNode = overwrite(defaultNode, value, metadata);
   }
-  return !isEmpty(events) || isFunction(onClick) || isFunction(onHover) ? (
-    <span onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      {defaultNode}
-    </span>
+
+  const nodeWithEvents =
+    !isEmpty(events) || isFunction(onClick) || isFunction(onHover) ? (
+      <span onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        {defaultNode}
+      </span>
+    ) : (
+      defaultNode
+    );
+
+  const showTooltip = tooltip && tooltip?.title(value, metadata);
+  return showTooltip ? (
+    <Tooltip {...tooltip} title={showTooltip}>
+      {nodeWithEvents}
+    </Tooltip>
   ) : (
-    defaultNode
+    nodeWithEvents
   );
 }
 
