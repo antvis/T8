@@ -7,6 +7,9 @@ const defaultOtherMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
     fontWeight: 'bold',
     color: seedToken.colorOtherValue,
   },
+  tooltip: {
+    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+  },
 };
 
 export const createOtherMetricValue = createEntityPhraseFactory(

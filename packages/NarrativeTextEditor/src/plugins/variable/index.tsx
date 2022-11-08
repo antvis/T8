@@ -17,4 +17,4 @@ export const variableComponents = {
 
 export { VariableCombobox } from './VariableCombobox';
 export { ELEMENT_VARIABLE, ELEMENT_VARIABLE_INPUT } from './constants';
-export { VariableNodeData, VariableComboboxItem, VariableNode } from './types';
+export type { VariableNodeData, VariableComboboxItem, VariableNode } from './types';
