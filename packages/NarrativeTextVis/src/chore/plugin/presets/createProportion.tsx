@@ -1,4 +1,5 @@
 import React from 'react';
+import { isNumber } from 'lodash';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { ProportionChart } from '../../../line-charts';
@@ -8,7 +9,7 @@ const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
     inlineChart: (value, { origin }) => <ProportionChart data={getProportionNumber(value, origin as number)} />,
   },
   tooltip: {
-    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   },
 };
 
