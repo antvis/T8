@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { ValueAssessment, EntityMetaData } from '@antv/narrative-text-schema';
+import { isNumber } from 'lodash';
 import { ArrowDown, ArrowUp } from '../../../assets/icons';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
@@ -14,7 +15,7 @@ const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
   tooltip: {
-    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   },
 };
 
@@ -28,7 +29,7 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
   tooltip: {
-    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   },
 };
 

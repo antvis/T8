@@ -7,7 +7,7 @@ import {
   isTextPhrase,
   isEntityPhrase,
 } from '@antv/narrative-text-schema';
-import { isFunction, kebabCase, isEmpty } from 'lodash';
+import { isFunction, kebabCase, isEmpty, isNil } from 'lodash';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize } from '../utils';
 import { ThemeProps, ExtensionProps, PhraseEvents } from '../interface';
@@ -79,7 +79,7 @@ function renderPhraseByDescriptor(
     );
 
   const showTooltip = tooltip && tooltip?.title(value, metadata);
-  return showTooltip ? (
+  return !isNil(showTooltip) ? (
     <Tooltip {...tooltip} title={showTooltip}>
       {nodeWithEvents}
     </Tooltip>

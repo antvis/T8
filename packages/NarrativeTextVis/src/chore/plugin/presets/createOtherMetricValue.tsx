@@ -1,3 +1,4 @@
+import { isNumber } from 'lodash';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../../theme';
@@ -8,7 +9,7 @@ const defaultOtherMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
     color: seedToken.colorOtherValue,
   },
   tooltip: {
-    title: (value, metadata) => metadata.origin ?? `${metadata.origin}`,
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   },
 };
 
