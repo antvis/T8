@@ -1,4 +1,5 @@
 import { PhraseSpec, EntityType } from '../schema';
+import { isNumber } from '../utils';
 
 /**
  * parse string template to phrases
@@ -37,9 +38,10 @@ export function generateSentence(
           };
 
           const origin = originalData ? originalData[variable[1]] : undefined;
+          if (isNumber(origin)) result.metadata.origin = origin;
           if (
             (result.metadata.entityType === 'delta_value' || result.metadata.entityType === 'ratio_value') &&
-            typeof origin === 'number'
+            isNumber(origin)
           ) {
             if (origin > 0) {
               result.metadata.assessment = 'positive';

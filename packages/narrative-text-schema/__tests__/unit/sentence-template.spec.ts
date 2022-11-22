@@ -108,6 +108,7 @@ describe('generate sentence by template and data', () => {
         value: '100.123',
         metadata: {
           entityType: 'metric_value',
+          origin: 100.123,
         },
       },
       {
@@ -120,6 +121,7 @@ describe('generate sentence by template and data', () => {
         metadata: {
           entityType: 'delta_value',
           assessment: 'positive',
+          origin: 123,
         },
       },
     ]);

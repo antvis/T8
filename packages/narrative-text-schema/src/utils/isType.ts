@@ -9,3 +9,7 @@ export function isObject(val: unknown) {
 export function isUndefined(val: unknown) {
   return val === undefined;
 }
+
+export function isNumber(val: unknown): val is number {
+  return typeof val === 'number';
+}
