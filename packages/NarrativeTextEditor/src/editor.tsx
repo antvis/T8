@@ -81,7 +81,6 @@ const NarrativeTextEditor: ForwardRefRenderFunction<NarrativeTextEditorRef, Narr
             spellCheck: false,
             readOnly,
             style: {
-              fontFamily: 'PingFangSC, sans-serif',
               overflow: 'auto',
               // make drag handler visible
               padding: !readOnly && draggable ? '0 18px' : undefined,
