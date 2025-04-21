@@ -1,5 +1,0 @@
-# `NarrativeTextEditor`
-
-> TODO: description
-
-## Usage

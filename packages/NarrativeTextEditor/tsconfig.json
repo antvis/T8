@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "include": ["./src", "./__tests__", "setupTests.ts"],
-  "compilerOptions": {
-    "jsx": "react",
-    "downlevelIteration": true
-  }
-}
