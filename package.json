@@ -1,108 +1,77 @@
 {
   "name": "@antv/t8",
-  "private": true,
-  "repository": "git@github.com:antvis/T8.git",
+  "version": "1.0.0-beta",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "types/index.d.ts",
+  "unpkg": "dist/index.min.js",
+  "files": [
+    "dist",
+    "es",
+    "lib",
+    "types"
+  ],
   "author": {
     "name": "AntV",
     "url": "https://antv.vision/"
   },
-  "license": "MIT",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "rimraf .umi && NODE_OPTIONS=\"--max-old-space-size=102400\" dumi dev",
-    "clean:doc": "rimraf .umi .umi-production site-dist",
-    "clean": "lerna clean -y && lerna run clean:build && rimraf node_modules",
-    "test": "jest",
-    "test:schema": "cd ./packages/narrative-text-schema && npm run test",
-    "test:ntv": "cd ./packages/NarrativeTextVis && npm run test",
-    "test:chart": "cd ./packages/word-scale-chart && npm run test",
-    "test:editor": "cd ./packages/NarrativeTextEditor && npm run test",
-    "build:schema": "cd ./packages/narrative-text-schema && npm run build",
-    "build:ntv": "cd ./packages/NarrativeTextVis && npm run build",
-    "build:chart": "cd ./packages/word-scale-chart && npm run build",
-    "build:editor": "cd ./packages/NarrativeTextEditor && npm run build",
-    "build:dev": "sh ./scripts/build-dev",
-    "build:site": "dumi build",
-    "build": "lerna run build",
-    "boot": "lerna bootstrap",
-    "boot:dev": "lerna bootstrap && npm run build:dev",
-    "lint": "lerna run lint",
-    "start:demo": "cd examples/ntv-demo && npm run start",
-    "prepare": "husky install",
-    "precommit": "lint-staged",
-    "prepublish": "npm run boot && npm run build",
-    "release": "lerna publish"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky",
+    "dev": "vite -c ./config/vite.config.dev.mjs",
+    "size": "limit-size",
+    "build": "NODE_ENV=production rollup -c ./rollup.config.mjs && tsc && npm run size",
+    "build:dev": "rollup -c ./rollup.config.mjs && tsc",
+    "build:watch": "rollup -c ./rollup.config.mjs -w",
+    "build:types": "tsc"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{less,css}": [
-      "stylelint --fix",
-      "prettier --write"
-    ],
-    "*.json": [
-      "prettier --write"
+    "**/*": [
+      "prettier --write --ignore-unknown",
+      "eslint --fix"
     ]
   },
+  "limit-size": [
+    {
+      "path": "dist/t8.min.js",
+      "limit": "50 Kb"
+    },
+    {
+      "path": "dist/t8.min.js",
+      "limit": "20 Kb",
+      "gzip": true
+    }
+  ],
+  "keywords": [
+    "vis",
+    "text",
+    "antv"
+  ],
+  "license": "MIT",
   "devDependencies": {
-    "@antv/dumi-theme-antv": "0.2.1",
-    "@antv/g2plot": "^2.4.20",
-    "@babel/core": "^7.17.2",
-    "@babel/preset-env": "^7.16.11",
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@rollup/plugin-typescript": "^8.2.5",
-    "@types/jest": "^26.0.24",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
-    "@typescript-eslint/parser": "^4.28.5",
-    "antd": "^4.24.1",
-    "babel-jest": "^27.5.1",
-    "babel-plugin-import": "^1.13.5",
-    "concurrently": "^6.2.0",
-    "copy-to-clipboard": "^3.3.1",
-    "devmoji": "^2.3.0",
-    "dumi": "^1.1.40",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb": "18.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-typescript": "^2.4.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.4.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.4.0",
-    "husky": "^8.0.0",
-    "jest": "^27.0.6",
-    "jest-extended": "^0.11.5",
-    "lerna": "^4.0.0",
-    "lint-staged": "^11.1.1",
-    "lodash": "^4.17.21",
-    "mockjs": "^1.1.0",
-    "moment": "^2.29.4",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-json-view": "^1.21.3",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.55.1",
-    "rollup-plugin-filesize": "^9.1.1",
-    "rollup-plugin-optimize-lodash-imports": "^1.0.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-terser": "^7.0.2",
-    "stylelint": "^13.13.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-standard": "^22.0.0",
-    "stylelint-declaration-block-no-ignored-properties": "^2.4.0",
-    "stylelint-order": "^4.1.0",
-    "ts-jest": "^27.0.4",
-    "tslib": "^2.3.1",
-    "typescript": "^4.3.5"
-  }
+    "@eslint/js": "^9.24.0",
+    "@preact/preset-vite": "^2.10.1",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "eslint": "^9.24.0",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "limit-size": "^0.1.4",
+    "lint-staged": "^15.5.1",
+    "prettier": "3.5.3",
+    "rollup": "^4.40.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.0"
+  },
+  "dependencies": {
+    "preact": "^10.26.5",
+    "uuid": "^11.1.0"
+  },
+  "repository": "git@github.com:antvis/T8.git"
 }
