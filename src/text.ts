@@ -1,7 +1,7 @@
 import { h, render as preactRender } from 'preact';
-import { NarrativeTextSpec } from '../schema';
-import { NarrativeTextVis } from '../vis-components';
-import { ThemeProps } from '../theme';
+import { NarrativeTextSpec } from './schema';
+import { NarrativeTextVis } from './vis-components';
+import { ThemeProps } from './theme';
 
 export class Text {
   container: HTMLElement;
@@ -18,10 +18,12 @@ export class Text {
 
   schema(spec: NarrativeTextSpec) {
     this.spec = spec;
+    return this;
   }
 
   theme(theme: ThemeProps) {
     this.themeConfig = theme;
+    return this;
   }
 
   render() {
@@ -32,7 +34,7 @@ export class Text {
   }
 }
 
-export const render = (container: string | HTMLElement, spec: NarrativeTextSpec, theme: ThemeProps) => {
+const render = (container: string | HTMLElement, spec: NarrativeTextSpec, theme: ThemeProps) => {
   // Resolve container if it's a selector string
   if (typeof container === 'string') {
     const element = document.querySelector(container);

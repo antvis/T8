@@ -37,9 +37,9 @@ const createUmdConfig = (minify = false) => ({
   input: 'src/index.ts',
   output: [
     {
-      file: `./dist/index${minify ? '.min' : ''}.js`,
+      file: `./dist/t8${minify ? '.min' : ''}.js`,
       format: 'umd',
-      name: 'T8Lite',
+      name: 'T8',
       sourcemap: generateSourceMap,
       plugins:
         minify && isProduction
