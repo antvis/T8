@@ -44,6 +44,7 @@ export function Paragraph({
     const descriptor = pluginManager.getBlockDescriptor(spec.customType);
     if (descriptor && descriptor?.render) content = descriptor.render(spec);
   }
+
   if (isHeadingParagraph(spec)) {
     content = <Heading spec={spec} pluginManager={pluginManager} {...phraseEvents} />;
   }

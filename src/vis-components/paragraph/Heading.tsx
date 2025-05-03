@@ -14,6 +14,7 @@ export function Heading({ spec, pluginManager = presetPluginManager, ...events }
   const weight = getHeadingWeight(spec.type);
   if (isNaN(weight)) return null;
   const Tag = Elements[`H${weight}`];
+
   return (
     <Tag className={cx(getPrefixCls(`h${weight}`), spec.className)} style={spec.styles}>
       <Phrases spec={spec.phrases} pluginManager={pluginManager} {...events} />

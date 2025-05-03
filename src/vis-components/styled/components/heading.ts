@@ -1,50 +1,7 @@
-import { getFontSize, seedToken } from '../../theme';
-import type { ThemeProps } from '../../theme';
+import { ThemeProps, seedToken } from '../../../theme';
+import { createStyledComponent } from '../styledFactory';
 
-// Function to get the base container style
-export const getContainerStyle = (theme?: ThemeProps) => {
-  return {
-    fontFamily: seedToken.fontFamily,
-    color: seedToken.colorBase,
-    fontSize: getFontSize(theme ?? {}),
-  };
-};
-
-// Function to get the paragraph style
-export const getParagraphStyle = (theme?: ThemeProps) => {
-  return {
-    ...getContainerStyle(theme ?? {}),
-    minHeight: `${seedToken.lineHeight.base}px`,
-    lineHeight: `${seedToken.lineHeight.base}px`,
-    marginBottom: '4px',
-  };
-};
-
-// Function to get bullet styles
-export const getBulletStyle = (theme?: ThemeProps) => {
-  return {
-    ...getContainerStyle(theme ?? {}),
-    paddingLeft: '16px',
-    marginBottom: '4px',
-  };
-};
-
-// Function to get entity style
-export const getEntityStyle = (theme?: ThemeProps) => {
-  return {
-    display: 'inline-block',
-    alignItems: 'center',
-    boxSizing: 'border-box',
-    fontSize: getFontSize(theme ?? {}),
-    fontFamily: seedToken.fontFamily,
-    lineHeight: '1.5em',
-    borderRadius: '2px',
-    color: seedToken.colorEntityBase,
-  };
-};
-
-// Function to get heading styles by level
-export const getHeadingStyle = (_: ThemeProps, level: number) => {
+const getHeadingStyle = (_: ThemeProps, level: number) => {
   const baseStyle = {
     fontFamily: seedToken.fontFamily,
   };
@@ -99,3 +56,20 @@ export const getHeadingStyle = (_: ThemeProps, level: number) => {
       return baseStyle;
   }
 };
+
+export const Headline = createStyledComponent({
+  element: 'h1',
+  factoryStyles: (theme) => ({
+    ...getHeadingStyle(theme, 1),
+    borderBottom: `1px solid ${seedToken.borderColor}`,
+  }),
+});
+
+const Heading = Object.fromEntries(
+  [1, 2, 3, 4, 5, 6].map((level) => [
+    `H${level}`,
+    createStyledComponent({ element: 'h' + level, factoryStyles: (theme) => getHeadingStyle(theme, level) }),
+  ]),
+);
+
+export const { H1, H2, H3, H4, H5, H6 } = Heading;
