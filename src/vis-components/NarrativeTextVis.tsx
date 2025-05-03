@@ -1,7 +1,7 @@
 import { useRef } from 'preact/hooks';
 import { NarrativeTextSpec } from '../schema';
 import { v4 } from 'uuid';
-import { Container } from '../styled';
+import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
 import { ExtensionProps, NarrativeEvents } from '../interface';

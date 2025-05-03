@@ -1,6 +1,6 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
-import { ProportionChart } from '../../charts';
+import { ProportionChart } from '../../vis-components/charts';
 // import { isNumber } from '../../utils';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {

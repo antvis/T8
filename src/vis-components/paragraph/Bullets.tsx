@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { Ol, Ul, Li } from '../../styled';
+import { Ol, Ul, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
 import { ExtensionProps, ParagraphEvents } from '../../interface';

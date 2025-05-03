@@ -2,7 +2,7 @@ import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { v4 } from 'uuid';
 import { getPrefixCls, classnames as cx, isFunction } from '../../utils';
 import { ExtensionProps, SectionEvents } from '../../interface';
-import { Container } from '../../styled';
+import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
 import { ThemeProps, defaultTheme } from '../../theme';
 import { presetPluginManager } from '../../plugin';

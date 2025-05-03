@@ -53,8 +53,8 @@ export const createEntityPhraseFactory =
       const encodingStyle = (value: string, metadata: EntityMetaData): JSX.CSSProperties => {
         return {
           ...commonStyleFn(value, metadata),
-          color: functionalize<string>(color, undefined)(value, metadata),
-          backgroundColor: functionalize<string>(bgColor, undefined)(value, metadata),
+          color: functionalize<string>(color, undefined)(value, metadata) as string,
+          backgroundColor: functionalize<string>(bgColor, undefined)(value, metadata) as string,
           fontSize: functionalize<number | string>(fontSize, undefined)(value, metadata),
           fontWeight: functionalize<number | string>(fontWeight, undefined)(value, metadata),
           textDecoration: functionalize<boolean>(underline, false)(value, metadata) ? 'underline' : undefined,

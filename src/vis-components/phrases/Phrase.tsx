@@ -1,5 +1,5 @@
 import { PhraseSpec, EntityPhraseSpec, CustomPhraseSpec, isTextPhrase, isEntityPhrase } from '../../schema';
-import { Entity, Bold, Italic, Underline } from '../../styled';
+import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
 import { ExtensionProps, PhraseEvents } from '../../interface';
 import { PhraseDescriptor } from '../../plugin';
@@ -52,8 +52,6 @@ function renderPhraseByDescriptor(
     events?.onMouseLeavePhrase?.(spec);
   };
 
-  console.log('descriptor', content(value, metadata));
-
   let defaultNode: ComponentChildren = (
     <Entity
       theme={theme}
@@ -66,7 +64,7 @@ function renderPhraseByDescriptor(
         getPrefixCls('value'),
         isEntityPhrase(spec) ? getPrefixCls(kebabCase(spec.metadata.entityType)) : '',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...functionalize(classNames, [])(spec?.value, metadata as any),
+        ...(functionalize(classNames, [])(spec?.value, metadata as any) as Array<string>),
       )}
     >
       {content(value, metadata)}
@@ -134,7 +132,6 @@ export const Phrase: FunctionComponent<PhraseProps> = ({
   }
 
   const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
-  console.log('🚀 ~ phrase:', phrase, descriptor);
   if (descriptor) {
     return <>{renderPhraseByDescriptor(phrase, descriptor, theme, events)}</>;
   }

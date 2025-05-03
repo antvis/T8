@@ -1,5 +1,5 @@
-import { getFontSize, seedToken } from '../theme';
-import type { ThemeProps } from '../theme';
+import { getFontSize, seedToken } from '../../theme';
+import type { ThemeProps } from '../../theme';
 
 // Function to get the base container style
 export const getContainerStyle = (theme?: ThemeProps) => {

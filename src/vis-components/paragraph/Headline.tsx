@@ -1,5 +1,5 @@
 import { HeadlineSpec } from '../../schema';
-import { Headline as StyledHeadline } from '../../styled';
+import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
 import { ExtensionProps, ParagraphEvents } from '../../interface';

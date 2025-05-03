@@ -1,4 +1,4 @@
-import { seedToken } from '../theme';
+import { seedToken } from '../../theme';
 import { getBulletStyle, getContainerStyle, getEntityStyle, getHeadingStyle, getParagraphStyle } from './styles';
 import { CommonComponentConfig } from './type';
 

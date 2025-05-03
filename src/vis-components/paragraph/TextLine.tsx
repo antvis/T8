@@ -1,5 +1,5 @@
 import { TextParagraphSpec } from '../../schema';
-import { P as StyledP } from '../../styled';
+import { P as StyledP } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
 import { ExtensionProps, PhraseEvents } from '../../interface';
