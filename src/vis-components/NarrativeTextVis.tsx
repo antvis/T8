@@ -88,7 +88,7 @@ export function NarrativeTextVis({
       onMouseLeave={onMouseLeave}
       ref={narrativeDomRef}
     >
-      {headline ? <Headline spec={headline} pluginManager={pluginManager} {...sectionEvents} /> : null}
+      {headline ? <Headline theme={theme} spec={headline} pluginManager={pluginManager} {...sectionEvents} /> : null}
       {sections
         ? sections?.map((section) => (
             <Section

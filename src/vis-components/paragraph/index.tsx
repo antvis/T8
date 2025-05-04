@@ -46,7 +46,7 @@ export function Paragraph({
   }
 
   if (isHeadingParagraph(spec)) {
-    content = <Heading spec={spec} pluginManager={pluginManager} {...phraseEvents} />;
+    content = <Heading spec={spec} theme={theme} pluginManager={pluginManager} {...phraseEvents} />;
   }
   if (isTextParagraph(spec)) {
     content = <TextLine spec={spec} theme={theme} pluginManager={pluginManager} {...phraseEvents} />;

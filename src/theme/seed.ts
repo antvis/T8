@@ -14,14 +14,17 @@ export const seedToken = {
   fontFamily: 'PingFangSC, sans-serif',
   borderColor: 'rgb(199, 199, 199)',
 
-  fontSize: {
-    h1: 28,
-    h2: 24,
-    h3: 20,
-    h4: 16,
-    h5: 15,
-    h6: 15,
-    base: 14,
+  /**
+   * if pages use small and normal size together, rem will not work.
+   * so we use fontSizeMultiple to calculate the fontSize.
+   */
+  fontSizeMultiples: {
+    h1: 2,
+    h2: 1.72,
+    h3: 1.4,
+    h4: 1.15,
+    h5: 1.08,
+    h6: 1.08,
   },
 
   lineHeight: {

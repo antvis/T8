@@ -1,51 +1,54 @@
 import { ThemeProps, seedToken } from '../../../theme';
+import { getFontSizeNumber } from '../../../theme/getTheme/getFontSize';
 import { createStyledComponent } from '../styledFactory';
 
-const getHeadingStyle = (_: ThemeProps, level: number) => {
+const getHeadingStyle = (theme: ThemeProps, level: number) => {
   const baseStyle = {
     fontFamily: seedToken.fontFamily,
   };
+
+  const fontSize = getFontSizeNumber(theme ?? {});
 
   switch (level) {
     case 1:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSize.h1}px`,
+        fontSize: `${seedToken.fontSizeMultiples.h1 * fontSize}px`,
         lineHeight: `${seedToken.lineHeight.h1}px`,
         margin: '26px 0 10px 0',
       };
     case 2:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSize.h2}px`,
+        fontSize: `${seedToken.fontSizeMultiples.h2 * fontSize}px`,
         lineHeight: `${seedToken.lineHeight.h2}px`,
         margin: '21px 0 5px 0',
       };
     case 3:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSize.h3}px`,
+        fontSize: `${seedToken.fontSizeMultiples.h3 * fontSize}px`,
         lineHeight: `${seedToken.lineHeight.h3}px`,
         margin: '16px 0 5px 0',
       };
     case 4:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSize.h4}px`,
+        fontSize: `${seedToken.fontSizeMultiples.h4 * fontSize}px`,
         lineHeight: `${seedToken.lineHeight.h4}px`,
         margin: '10px 0 5px 0',
       };
     case 5:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSize.h5}px`,
+        fontSize: `${seedToken.fontSizeMultiples.h5 * fontSize}px`,
         lineHeight: `${seedToken.lineHeight.h5}px`,
         margin: '8px 0 5px 0',
       };
     case 6:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSize.h6}px`,
+        fontSize: `${seedToken.fontSizeMultiples.h6 * fontSize}px`,
         lineHeight: `${seedToken.lineHeight.h6}px`,
         color: seedToken.colorBase,
         minHeight: `${seedToken.lineHeight.h6}px`,

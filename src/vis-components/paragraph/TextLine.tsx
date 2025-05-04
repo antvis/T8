@@ -27,7 +27,7 @@ export function TextLine({
   ...events
 }: TextLineProps) {
   return (
-    <StyledP className={cx(getPrefixCls('p'), spec.className)} style={spec.styles}>
+    <StyledP theme={theme} className={cx(getPrefixCls('p'), spec.className)} style={spec.styles}>
       <Phrases spec={spec.phrases} theme={theme} pluginManager={pluginManager} {...events} />
     </StyledP>
   );
