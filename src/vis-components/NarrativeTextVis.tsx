@@ -6,7 +6,6 @@ import { Headline } from './paragraph';
 import { Section } from './section';
 import { ExtensionProps, NarrativeEvents } from '../interface';
 import { classnames as cx, getPrefixCls } from '../utils';
-// import { presetPluginManager } from '../chore/plugin';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultTheme, ThemeProps } from '../theme';
 import { presetPluginManager } from '../plugin';
