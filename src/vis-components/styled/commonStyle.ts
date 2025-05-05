@@ -1,4 +1,4 @@
-import { ThemeProps, getFontSize, seedToken } from '../../../theme';
+import { ThemeProps, getFontSize, seedToken } from '../../theme';
 
 export default function getCommonStyle(theme: ThemeProps) {
   return {

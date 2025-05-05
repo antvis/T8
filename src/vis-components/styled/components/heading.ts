@@ -1,5 +1,6 @@
 import { ThemeProps, seedToken } from '../../../theme';
 import { getFontSizeNumber } from '../../../theme/getTheme/getFontSize';
+import { getLineHeightNumber } from '../../../theme/getTheme/getLineHeight';
 import { createStyledComponent } from '../styledFactory';
 
 const getHeadingStyle = (theme: ThemeProps, level: number) => {
@@ -8,50 +9,51 @@ const getHeadingStyle = (theme: ThemeProps, level: number) => {
   };
 
   const fontSize = getFontSizeNumber(theme ?? {});
+  const lineHeight = getLineHeightNumber(theme ?? {});
 
   switch (level) {
     case 1:
       return {
         ...baseStyle,
         fontSize: `${seedToken.fontSizeMultiples.h1 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeight.h1}px`,
+        lineHeight: `${seedToken.lineHeightMultiples.h1 * lineHeight}px`,
         margin: '26px 0 10px 0',
       };
     case 2:
       return {
         ...baseStyle,
         fontSize: `${seedToken.fontSizeMultiples.h2 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeight.h2}px`,
+        lineHeight: `${seedToken.lineHeightMultiples.h2 * lineHeight}px`,
         margin: '21px 0 5px 0',
       };
     case 3:
       return {
         ...baseStyle,
         fontSize: `${seedToken.fontSizeMultiples.h3 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeight.h3}px`,
+        lineHeight: `${seedToken.lineHeightMultiples.h3 * lineHeight}px`,
         margin: '16px 0 5px 0',
       };
     case 4:
       return {
         ...baseStyle,
         fontSize: `${seedToken.fontSizeMultiples.h4 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeight.h4}px`,
+        lineHeight: `${seedToken.lineHeightMultiples.h4 * lineHeight}px`,
         margin: '10px 0 5px 0',
       };
     case 5:
       return {
         ...baseStyle,
         fontSize: `${seedToken.fontSizeMultiples.h5 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeight.h5}px`,
+        lineHeight: `${seedToken.lineHeightMultiples.h5 * lineHeight}px`,
         margin: '8px 0 5px 0',
       };
     case 6:
       return {
         ...baseStyle,
         fontSize: `${seedToken.fontSizeMultiples.h6 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeight.h6}px`,
+        lineHeight: `${seedToken.lineHeightMultiples.h6 * lineHeight}px`,
         color: seedToken.colorBase,
-        minHeight: `${seedToken.lineHeight.h6}px`,
+        minHeight: `${seedToken.lineHeightMultiples.h6}px`,
         letterSpacing: '0.008em',
         margin: '5px 0 5px 0',
       };

@@ -1,12 +1,14 @@
-import { ThemeProps, seedToken } from '../../../theme';
+import { ThemeProps } from '../../../theme';
 import { createStyledComponent } from '../styledFactory';
-import getCommonStyle from './common';
+import getCommonStyle from '../commonStyle';
+import getLineHeight from '../../../theme/getTheme/getLineHeight';
 
 const getParagraphStyle = (theme?: ThemeProps) => {
+  const lineHeight = getLineHeight(theme ?? {});
   return {
     ...getCommonStyle(theme ?? {}),
-    minHeight: `${seedToken.lineHeight.base}px`,
-    lineHeight: `${seedToken.lineHeight.base}px`,
+    minHeight: lineHeight,
+    lineHeight: lineHeight,
     marginBottom: '4px',
   };
 };

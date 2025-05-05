@@ -1,5 +1,5 @@
 import { ThemeProps } from '../../../theme';
-import getCommonStyle from './common';
+import getCommonStyle from '../commonStyle';
 import { createStyledComponent } from '../styledFactory';
 
 const getBulletStyle = (theme?: ThemeProps) => {
