@@ -9,7 +9,7 @@ import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultTheme, ThemeProps } from '../theme';
 import { presetPluginManager } from '../plugin';
-import { ThemeProvider } from './context';
+import { ContextProvider } from './context';
 
 export type NarrativeTextVisProps = ExtensionProps &
   NarrativeEvents & {
@@ -79,7 +79,7 @@ export function NarrativeTextVis({
   // }, [copyNarrative]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ContextProvider theme={theme} plugin={pluginManager}>
       <Container
         className={cx(className, getPrefixCls('container'))}
         style={styles}
@@ -88,13 +88,11 @@ export function NarrativeTextVis({
         onMouseLeave={onMouseLeave}
         ref={narrativeDomRef}
       >
-        {headline ? <Headline spec={headline} pluginManager={pluginManager} {...sectionEvents} /> : null}
+        {headline ? <Headline spec={headline} {...sectionEvents} /> : null}
         {sections
-          ? sections?.map((section) => (
-              <Section key={section.key || v4()} spec={section} pluginManager={pluginManager} {...sectionEvents} />
-            ))
+          ? sections?.map((section) => <Section key={section.key || v4()} spec={section} {...sectionEvents} />)
           : null}
       </Container>
-    </ThemeProvider>
+    </ContextProvider>
   );
 }

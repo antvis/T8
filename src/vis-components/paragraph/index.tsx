@@ -3,19 +3,20 @@ import { ParagraphSpec, isHeadingParagraph, isTextParagraph, isBulletParagraph, 
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { ExtensionProps, ParagraphEvents } from '../../interface';
-import { presetPluginManager } from '../../plugin';
+import { ParagraphEvents } from '../../interface';
+import { usePluginManager } from '../context/';
 
-type ParagraphProps = ExtensionProps &
-  ParagraphEvents & {
-    /**
-     * @description specification of paragraph text spec
-     * @description.zh-CN 段落描述 json 信息
-     */
-    spec: ParagraphSpec;
-  };
+type ParagraphProps = ParagraphEvents & {
+  /**
+   * @description specification of paragraph text spec
+   * @description.zh-CN 段落描述 json 信息
+   */
+  spec: ParagraphSpec;
+};
 
-export function Paragraph({ spec, pluginManager = presetPluginManager, ...events }: ParagraphProps) {
+export function Paragraph({ spec, ...events }: ParagraphProps) {
+  const pluginManager = usePluginManager();
+
   const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
   const onClick = () => {
     onClickParagraph?.(spec);
@@ -35,13 +36,13 @@ export function Paragraph({ spec, pluginManager = presetPluginManager, ...events
   }
 
   if (isHeadingParagraph(spec)) {
-    content = <Heading spec={spec} pluginManager={pluginManager} {...phraseEvents} />;
+    content = <Heading spec={spec} {...phraseEvents} />;
   }
   if (isTextParagraph(spec)) {
-    content = <TextLine spec={spec} pluginManager={pluginManager} {...phraseEvents} />;
+    content = <TextLine spec={spec} {...phraseEvents} />;
   }
   if (isBulletParagraph(spec)) {
-    content = <Bullets spec={spec} pluginManager={pluginManager} {...events} />;
+    content = <Bullets spec={spec} {...events} />;
   }
   return content ? (
     <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

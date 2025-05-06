@@ -1,22 +1,24 @@
 import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { v4 } from 'uuid';
 import { getPrefixCls, classnames as cx, isFunction } from '../../utils';
-import { ExtensionProps, SectionEvents } from '../../interface';
+import { SectionEvents } from '../../interface';
 import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
-import { presetPluginManager } from '../../plugin';
+import { usePluginManager } from '../context/hooks/plugin';
 
-type SectionProps = ExtensionProps &
-  SectionEvents & {
-    /**
-     * @description specification of section text spec
-     * @description.zh-CN Section 描述 json 信息
-     */
-    spec: SectionSpec;
-  };
+type SectionProps = SectionEvents & {
+  /**
+   * @description specification of section text spec
+   * @description.zh-CN Section 描述 json 信息
+   */
+  spec: SectionSpec;
+};
 
-export function Section({ spec, pluginManager = presetPluginManager, ...events }: SectionProps) {
+export function Section({ spec, ...events }: SectionProps) {
   const { onClickSection, onMouseEnterSection, onMouseLeaveSection, ...paragraphEvents } = events || {};
+
+  const pluginManager = usePluginManager();
+
   const onClick = () => {
     onClickSection?.(spec);
   };
@@ -46,9 +48,7 @@ export function Section({ spec, pluginManager = presetPluginManager, ...events }
     >
       {renderCustomSection()}
       {isStandardSection(spec) &&
-        spec.paragraphs.map((p) => (
-          <Paragraph key={p.key || v4()} spec={p} pluginManager={pluginManager} {...paragraphEvents} />
-        ))}
+        spec.paragraphs.map((p) => <Paragraph key={p.key || v4()} spec={p} {...paragraphEvents} />)}
     </Container>
   );
 }

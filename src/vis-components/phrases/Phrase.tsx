@@ -1,21 +1,19 @@
 import { PhraseSpec, EntityPhraseSpec, CustomPhraseSpec, isTextPhrase, isEntityPhrase } from '../../schema';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
-import { ExtensionProps, PhraseEvents } from '../../interface';
+import { PhraseEvents } from '../../interface';
 import { PhraseDescriptor } from '../../plugin';
 import { type ThemeProps } from '../../theme';
-import { useTheme } from '../context';
-import { presetPluginManager } from '../../plugin';
+import { useTheme, usePluginManager } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
 
-type PhraseProps = ExtensionProps &
-  PhraseEvents & {
-    /**
-     * @description specification of phrase text spec
-     * @description.zh-CN 短语描述 json 信息
-     */
-    spec: PhraseSpec;
-  };
+type PhraseProps = PhraseEvents & {
+  /**
+   * @description specification of phrase text spec
+   * @description.zh-CN 短语描述 json 信息
+   */
+  spec: PhraseSpec;
+};
 
 function renderPhraseByDescriptor(
   spec: EntityPhraseSpec | CustomPhraseSpec,
@@ -92,12 +90,10 @@ function renderPhraseByDescriptor(
 }
 
 /** <Phrase /> can use independence */
-export const Phrase: FunctionComponent<PhraseProps> = ({
-  spec: phrase,
-  pluginManager = presetPluginManager,
-  ...events
-}) => {
+export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase, ...events }) => {
   const theme = useTheme();
+  const pluginManager = usePluginManager();
+
   const onClick = () => {
     events?.onClickPhrase?.(phrase);
   };

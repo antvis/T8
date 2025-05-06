@@ -2,16 +2,14 @@ import { HeadlineSpec } from '../../schema';
 import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { ExtensionProps, ParagraphEvents } from '../../interface';
-import { presetPluginManager } from '../../plugin';
+import { ParagraphEvents } from '../../interface';
 import { useTheme } from '../context';
 
-type HeadlineProps = ExtensionProps &
-  ParagraphEvents & {
-    spec: HeadlineSpec;
-  };
+type HeadlineProps = ParagraphEvents & {
+  spec: HeadlineSpec;
+};
 
-export function Headline({ spec, pluginManager = presetPluginManager, ...events }: HeadlineProps) {
+export function Headline({ spec, ...events }: HeadlineProps) {
   const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
   const theme = useTheme();
 
@@ -33,7 +31,7 @@ export function Headline({ spec, pluginManager = presetPluginManager, ...events 
       style={spec.styles}
       theme={theme}
     >
-      <Phrases spec={spec.phrases} pluginManager={pluginManager} {...phraseEvents} />
+      <Phrases spec={spec.phrases} {...phraseEvents} />
     </StyledHeadline>
   );
 }
