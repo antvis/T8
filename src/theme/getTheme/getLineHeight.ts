@@ -2,7 +2,7 @@ import { seedToken } from '../seed';
 
 import type { ThemeProps } from '../type';
 
-export default function getLineHeight({ size = 'normal' }: ThemeProps) {
+export function getLineHeight({ size = 'normal' }: ThemeProps) {
   return `${size === 'small' ? seedToken.lineHeightSmall : seedToken.lineHeightBase}px`;
 }
 

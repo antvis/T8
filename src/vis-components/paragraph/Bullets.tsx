@@ -3,9 +3,9 @@ import { Ol, Ul, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
 import { ExtensionProps, ParagraphEvents } from '../../interface';
-import { ThemeProps, defaultTheme } from '../../theme';
 import { BulletsParagraphSpec } from '../../schema';
 import { presetPluginManager } from '../../plugin';
+import { useTheme } from '../context';
 
 type BulletsProps = ExtensionProps &
   ParagraphEvents & {
@@ -14,14 +14,9 @@ type BulletsProps = ExtensionProps &
      * @description.zh-CN 列表段落描述
      */
     spec: BulletsParagraphSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
   };
 
-export function Bullets({ spec, theme = defaultTheme, pluginManager = presetPluginManager, ...events }: BulletsProps) {
+export function Bullets({ spec, pluginManager = presetPluginManager, ...events }: BulletsProps) {
   const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
 
   const children = spec.bullets?.map((bullet) => {
@@ -43,16 +38,16 @@ export function Bullets({ spec, theme = defaultTheme, pluginManager = presetPlug
         onMouseEnter={onMouseEnterLi}
         onMouseLeave={onMouseLeaveLi}
       >
-        <Phrases spec={bullet.phrases} theme={theme} pluginManager={pluginManager} {...phraseEvents} />
-        {bullet?.subBullet ? (
-          <Bullets spec={bullet?.subBullet} theme={theme} pluginManager={pluginManager} {...events} />
-        ) : null}
+        <Phrases spec={bullet.phrases} pluginManager={pluginManager} {...phraseEvents} />
+        {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} pluginManager={pluginManager} {...events} /> : null}
       </Li>
     );
   });
 
   const tag = spec.isOrder ? 'ol' : 'ul';
   const Comp = spec.isOrder ? Ol : Ul;
+
+  const theme = useTheme();
 
   const onClick = () => {
     onClickParagraph?.(spec);

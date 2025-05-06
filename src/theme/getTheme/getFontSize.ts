@@ -1,7 +1,7 @@
 import { seedToken } from '../seed';
 import type { ThemeProps } from '../type';
 
-export default function getFontSize({ size = 'normal' }: ThemeProps) {
+export function getFontSize({ size = 'normal' }: ThemeProps) {
   return `${size === 'small' ? seedToken.fontSizeSmall : seedToken.fontSizeBase}px`;
 }
 

@@ -4,7 +4,6 @@ import { getPrefixCls, classnames as cx, isFunction } from '../../utils';
 import { ExtensionProps, SectionEvents } from '../../interface';
 import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
-import { ThemeProps, defaultTheme } from '../../theme';
 import { presetPluginManager } from '../../plugin';
 
 type SectionProps = ExtensionProps &
@@ -14,14 +13,9 @@ type SectionProps = ExtensionProps &
      * @description.zh-CN Section 描述 json 信息
      */
     spec: SectionSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
   };
 
-export function Section({ spec, theme = defaultTheme, pluginManager = presetPluginManager, ...events }: SectionProps) {
+export function Section({ spec, pluginManager = presetPluginManager, ...events }: SectionProps) {
   const { onClickSection, onMouseEnterSection, onMouseLeaveSection, ...paragraphEvents } = events || {};
   const onClick = () => {
     onClickSection?.(spec);
@@ -43,7 +37,6 @@ export function Section({ spec, theme = defaultTheme, pluginManager = presetPlug
   };
   return (
     <Container
-      theme={theme}
       as="section"
       className={cx(getPrefixCls('section'), spec.className)}
       style={spec.styles}
@@ -54,7 +47,7 @@ export function Section({ spec, theme = defaultTheme, pluginManager = presetPlug
       {renderCustomSection()}
       {isStandardSection(spec) &&
         spec.paragraphs.map((p) => (
-          <Paragraph key={p.key || v4()} spec={p} theme={theme} pluginManager={pluginManager} {...paragraphEvents} />
+          <Paragraph key={p.key || v4()} spec={p} pluginManager={pluginManager} {...paragraphEvents} />
         ))}
     </Container>
   );

@@ -9,6 +9,7 @@ import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultTheme, ThemeProps } from '../theme';
 import { presetPluginManager } from '../plugin';
+import { ThemeProvider } from './context';
 
 export type NarrativeTextVisProps = ExtensionProps &
   NarrativeEvents & {
@@ -78,27 +79,22 @@ export function NarrativeTextVis({
   // }, [copyNarrative]);
 
   return (
-    <Container
-      theme={theme}
-      className={cx(className, getPrefixCls('container'))}
-      style={styles}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      ref={narrativeDomRef}
-    >
-      {headline ? <Headline theme={theme} spec={headline} pluginManager={pluginManager} {...sectionEvents} /> : null}
-      {sections
-        ? sections?.map((section) => (
-            <Section
-              key={section.key || v4()}
-              theme={theme}
-              spec={section}
-              pluginManager={pluginManager}
-              {...sectionEvents}
-            />
-          ))
-        : null}
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container
+        className={cx(className, getPrefixCls('container'))}
+        style={styles}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        ref={narrativeDomRef}
+      >
+        {headline ? <Headline spec={headline} pluginManager={pluginManager} {...sectionEvents} /> : null}
+        {sections
+          ? sections?.map((section) => (
+              <Section key={section.key || v4()} spec={section} pluginManager={pluginManager} {...sectionEvents} />
+            ))
+          : null}
+      </Container>
+    </ThemeProvider>
   );
 }

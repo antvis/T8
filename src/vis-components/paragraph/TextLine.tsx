@@ -3,8 +3,8 @@ import { P as StyledP } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
 import { ExtensionProps, PhraseEvents } from '../../interface';
-import { ThemeProps, defaultTheme } from '../../theme';
 import { presetPluginManager } from '../../plugin';
+import { useTheme } from '../context';
 
 type TextLineProps = ExtensionProps &
   PhraseEvents & {
@@ -13,22 +13,14 @@ type TextLineProps = ExtensionProps &
      * @description.zh-CN 文本行描述
      */
     spec: TextParagraphSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
   };
 
-export function TextLine({
-  spec,
-  theme = defaultTheme,
-  pluginManager = presetPluginManager,
-  ...events
-}: TextLineProps) {
+export function TextLine({ spec, pluginManager = presetPluginManager, ...events }: TextLineProps) {
+  const theme = useTheme();
+
   return (
     <StyledP theme={theme} className={cx(getPrefixCls('p'), spec.className)} style={spec.styles}>
-      <Phrases spec={spec.phrases} theme={theme} pluginManager={pluginManager} {...events} />
+      <Phrases spec={spec.phrases} pluginManager={pluginManager} {...events} />
     </StyledP>
   );
 }

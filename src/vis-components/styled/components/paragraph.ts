@@ -1,7 +1,6 @@
-import { ThemeProps } from '../../../theme';
+import { ThemeProps, getLineHeight } from '../../../theme';
 import { createStyledComponent } from '../styledFactory';
 import getCommonStyle from '../commonStyle';
-import getLineHeight from '../../../theme/getTheme/getLineHeight';
 
 const getParagraphStyle = (theme?: ThemeProps) => {
   const lineHeight = getLineHeight(theme ?? {});

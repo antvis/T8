@@ -1,7 +1,8 @@
 import type { ThemeProps } from './type';
 
 export { seedToken } from './seed';
-export { default as getFontSize } from './getTheme/getFontSize';
+export { getFontSize, getFontSizeNumber } from './getTheme/getFontSize';
+export { getLineHeight, getLineHeightNumber } from './getTheme/getLineHeight';
 export type { ThemeProps } from './type';
 
 export const defaultTheme: ThemeProps = {

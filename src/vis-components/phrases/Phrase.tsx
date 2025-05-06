@@ -3,7 +3,8 @@ import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
 import { ExtensionProps, PhraseEvents } from '../../interface';
 import { PhraseDescriptor } from '../../plugin';
-import { type ThemeProps, defaultTheme } from '../../theme';
+import { type ThemeProps } from '../../theme';
+import { useTheme } from '../context';
 import { presetPluginManager } from '../../plugin';
 import { ComponentChildren, FunctionComponent } from 'preact';
 
@@ -14,11 +15,6 @@ type PhraseProps = ExtensionProps &
      * @description.zh-CN 短语描述 json 信息
      */
     spec: PhraseSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
   };
 
 function renderPhraseByDescriptor(
@@ -98,10 +94,10 @@ function renderPhraseByDescriptor(
 /** <Phrase /> can use independence */
 export const Phrase: FunctionComponent<PhraseProps> = ({
   spec: phrase,
-  theme = defaultTheme,
   pluginManager = presetPluginManager,
   ...events
 }) => {
+  const theme = useTheme();
   const onClick = () => {
     events?.onClickPhrase?.(phrase);
   };
