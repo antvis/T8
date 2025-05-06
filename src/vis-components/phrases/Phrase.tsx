@@ -1,7 +1,7 @@
 import { PhraseSpec, EntityPhraseSpec, CustomPhraseSpec, isTextPhrase, isEntityPhrase } from '../../schema';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
-import { PhraseEvents } from '../../interface';
+import { PhraseEvents } from '../events.type';
 import { PhraseDescriptor } from '../../plugin';
 import { type ThemeProps } from '../../theme';
 import { useTheme, usePluginManager } from '../context';

@@ -3,7 +3,7 @@ import { ParagraphSpec, isHeadingParagraph, isTextParagraph, isBulletParagraph, 
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { ParagraphEvents } from '../../interface';
+import { ParagraphEvents } from '../events.type';
 import { usePluginManager } from '../context/';
 
 type ParagraphProps = ParagraphEvents & {

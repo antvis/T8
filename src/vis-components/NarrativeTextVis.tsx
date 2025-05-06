@@ -4,12 +4,20 @@ import { v4 } from 'uuid';
 import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
-import { ExtensionProps, NarrativeEvents } from '../interface';
+import { NarrativeEvents } from './events.type';
 import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultTheme, ThemeProps } from '../theme';
-import { presetPluginManager } from '../plugin';
+import { PluginManager, presetPluginManager } from '../plugin';
 import { ContextProvider } from './context';
+
+export type ExtensionProps = {
+  /**
+   * @description extension plugin
+   * @description.zh-CN 扩展插件
+   */
+  pluginManager?: PluginManager;
+};
 
 export type NarrativeTextVisProps = ExtensionProps &
   NarrativeEvents & {

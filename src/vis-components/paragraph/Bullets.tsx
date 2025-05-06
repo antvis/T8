@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { Ol, Ul, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { ParagraphEvents } from '../../interface';
+import { ParagraphEvents } from '../events.type';
 import { BulletsParagraphSpec } from '../../schema';
 import { useTheme } from '../context';
 

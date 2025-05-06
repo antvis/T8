@@ -1,7 +1,7 @@
 import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { v4 } from 'uuid';
 import { getPrefixCls, classnames as cx, isFunction } from '../../utils';
-import { SectionEvents } from '../../interface';
+import { SectionEvents } from '../events.type';
 import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
 import { usePluginManager } from '../context/hooks/plugin';

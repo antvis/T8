@@ -2,7 +2,7 @@ import { HeadlineSpec } from '../../schema';
 import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { ParagraphEvents } from '../../interface';
+import { ParagraphEvents } from '../events.type';
 import { useTheme } from '../context';
 
 type HeadlineProps = ParagraphEvents & {

@@ -1,5 +1,5 @@
 import { PhraseSpec } from '../../schema';
-import { PhraseEvents } from '../../interface';
+import { PhraseEvents } from '../events.type';
 import { Phrase } from './Phrase';
 
 type PhrasesProps = PhraseEvents & {
