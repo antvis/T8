@@ -52,8 +52,6 @@ function renderPhraseByDescriptor(
     events?.onMouseLeavePhrase?.(spec);
   };
 
-  console.log('descriptor', content(value, metadata));
-
   let defaultNode: ComponentChildren = (
     <Entity
       theme={theme}
@@ -134,7 +132,6 @@ export const Phrase: FunctionComponent<PhraseProps> = ({
   }
 
   const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
-  console.log('🚀 ~ phrase:', phrase, descriptor);
   if (descriptor) {
     return <>{renderPhraseByDescriptor(phrase, descriptor, theme, events)}</>;
   }
