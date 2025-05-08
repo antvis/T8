@@ -32,6 +32,7 @@ export const createEntityPhraseFactory =
     let entityDescriptor = cloneDeep(defaultDescriptor);
 
     // Apply customizations if provided
+    // TODO: how to process merge & overwrite
     if (customDescriptor) {
       entityDescriptor =
         mode === 'overwrite' ? customDescriptor : getMergedDescriptor(defaultDescriptor, customDescriptor);
