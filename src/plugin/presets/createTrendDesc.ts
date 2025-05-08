@@ -1,0 +1,30 @@
+// import React from 'react';
+// import { isArray } from 'lodash';
+import { SingleLineChart } from '../../charts';
+import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
+import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { seedToken } from '../../theme';
+import { render as preactRender, h } from 'preact';
+import { createDocumentFragment } from '../tools';
+
+const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
+  // encoding: {
+  //   color: seedToken.colorConclusion,
+  //   inlineChart: (value, { detail }) => {
+  //     if (isArray(detail) && detail.length) return <SingleLineChart data={detail} />;
+  //     return null;
+  //   },
+  // },
+  render: (value, { detail }) => {
+    const chartElement = document.createElement('span');
+    preactRender(h(SingleLineChart, { data: detail as number[] }), chartElement);
+
+    return createDocumentFragment(chartElement, value, 'suffix');
+  },
+  style: () => ({
+    color: seedToken.colorConclusion,
+  }),
+  // tooltip: false,
+};
+
+export const createTrendDesc = createEntityPhraseFactory('trend_desc', defaultTrendDescDescriptor);

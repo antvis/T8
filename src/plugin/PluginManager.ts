@@ -1,12 +1,6 @@
 import { EntityMetaData, EntityType, PhraseSpec, isCustomPhrase, isEntityPhrase } from '../schema';
-import {
-  PhraseDescriptor,
-  BlockDescriptor,
-  PluginType,
-  isBlockDescriptor,
-  isEntityDescriptor,
-  isCustomPhraseDescriptor,
-} from './plugin-protocol.type';
+import { PhraseDescriptor, BlockDescriptor, PluginType } from './plugin-protocol.type';
+import { isBlockDescriptor, isEntityDescriptor, isCustomPhraseDescriptor } from './tools';
 
 /**
  * PluginManager class responsible for registering, managing, and retrieving

@@ -3,10 +3,10 @@ import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';
 
 const defaultMetricNameDescriptor: SpecificEntityPhraseDescriptor = {
-  encoding: {
+  style: () => ({
     fontWeight: 500,
     color: seedToken.colorMetricName,
-  },
+  }),
   // tooltip: false,
 };
 

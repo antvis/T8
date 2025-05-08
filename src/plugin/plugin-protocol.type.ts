@@ -1,6 +1,32 @@
-import type { ComponentChildren, JSX } from 'preact';
-// import type { TooltipProps } from 'antd';
-import type { EntityMetaData, EntityEncoding, EntityType } from '../schema';
+import type { EntityMetaData, EntityType } from '../schema';
+
+export interface CSSProperties {
+  [key: string]: string | number | undefined;
+}
+
+/**
+ * description for block render
+ */
+export interface BlockDescriptor<CustomBlockSpec> {
+  /** key represent blockType */
+  key: string;
+  /** is block */
+  isBlock: true;
+  /** className of block */
+  className?: string | ((spec: CustomBlockSpec) => string);
+  /** style of block */
+  style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
+  /**
+   * render callback of block, T8 will use the return value to render the block
+   * @param spec block spec
+   * @returns HTMLElement | DocumentFragment T8 will use the return value to render the block
+   */
+  render?: ((spec: CustomBlockSpec) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
+  /** getText of block */
+  getText?: (spec: CustomBlockSpec) => string;
+  /** getMarkdown of block */
+  getMarkdown?: (spec: CustomBlockSpec) => string;
+}
 
 /**
  * description for phrase render
@@ -10,11 +36,12 @@ export interface PhraseDescriptor<MetaData> {
   key: string;
   isEntity: boolean;
   /**
-   * main react node, default is phrase value
+   * render callback of phrase, T8 will use the return value to render the phrase
    * @param value phrase spec value
    * @param metadata phrase spec metadata
+   * @returns HTMLElement | DocumentFragment T8 will use the return value to render the phrase
    */
-  content?: (value: string, metadata: MetaData) => ComponentChildren;
+  render?: ((value: string, metadata: MetaData) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
   /**
    * tooltip of phrases
    */
@@ -26,7 +53,7 @@ export interface PhraseDescriptor<MetaData> {
   //       title: (value: string, metadata: MetaData) => ReactNode;
   //     });
   classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
-  style?: JSX.CSSProperties | ((value: string, metadata: MetaData) => JSX.CSSProperties);
+  style?: CSSProperties | ((value: string, metadata: MetaData) => CSSProperties);
   onHover?: (value: string, metadata: MetaData) => string;
   onClick?: (value: string, metadata: MetaData) => string;
   getText?: (value: string, metadata: MetaData) => string;
@@ -38,57 +65,21 @@ export interface PhraseDescriptor<MetaData> {
    * @param value phrase spec value
    * @param metadata phrase spec metadata
    */
-  overwrite?: (node: ComponentChildren, value: string, metadata: MetaData) => ComponentChildren;
+  overwrite?: (node: HTMLSpanElement, value: string, metadata: MetaData) => HTMLElement | DocumentFragment;
 }
-
-export type CustomPhraseDescriptor<MetaData> = PhraseDescriptor<MetaData> & { isEntity: false };
 
 /**
- * description for entity phrase render
+ * render custom phrase
  */
-export interface EntityPhraseDescriptor extends PhraseDescriptor<EntityMetaData> {
-  key: EntityType;
-  isEntity: true;
-  /**
-   * entity phrase encoding channel based on entityType
-   */
-  encoding?: EntityEncoding<ComponentChildren>;
-}
-
-export type SpecificEntityPhraseDescriptor = Omit<EntityPhraseDescriptor, 'key' | 'isEntity'>;
-export type CustomEntityMode = 'overwrite' | 'merge';
-
-export type EntityPhrasePlugin = (
-  customPhraseDescriptor?: SpecificEntityPhraseDescriptor,
-  mode?: CustomEntityMode,
-) => PhraseDescriptor<EntityMetaData>;
-
-export interface BlockDescriptor<CustomBlockSpec> {
-  key: string;
-  isBlock: true;
-  className?: string | ((spec: CustomBlockSpec) => string);
-  style?: JSX.CSSProperties | ((spec: CustomBlockSpec) => JSX.CSSProperties);
-  render?: (spec: CustomBlockSpec) => ComponentChildren;
-  getText?: (spec: CustomBlockSpec) => string;
-  getMarkdown?: (spec: CustomBlockSpec) => string;
-}
-
-export type AnyObject = Record<string, unknown>;
+export type CustomPhraseDescriptor<MetaData> = PhraseDescriptor<MetaData> & { isEntity: false };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PluginType = PhraseDescriptor<any> | BlockDescriptor<any>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isBlockDescriptor(plugin: PluginType): plugin is BlockDescriptor<any> {
-  return 'isBlock' in plugin && plugin.isBlock;
+export interface EntityPhraseDescriptor extends PhraseDescriptor<EntityMetaData> {
+  key: EntityType;
+  isEntity: true;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isEntityDescriptor(plugin: PluginType): plugin is PhraseDescriptor<any> {
-  return 'isEntity' in plugin && plugin.isEntity;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isCustomPhraseDescriptor(plugin: PluginType): plugin is PhraseDescriptor<any> {
-  return 'isEntity' in plugin && !plugin.isEntity;
-}
+export type SpecificEntityPhraseDescriptor = Omit<EntityPhraseDescriptor, 'key' | 'isEntity'>;
+export type CustomEntityMode = 'overwrite' | 'merge';
