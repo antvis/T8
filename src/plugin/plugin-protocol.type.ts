@@ -58,14 +58,6 @@ export interface PhraseDescriptor<MetaData> {
   onClick?: (value: string, metadata: MetaData) => string;
   getText?: (value: string, metadata: MetaData) => string;
   getMarkdown?: (value: string, metadata: MetaData) => string;
-
-  /**
-   * overwrite will be the highest priority to render node if it defined
-   * @param node the program result node
-   * @param value phrase spec value
-   * @param metadata phrase spec metadata
-   */
-  overwrite?: (node: HTMLSpanElement, value: string, metadata: MetaData) => HTMLElement | DocumentFragment;
 }
 
 /**

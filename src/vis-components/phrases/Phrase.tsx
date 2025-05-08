@@ -38,7 +38,6 @@ function renderPhraseByDescriptor(
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
   const {
-    overwrite,
     classNames,
     style: descriptorStyle,
     onHover,
@@ -77,7 +76,7 @@ function renderPhraseByDescriptor(
         console.warn('Unexpected content type returned from render function:', contentResult);
       }
     }
-  }, [value, metadata, render]);
+  }, [value, metadata]);
 
   const defaultNode: ComponentChildren = (
     <Entity
@@ -96,10 +95,6 @@ function renderPhraseByDescriptor(
       )}
     />
   );
-  if (isFunction(overwrite)) {
-    // TODO: need to convert DocumentFragment & HTMLElement to VNode
-    // defaultNode = overwrite(entityRef.current, value, metadata);
-  }
 
   const nodeWithEvents =
     !isEmpty(events) || isFunction(onClick) || isFunction(onHover) ? (

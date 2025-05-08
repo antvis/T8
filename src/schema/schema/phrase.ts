@@ -109,7 +109,8 @@ export type EntityMetaData = {
   sourceId?: string;
 };
 
-export type TypeOrMetaReturnType<T> = T | ((value: string, metadata: EntityMetaData) => T);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type TypeOrMetaReturnType<T> = T | ((...args: any[]) => T);
 
 /** entity phrase encoding channel */
 export type EntityEncoding<NodeType> = Partial<{

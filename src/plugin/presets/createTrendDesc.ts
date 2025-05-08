@@ -8,13 +8,6 @@ import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../tools';
 
 const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
-  // encoding: {
-  //   color: seedToken.colorConclusion,
-  //   inlineChart: (value, { detail }) => {
-  //     if (isArray(detail) && detail.length) return <SingleLineChart data={detail} />;
-  //     return null;
-  //   },
-  // },
   render: (value, { detail }) => {
     const chartElement = document.createElement('span');
     preactRender(h(SingleLineChart, { data: detail as number[] }), chartElement);

@@ -1,11 +1,12 @@
 import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { v4 } from 'uuid';
-import { getPrefixCls, classnames as cx, isFunction } from '../../utils';
+import { getPrefixCls, classnames as cx, functionalize } from '../../utils';
 import { ExtensionProps, SectionEvents } from '../../interface';
 import { Container } from '../../styled';
 import { Paragraph } from '../paragraph';
 import { ThemeProps, defaultTheme } from '../../theme';
 import { presetPluginManager } from '../../plugin';
+import { useEffect, useRef } from 'preact/hooks';
 
 type SectionProps = ExtensionProps &
   SectionEvents & {
@@ -23,6 +24,9 @@ type SectionProps = ExtensionProps &
 
 export function Section({ spec, theme = defaultTheme, pluginManager = presetPluginManager, ...events }: SectionProps) {
   const { onClickSection, onMouseEnterSection, onMouseLeaveSection, ...paragraphEvents } = events || {};
+
+  const customSectionRef = useRef<HTMLDivElement>(null);
+
   const onClick = () => {
     onClickSection?.(spec);
   };
@@ -32,15 +36,28 @@ export function Section({ spec, theme = defaultTheme, pluginManager = presetPlug
   const onMouseLeave = () => {
     onMouseLeaveSection?.(spec);
   };
+
   const renderCustomSection = () => {
     if (isCustomSection(spec)) {
       const descriptor = pluginManager.getBlockDescriptor(spec.customType);
-      if (descriptor && isFunction(descriptor?.render)) {
-        return descriptor.render(spec);
+      if (descriptor) {
+        return functionalize<HTMLElement | DocumentFragment>(descriptor.render, null)(spec);
       }
     }
     return null;
   };
+
+  useEffect(() => {
+    if (customSectionRef.current) {
+      const contentResult = renderCustomSection();
+      if (contentResult instanceof DocumentFragment || contentResult instanceof HTMLElement) {
+        customSectionRef.current.appendChild(contentResult);
+      } else {
+        console.warn('Unexpected content type returned from render function:', contentResult);
+      }
+    }
+  }, [spec]);
+
   return (
     <Container
       theme={theme}
@@ -51,7 +68,7 @@ export function Section({ spec, theme = defaultTheme, pluginManager = presetPlug
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {renderCustomSection()}
+      <Container forwardRef={customSectionRef} />
       {isStandardSection(spec) &&
         spec.paragraphs.map((p) => (
           <Paragraph key={p.key || v4()} spec={p} theme={theme} pluginManager={pluginManager} {...paragraphEvents} />
