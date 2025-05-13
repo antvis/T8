@@ -4,7 +4,7 @@ import { ValueAssessment, EntityMetaData } from '../../schema';
 // import { ArrowDown, ArrowUp } from '../../assets/icons';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
-import { getPrefixCls } from '../../utils';
+import { getPrefixCls, isNumber } from '../../utils';
 import { seedToken } from '../../theme';
 
 const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
@@ -14,9 +14,9 @@ const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   },
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
-  // tooltip: {
-  //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
-  // },
+  tooltip: {
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
+  },
 };
 
 export const createDeltaValue = createEntityPhraseFactory('delta_value', defaultDeltaValueDescriptor);
@@ -28,9 +28,9 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
   },
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
-  // tooltip: {
-  //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
-  // },
+  tooltip: {
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
+  },
 };
 
 export const createRatioValue = createEntityPhraseFactory('ratio_value', defaultRatioValueDescriptor);

@@ -1,15 +1,15 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { ProportionChart } from '../../charts';
-// import { isNumber } from '../../utils';
+import { isNumber } from '../../utils';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
     inlineChart: (value, { origin }) => <ProportionChart data={getProportionNumber(value, origin as number)} />,
   },
-  // tooltip: {
-  //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
-  // },
+  tooltip: {
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
+  },
 };
 
 export const createProportion = createEntityPhraseFactory('proportion', defaultProportionDescriptor);

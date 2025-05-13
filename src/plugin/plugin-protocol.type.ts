@@ -1,6 +1,6 @@
 import type { ComponentChildren, JSX } from 'preact';
-// import type { TooltipProps } from 'antd';
 import type { EntityMetaData, EntityEncoding, EntityType } from '../schema';
+import { TooltipProps } from '../vis-components';
 
 /**
  * description for phrase render
@@ -18,13 +18,12 @@ export interface PhraseDescriptor<MetaData> {
   /**
    * tooltip of phrases
    */
-  // TODO: add tooltip without antd
-  // tooltip?:
-  //   | false
-  //   | (TooltipProps & {
-  //       // overwrite antd tooltip title props
-  //       title: (value: string, metadata: MetaData) => ReactNode;
-  //     });
+  tooltip?:
+    | false
+    | (Omit<TooltipProps, 'children' | 'title'> & {
+        // overwrite antd tooltip title props
+        title: ((value: string, metadata: MetaData) => HTMLElement | string | number) | HTMLElement | string | number;
+      });
   classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
   style?: JSX.CSSProperties | ((value: string, metadata: MetaData) => JSX.CSSProperties);
   onHover?: (value: string, metadata: MetaData) => string;

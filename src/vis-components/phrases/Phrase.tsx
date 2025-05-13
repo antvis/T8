@@ -1,11 +1,19 @@
-import { PhraseSpec, EntityPhraseSpec, CustomPhraseSpec, isTextPhrase, isEntityPhrase } from '../../schema';
+import {
+  PhraseSpec,
+  EntityPhraseSpec,
+  CustomPhraseSpec,
+  isTextPhrase,
+  isEntityPhrase,
+  EntityMetaData,
+} from '../../schema';
 import { Entity, Bold, Italic, Underline } from '../../styled';
-import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
+import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty, isNil } from '../../utils';
 import { ExtensionProps, PhraseEvents } from '../../interface';
 import { PhraseDescriptor } from '../../plugin';
 import { type ThemeProps, defaultTheme } from '../../theme';
 import { presetPluginManager } from '../../plugin';
 import { ComponentChildren, FunctionComponent } from 'preact';
+import { Tooltip } from '../ui';
 
 type PhraseProps = ExtensionProps &
   PhraseEvents & {
@@ -37,6 +45,7 @@ function renderPhraseByDescriptor(
     // tooltip,
     onClick,
     content = () => value,
+    tooltip,
   } = descriptor || {};
 
   const handleClick = () => {
@@ -52,7 +61,7 @@ function renderPhraseByDescriptor(
     events?.onMouseLeavePhrase?.(spec);
   };
 
-  console.log('descriptor', content(value, metadata));
+  // console.log('descriptor', content(value, metadata));
 
   let defaultNode: ComponentChildren = (
     <Entity
@@ -85,16 +94,16 @@ function renderPhraseByDescriptor(
       defaultNode
     );
 
-  return nodeWithEvents;
-  // TODO: add tooltip without antd
-  // const showTooltip = tooltip && tooltip?.title(value, metadata);
-  // return !isNil(showTooltip) ? (
-  //   <Tooltip {...tooltip} title={showTooltip}>
-  //     {nodeWithEvents}
-  //   </Tooltip>
-  // ) : (
-  //   nodeWithEvents
-  // );
+  // return nodeWithEvents;
+  const showTooltip = tooltip && functionalize(tooltip.title, null)(value, metadata as EntityMetaData);
+
+  return !isNil(showTooltip) ? (
+    <Tooltip {...tooltip} title={showTooltip}>
+      {nodeWithEvents}
+    </Tooltip>
+  ) : (
+    nodeWithEvents
+  );
 }
 
 /** <Phrase /> can use independence */
@@ -134,7 +143,6 @@ export const Phrase: FunctionComponent<PhraseProps> = ({
   }
 
   const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
-  console.log('🚀 ~ phrase:', phrase, descriptor);
   if (descriptor) {
     return <>{renderPhraseByDescriptor(phrase, descriptor, theme, events)}</>;
   }

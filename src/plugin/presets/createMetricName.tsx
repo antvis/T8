@@ -7,7 +7,7 @@ const defaultMetricNameDescriptor: SpecificEntityPhraseDescriptor = {
     fontWeight: 500,
     color: seedToken.colorMetricName,
   },
-  // tooltip: false,
+  tooltip: false,
 };
 
 export const createMetricName = createEntityPhraseFactory('metric_name', defaultMetricNameDescriptor);

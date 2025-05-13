@@ -6,7 +6,7 @@ const defaultDimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   encoding: {
     color: seedToken.colorDimensionValue,
   },
-  // tooltip: false,
+  tooltip: false,
 };
 
 export const createDimensionValue = createEntityPhraseFactory('dim_value', defaultDimensionValueDescriptor);

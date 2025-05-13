@@ -14,7 +14,7 @@ const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
       return null;
     },
   },
-  // tooltip: false,
+  tooltip: false,
 };
 
 export const createTrendDesc = createEntityPhraseFactory('trend_desc', defaultTrendDescDescriptor);
