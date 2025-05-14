@@ -105,6 +105,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const enterTimer = useRef<number | null>(null);
   const leaveTimer = useRef<number | null>(null);
+  const tooltipInnerRef = useRef<HTMLDivElement>(null);
 
   // Control visibility.
   const [visible, setVisible] = useState(defaultVisible);
@@ -133,10 +134,10 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
     // render tooltip when visible or title changes.
     renderTooltip();
 
-    // render title to tooltip-inner
-    if (finalVisible) {
-      renderTitle();
-    }
+    // // render title to tooltip-inner
+    // if (finalVisible) {
+    //   renderTitle();
+    // }
   }, [finalVisible, title]);
 
   // Calculate tooltip position
@@ -259,18 +260,6 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   triggerProps.ref = triggerChildrenRef;
   triggerProps.className = getPrefixCls('tooltip-trigger');
 
-  // render title to tooltip-inner
-  const renderTitle = () => {
-    const tooltipInner = document.getElementById('tooltip-inner');
-    if (tooltipInner) {
-      if (typeof title === 'string' || typeof title === 'number') {
-        tooltipInner.appendChild(document.createTextNode(String(title)));
-      } else if (title instanceof HTMLElement) {
-        tooltipInner.appendChild(title);
-      }
-    }
-  };
-
   // Render tooltip content
   const renderTooltip = () => {
     const container = containerRef.current;
@@ -285,11 +274,20 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
           onMouseLeave={handleMouseLeave}
         >
           {showArrow && <div className={getPrefixCls('tooltip-arrow')} style={arrowStyle} />}
-          <div className={getPrefixCls('tooltip-inner')} id="tooltip-inner" />
+          <div className={getPrefixCls('tooltip-inner')} id="tooltip-inner" ref={tooltipInnerRef} />
         </div>
       );
 
     render(tooltipContent, container);
+
+    // apply real dom to tooltip-inner when visible.
+    if (tooltipInnerRef.current && finalVisible) {
+      if (typeof title === 'string' || typeof title === 'number') {
+        tooltipInnerRef.current.appendChild(document.createTextNode(String(title)));
+      } else if (title instanceof HTMLElement) {
+        tooltipInnerRef.current.appendChild(title);
+      }
+    }
   };
 
   // Clone the child element and add event handlers
