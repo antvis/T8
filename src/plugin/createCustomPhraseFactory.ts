@@ -1,4 +1,4 @@
-import { PhraseDescriptor, CustomPhraseDescriptor } from './plugin-protocol.type';
+import { PhraseDescriptor, CustomPhraseDescriptor } from './types';
 import { createPhraseFactory } from './createPhraseFactory';
 
 /**

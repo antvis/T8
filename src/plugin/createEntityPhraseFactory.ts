@@ -1,6 +1,6 @@
 import { EntityMetaData, EntityType } from '../schema';
 import { cloneDeep } from '../utils';
-import { PhraseDescriptor, SpecificEntityPhraseDescriptor, CustomEntityMode } from './plugin-protocol.type';
+import { PhraseDescriptor, SpecificEntityPhraseDescriptor, CustomEntityMode } from './types';
 import { createPhraseFactory } from './createPhraseFactory';
 
 /**

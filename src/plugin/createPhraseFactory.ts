@@ -1,4 +1,4 @@
-import { PhraseDescriptor } from './plugin-protocol.type';
+import { PhraseDescriptor } from './types';
 
 export const createPhraseFactory =
   (isEntity: boolean) =>

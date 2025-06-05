@@ -2,7 +2,7 @@
 // import { isArray } from 'lodash';
 import { SingleLineChart } from '../../vis-components';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
-import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { SpecificEntityPhraseDescriptor } from '../types';
 import { seedToken } from '../../theme';
 import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../tools';

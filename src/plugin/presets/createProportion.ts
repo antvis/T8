@@ -1,5 +1,5 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
-import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { SpecificEntityPhraseDescriptor } from '../types';
 import { ProportionChart } from '../../vis-components';
 import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../tools';

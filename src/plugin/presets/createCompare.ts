@@ -2,7 +2,7 @@ import { ComponentChildren } from 'preact';
 import { ValueAssessment, EntityMetaData } from '../../schema';
 // import { ArrowDown, ArrowUp } from '../../assets/icons';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
-import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { SpecificEntityPhraseDescriptor } from '../types';
 import { getPrefixCls, isNumber } from '../../utils';
 import { seedToken } from '../../theme';
 import { createDocumentFragment } from '../tools';
