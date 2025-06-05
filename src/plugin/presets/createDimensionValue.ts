@@ -3,9 +3,9 @@ import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';
 
 const defaultDimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
-  encoding: {
+  style: () => ({
     color: seedToken.colorDimensionValue,
-  },
+  }),
   // tooltip: false,
 };
 

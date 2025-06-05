@@ -1,4 +1,11 @@
-import { PhraseSpec, EntityPhraseSpec, CustomPhraseSpec, isTextPhrase, isEntityPhrase } from '../../schema';
+import {
+  PhraseSpec,
+  EntityPhraseSpec,
+  CustomPhraseSpec,
+  isTextPhrase,
+  isEntityPhrase,
+  EntityMetaData,
+} from '../../schema';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
 import { PhraseEvents } from '../events.type';
@@ -6,6 +13,7 @@ import { PhraseDescriptor } from '../../plugin';
 import { type ThemeProps } from '../../theme';
 import { useTheme, usePluginManager } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
+import { useEffect, useRef } from 'preact/hooks';
 
 type PhraseProps = PhraseEvents & {
   /**
@@ -24,13 +32,12 @@ function renderPhraseByDescriptor(
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
   const {
-    overwrite,
     classNames,
     style: descriptorStyle,
     onHover,
     // tooltip,
     onClick,
-    content = () => value,
+    render = () => value,
   } = descriptor || {};
 
   const handleClick = () => {
@@ -46,9 +53,29 @@ function renderPhraseByDescriptor(
     events?.onMouseLeavePhrase?.(spec);
   };
 
-  let defaultNode: ComponentChildren = (
+  const entityRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (entityRef.current) {
+      const contentResult = functionalize<HTMLElement | DocumentFragment | string>(render, null)(
+        value,
+        metadata as EntityMetaData,
+      );
+      if (typeof contentResult === 'string' || typeof contentResult === 'number') {
+        entityRef.current.textContent = contentResult;
+      } else if (contentResult instanceof DocumentFragment || contentResult instanceof HTMLElement) {
+        entityRef.current.appendChild(contentResult);
+      } else {
+        // Handle other possible return types or log a warning
+        console.warn('Unexpected content type returned from render function:', contentResult);
+      }
+    }
+  }, [value, metadata]);
+
+  const defaultNode: ComponentChildren = (
     <Entity
       theme={theme}
+      forwardRef={entityRef}
       style={{
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...functionalize(descriptorStyle, {})(spec?.value, metadata as any),
@@ -60,13 +87,8 @@ function renderPhraseByDescriptor(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...(functionalize(classNames, [])(spec?.value, metadata as any) as Array<string>),
       )}
-    >
-      {content(value, metadata)}
-    </Entity>
+    />
   );
-  if (isFunction(overwrite)) {
-    defaultNode = overwrite(defaultNode, value, metadata);
-  }
 
   const nodeWithEvents =
     !isEmpty(events) || isFunction(onClick) || isFunction(onHover) ? (

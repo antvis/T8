@@ -1,11 +1,21 @@
 import { PluginManager } from './PluginManager';
 import { presetPlugins } from './presets';
 
+/**
+ * NOTE: the plugin created by createCustomPhraseFactory will work when the spec is phrase
+ */
 export { createCustomPhraseFactory } from './createCustomPhraseFactory';
-export { createEntityPhraseFactory } from './createEntityPhraseFactory';
+
+/**
+ * NOTE: the plugin created by createCustomBlockFactory will work when the spec is section & paragraph
+ */
 export { createCustomBlockFactory } from './createCustomBlockFactory';
-export { usePluginCreator } from './usePluginCreator';
+
 export { PluginManager } from './PluginManager';
+
+/**
+ * NOTE: use these presets to create plugin to apply to the entity phrase spec
+ */
 export {
   createMetricName,
   createMetricValue,
@@ -18,6 +28,7 @@ export {
   createTimeDesc,
   createTrendDesc,
 } from './presets';
+
 export * from './plugin-protocol.type';
 
 export const presetPluginManager = new PluginManager(presetPlugins);

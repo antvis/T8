@@ -4,10 +4,10 @@ import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';
 
 const defaultOtherMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
-  encoding: {
+  style: () => ({
     fontWeight: 'bold',
     color: seedToken.colorOtherValue,
-  },
+  }),
   // tooltip: {
   //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   // },

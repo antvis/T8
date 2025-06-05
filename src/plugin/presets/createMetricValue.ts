@@ -3,13 +3,13 @@ import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';
 
-const defaultContributeRatioDescriptor: SpecificEntityPhraseDescriptor = {
-  encoding: {
-    color: seedToken.colorConclusion,
-  },
+const defaultMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
+  style: () => ({
+    color: seedToken.colorMetricValue,
+  }),
   // tooltip: {
   //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   // },
 };
 
-export const createContributeRatio = createEntityPhraseFactory('contribute_ratio', defaultContributeRatioDescriptor);
+export const createMetricValue = createEntityPhraseFactory('metric_value', defaultMetricValueDescriptor);

@@ -1,14 +1,6 @@
 import { EntityMetaData, EntityType, PhraseSpec, isCustomPhrase, isEntityPhrase } from '../schema';
-import { isArray } from '../utils';
-import {
-  PhraseDescriptor,
-  BlockDescriptor,
-  PluginType,
-  isBlockDescriptor,
-  isEntityDescriptor,
-  isCustomPhraseDescriptor,
-} from './plugin-protocol.type';
-import { presetPlugins } from './presets';
+import { PhraseDescriptor, BlockDescriptor, PluginType } from './plugin-protocol.type';
+import { isBlockDescriptor, isEntityDescriptor, isCustomPhraseDescriptor } from './tools';
 
 /**
  * PluginManager class responsible for registering, managing, and retrieving
@@ -36,7 +28,7 @@ export class PluginManager {
    * @param plugins - Optional array of plugins to register
    */
   constructor(plugins?: PluginType[]) {
-    this.registerAll(getPlugins(plugins));
+    this.registerAll(plugins);
   }
 
   /**
@@ -108,15 +100,4 @@ export class PluginManager {
     if (isEntityPhrase(spec)) return this.getEntityDescriptor(spec.metadata.entityType);
     return null;
   }
-}
-
-/**
- * Helper function to combine preset plugins with custom plugins.
- * If no custom plugins are provided or the array is empty, only preset plugins are returned.
- *
- * @param plugins - Optional array of custom plugins
- * @returns Array containing both preset and custom plugins
- */
-function getPlugins(plugins?: PluginType[]) {
-  return isArray(plugins) && plugins.length > 0 ? [...presetPlugins, ...plugins] : presetPlugins;
 }

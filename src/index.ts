@@ -3,8 +3,17 @@ export { generateTextSpec } from './schema';
 export {
   createCustomBlockFactory,
   createCustomPhraseFactory,
-  createEntityPhraseFactory,
   PluginManager,
+  createMetricName,
+  createMetricValue,
+  createDeltaValue,
+  createRatioValue,
+  createOtherMetricValue,
+  createContributeRatio,
+  createDimensionValue,
+  createProportion,
+  createTimeDesc,
+  createTrendDesc,
 } from './plugin';
 
 /**
