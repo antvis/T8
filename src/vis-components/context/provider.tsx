@@ -10,6 +10,9 @@ interface ContextProviderProps {
   children: ComponentChildren;
 }
 
+/**
+ * The ContextProvider component wraps the application with necessary context providers for plugins and themes.
+ */
 export const ContextProvider = ({
   plugin = presetPluginManager,
   theme = defaultTheme,

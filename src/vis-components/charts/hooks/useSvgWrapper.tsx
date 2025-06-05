@@ -1,6 +1,6 @@
 import { FunctionalComponent, JSX } from 'preact';
-import { getElementFontSize, DEFAULT_FONT_SIZE } from './getElementFontSize';
 import { useRef, useState, useLayoutEffect } from 'preact/hooks';
+import { getElementFontSize, DEFAULT_FONT_SIZE } from './getElementFontSize';
 
 type SvgPreactFC = FunctionalComponent<JSX.SVGAttributes<SVGSVGElement>>;
 

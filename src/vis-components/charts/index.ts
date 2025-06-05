@@ -1,2 +1,2 @@
-export { SingleLineChart } from './line';
-export { ProportionChart } from './proportion';
+export { SingleLine } from './line';
+export { Proportion } from './proportion';
