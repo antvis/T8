@@ -1,4 +1,4 @@
-import { NarrativeTextSpec, Text } from '../src';
+import { type NarrativeTextSpec, Text } from '../src';
 import spec from './example.json';
 
 const app = document.getElementById('app');

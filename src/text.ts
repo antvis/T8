@@ -3,10 +3,28 @@ import { NarrativeTextSpec } from './schema';
 import { NarrativeTextVis } from './vis-components';
 import { ThemeProps } from './theme';
 
+/**
+ * Text component for rendering narrative text visualizations.
+ *
+ * Usage:
+ * ```javascript
+ * const text = new Text('#container');
+ * text.schema(spec).theme(theme).render();
+ * ```
+ */
 export class Text {
+  /**
+   * Container for the text visualization.
+   */
   container: HTMLElement;
-  spec: NarrativeTextSpec;
-  themeConfig: ThemeProps;
+  /**
+   * Specification for the narrative text visualization.
+   */
+  private spec: NarrativeTextSpec;
+  /**
+   * Theme configuration for the text visualization.
+   */
+  private themeConfig: ThemeProps;
 
   constructor(container: string | HTMLElement) {
     if (typeof container === 'string') {
@@ -16,45 +34,48 @@ export class Text {
     }
   }
 
+  /**
+   * Set the schema for the narrative text visualization.
+   * @param spec - The specification object containing narrative text details.
+   * @returns The Text instance for method chaining.
+   */
   schema(spec: NarrativeTextSpec) {
     this.spec = spec;
     return this;
   }
 
+  /**
+   * Set the theme for the narrative text visualization.
+   * @param theme - The theme configuration for the text visualization.
+   * @returns The Text instance for method chaining.
+   */
   theme(theme: ThemeProps) {
     this.themeConfig = theme;
     return this;
   }
 
+  /**
+   * Render the narrative text visualization.
+   * @returns A function to unmount the component.
+   */
   render() {
     const container = this.container;
     const spec = this.spec;
     const theme = this.themeConfig;
-    render(container, spec, theme);
+
+    // Render the component.
+    // We use `preact` to code the `NarrativeTextVis` components.
+    preactRender(
+      h(NarrativeTextVis, {
+        spec,
+        theme,
+      }),
+      container,
+    );
+
+    // Return unmount function.
+    return () => {
+      preactRender(null, container as HTMLElement);
+    };
   }
 }
-
-const render = (container: string | HTMLElement, spec: NarrativeTextSpec, theme: ThemeProps) => {
-  // Resolve container if it's a selector string
-  if (typeof container === 'string') {
-    const element = document.querySelector(container);
-    if (!element) {
-      throw new Error(`Container not found: ${container}`);
-    }
-    container = element as HTMLElement;
-  }
-
-  // Render the component
-  preactRender(
-    h(NarrativeTextVis, {
-      spec,
-      theme,
-    }),
-    container,
-  );
-
-  // Return unmount function
-  return () => {
-    preactRender(null, container as HTMLElement);
-  };
-};
