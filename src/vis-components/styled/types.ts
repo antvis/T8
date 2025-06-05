@@ -1,4 +1,6 @@
-import { ThemeProps } from '../theme';
+import { JSX } from 'preact/jsx-runtime';
+import { ComponentChildren } from 'preact';
+import { ThemeProps } from '../../theme';
 
 /**
  * Generic style factory function type.

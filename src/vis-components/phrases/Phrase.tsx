@@ -8,7 +8,7 @@ import {
 } from '../../schema';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty, isNil } from '../../utils';
-import { PhraseEvents } from '../events.type';
+import { PhraseEvents } from '../types';
 import { PhraseDescriptor } from '../../plugin';
 import { type ThemeProps } from '../../theme';
 import { useTheme, usePluginManager } from '../context';

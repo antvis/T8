@@ -4,7 +4,7 @@ import { NarrativeTextSpec } from '../schema';
 import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
-import { NarrativeEvents } from './events.type';
+import { NarrativeEvents } from './types';
 import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultTheme, ThemeProps } from '../theme';
