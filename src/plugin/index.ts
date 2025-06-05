@@ -12,7 +12,25 @@ export { createCustomPhraseFactory } from './createCustomPhraseFactory';
 export { createCustomBlockFactory } from './createCustomBlockFactory';
 
 export { PluginManager } from './PluginManager';
-export * from './presets';
+
+/**
+ * NOTE: use these presets to create plugin to apply to the entity phrase spec
+ */
+export {
+  createMetricName,
+  createMetricValue,
+  createDeltaValue,
+  createRatioValue,
+  createOtherMetricValue,
+  createContributeRatio,
+  createDimensionValue,
+  createProportion,
+  createTimeDesc,
+  createTrendDesc,
+} from './presets';
+
 export * from './plugin-protocol.type';
 
 export const presetPluginManager = new PluginManager(presetPlugins);
+
+export { presetPlugins };

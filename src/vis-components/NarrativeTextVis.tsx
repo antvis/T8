@@ -1,15 +1,23 @@
 import { useRef } from 'preact/hooks';
 import { NarrativeTextSpec } from '../schema';
 import { v4 } from 'uuid';
-import { Container } from '../styled';
+import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
-import { ExtensionProps, NarrativeEvents } from '../interface';
+import { NarrativeEvents } from './events.type';
 import { classnames as cx, getPrefixCls } from '../utils';
-// import { presetPluginManager } from '../chore/plugin';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultTheme, ThemeProps } from '../theme';
-import { presetPluginManager } from '../plugin';
+import { PluginManager, presetPluginManager } from '../plugin';
+import { ContextProvider } from './context';
+
+export type ExtensionProps = {
+  /**
+   * @description extension plugin
+   * @description.zh-CN 扩展插件
+   */
+  pluginManager?: PluginManager;
+};
 
 export type NarrativeTextVisProps = ExtensionProps &
   NarrativeEvents & {
@@ -79,27 +87,20 @@ export function NarrativeTextVis({
   // }, [copyNarrative]);
 
   return (
-    <Container
-      theme={theme}
-      className={cx(className, getPrefixCls('container'))}
-      style={styles}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      ref={narrativeDomRef}
-    >
-      {headline ? <Headline spec={headline} pluginManager={pluginManager} {...sectionEvents} /> : null}
-      {sections
-        ? sections?.map((section) => (
-            <Section
-              key={section.key || v4()}
-              theme={theme}
-              spec={section}
-              pluginManager={pluginManager}
-              {...sectionEvents}
-            />
-          ))
-        : null}
-    </Container>
+    <ContextProvider theme={theme} plugin={pluginManager}>
+      <Container
+        className={cx(className, getPrefixCls('container'))}
+        style={styles}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        ref={narrativeDomRef}
+      >
+        {headline ? <Headline spec={headline} {...sectionEvents} /> : null}
+        {sections
+          ? sections?.map((section) => <Section key={section.key || v4()} spec={section} {...sectionEvents} />)
+          : null}
+      </Container>
+    </ContextProvider>
   );
 }

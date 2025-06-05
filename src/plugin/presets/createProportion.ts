@@ -1,6 +1,6 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
-import { ProportionChart } from '../../charts';
+import { ProportionChart } from '../../vis-components';
 import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../tools';
 // import { isNumber } from '../../utils';

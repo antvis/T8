@@ -3,32 +3,22 @@ import { ParagraphSpec, isHeadingParagraph, isTextParagraph, isBulletParagraph, 
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { ExtensionProps, ParagraphEvents } from '../../interface';
-import { ThemeProps, defaultTheme } from '../../theme';
-import { presetPluginManager } from '../../plugin';
+import { ParagraphEvents } from '../events.type';
+import { usePluginManager } from '../context/hooks/plugin';
 import { useEffect, useRef } from 'preact/hooks';
 import { functionalize } from '../../utils';
 
-type ParagraphProps = ExtensionProps &
-  ParagraphEvents & {
-    /**
-     * @description specification of paragraph text spec
-     * @description.zh-CN 段落描述 json 信息
-     */
-    spec: ParagraphSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
-  };
+type ParagraphProps = ParagraphEvents & {
+  /**
+   * @description specification of paragraph text spec
+   * @description.zh-CN 段落描述 json 信息
+   */
+  spec: ParagraphSpec;
+};
 
-export function Paragraph({
-  spec,
-  pluginManager = presetPluginManager,
-  theme = defaultTheme,
-  ...events
-}: ParagraphProps) {
+export function Paragraph({ spec, ...events }: ParagraphProps) {
+  const pluginManager = usePluginManager();
+
   const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
   const paragraphRef = useRef<HTMLDivElement>(null);
   const onClick = () => {
@@ -58,13 +48,13 @@ export function Paragraph({
   }, [spec]);
 
   if (isHeadingParagraph(spec)) {
-    content = <Heading spec={spec} pluginManager={pluginManager} {...phraseEvents} />;
+    content = <Heading spec={spec} {...phraseEvents} />;
   }
   if (isTextParagraph(spec)) {
-    content = <TextLine spec={spec} theme={theme} pluginManager={pluginManager} {...phraseEvents} />;
+    content = <TextLine spec={spec} {...phraseEvents} />;
   }
   if (isBulletParagraph(spec)) {
-    content = <Bullets spec={spec} theme={theme} pluginManager={pluginManager} {...events} />;
+    content = <Bullets spec={spec} {...events} />;
   }
   return content ? (
     <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} ref={paragraphRef}>

@@ -6,28 +6,22 @@ import {
   isEntityPhrase,
   EntityMetaData,
 } from '../../schema';
-import { Entity, Bold, Italic, Underline } from '../../styled';
+import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
-import { ExtensionProps, PhraseEvents } from '../../interface';
+import { PhraseEvents } from '../events.type';
 import { PhraseDescriptor } from '../../plugin';
-import { type ThemeProps, defaultTheme } from '../../theme';
-import { presetPluginManager } from '../../plugin';
+import { type ThemeProps } from '../../theme';
+import { useTheme, usePluginManager } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 
-type PhraseProps = ExtensionProps &
-  PhraseEvents & {
-    /**
-     * @description specification of phrase text spec
-     * @description.zh-CN 短语描述 json 信息
-     */
-    spec: PhraseSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
-  };
+type PhraseProps = PhraseEvents & {
+  /**
+   * @description specification of phrase text spec
+   * @description.zh-CN 短语描述 json 信息
+   */
+  spec: PhraseSpec;
+};
 
 function renderPhraseByDescriptor(
   spec: EntityPhraseSpec | CustomPhraseSpec,
@@ -91,7 +85,7 @@ function renderPhraseByDescriptor(
         getPrefixCls('value'),
         isEntityPhrase(spec) ? getPrefixCls(kebabCase(spec.metadata.entityType)) : '',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...functionalize(classNames, [])(spec?.value, metadata as any),
+        ...(functionalize(classNames, [])(spec?.value, metadata as any) as Array<string>),
       )}
     />
   );
@@ -118,12 +112,10 @@ function renderPhraseByDescriptor(
 }
 
 /** <Phrase /> can use independence */
-export const Phrase: FunctionComponent<PhraseProps> = ({
-  spec: phrase,
-  theme = defaultTheme,
-  pluginManager = presetPluginManager,
-  ...events
-}) => {
+export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase, ...events }) => {
+  const theme = useTheme();
+  const pluginManager = usePluginManager();
+
   const onClick = () => {
     events?.onClickPhrase?.(phrase);
   };
