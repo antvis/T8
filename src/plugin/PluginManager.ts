@@ -1,4 +1,5 @@
-import { EntityMetaData, EntityType, PhraseSpec, isCustomPhrase, isEntityPhrase } from '../schema';
+import { isCustomPhrase, isEntityPhrase } from '../utils';
+import { EntityMetaData, EntityType, PhraseSpec } from '../schema';
 import { PhraseDescriptor, BlockDescriptor, PluginType } from './plugin-protocol.type';
 import { isBlockDescriptor, isEntityDescriptor, isCustomPhraseDescriptor } from './tools';
 

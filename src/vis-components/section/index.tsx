@@ -1,5 +1,6 @@
-import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { v4 } from 'uuid';
+import { SectionSpec } from '../../schema';
+import { isCustomSection, isStandardSection } from '../../schema/isSpecType';
 import { getPrefixCls, classnames as cx, functionalize } from '../../utils';
 import { SectionEvents } from '../events.type';
 import { Container } from '../styled';
