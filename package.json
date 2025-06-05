@@ -21,7 +21,7 @@
     "prepare": "husky",
     "dev": "vite -c ./config/vite.config.dev.mjs",
     "size": "limit-size",
-    "build": "NODE_ENV=production rollup -c ./rollup.config.mjs && tsc && npm run size",
+    "build": "NODE_ENV=production rollup -c ./rollup.config.mjs && npm run build:schema && tsc && npm run size",
     "build:dev": "rollup -c ./rollup.config.mjs && tsc",
     "build:watch": "rollup -c ./rollup.config.mjs -w",
     "build:types": "tsc",
