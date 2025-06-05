@@ -24,7 +24,8 @@
     "build": "NODE_ENV=production rollup -c ./rollup.config.mjs && tsc && npm run size",
     "build:dev": "rollup -c ./rollup.config.mjs && tsc",
     "build:watch": "rollup -c ./rollup.config.mjs -w",
-    "build:types": "tsc"
+    "build:types": "tsc",
+    "build:schema": "mkdir -p dist && rm -rf dist/schema.json && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t NarrativeTextSpec --no-type-check --no-ref-encode > dist/schema.json"
   },
   "lint-staged": {
     "**/*": [
@@ -64,6 +65,7 @@
     "lint-staged": "^15.5.1",
     "prettier": "3.5.3",
     "rollup": "^4.40.0",
+    "ts-json-schema-generator": "^2.4.0",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.30.1",
