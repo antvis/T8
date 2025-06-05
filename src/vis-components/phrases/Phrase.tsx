@@ -7,13 +7,14 @@ import {
   EntityMetaData,
 } from '../../schema';
 import { Entity, Bold, Italic, Underline } from '../styled';
-import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty } from '../../utils';
+import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty, isNil } from '../../utils';
 import { PhraseEvents } from '../events.type';
 import { PhraseDescriptor } from '../../plugin';
 import { type ThemeProps } from '../../theme';
 import { useTheme, usePluginManager } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
+import { Tooltip } from '../ui';
 
 type PhraseProps = PhraseEvents & {
   /**
@@ -38,6 +39,7 @@ function renderPhraseByDescriptor(
     // tooltip,
     onClick,
     render = () => value,
+    tooltip,
   } = descriptor || {};
 
   const handleClick = () => {
@@ -99,16 +101,16 @@ function renderPhraseByDescriptor(
       defaultNode
     );
 
-  return nodeWithEvents;
-  // TODO: add tooltip without antd
-  // const showTooltip = tooltip && tooltip?.title(value, metadata);
-  // return !isNil(showTooltip) ? (
-  //   <Tooltip {...tooltip} title={showTooltip}>
-  //     {nodeWithEvents}
-  //   </Tooltip>
-  // ) : (
-  //   nodeWithEvents
-  // );
+  // return nodeWithEvents;
+  const showTooltip = tooltip && functionalize(tooltip.title, null)(value, metadata as EntityMetaData);
+
+  return !isNil(showTooltip) ? (
+    <Tooltip {...tooltip} title={showTooltip}>
+      {nodeWithEvents}
+    </Tooltip>
+  ) : (
+    nodeWithEvents
+  );
 }
 
 /** <Phrase /> can use independence */

@@ -1,10 +1,9 @@
 import { ComponentChildren } from 'preact';
 import { ValueAssessment, EntityMetaData } from '../../schema';
-// import { isNumber } from '../../utils';
 // import { ArrowDown, ArrowUp } from '../../assets/icons';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
-import { getPrefixCls } from '../../utils';
+import { getPrefixCls, isNumber } from '../../utils';
 import { seedToken } from '../../theme';
 import { createDocumentFragment } from '../tools';
 
@@ -17,9 +16,9 @@ const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   style: (value, { assessment }) => ({
     color: getCompareColor(assessment),
   }),
-  // tooltip: {
-  //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
-  // },
+  tooltip: {
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
+  },
 };
 
 export const createDeltaValue = createEntityPhraseFactory('delta_value', defaultDeltaValueDescriptor);

@@ -277,7 +277,8 @@
                               "type": "entity",
                               "value": "45%",
                               "metadata": {
-                                "entityType": "proportion"
+                                "entityType": "proportion",
+                                "origin": 0.45
                               }
                             }
                           ]

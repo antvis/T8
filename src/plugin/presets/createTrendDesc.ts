@@ -17,7 +17,7 @@ const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
   style: () => ({
     color: seedToken.colorConclusion,
   }),
-  // tooltip: false,
+  tooltip: false,
 };
 
 export const createTrendDesc = createEntityPhraseFactory('trend_desc', defaultTrendDescDescriptor);

@@ -1,31 +1,8 @@
 import type { EntityMetaData, EntityType } from '../schema';
+import { TooltipProps } from '../vis-components/ui';
 
-export interface CSSProperties {
+interface CSSProperties {
   [key: string]: string | number | undefined;
-}
-
-/**
- * description for block render
- */
-export interface BlockDescriptor<CustomBlockSpec> {
-  /** key represent blockType */
-  key: string;
-  /** is block */
-  isBlock: true;
-  /** className of block */
-  className?: string | ((spec: CustomBlockSpec) => string);
-  /** style of block */
-  style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
-  /**
-   * render callback of block, T8 will use the return value to render the block
-   * @param spec block spec
-   * @returns HTMLElement | DocumentFragment T8 will use the return value to render the block
-   */
-  render?: ((spec: CustomBlockSpec) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
-  /** getText of block */
-  getText?: (spec: CustomBlockSpec) => string;
-  /** getMarkdown of block */
-  getMarkdown?: (spec: CustomBlockSpec) => string;
 }
 
 /**
@@ -45,13 +22,12 @@ export interface PhraseDescriptor<MetaData> {
   /**
    * tooltip of phrases
    */
-  // TODO: add tooltip without antd
-  // tooltip?:
-  //   | false
-  //   | (TooltipProps & {
-  //       // overwrite antd tooltip title props
-  //       title: (value: string, metadata: MetaData) => ReactNode;
-  //     });
+  tooltip?:
+    | false
+    | (Omit<TooltipProps, 'children' | 'title'> & {
+        // overwrite antd tooltip title props
+        title: ((value: string, metadata: MetaData) => HTMLElement | string | number) | HTMLElement | string | number;
+      });
   classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
   style?: CSSProperties | ((value: string, metadata: MetaData) => CSSProperties);
   onHover?: (value: string, metadata: MetaData) => string;
@@ -75,3 +51,18 @@ export interface EntityPhraseDescriptor extends PhraseDescriptor<EntityMetaData>
 
 export type SpecificEntityPhraseDescriptor = Omit<EntityPhraseDescriptor, 'key' | 'isEntity'>;
 export type CustomEntityMode = 'overwrite' | 'merge';
+
+export type EntityPhrasePlugin = (
+  customPhraseDescriptor?: SpecificEntityPhraseDescriptor,
+  mode?: CustomEntityMode,
+) => PhraseDescriptor<EntityMetaData>;
+
+export interface BlockDescriptor<CustomBlockSpec> {
+  key: string;
+  isBlock: true;
+  className?: string | ((spec: CustomBlockSpec) => string);
+  style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
+  render?: (spec: CustomBlockSpec) => HTMLElement | DocumentFragment;
+  getText?: (spec: CustomBlockSpec) => string;
+  getMarkdown?: (spec: CustomBlockSpec) => string;
+}

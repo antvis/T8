@@ -3,7 +3,7 @@ import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { ProportionChart } from '../../vis-components';
 import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../tools';
-// import { isNumber } from '../../utils';
+import { isNumber } from '../../utils';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { origin }) => {
@@ -12,9 +12,9 @@ const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
 
     return createDocumentFragment(chartElement, value, 'suffix');
   },
-  // tooltip: {
-  //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
-  // },
+  tooltip: {
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
+  },
 };
 
 export const createProportion = createEntityPhraseFactory('proportion', defaultProportionDescriptor);
