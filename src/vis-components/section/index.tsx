@@ -1,28 +1,24 @@
 import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { v4 } from 'uuid';
 import { getPrefixCls, classnames as cx, isFunction } from '../../utils';
-import { ExtensionProps, SectionEvents } from '../../interface';
-import { Container } from '../../styled';
+import { SectionEvents } from '../events.type';
+import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
-import { ThemeProps, defaultTheme } from '../../theme';
-import { presetPluginManager } from '../../plugin';
+import { usePluginManager } from '../context/hooks/plugin';
 
-type SectionProps = ExtensionProps &
-  SectionEvents & {
-    /**
-     * @description specification of section text spec
-     * @description.zh-CN Section 描述 json 信息
-     */
-    spec: SectionSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
-  };
+type SectionProps = SectionEvents & {
+  /**
+   * @description specification of section text spec
+   * @description.zh-CN Section 描述 json 信息
+   */
+  spec: SectionSpec;
+};
 
-export function Section({ spec, theme = defaultTheme, pluginManager = presetPluginManager, ...events }: SectionProps) {
+export function Section({ spec, ...events }: SectionProps) {
   const { onClickSection, onMouseEnterSection, onMouseLeaveSection, ...paragraphEvents } = events || {};
+
+  const pluginManager = usePluginManager();
+
   const onClick = () => {
     onClickSection?.(spec);
   };
@@ -43,7 +39,6 @@ export function Section({ spec, theme = defaultTheme, pluginManager = presetPlug
   };
   return (
     <Container
-      theme={theme}
       as="section"
       className={cx(getPrefixCls('section'), spec.className)}
       style={spec.styles}
@@ -53,9 +48,7 @@ export function Section({ spec, theme = defaultTheme, pluginManager = presetPlug
     >
       {renderCustomSection()}
       {isStandardSection(spec) &&
-        spec.paragraphs.map((p) => (
-          <Paragraph key={p.key || v4()} spec={p} theme={theme} pluginManager={pluginManager} {...paragraphEvents} />
-        ))}
+        spec.paragraphs.map((p) => <Paragraph key={p.key || v4()} spec={p} {...paragraphEvents} />)}
     </Container>
   );
 }

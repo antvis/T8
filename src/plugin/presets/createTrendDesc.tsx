@@ -1,6 +1,6 @@
 // import React from 'react';
 // import { isArray } from 'lodash';
-import { SingleLineChart } from '../../charts';
+import { SingleLineChart } from '../../vis-components/charts';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';

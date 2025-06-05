@@ -1,15 +1,15 @@
 import { ThemeProps } from '../theme';
 
 /**
- * Generic style factory function type
- * @param param - Optional style parameter (like size)
- * @returns Style object with CSS properties
+ * Generic style factory function type.
+ * @param param - Optional style parameter (like size).
+ * @returns Style object with CSS properties.
  */
 export type StyleFactory = (theme: ThemeProps) => Record<string, string | number>;
 
 /**
- * Component factory options
- * Configuration for creating styled components
+ * Component factory options.
+ * Configuration for creating styled components.
  */
 export interface ComponentFactoryOptions {
   /** HTML element tag name */
@@ -21,8 +21,8 @@ export interface ComponentFactoryOptions {
 }
 
 /**
- * Common component props interface
- * Base interface for all styled components
+ * Common component props interface.
+ * Base interface for all styled components.
  */
 export interface CommonComponentProps extends JSX.HTMLAttributes<HTMLElement> {
   theme?: ThemeProps;
@@ -30,14 +30,4 @@ export interface CommonComponentProps extends JSX.HTMLAttributes<HTMLElement> {
   style?: JSX.CSSProperties;
   className?: string;
   [key: string]: unknown;
-}
-
-/**
- * Common component interface
- * Base interface for list item
- */
-export interface CommonComponentConfig {
-  name: string;
-  element: string;
-  styles?: (themeProps: ThemeProps) => Record<string, string | number>;
 }

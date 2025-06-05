@@ -55,6 +55,6 @@ const render = (container: string | HTMLElement, spec: NarrativeTextSpec, theme:
 
   // Return unmount function
   return () => {
-    preactRender(null, container);
+    preactRender(null, container as HTMLElement);
   };
 };

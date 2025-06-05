@@ -1,23 +1,4 @@
-import {
-  EntityType,
-  NarrativeTextSpec,
-  SectionSpec,
-  ParagraphSpec,
-  PhraseSpec,
-  HeadlineSpec,
-  BulletItemSpec,
-} from './schema';
-import { PluginManager } from './plugin';
-
-export type PhraseType = 'text' | EntityType | null;
-
-export type ExtensionProps = {
-  /**
-   * @description extension plugin
-   * @description.zh-CN 扩展插件
-   */
-  pluginManager?: PluginManager;
-};
+import { NarrativeTextSpec, SectionSpec, ParagraphSpec, PhraseSpec, HeadlineSpec, BulletItemSpec } from '../schema';
 
 export type PhraseEvents = Partial<{
   onClickPhrase: (spec: PhraseSpec) => void;
