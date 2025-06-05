@@ -2,11 +2,11 @@ import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';
 
-const defaultTimeDescDescriptor: SpecificEntityPhraseDescriptor = {
-  encoding: {
+const defaultDimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
+  style: () => ({
     color: seedToken.colorDimensionValue,
-  },
+  }),
   tooltip: false,
 };
 
-export const createTimeDesc = createEntityPhraseFactory('time_desc', defaultTimeDescDescriptor);
+export const createDimensionValue = createEntityPhraseFactory('dim_value', defaultDimensionValueDescriptor);

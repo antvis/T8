@@ -8,6 +8,10 @@ import { createProportion } from './createProportion';
 import { createTimeDesc } from './createTimeDesc';
 import { createTrendDesc } from './createTrendDesc';
 
+/**
+ * export all entity phrase factory functions.
+ * user can use these factory functions to create entity phrase descriptors quickly to keep the original descriptor.
+ */
 export const presetPlugins = [
   createMetricName(),
   createMetricValue(),
@@ -21,6 +25,10 @@ export const presetPlugins = [
   createTrendDesc(),
 ];
 
+/**
+ * export all entity phrase factory functions.
+ * user can use these factory functions to create entity phrase descriptors quickly to keep the original descriptor.
+ */
 export { createMetricName } from './createMetricName';
 export { createMetricValue } from './createMetricValue';
 export { createDeltaValue, createRatioValue } from './createCompare';

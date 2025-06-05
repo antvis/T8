@@ -4,17 +4,13 @@ import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';
 import { isNumber } from '../../utils';
 
-const defaultOtherMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
-  encoding: {
-    fontWeight: 'bold',
-    color: seedToken.colorOtherValue,
-  },
+const defaultMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
+  style: () => ({
+    color: seedToken.colorMetricValue,
+  }),
   tooltip: {
     title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   },
 };
 
-export const createOtherMetricValue = createEntityPhraseFactory(
-  'other_metric_value',
-  defaultOtherMetricValueDescriptor,
-);
+export const createMetricValue = createEntityPhraseFactory('metric_value', defaultMetricValueDescriptor);

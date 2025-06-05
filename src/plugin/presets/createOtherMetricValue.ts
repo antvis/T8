@@ -4,13 +4,17 @@ import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
 import { seedToken } from '../../theme';
 import { isNumber } from '../../utils';
 
-const defaultContributeRatioDescriptor: SpecificEntityPhraseDescriptor = {
-  encoding: {
-    color: seedToken.colorConclusion,
-  },
+const defaultOtherMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
+  style: () => ({
+    fontWeight: 'bold',
+    color: seedToken.colorOtherValue,
+  }),
   tooltip: {
     title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
   },
 };
 
-export const createContributeRatio = createEntityPhraseFactory('contribute_ratio', defaultContributeRatioDescriptor);
+export const createOtherMetricValue = createEntityPhraseFactory(
+  'other_metric_value',
+  defaultOtherMetricValueDescriptor,
+);

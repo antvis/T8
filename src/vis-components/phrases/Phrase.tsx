@@ -6,28 +6,23 @@ import {
   isEntityPhrase,
   EntityMetaData,
 } from '../../schema';
-import { Entity, Bold, Italic, Underline } from '../../styled';
+import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty, isNil } from '../../utils';
-import { ExtensionProps, PhraseEvents } from '../../interface';
+import { PhraseEvents } from '../events.type';
 import { PhraseDescriptor } from '../../plugin';
-import { type ThemeProps, defaultTheme } from '../../theme';
-import { presetPluginManager } from '../../plugin';
+import { type ThemeProps } from '../../theme';
+import { useTheme, usePluginManager } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
+import { useEffect, useRef } from 'preact/hooks';
 import { Tooltip } from '../ui';
 
-type PhraseProps = ExtensionProps &
-  PhraseEvents & {
-    /**
-     * @description specification of phrase text spec
-     * @description.zh-CN 短语描述 json 信息
-     */
-    spec: PhraseSpec;
-    /**
-     * @description theme props
-     * @description.zh-CN 主题配置
-     */
-    theme?: ThemeProps;
-  };
+type PhraseProps = PhraseEvents & {
+  /**
+   * @description specification of phrase text spec
+   * @description.zh-CN 短语描述 json 信息
+   */
+  spec: PhraseSpec;
+};
 
 function renderPhraseByDescriptor(
   spec: EntityPhraseSpec | CustomPhraseSpec,
@@ -38,13 +33,12 @@ function renderPhraseByDescriptor(
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
   const {
-    overwrite,
     classNames,
     style: descriptorStyle,
     onHover,
     // tooltip,
     onClick,
-    content = () => value,
+    render = () => value,
     tooltip,
   } = descriptor || {};
 
@@ -61,11 +55,29 @@ function renderPhraseByDescriptor(
     events?.onMouseLeavePhrase?.(spec);
   };
 
-  // console.log('descriptor', content(value, metadata));
+  const entityRef = useRef<HTMLSpanElement>(null);
 
-  let defaultNode: ComponentChildren = (
+  useEffect(() => {
+    if (entityRef.current) {
+      const contentResult = functionalize<HTMLElement | DocumentFragment | string>(render, null)(
+        value,
+        metadata as EntityMetaData,
+      );
+      if (typeof contentResult === 'string' || typeof contentResult === 'number') {
+        entityRef.current.textContent = contentResult;
+      } else if (contentResult instanceof DocumentFragment || contentResult instanceof HTMLElement) {
+        entityRef.current.appendChild(contentResult);
+      } else {
+        // Handle other possible return types or log a warning
+        console.warn('Unexpected content type returned from render function:', contentResult);
+      }
+    }
+  }, [value, metadata]);
+
+  const defaultNode: ComponentChildren = (
     <Entity
       theme={theme}
+      forwardRef={entityRef}
       style={{
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...functionalize(descriptorStyle, {})(spec?.value, metadata as any),
@@ -75,15 +87,10 @@ function renderPhraseByDescriptor(
         getPrefixCls('value'),
         isEntityPhrase(spec) ? getPrefixCls(kebabCase(spec.metadata.entityType)) : '',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...functionalize(classNames, [])(spec?.value, metadata as any),
+        ...(functionalize(classNames, [])(spec?.value, metadata as any) as Array<string>),
       )}
-    >
-      {content(value, metadata)}
-    </Entity>
+    />
   );
-  if (isFunction(overwrite)) {
-    defaultNode = overwrite(defaultNode, value, metadata);
-  }
 
   const nodeWithEvents =
     !isEmpty(events) || isFunction(onClick) || isFunction(onHover) ? (
@@ -107,12 +114,10 @@ function renderPhraseByDescriptor(
 }
 
 /** <Phrase /> can use independence */
-export const Phrase: FunctionComponent<PhraseProps> = ({
-  spec: phrase,
-  theme = defaultTheme,
-  pluginManager = presetPluginManager,
-  ...events
-}) => {
+export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase, ...events }) => {
+  const theme = useTheme();
+  const pluginManager = usePluginManager();
+
   const onClick = () => {
     events?.onClickPhrase?.(phrase);
   };

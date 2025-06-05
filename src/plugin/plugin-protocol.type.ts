@@ -1,6 +1,9 @@
-import type { ComponentChildren, JSX } from 'preact';
-import type { EntityMetaData, EntityEncoding, EntityType } from '../schema';
-import { TooltipProps } from '../vis-components';
+import type { EntityMetaData, EntityType } from '../schema';
+import { TooltipProps } from '../vis-components/ui';
+
+interface CSSProperties {
+  [key: string]: string | number | undefined;
+}
 
 /**
  * description for phrase render
@@ -10,11 +13,12 @@ export interface PhraseDescriptor<MetaData> {
   key: string;
   isEntity: boolean;
   /**
-   * main react node, default is phrase value
+   * render callback of phrase, T8 will use the return value to render the phrase
    * @param value phrase spec value
    * @param metadata phrase spec metadata
+   * @returns HTMLElement | DocumentFragment T8 will use the return value to render the phrase
    */
-  content?: (value: string, metadata: MetaData) => ComponentChildren;
+  render?: ((value: string, metadata: MetaData) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
   /**
    * tooltip of phrases
    */
@@ -25,33 +29,24 @@ export interface PhraseDescriptor<MetaData> {
         title: ((value: string, metadata: MetaData) => HTMLElement | string | number) | HTMLElement | string | number;
       });
   classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
-  style?: JSX.CSSProperties | ((value: string, metadata: MetaData) => JSX.CSSProperties);
+  style?: CSSProperties | ((value: string, metadata: MetaData) => CSSProperties);
   onHover?: (value: string, metadata: MetaData) => string;
   onClick?: (value: string, metadata: MetaData) => string;
   getText?: (value: string, metadata: MetaData) => string;
   getMarkdown?: (value: string, metadata: MetaData) => string;
-
-  /**
-   * overwrite will be the highest priority to render node if it defined
-   * @param node the program result node
-   * @param value phrase spec value
-   * @param metadata phrase spec metadata
-   */
-  overwrite?: (node: ComponentChildren, value: string, metadata: MetaData) => ComponentChildren;
 }
 
+/**
+ * render custom phrase
+ */
 export type CustomPhraseDescriptor<MetaData> = PhraseDescriptor<MetaData> & { isEntity: false };
 
-/**
- * description for entity phrase render
- */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PluginType = PhraseDescriptor<any> | BlockDescriptor<any>;
+
 export interface EntityPhraseDescriptor extends PhraseDescriptor<EntityMetaData> {
   key: EntityType;
   isEntity: true;
-  /**
-   * entity phrase encoding channel based on entityType
-   */
-  encoding?: EntityEncoding<ComponentChildren>;
 }
 
 export type SpecificEntityPhraseDescriptor = Omit<EntityPhraseDescriptor, 'key' | 'isEntity'>;
@@ -66,28 +61,8 @@ export interface BlockDescriptor<CustomBlockSpec> {
   key: string;
   isBlock: true;
   className?: string | ((spec: CustomBlockSpec) => string);
-  style?: JSX.CSSProperties | ((spec: CustomBlockSpec) => JSX.CSSProperties);
-  render?: (spec: CustomBlockSpec) => ComponentChildren;
+  style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
+  render?: (spec: CustomBlockSpec) => HTMLElement | DocumentFragment;
   getText?: (spec: CustomBlockSpec) => string;
   getMarkdown?: (spec: CustomBlockSpec) => string;
-}
-
-export type AnyObject = Record<string, unknown>;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PluginType = PhraseDescriptor<any> | BlockDescriptor<any>;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isBlockDescriptor(plugin: PluginType): plugin is BlockDescriptor<any> {
-  return 'isBlock' in plugin && plugin.isBlock;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isEntityDescriptor(plugin: PluginType): plugin is PhraseDescriptor<any> {
-  return 'isEntity' in plugin && plugin.isEntity;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isCustomPhraseDescriptor(plugin: PluginType): plugin is PhraseDescriptor<any> {
-  return 'isEntity' in plugin && !plugin.isEntity;
 }

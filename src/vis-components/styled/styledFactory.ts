@@ -23,10 +23,10 @@ import { JSXInternal } from 'preact/src/jsx';
  * });
  */
 export function createStyledComponent(options: ComponentFactoryOptions) {
-  const { element, factoryStyles = {}, forwardRef = true } = options;
+  const { element, factoryStyles = {} } = options;
 
   // Component without size parameter
-  return function Component({ children, style, theme, ...rest }: CommonComponentProps) {
+  return function Component({ children, style, theme, forwardRef, ...rest }: CommonComponentProps) {
     const presetStyles = typeof factoryStyles === 'function' ? factoryStyles(theme) : factoryStyles;
 
     const combinedStyles = {
@@ -37,12 +37,11 @@ export function createStyledComponent(options: ComponentFactoryOptions) {
     const props: ClassAttributes<HTMLElement> & JSXInternal.HTMLAttributes = {
       ...rest,
       style: combinedStyles,
+      ref: forwardRef as Ref<HTMLElement> | undefined,
     };
 
-    if (forwardRef) {
-      props.ref = rest.ref as Ref<HTMLElement> & Ref<EventTarget>;
-    }
+    const component = createElement(element, props, children);
 
-    return createElement(element, props, children);
+    return component;
   };
 }
