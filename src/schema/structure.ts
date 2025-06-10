@@ -1,6 +1,6 @@
-import { CommonProps, CustomBlockElement } from "./common";
-import { PhraseSpec } from "./phrase";
-import { ParagraphSpec } from "./paragraph";
+import { CommonProps, CustomBlockElement } from './common';
+import { PhraseSpec } from './phrase';
+import { ParagraphSpec } from './paragraph';
 
 export type NarrativeTextSpec = CommonProps & {
   headline?: HeadlineSpec;
@@ -8,7 +8,7 @@ export type NarrativeTextSpec = CommonProps & {
 };
 
 export type HeadlineSpec = CommonProps & {
-  type: "headline";
+  type: 'headline';
   phrases: PhraseSpec[];
 };
 
@@ -16,5 +16,4 @@ export type StandardSectionSpec = {
   paragraphs?: ParagraphSpec[];
 };
 
-export type SectionSpec = (StandardSectionSpec | CustomBlockElement) &
-  CommonProps;
+export type SectionSpec = (StandardSectionSpec | CustomBlockElement) & CommonProps;

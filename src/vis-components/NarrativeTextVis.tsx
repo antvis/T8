@@ -1,10 +1,10 @@
+import { v4 } from 'uuid';
 import { useRef } from 'preact/hooks';
 import { NarrativeTextSpec } from '../schema';
-import { v4 } from 'uuid';
 import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
-import { NarrativeEvents } from './events.type';
+import { NarrativeEvents } from './types';
 import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultTheme, ThemeProps } from '../theme';
@@ -39,6 +39,11 @@ export type NarrativeTextVisProps = ExtensionProps &
     theme?: ThemeProps;
   };
 
+/**
+ * The NTV React component for rendering narrative text visualizations.
+ * It contains all the vis-components needed to render a narrative text spec.
+ * All the vis-components are writed with PReact.
+ */
 export function NarrativeTextVis({
   spec,
   theme = defaultTheme,

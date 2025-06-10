@@ -2,7 +2,7 @@ import { HeadingParagraphSpec, getHeadingWeight } from '../../schema';
 import * as Elements from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { PhraseEvents } from '../events.type';
+import { PhraseEvents } from '../types';
 import { useTheme } from '../context';
 
 type HeadingProps = PhraseEvents & {

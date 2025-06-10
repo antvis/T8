@@ -3,7 +3,7 @@ import { ParagraphSpec, isHeadingParagraph, isTextParagraph, isBulletParagraph, 
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { ParagraphEvents } from '../events.type';
+import { ParagraphEvents } from '../types';
 import { usePluginManager } from '../context/hooks/plugin';
 import { useEffect, useRef } from 'preact/hooks';
 import { functionalize } from '../../utils';

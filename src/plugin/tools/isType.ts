@@ -1,4 +1,4 @@
-import { BlockDescriptor, PhraseDescriptor, PluginType } from '../plugin-protocol.type';
+import { BlockDescriptor, PhraseDescriptor, PluginType } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isBlockDescriptor(plugin: PluginType): plugin is BlockDescriptor<any> {

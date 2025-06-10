@@ -1,5 +1,5 @@
 import { ClassAttributes, createElement, JSX, Ref } from 'preact';
-import { CommonComponentProps, ComponentFactoryOptions } from './type';
+import { CommonComponentProps, ComponentFactoryOptions } from './types';
 import { JSXInternal } from 'preact/src/jsx';
 
 /**

@@ -1,5 +1,12 @@
+/**
+ * The main entry point for the Narrative Text Visualization library.
+ */
 export { Text } from './text';
-export { generateTextSpec } from './schema';
+/**
+ * Type definitions for the Narrative Text Visualization library.
+ */
+export * from './schema';
+
 export {
   createCustomBlockFactory,
   createCustomPhraseFactory,
@@ -15,11 +22,3 @@ export {
   createTimeDesc,
   createTrendDesc,
 } from './plugin';
-
-/**
- * export all types
- */
-export * from './plugin/plugin-protocol.type';
-export * from './schema/schema-protocol.type';
-export * from './theme/theme.type';
-export * from './vis-components/events.type';

@@ -142,7 +142,7 @@ pnpm-lock.yaml
 bun.lockb
 
 # production build
-dist
-es
-lib
-types
+dist/
+es/
+lib/
+types/

@@ -29,7 +29,7 @@ export {
   createTrendDesc,
 } from './presets';
 
-export * from './plugin-protocol.type';
+export * from './types';
 
 export const presetPluginManager = new PluginManager(presetPlugins);
 

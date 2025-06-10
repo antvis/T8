@@ -1,21 +1,17 @@
-import { PhraseSpec } from "./phrase";
-import { CommonProps, CustomBlockElement } from "./common";
+import { PhraseSpec } from './phrase';
+import { CommonProps, CustomBlockElement } from './common';
 
-export type ParagraphSpec =
-  | HeadingParagraphSpec
-  | TextParagraphSpec
-  | BulletsParagraphSpec
-  | CustomBlockElement;
+export type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomBlockElement;
 
 export enum ParagraphType {
-  HEADING1 = "heading1",
-  HEADING2 = "heading2",
-  HEADING3 = "heading3",
-  HEADING4 = "heading4",
-  HEADING5 = "heading5",
-  HEADING6 = "heading6",
-  NORMAL = "normal",
-  BULLETS = "bullets",
+  HEADING1 = 'heading1',
+  HEADING2 = 'heading2',
+  HEADING3 = 'heading3',
+  HEADING4 = 'heading4',
+  HEADING5 = 'heading5',
+  HEADING6 = 'heading6',
+  NORMAL = 'normal',
+  BULLETS = 'bullets',
 }
 
 // As nouns the difference between heading and headline is that
@@ -44,7 +40,7 @@ export type BulletsParagraphSpec = CommonProps & {
 };
 
 export type BulletItemSpec = CommonProps & {
-  type: "bullet-item";
+  type: 'bullet-item';
   phrases: PhraseSpec[];
   // nested list
   subBullet?: BulletsParagraphSpec;

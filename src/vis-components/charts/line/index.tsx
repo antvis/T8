@@ -15,7 +15,7 @@ const LINE_STROKE_COLOR = '#5B8FF9';
  *
  * @param data - Array of numeric values to display as a line chart
  */
-export const SingleLineChart: FunctionalComponent<{ data: number[] }> = ({ data }) => {
+export const SingleLine: FunctionalComponent<{ data: number[] }> = ({ data }) => {
   // Get SVG wrapper and calculated size based on font
   const [Svg, size] = useSvgWrapper();
   // Calculate all the line paths and dimensions

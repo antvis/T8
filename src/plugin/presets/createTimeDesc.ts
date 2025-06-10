@@ -1,5 +1,5 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
-import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { SpecificEntityPhraseDescriptor } from '../types';
 import { seedToken } from '../../theme';
 
 const defaultTimeDescDescriptor: SpecificEntityPhraseDescriptor = {

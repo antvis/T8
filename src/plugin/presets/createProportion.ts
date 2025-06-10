@@ -1,6 +1,6 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
-import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
-import { ProportionChart } from '../../vis-components';
+import { SpecificEntityPhraseDescriptor } from '../types';
+import { Proportion } from '../../vis-components';
 import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../tools';
 import { isNumber } from '../../utils';
@@ -8,7 +8,7 @@ import { isNumber } from '../../utils';
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { origin }) => {
     const chartElement = document.createElement('span');
-    preactRender(h(ProportionChart, { data: getProportionNumber(value, origin as number) }), chartElement);
+    preactRender(h(Proportion, { data: getProportionNumber(value, origin as number) }), chartElement);
 
     return createDocumentFragment(chartElement, value, 'suffix');
   },

@@ -1,4 +1,4 @@
-import { BlockDescriptor } from './plugin-protocol.type';
+import { BlockDescriptor } from './types';
 
 /**
  * Creates a factory function for custom block descriptors.

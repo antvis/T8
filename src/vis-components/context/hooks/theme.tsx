@@ -1,6 +1,6 @@
 import { ComponentChildren, createContext } from 'preact';
-import { ThemeProps, defaultTheme } from '../../../theme';
 import { useContext } from 'preact/compat';
+import { ThemeProps, defaultTheme } from '../../../theme';
 
 type ThemeProviderProps = {
   theme?: ThemeProps;

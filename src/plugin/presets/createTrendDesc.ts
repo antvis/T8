@@ -1,8 +1,6 @@
-// import React from 'react';
-// import { isArray } from 'lodash';
-import { SingleLineChart } from '../../vis-components';
+import { SingleLine } from '../../vis-components';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
-import { SpecificEntityPhraseDescriptor } from '../plugin-protocol.type';
+import { SpecificEntityPhraseDescriptor } from '../types';
 import { seedToken } from '../../theme';
 import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../tools';
@@ -10,7 +8,7 @@ import { createDocumentFragment } from '../tools';
 const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { detail }) => {
     const chartElement = document.createElement('span');
-    preactRender(h(SingleLineChart, { data: detail as number[] }), chartElement);
+    preactRender(h(SingleLine, { data: detail as number[] }), chartElement);
 
     return createDocumentFragment(chartElement, value, 'suffix');
   },

@@ -1,18 +1,14 @@
-import { isObject, isString } from '../../utils';
-import { EntityType, ParagraphType, PhraseType } from '../schema';
-import type {
-  SectionSpec,
+import { isObject, isString } from '../utils/isType';
+import {
+  ParagraphType,
   ParagraphSpec,
-  CustomBlockElement,
-  StandardSectionSpec,
   TextParagraphSpec,
   BulletsParagraphSpec,
   HeadingParagraphSpec,
-  PhraseSpec,
-  CustomPhraseSpec,
-  EntityPhraseSpec,
-  TextPhraseSpec,
-} from '../schema';
+} from './paragraph';
+import { EntityType, PhraseType, PhraseSpec, CustomPhraseSpec, TextPhraseSpec, EntityPhraseSpec } from './phrase';
+import { CustomBlockElement } from './common';
+import type { SectionSpec, StandardSectionSpec } from './structure';
 
 export function isCustomSection(spec: SectionSpec): spec is CustomBlockElement {
   return isObject(spec) && 'customType' in spec;
