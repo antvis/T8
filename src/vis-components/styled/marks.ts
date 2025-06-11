@@ -1,4 +1,4 @@
-import { createStyledComponent } from '../styledFactory';
+import { createStyledComponent } from './utils';
 
 export const Bold = createStyledComponent({
   element: 'strong',

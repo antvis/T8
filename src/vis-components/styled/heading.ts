@@ -1,5 +1,5 @@
-import { ThemeProps, seedToken, getFontSizeNumber, getLineHeightNumber } from '../../../theme';
-import { createStyledComponent } from '../styledFactory';
+import { ThemeProps, seedToken, getFontSizeNumber, getLineHeightNumber } from '../../theme';
+import { createStyledComponent } from './utils';
 
 const getHeadingStyle = (theme: ThemeProps, level: number) => {
   const baseStyle = {

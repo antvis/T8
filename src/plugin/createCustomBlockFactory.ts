@@ -8,8 +8,8 @@ import { BlockDescriptor } from './types';
  * `BlockDescriptor<CustomBlockSpec>`, where `CustomBlockSpec` is the type of
  * the block specification.
  *
- * @param descriptor - The descriptor object to be converted into a block descriptor
- * @returns A new block descriptor with the `isBlock` property set to `true`
+ * @param descriptor - The descriptor object to be converted into a block descriptor.
+ * @returns A new block descriptor with the `isBlock` property set to `true`.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createCustomBlockFactory = <CustomBlockSpec = any>(

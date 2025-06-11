@@ -1,8 +1,8 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
-import { Proportion } from '../../vis-components';
+import { Proportion } from '../../charts';
 import { render as preactRender, h } from 'preact';
-import { createDocumentFragment } from '../tools';
+import { createDocumentFragment } from '../utils';
 import { isNumber } from '../../utils';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {

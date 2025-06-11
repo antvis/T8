@@ -1,7 +1,7 @@
 import type { EntityMetaData, EntityType } from '../schema';
-import { TooltipProps } from '../vis-components/ui';
+import { TooltipProps } from '../vis-components';
 
-interface CSSProperties {
+export interface CSSProperties {
   [key: string]: string | number | undefined;
 }
 

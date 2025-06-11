@@ -9,4 +9,4 @@ export * from './structure';
 /**
  * Export all utility functions related to schema specifications.
  */
-export * from './isSpecType';
+export * from './utils';
