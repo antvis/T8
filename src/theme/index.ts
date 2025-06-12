@@ -1,9 +1,8 @@
-import type { ThemeProps } from './types';
+export { getThemeSeedToken } from './util';
+export type { SeedTokenOptions, ThemeOptions } from './types';
+export { defaultSeedToken } from './seed';
 
-export { seedToken } from './seed';
-export { getFontSize, getFontSizeNumber, getLineHeight, getLineHeightNumber } from './util';
-export type { ThemeProps } from './types';
-
-export const defaultTheme: ThemeProps = {
-  size: 'normal',
-};
+export const defaultTheme = {
+  theme: 'light',
+  size: 'base',
+} as const;

@@ -1,8 +1,8 @@
-export type SizeType = 'normal' | 'small';
+import { defaultSeedToken } from './seed';
 
-export type ThemeProps = {
-  /**
-   * Size of text.
-   */
-  size?: SizeType;
+export type SeedTokenOptions = typeof defaultSeedToken;
+
+export type ThemeOptions = {
+  theme?: string;
+  size?: string;
 };

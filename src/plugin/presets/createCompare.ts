@@ -4,8 +4,8 @@ import { ValueAssessment, EntityMetaData } from '../../schema';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { getPrefixCls, isNumber } from '../../utils';
-import { seedToken } from '../../theme';
 import { createDocumentFragment } from '../utils';
+import { SeedTokenOptions } from '../../theme';
 
 const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
@@ -13,8 +13,8 @@ const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { assessment }) => {
     return createDocumentFragment(getComparePrefix(assessment, ['-', '+']), value, 'prefix');
   },
-  style: (value, { assessment }) => ({
-    color: getCompareColor(assessment),
+  style: (value, { assessment }, themeSeedToken) => ({
+    color: getCompareColor(assessment, themeSeedToken),
   }),
   tooltip: {
     title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
@@ -29,8 +29,8 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { assessment }) => {
     return createDocumentFragment(getComparePrefix(assessment, ['-', '+']), value, 'prefix');
   },
-  style: (value, { assessment }) => ({
-    color: getCompareColor(assessment),
+  style: (value, { assessment }, themeSeedToken) => ({
+    color: getCompareColor(assessment, themeSeedToken),
   }),
   tooltip: {
     title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
@@ -39,10 +39,10 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
 
 export const createRatioValue = createEntityPhraseFactory('ratio_value', defaultRatioValueDescriptor);
 
-function getCompareColor(assessment: ValueAssessment) {
+function getCompareColor(assessment: ValueAssessment, themeSeedToken: SeedTokenOptions) {
   let color;
-  if (assessment === 'positive') color = seedToken.colorPositive;
-  if (assessment === 'negative') color = seedToken.colorNegative;
+  if (assessment === 'positive') color = themeSeedToken.colorPositive;
+  if (assessment === 'negative') color = themeSeedToken.colorNegative;
   return color;
 }
 

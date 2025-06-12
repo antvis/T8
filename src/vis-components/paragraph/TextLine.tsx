@@ -14,10 +14,10 @@ type TextLineProps = PhraseEvents & {
 };
 
 export function TextLine({ spec, ...events }: TextLineProps) {
-  const theme = useTheme();
+  const themeSeedToken = useTheme();
 
   return (
-    <StyledP theme={theme} className={cx(getPrefixCls('p'), spec.className)} style={spec.styles}>
+    <StyledP theme={themeSeedToken} className={cx(getPrefixCls('p'), spec.className)} style={spec.styles}>
       <Phrases spec={spec.phrases} {...events} />
     </StyledP>
   );

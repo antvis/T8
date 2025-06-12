@@ -1,13 +1,13 @@
 import { JSX } from 'preact/jsx-runtime';
 import { ComponentChildren } from 'preact';
-import { ThemeProps } from '../../theme';
+import { SeedTokenOptions } from '../../theme';
 
 /**
  * Generic style factory function type.
  * @param param - Optional style parameter (like size).
  * @returns Style object with CSS properties.
  */
-export type StyleFactory = (theme: ThemeProps) => Record<string, string | number>;
+export type StyleFactory = (theme: SeedTokenOptions) => Record<string, string | number>;
 
 /**
  * Component factory options.
@@ -27,7 +27,7 @@ export interface ComponentFactoryOptions {
  * Base interface for all styled components.
  */
 export interface CommonComponentProps extends JSX.HTMLAttributes<HTMLElement> {
-  theme?: ThemeProps;
+  theme?: SeedTokenOptions;
   children?: ComponentChildren;
   style?: JSX.CSSProperties;
   className?: string;

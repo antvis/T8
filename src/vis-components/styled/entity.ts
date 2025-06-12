@@ -1,16 +1,16 @@
-import { ThemeProps, getFontSize, seedToken } from '../../theme';
+import { SeedTokenOptions } from '../../theme';
 import { createStyledComponent } from './utils';
 
-const getEntityStyle = (theme?: ThemeProps) => {
+const getEntityStyle = (theme: SeedTokenOptions) => {
   return {
     display: 'inline-block',
     alignItems: 'center',
     boxSizing: 'border-box',
-    fontSize: getFontSize(theme ?? {}),
-    fontFamily: seedToken.fontFamily,
+    fontSize: `${theme.fontSize}px`,
+    fontFamily: theme.fontFamily,
     lineHeight: '1.5em',
     borderRadius: '2px',
-    color: seedToken.colorEntityBase,
+    color: theme.colorEntityBase,
   };
 };
 

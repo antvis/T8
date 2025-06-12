@@ -1,11 +1,10 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
-import { seedToken } from '../../theme';
 
 const defaultMetricNameDescriptor: SpecificEntityPhraseDescriptor = {
-  style: () => ({
+  style: (value, _, themeSeedToken) => ({
     fontWeight: 500,
-    color: seedToken.colorMetricName,
+    color: themeSeedToken.colorMetricName,
   }),
   tooltip: false,
 };

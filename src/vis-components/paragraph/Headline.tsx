@@ -11,7 +11,7 @@ type HeadlineProps = ParagraphEvents & {
 
 export function Headline({ spec, ...events }: HeadlineProps) {
   const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
-  const theme = useTheme();
+  const themeSeedToken = useTheme();
 
   const onClick = () => {
     onClickParagraph?.(spec);
@@ -22,6 +22,7 @@ export function Headline({ spec, ...events }: HeadlineProps) {
   const onMouseLeave = () => {
     onMouseLeaveParagraph?.(spec);
   };
+
   return (
     <StyledHeadline
       onClick={onClick}
@@ -29,7 +30,7 @@ export function Headline({ spec, ...events }: HeadlineProps) {
       onMouseLeave={onMouseLeave}
       className={cx(getPrefixCls('headline'), spec.className)}
       style={spec.styles}
-      theme={theme}
+      theme={themeSeedToken}
     >
       <Phrases spec={spec.phrases} {...phraseEvents} />
     </StyledHeadline>

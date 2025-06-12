@@ -87,7 +87,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
 
     // clear container when unmount.
     return () => {
-      if (containerRef.current) {
+      if (containerRef.current && containerRef.current.parentElement === document.body) {
         document.body.removeChild(containerRef.current);
         containerRef.current = null;
       }

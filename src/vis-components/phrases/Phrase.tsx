@@ -10,11 +10,11 @@ import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty, isNil } from '../../utils';
 import { PhraseEvents } from '../types';
 import { PhraseDescriptor } from '../../plugin';
-import { type ThemeProps } from '../../theme';
 import { useTheme, usePluginManager } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { Tooltip } from './ui';
+import { SeedTokenOptions } from '../../theme';
 
 type PhraseProps = PhraseEvents & {
   /**
@@ -28,7 +28,7 @@ function renderPhraseByDescriptor(
   spec: EntityPhraseSpec | CustomPhraseSpec,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   descriptor: PhraseDescriptor<any>,
-  theme: ThemeProps,
+  theme: SeedTokenOptions,
   events: PhraseEvents,
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
@@ -80,7 +80,7 @@ function renderPhraseByDescriptor(
       forwardRef={entityRef}
       style={{
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...functionalize(descriptorStyle, {})(spec?.value, metadata as any),
+        ...functionalize(descriptorStyle, {})(spec?.value, metadata as any, theme),
         ...specStyles,
       }}
       className={cx(
@@ -115,7 +115,7 @@ function renderPhraseByDescriptor(
 
 /** <Phrase /> can use independence */
 export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase, ...events }) => {
-  const theme = useTheme();
+  const themeSeedToken = useTheme();
   const pluginManager = usePluginManager();
 
   const onClick = () => {
@@ -149,7 +149,7 @@ export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase, ...events
 
   const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
   if (descriptor) {
-    return <>{renderPhraseByDescriptor(phrase, descriptor, theme, events)}</>;
+    return <>{renderPhraseByDescriptor(phrase, descriptor, themeSeedToken, events)}</>;
   }
 
   return defaultText;

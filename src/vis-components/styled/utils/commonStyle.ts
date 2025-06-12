@@ -1,9 +1,9 @@
-import { ThemeProps, getFontSize, seedToken } from '../../../theme';
+import { SeedTokenOptions } from '../../../theme';
 
-export function getCommonStyle(theme: ThemeProps) {
+export function getCommonStyle(theme: SeedTokenOptions) {
   return {
-    fontFamily: seedToken.fontFamily,
-    color: seedToken.colorBase,
-    fontSize: getFontSize(theme ?? {}),
+    fontFamily: theme.fontFamily,
+    color: theme.colorBase,
+    fontSize: theme.fontSize,
   };
 }

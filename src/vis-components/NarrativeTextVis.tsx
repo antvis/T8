@@ -7,7 +7,7 @@ import { Section } from './section';
 import { NarrativeEvents } from './types';
 import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
-import { defaultTheme, ThemeProps } from '../theme';
+import { defaultSeedToken, SeedTokenOptions } from '../theme';
 import { PluginManager, presetPluginManager } from '../plugin';
 import { ContextProvider } from './context';
 
@@ -36,7 +36,7 @@ export type NarrativeTextVisProps = ExtensionProps &
      * @description theme props
      * @description.zh-CN 主题配置
      */
-    theme?: ThemeProps;
+    themeSeedToken?: SeedTokenOptions;
   };
 
 /**
@@ -46,8 +46,8 @@ export type NarrativeTextVisProps = ExtensionProps &
  */
 export function NarrativeTextVis({
   spec,
-  theme = defaultTheme,
   pluginManager = presetPluginManager,
+  themeSeedToken = defaultSeedToken,
   // copyNarrative,
   ...events
 }: NarrativeTextVisProps) {
@@ -92,7 +92,7 @@ export function NarrativeTextVis({
   // }, [copyNarrative]);
 
   return (
-    <ContextProvider theme={theme} plugin={pluginManager}>
+    <ContextProvider themeSeedToken={themeSeedToken} plugin={pluginManager}>
       <Container
         className={cx(className, getPrefixCls('container'))}
         style={styles}

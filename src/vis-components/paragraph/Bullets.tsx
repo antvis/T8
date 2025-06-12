@@ -45,7 +45,7 @@ export function Bullets({ spec, ...events }: BulletsProps) {
   const tag = spec.isOrder ? 'ol' : 'ul';
   const Comp = spec.isOrder ? Ol : Ul;
 
-  const theme = useTheme();
+  const themeSeedToken = useTheme();
 
   const onClick = () => {
     onClickParagraph?.(spec);
@@ -63,7 +63,7 @@ export function Bullets({ spec, ...events }: BulletsProps) {
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      theme={theme}
+      theme={themeSeedToken}
       className={cx(getPrefixCls(tag), spec.className)}
       style={spec.styles}
     >

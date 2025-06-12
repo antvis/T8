@@ -1,8 +1,8 @@
-import { ThemeProps } from '../../theme';
+import { SeedTokenOptions } from '../../theme';
 import { createStyledComponent, getCommonStyle } from './utils';
 
-const getContainerStyle = (theme?: ThemeProps) => {
-  return getCommonStyle(theme ?? {});
+const getContainerStyle = (theme: SeedTokenOptions) => {
+  return getCommonStyle(theme);
 };
 
 export const Container = createStyledComponent({

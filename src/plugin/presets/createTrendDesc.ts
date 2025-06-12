@@ -1,7 +1,6 @@
 import { SingleLine } from '../../charts';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
-import { seedToken } from '../../theme';
 import { render as preactRender, h } from 'preact';
 import { createDocumentFragment } from '../utils';
 
@@ -12,8 +11,8 @@ const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
 
     return createDocumentFragment(chartElement, value, 'suffix');
   },
-  style: () => ({
-    color: seedToken.colorConclusion,
+  style: (value, _, themeSeedToken) => ({
+    color: themeSeedToken.colorConclusion,
   }),
   tooltip: false,
 };
