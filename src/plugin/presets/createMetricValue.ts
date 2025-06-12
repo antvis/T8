@@ -1,4 +1,3 @@
-// import { isNumber } from 'lodash';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { seedToken } from '../../theme';

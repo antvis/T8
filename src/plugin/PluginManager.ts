@@ -1,7 +1,7 @@
-import { isCustomPhrase, isEntityPhrase } from '../utils';
+import { isCustomPhrase, isEntityPhrase } from '../schema';
 import { EntityMetaData, EntityType, PhraseSpec } from '../schema';
 import { PhraseDescriptor, BlockDescriptor, PluginType } from './types';
-import { isBlockDescriptor, isEntityDescriptor, isCustomPhraseDescriptor } from './tools';
+import { isBlockDescriptor, isEntityDescriptor, isCustomPhraseDescriptor } from './utils';
 
 /**
  * PluginManager class responsible for registering, managing, and retrieving

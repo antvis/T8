@@ -1,9 +1,9 @@
-import { SingleLine } from '../../vis-components';
+import { SingleLine } from '../../charts';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { seedToken } from '../../theme';
 import { render as preactRender, h } from 'preact';
-import { createDocumentFragment } from '../tools';
+import { createDocumentFragment } from '../utils';
 
 const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { detail }) => {

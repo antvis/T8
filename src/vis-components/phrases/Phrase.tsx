@@ -14,7 +14,7 @@ import { type ThemeProps } from '../../theme';
 import { useTheme, usePluginManager } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
-import { Tooltip } from '../ui';
+import { Tooltip } from './ui';
 
 type PhraseProps = PhraseEvents & {
   /**

@@ -1,5 +1,5 @@
-import { ThemeProps, getFontSize, seedToken } from '../../../theme';
-import { createStyledComponent } from '../styledFactory';
+import { ThemeProps, getFontSize, seedToken } from '../../theme';
+import { createStyledComponent } from './utils';
 
 const getEntityStyle = (theme?: ThemeProps) => {
   return {

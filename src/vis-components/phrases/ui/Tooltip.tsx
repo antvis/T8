@@ -1,7 +1,7 @@
-import { FunctionalComponent, ComponentChildren, cloneElement, isValidElement, render } from 'preact';
+import { ComponentChildren, FunctionalComponent, cloneElement, isValidElement, render } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
-import { getPrefixCls } from '../../utils/getPrefixCls';
+import { getPrefixCls } from '../../../utils';
 
 // Define tooltip placement.
 export type TooltipPlacement = 'top' | 'right' | 'bottom' | 'left';

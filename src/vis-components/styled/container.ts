@@ -1,6 +1,5 @@
-import { ThemeProps } from '../../../theme';
-import { createStyledComponent } from '../styledFactory';
-import getCommonStyle from '../commonStyle';
+import { ThemeProps } from '../../theme';
+import { createStyledComponent, getCommonStyle } from './utils';
 
 const getContainerStyle = (theme?: ThemeProps) => {
   return getCommonStyle(theme ?? {});

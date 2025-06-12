@@ -5,7 +5,7 @@ import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { getPrefixCls, isNumber } from '../../utils';
 import { seedToken } from '../../theme';
-import { createDocumentFragment } from '../tools';
+import { createDocumentFragment } from '../utils';
 
 const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
@@ -32,9 +32,9 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
   style: (value, { assessment }) => ({
     color: getCompareColor(assessment),
   }),
-  // tooltip: {
-  //   title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
-  // },
+  tooltip: {
+    title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),
+  },
 };
 
 export const createRatioValue = createEntityPhraseFactory('ratio_value', defaultRatioValueDescriptor);
