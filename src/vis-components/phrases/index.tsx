@@ -22,3 +22,5 @@ export function Phrases({ spec, ...events }: PhrasesProps) {
 }
 
 export { Phrase } from './Phrase';
+
+export type { TooltipProps } from './ui';
