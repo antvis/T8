@@ -2,6 +2,9 @@ export const baseSeedToken = {
   fontFamily: 'PingFangSC, sans-serif',
   borderColor: 'rgb(199, 199, 199)',
 
+  fontSize: 14,
+  lineHeight: 24,
+
   /**
    * if pages use small and normal size together, rem will not work.
    * so we use fontSizeMultiple to calculate the fontSize instead of rem.

@@ -1,11 +1,12 @@
-import { baseSeedToken, presetFontSize, presetTheme } from './seed';
-import type { SeedTokenOptions, ThemeOptions } from './types';
+import { baseSeedToken, presetTheme } from './seed';
+import type { SeedTokenOptions } from './types';
 
-export const getThemeSeedToken = ({ theme, size }: ThemeOptions, seedToken?: SeedTokenOptions): SeedTokenOptions => {
+export const getThemeSeedToken = (theme: 'dark' | 'light', seedToken?: Partial<SeedTokenOptions>): SeedTokenOptions => {
+  const themeToken = presetTheme[theme ?? 'light'] as SeedTokenOptions;
+
   return {
     ...baseSeedToken,
-    ...presetTheme[theme ?? 'light'],
-    ...presetFontSize[size ?? 'base'],
+    ...themeToken,
     ...(seedToken ?? {}),
-  };
+  } as const;
 };

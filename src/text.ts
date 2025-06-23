@@ -24,9 +24,7 @@ export class Text {
   /**
    * Theme configuration for the text visualization.
    */
-  private themeConfig: { theme: 'dark' | 'light'; seedToken?: SeedTokenOptions } = { theme: 'light' };
-
-  private sizeConfig: 'base' | 'small' = 'base';
+  private themeSeedToken: SeedTokenOptions;
 
   constructor(container: string | HTMLElement) {
     if (typeof container === 'string') {
@@ -46,18 +44,13 @@ export class Text {
     return this;
   }
 
-  size(size: 'base' | 'small') {
-    this.sizeConfig = size;
-    return this;
-  }
-
   /**
    * Set the theme for the narrative text visualization.
    * @param theme - The theme configuration for the text visualization.
    * @returns The Text instance for method chaining.
    */
-  theme(theme: 'dark' | 'light', seedToken?: SeedTokenOptions) {
-    this.themeConfig = { theme, seedToken };
+  theme(theme: 'dark' | 'light', seedToken?: Partial<SeedTokenOptions>) {
+    this.themeSeedToken = getThemeSeedToken(theme, seedToken);
     return this;
   }
 
@@ -68,17 +61,13 @@ export class Text {
   render() {
     const container = this.container;
     const spec = this.spec;
-    const themeSeedToken = getThemeSeedToken(
-      { theme: this.themeConfig.theme, size: this.sizeConfig },
-      this.themeConfig.seedToken,
-    );
 
     // Render the component.
     // We use `preact` to code the `NarrativeTextVis` components.
     preactRender(
       h(NarrativeTextVis, {
         spec,
-        themeSeedToken,
+        themeSeedToken: this.themeSeedToken,
       }),
       container,
     );

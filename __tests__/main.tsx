@@ -12,8 +12,7 @@ text.render();
 
 const text2 = new Text(app2!);
 text2.schema(spec as NarrativeTextSpec);
-text2.size('small');
-text2.theme('dark');
+text2.theme('dark', { fontSize: 12, lineHeight: 20 });
 text2.render();
 
 const text3 = new Text(app3!);

@@ -1,11 +1,10 @@
+import { SeedTokenOptions } from '../types';
 import { baseSeedToken } from './base';
-import { presetFontSize } from './size';
 import { presetTheme } from './theme';
 
-export const defaultSeedToken = {
+export const defaultSeedToken: SeedTokenOptions = {
   ...baseSeedToken,
-  ...presetFontSize.base,
   ...presetTheme.light,
 } as const;
 
-export { baseSeedToken, presetFontSize, presetTheme };
+export { baseSeedToken, presetTheme };
