@@ -25,6 +25,7 @@ export type SeedTokenOptions = {
 
   colorBase: string;
   colorEntityBase: string;
+  colorHeadingBase: string;
   colorPositive: string;
   colorNegative: string;
   colorConclusion: string;
