@@ -55,8 +55,8 @@ export class PluginManager {
    *
    * @param plugins - Array of plugins to register
    */
-  registerAll(plugins: PluginType[]) {
-    plugins.forEach((plugin) => this.register(plugin));
+  registerAll(plugins?: PluginType[]) {
+    plugins?.forEach((plugin) => this.register(plugin));
   }
 
   /**

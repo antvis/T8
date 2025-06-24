@@ -2,6 +2,7 @@ import { h, render as preactRender } from 'preact';
 import { NarrativeTextSpec } from './schema';
 import { NarrativeTextVis } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
+import { PluginManager, PluginType, presetPlugins } from './plugin';
 
 /**
  * Text component for rendering narrative text visualizations.
@@ -25,9 +26,15 @@ export class Text {
    * Theme configuration for the text visualization.
    */
   private themeSeedToken: SeedTokenOptions;
+  /**
+   * Plugin manager for the text visualization.
+   */
+  private pluginManager: PluginManager;
 
   constructor(container: string | HTMLElement) {
     this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
+
+    this.pluginManager = new PluginManager(presetPlugins);
   }
 
   /**
@@ -51,6 +58,16 @@ export class Text {
   }
 
   /**
+   * Register a plugin for the text visualization.
+   * @param plugin - The plugin to register.
+   * @returns The Text instance for method chaining.
+   */
+  registerPlugin(plugin: PluginType) {
+    this.pluginManager.register(plugin);
+    return this;
+  }
+
+  /**
    * Render the narrative text visualization.
    * @returns A function to unmount the component.
    */
@@ -63,6 +80,7 @@ export class Text {
     preactRender(
       h(NarrativeTextVis, {
         spec,
+        pluginManager: this.pluginManager,
         themeSeedToken: this.themeSeedToken,
       }),
       container,
