@@ -22,4 +22,5 @@ jobs:
       - name: Run test
         run: |
           npm install
-          npm run test
+          npm run build
+          npx vitest --watch=false

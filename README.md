@@ -64,7 +64,10 @@ const text = new Text({
 text.schema(schema).theme('light');
 
 // Render visualization.
-text.render();
+const unmont = text.render();
+
+// Destroy.
+unmont();
 ```
 
 If all goes well, you can get the following narrative text visualization!

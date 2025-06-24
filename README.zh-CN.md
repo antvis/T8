@@ -64,7 +64,10 @@ const text = new Text({
 text.schema(schema).theme('dark');
 
 // 渲染
-text.render();
+const unmont = text.render();
+
+// 销毁
+unmont();
 ```
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。

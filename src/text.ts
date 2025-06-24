@@ -27,11 +27,7 @@ export class Text {
   private themeSeedToken: SeedTokenOptions;
 
   constructor(container: string | HTMLElement) {
-    if (typeof container === 'string') {
-      this.container = document.querySelector(container) as HTMLElement;
-    } else {
-      this.container = container;
-    }
+    this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
   }
 
   /**
