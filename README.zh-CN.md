@@ -13,8 +13,6 @@
 [![npm Version](https://img.shields.io/npm/v/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 [![npm License](https://img.shields.io/npm/l/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 
-<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*L6WFTJlxWuQAAAAATgAAAAgAemJ7AQ/fmt.webp" />
-
 <img alt="T8 examples dark" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eGSkRauCayYAAAAAT4AAAAgAemJ7AQ/fmt.avif" />
 </div>
 
@@ -71,7 +69,7 @@ text.render();
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eGSkRauCayYAAAAAT4AAAAgAemJ7AQ/fmt.avif" width="640" alt="t8 example">
+<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*L6WFTJlxWuQAAAAATgAAAAgAemJ7AQ/fmt.webp" />
 
 ## 📮 Contributing
 
