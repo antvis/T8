@@ -4,6 +4,7 @@ import { createStyledComponent } from './utils';
 const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
   const baseStyle = {
     fontFamily: theme.fontFamily,
+    color: theme.colorHeadingBase,
   };
 
   const fontSize = theme.fontSize;
@@ -15,7 +16,6 @@ const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
         ...baseStyle,
         fontSize: `${theme.fontSizeMultiples.h1 * fontSize}px`,
         lineHeight: `${theme.lineHeightMultiples.h1 * lineHeight}px`,
-        color: theme.colorBase,
         margin: '26px 0 10px 0',
       };
     case 2:
@@ -23,7 +23,6 @@ const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
         ...baseStyle,
         fontSize: `${theme.fontSizeMultiples.h2 * fontSize}px`,
         lineHeight: `${theme.lineHeightMultiples.h2 * lineHeight}px`,
-        color: theme.colorBase,
         margin: '21px 0 5px 0',
       };
     case 3:
@@ -31,7 +30,6 @@ const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
         ...baseStyle,
         fontSize: `${theme.fontSizeMultiples.h3 * fontSize}px`,
         lineHeight: `${theme.lineHeightMultiples.h3 * lineHeight}px`,
-        color: theme.colorBase,
         margin: '16px 0 5px 0',
       };
     case 4:
@@ -39,7 +37,6 @@ const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
         ...baseStyle,
         fontSize: `${theme.fontSizeMultiples.h4 * fontSize}px`,
         lineHeight: `${theme.lineHeightMultiples.h4 * lineHeight}px`,
-        color: theme.colorBase,
         margin: '10px 0 5px 0',
       };
     case 5:
@@ -47,7 +44,6 @@ const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
         ...baseStyle,
         fontSize: `${theme.fontSizeMultiples.h5 * fontSize}px`,
         lineHeight: `${theme.lineHeightMultiples.h5 * lineHeight}px`,
-        color: theme.colorBase,
         margin: '8px 0 5px 0',
       };
     case 6:
@@ -55,7 +51,6 @@ const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
         ...baseStyle,
         fontSize: `${theme.fontSizeMultiples.h6 * fontSize}px`,
         lineHeight: `${theme.lineHeightMultiples.h6 * lineHeight}px`,
-        color: theme.colorBase,
         minHeight: `${theme.lineHeightMultiples.h6}px`,
         letterSpacing: '0.008em',
         margin: '5px 0 5px 0',

@@ -1,6 +1,7 @@
 const presetLightColors = {
   colorBase: 'rgba(0, 0, 0, 0.65)',
   colorEntityBase: 'rgba(0, 0, 0, 0.65)',
+  colorHeadingBase: 'rgba(0, 0, 0, 0.85)',
   colorPositive: '#FA541C',
   colorNegative: '#13A8A8',
   colorConclusion: '#1F0352',
@@ -16,6 +17,7 @@ const presetLightColors = {
 const presetDarkColors = {
   colorBase: 'rgba(255, 255, 255, 0.65)',
   colorEntityBase: 'rgba(255, 255, 255, 0.65)',
+  colorHeadingBase: 'rgba(255, 255, 255, 0.85)',
   colorPositive: '#FA541C',
   colorNegative: '#13A8A8',
   colorConclusion: '#D8C3F3',
