@@ -6,9 +6,9 @@
 
 <div align="center">
 
-`T8` is a text visualization solution for unstructured data within the AntV technology stack, where `T` stands for Text, and `8` represents a byte of 8 bits, symbolizing that this tool can deeply uncover insights hidden beneath the text.
+`T8` is a text visualization solution for unstructured data within the AntV technology stack, where `T` stands for Text, and `8` represents a byte of 8 bits, symbolizing that it can deeply uncover insights hidden beneath the text.
 
-![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min.js?compression=gzip)
+![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min?compression=gzip)
 [![Build Status](https://github.com/antvis/t8/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/T8/actions/workflows/build.yml)
 [![npm Version](https://img.shields.io/npm/v/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 [![npm License](https://img.shields.io/npm/l/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
@@ -72,7 +72,7 @@ unmont();
 
 If all goes well, you can get the following narrative text visualization!
 
-<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*L6WFTJlxWuQAAAAATgAAAAgAemJ7AQ/fmt.webp" />
+<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GDPUToCi8ncAAAAATrAAAAgAemJ7AQ/fmt.webp" />
 
 ## 📮 Contributing
 

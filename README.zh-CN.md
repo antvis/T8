@@ -8,7 +8,7 @@
 
 `T8` 是 AntV 技术栈下针对非结构化数据得文本可视化解决方案，其中 `T` 代表 Text，`8` 代表一个字节 8 bits，寓意这个工具可以深度透视文本底下的洞察。
 
-![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min.js?compression=gzip)
+![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min?compression=gzip)
 [![Build Status](https://github.com/antvis/t8/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/T8/actions/workflows/build.yml)
 [![npm Version](https://img.shields.io/npm/v/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 [![npm License](https://img.shields.io/npm/l/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
@@ -16,7 +16,7 @@
 <img alt="T8 examples dark" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eGSkRauCayYAAAAAT4AAAAgAemJ7AQ/fmt.avif" />
 </div>
 
-T8 是一套声明式的 JSON Schema 语法，可以用它描述数据解读报告的内容。技术方案上，基于 JSON Schema 数据来自服务端生成的假设，前端消费 Schema 进行渲染即可。随着数据表达的多样性和即时性的要求越来越高，以及 AI、NLP 技术越来越多的被应用，前端维护文本模版将不可持续，此时使用 T8 进行统一渲染将是最佳选择。
+`T8` 是一套声明式的 JSON Schema 语法，可以用它描述数据解读报告的内容。技术方案上，基于 JSON Schema 数据来自服务端生成的假设，前端消费 Schema 进行渲染即可。随着数据表达的多样性和即时性的要求越来越高，以及 AI、NLP 技术越来越多的被应用，前端维护文本模版将不可持续，此时使用 T8 进行统一渲染将是最佳选择。
 
 - [Introduction]() - 一个关于 T8 的概要介绍和想法。
 - [Example]() - 一个可运行的演示案例，并结合 AI 进行展示和可视化。
@@ -72,7 +72,7 @@ unmont();
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
 
-<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*L6WFTJlxWuQAAAAATgAAAAgAemJ7AQ/fmt.webp" />
+<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GDPUToCi8ncAAAAATrAAAAgAemJ7AQ/fmt.webp" />
 
 ## 📮 Contributing
 
