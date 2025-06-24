@@ -72,7 +72,7 @@ unmont();
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
 
-<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*L6WFTJlxWuQAAAAATgAAAAgAemJ7AQ/fmt.webp" />
+<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GDPUToCi8ncAAAAATrAAAAgAemJ7AQ/fmt.webp" />
 
 ## 📮 Contributing
 
