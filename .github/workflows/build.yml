@@ -22,4 +22,11 @@ jobs:
       - name: Run test
         run: |
           npm install
-          npm run test
+          npm run build
+          npx vitest --coverage --watch=false
+
+      - name: Update coverall
+        if: ${{ success() }}
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
