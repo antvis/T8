@@ -1,4 +1,4 @@
-<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
+<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> [English](./README.md) | 简体中文
 
 <h1 align="center">
 <b>🧬 T8：文本数据可视化</b>
@@ -12,8 +12,6 @@
 [![Build Status](https://github.com/antvis/t8/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/T8/actions/workflows/build.yml)
 [![npm Version](https://img.shields.io/npm/v/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 [![npm License](https://img.shields.io/npm/l/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
-
-<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*L6WFTJlxWuQAAAAATgAAAAgAemJ7AQ/fmt.webp" />
 
 <img alt="T8 examples dark" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eGSkRauCayYAAAAAT4AAAAgAemJ7AQ/fmt.avif" />
 </div>
@@ -66,12 +64,15 @@ const text = new Text({
 text.schema(schema).theme('dark');
 
 // 渲染
-text.render();
+const unmont = text.render();
+
+// 销毁
+unmont();
 ```
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eGSkRauCayYAAAAAT4AAAAgAemJ7AQ/fmt.avif" width="640" alt="t8 example">
+<img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*L6WFTJlxWuQAAAAATgAAAAgAemJ7AQ/fmt.webp" />
 
 ## 📮 Contributing
 

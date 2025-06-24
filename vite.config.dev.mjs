@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 
 export default defineConfig({
-  root: './__tests__',
+  root: './example',
   server: {
     port: 3093,
   },
