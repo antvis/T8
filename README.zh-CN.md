@@ -8,7 +8,7 @@
 
 `T8` 是 AntV 技术栈下针对非结构化数据得文本可视化解决方案，其中 `T` 代表 Text，`8` 代表一个字节 8 bits，寓意这个工具可以深度透视文本底下的洞察。
 
-![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min.js?compression=gzip)
+![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min?compression=gzip)
 [![Build Status](https://github.com/antvis/t8/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/T8/actions/workflows/build.yml)
 [![npm Version](https://img.shields.io/npm/v/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 [![npm License](https://img.shields.io/npm/l/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
