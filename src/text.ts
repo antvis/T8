@@ -1,7 +1,7 @@
 import { h, render as preactRender } from 'preact';
 import { NarrativeTextSpec } from './schema';
 import { NarrativeTextVis } from './vis-components';
-import { ThemeProps } from './theme';
+import { getThemeSeedToken, SeedTokenOptions } from './theme';
 
 /**
  * Text component for rendering narrative text visualizations.
@@ -24,7 +24,7 @@ export class Text {
   /**
    * Theme configuration for the text visualization.
    */
-  private themeConfig: ThemeProps;
+  private themeSeedToken: SeedTokenOptions;
 
   constructor(container: string | HTMLElement) {
     if (typeof container === 'string') {
@@ -49,8 +49,8 @@ export class Text {
    * @param theme - The theme configuration for the text visualization.
    * @returns The Text instance for method chaining.
    */
-  theme(theme: ThemeProps) {
-    this.themeConfig = theme;
+  theme(theme: 'dark' | 'light', seedToken?: Partial<SeedTokenOptions>) {
+    this.themeSeedToken = getThemeSeedToken(theme, seedToken);
     return this;
   }
 
@@ -61,14 +61,13 @@ export class Text {
   render() {
     const container = this.container;
     const spec = this.spec;
-    const theme = this.themeConfig;
 
     // Render the component.
     // We use `preact` to code the `NarrativeTextVis` components.
     preactRender(
       h(NarrativeTextVis, {
         spec,
-        theme,
+        themeSeedToken: this.themeSeedToken,
       }),
       container,
     );

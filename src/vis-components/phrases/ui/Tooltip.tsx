@@ -2,9 +2,9 @@ import { ComponentChildren, FunctionalComponent, cloneElement, isValidElement, r
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import { getPrefixCls } from '../../../utils';
+import { TooltipPlacement } from '../../types';
 
-// Define tooltip placement.
-export type TooltipPlacement = 'top' | 'right' | 'bottom' | 'left';
+const TOOLTIP_CONTAINER_ID = 'ntv-tooltip-container';
 
 // Tooltip props.
 export interface TooltipProps {
@@ -36,8 +36,6 @@ export interface TooltipProps {
   /** Mouse leave delay (ms) */
   mouseLeaveDelay?: number;
 }
-
-const TOOLTIP_CONTAINER_ID = 'ntv-tooltip-container';
 
 // Create portal container.
 const createContainer = () => {
@@ -120,7 +118,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
 
     // clear container when unmount.
     return () => {
-      if (containerRef.current) {
+      if (containerRef.current && containerRef.current.parentElement === document.body) {
         document.body.removeChild(containerRef.current);
         containerRef.current = null;
       }

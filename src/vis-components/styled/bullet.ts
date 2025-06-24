@@ -1,9 +1,9 @@
-import { ThemeProps } from '../../theme';
+import { SeedTokenOptions } from '../../theme';
 import { createStyledComponent, getCommonStyle } from './utils';
 
-const getBulletStyle = (theme?: ThemeProps) => {
+const getBulletStyle = (theme: SeedTokenOptions) => {
   return {
-    ...getCommonStyle(theme ?? {}),
+    ...getCommonStyle(theme),
     paddingLeft: '16px',
     marginBottom: '4px',
   };

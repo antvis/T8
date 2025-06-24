@@ -1,11 +1,10 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
-import { seedToken } from '../../theme';
 import { isNumber } from '../../utils';
 
 const defaultMetricValueDescriptor: SpecificEntityPhraseDescriptor = {
-  style: () => ({
-    color: seedToken.colorMetricValue,
+  style: (value, _, themeSeedToken) => ({
+    color: themeSeedToken.colorMetricValue,
   }),
   tooltip: {
     title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),

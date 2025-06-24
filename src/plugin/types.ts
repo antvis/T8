@@ -1,4 +1,5 @@
 import type { EntityMetaData, EntityType } from '../schema';
+import { SeedTokenOptions } from '../theme';
 import { TooltipProps } from '../vis-components';
 
 export interface CSSProperties {
@@ -29,7 +30,7 @@ export interface PhraseDescriptor<MetaData> {
         title: ((value: string, metadata: MetaData) => HTMLElement | string | number) | HTMLElement | string | number;
       });
   classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
-  style?: CSSProperties | ((value: string, metadata: MetaData) => CSSProperties);
+  style?: CSSProperties | ((value: string, metadata: MetaData, themeSeedToken: SeedTokenOptions) => CSSProperties);
   onHover?: (value: string, metadata: MetaData) => string;
   onClick?: (value: string, metadata: MetaData) => string;
   getText?: (value: string, metadata: MetaData) => string;

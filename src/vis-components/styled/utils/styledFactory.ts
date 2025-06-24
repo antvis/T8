@@ -1,6 +1,7 @@
 import { ClassAttributes, createElement, JSX, Ref } from 'preact';
 import { CommonComponentProps, ComponentFactoryOptions } from '../types';
 import { JSXInternal } from 'preact/src/jsx';
+import { defaultSeedToken } from '../../../theme';
 
 /**
  * Universal component factory function
@@ -26,7 +27,7 @@ export function createStyledComponent(options: ComponentFactoryOptions) {
   const { element, factoryStyles = {} } = options;
 
   // Component without size parameter
-  return function Component({ children, style, theme, forwardRef, ...rest }: CommonComponentProps) {
+  return function Component({ children, style, theme = defaultSeedToken, forwardRef, ...rest }: CommonComponentProps) {
     const presetStyles = typeof factoryStyles === 'function' ? factoryStyles(theme) : factoryStyles;
 
     const combinedStyles = {

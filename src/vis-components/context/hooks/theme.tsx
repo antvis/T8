@@ -1,19 +1,19 @@
 import { ComponentChildren, createContext } from 'preact';
 import { useContext } from 'preact/compat';
-import { ThemeProps, defaultTheme } from '../../../theme';
+import { defaultSeedToken, SeedTokenOptions } from '../../../theme';
 
 type ThemeProviderProps = {
-  theme?: ThemeProps;
   children: ComponentChildren;
+  themeSeedToken?: SeedTokenOptions;
 };
 
-export function ThemeProvider({ theme = defaultTheme, children }: ThemeProviderProps) {
-  return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;
+export function ThemeProvider({ themeSeedToken = defaultSeedToken, children }: ThemeProviderProps) {
+  return <ThemeContext.Provider value={themeSeedToken}>{children}</ThemeContext.Provider>;
 }
 
-const ThemeContext = createContext<ThemeProps>(defaultTheme);
+const ThemeContext = createContext<SeedTokenOptions>(defaultSeedToken);
 
 export function useTheme() {
-  const theme = useContext(ThemeContext);
-  return theme;
+  const seedToken = useContext(ThemeContext);
+  return seedToken;
 }

@@ -1,10 +1,9 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
-import { seedToken } from '../../theme';
 
 const defaultDimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
-  style: () => ({
-    color: seedToken.colorDimensionValue,
+  style: (value, _, themeSeedToken) => ({
+    color: themeSeedToken.colorDimensionValue,
   }),
   tooltip: false,
 };

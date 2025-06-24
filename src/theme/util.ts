@@ -1,18 +1,12 @@
-import { seedToken } from './seed';
-import type { ThemeProps } from './types';
+import { baseSeedToken, presetTheme } from './seed';
+import type { SeedTokenOptions } from './types';
 
-export function getFontSize({ size = 'normal' }: ThemeProps) {
-  return `${size === 'small' ? seedToken.fontSizeSmall : seedToken.fontSizeBase}px`;
-}
+export const getThemeSeedToken = (theme: 'dark' | 'light', seedToken?: Partial<SeedTokenOptions>): SeedTokenOptions => {
+  const themeToken = presetTheme[theme ?? 'light'] as SeedTokenOptions;
 
-export function getFontSizeNumber({ size = 'normal' }: ThemeProps) {
-  return size === 'small' ? seedToken.fontSizeSmall : seedToken.fontSizeBase;
-}
-
-export function getLineHeight({ size = 'normal' }: ThemeProps) {
-  return `${size === 'small' ? seedToken.lineHeightSmall : seedToken.lineHeightBase}px`;
-}
-
-export function getLineHeightNumber({ size = 'normal' }: ThemeProps) {
-  return size === 'small' ? seedToken.lineHeightSmall : seedToken.lineHeightBase;
-}
+  return {
+    ...baseSeedToken,
+    ...themeToken,
+    ...(seedToken ?? {}),
+  } as const;
+};

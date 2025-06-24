@@ -1,57 +1,62 @@
-import { ThemeProps, seedToken, getFontSizeNumber, getLineHeightNumber } from '../../theme';
+import { SeedTokenOptions } from '../../theme';
 import { createStyledComponent } from './utils';
 
-const getHeadingStyle = (theme: ThemeProps, level: number) => {
+const getHeadingStyle = (theme: SeedTokenOptions, level: number) => {
   const baseStyle = {
-    fontFamily: seedToken.fontFamily,
+    fontFamily: theme.fontFamily,
   };
 
-  const fontSize = getFontSizeNumber(theme ?? {});
-  const lineHeight = getLineHeightNumber(theme ?? {});
+  const fontSize = theme.fontSize;
+  const lineHeight = theme.lineHeight;
 
   switch (level) {
     case 1:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSizeMultiples.h1 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeightMultiples.h1 * lineHeight}px`,
+        fontSize: `${theme.fontSizeMultiples.h1 * fontSize}px`,
+        lineHeight: `${theme.lineHeightMultiples.h1 * lineHeight}px`,
+        color: theme.colorBase,
         margin: '26px 0 10px 0',
       };
     case 2:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSizeMultiples.h2 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeightMultiples.h2 * lineHeight}px`,
+        fontSize: `${theme.fontSizeMultiples.h2 * fontSize}px`,
+        lineHeight: `${theme.lineHeightMultiples.h2 * lineHeight}px`,
+        color: theme.colorBase,
         margin: '21px 0 5px 0',
       };
     case 3:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSizeMultiples.h3 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeightMultiples.h3 * lineHeight}px`,
+        fontSize: `${theme.fontSizeMultiples.h3 * fontSize}px`,
+        lineHeight: `${theme.lineHeightMultiples.h3 * lineHeight}px`,
+        color: theme.colorBase,
         margin: '16px 0 5px 0',
       };
     case 4:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSizeMultiples.h4 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeightMultiples.h4 * lineHeight}px`,
+        fontSize: `${theme.fontSizeMultiples.h4 * fontSize}px`,
+        lineHeight: `${theme.lineHeightMultiples.h4 * lineHeight}px`,
+        color: theme.colorBase,
         margin: '10px 0 5px 0',
       };
     case 5:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSizeMultiples.h5 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeightMultiples.h5 * lineHeight}px`,
+        fontSize: `${theme.fontSizeMultiples.h5 * fontSize}px`,
+        lineHeight: `${theme.lineHeightMultiples.h5 * lineHeight}px`,
+        color: theme.colorBase,
         margin: '8px 0 5px 0',
       };
     case 6:
       return {
         ...baseStyle,
-        fontSize: `${seedToken.fontSizeMultiples.h6 * fontSize}px`,
-        lineHeight: `${seedToken.lineHeightMultiples.h6 * lineHeight}px`,
-        color: seedToken.colorBase,
-        minHeight: `${seedToken.lineHeightMultiples.h6}px`,
+        fontSize: `${theme.fontSizeMultiples.h6 * fontSize}px`,
+        lineHeight: `${theme.lineHeightMultiples.h6 * lineHeight}px`,
+        color: theme.colorBase,
+        minHeight: `${theme.lineHeightMultiples.h6}px`,
         letterSpacing: '0.008em',
         margin: '5px 0 5px 0',
       };
@@ -64,7 +69,7 @@ export const Headline = createStyledComponent({
   element: 'h1',
   factoryStyles: (theme) => ({
     ...getHeadingStyle(theme, 1),
-    borderBottom: `1px solid ${seedToken.borderColor}`,
+    borderBottom: `1px solid ${theme.borderColor}`,
   }),
 });
 

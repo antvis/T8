@@ -14,10 +14,10 @@ export function Heading({ spec, ...events }: HeadingProps) {
   if (isNaN(weight)) return null;
   const Tag = Elements[`H${weight}`];
 
-  const theme = useTheme();
+  const themeSeedToken = useTheme();
 
   return (
-    <Tag className={cx(getPrefixCls(`h${weight}`), spec.className)} style={spec.styles} theme={theme}>
+    <Tag className={cx(getPrefixCls(`h${weight}`), spec.className)} style={spec.styles} theme={themeSeedToken}>
       <Phrases spec={spec.phrases} {...events} />
     </Tag>
   );

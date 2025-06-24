@@ -29,3 +29,6 @@ export type NarrativeEvents = SectionEvents &
     onCopySuccess: (e?: ClipboardEvent) => void;
     onCopyFailure: (e?: ClipboardEvent) => void;
   }>;
+
+// Define tooltip placement.
+export type TooltipPlacement = 'top' | 'right' | 'bottom' | 'left';

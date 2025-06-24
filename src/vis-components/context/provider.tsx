@@ -1,12 +1,12 @@
 import { ComponentChildren } from 'preact';
 import { PluginManager, presetPluginManager } from '../../plugin';
-import { ThemeProps, defaultTheme } from '../../theme';
+import { SeedTokenOptions, defaultSeedToken } from '../../theme';
 import { ThemeProvider } from './hooks';
 import { PluginProvider } from './hooks';
 
 interface ContextProviderProps {
   plugin?: PluginManager;
-  theme?: ThemeProps;
+  themeSeedToken?: SeedTokenOptions;
   children: ComponentChildren;
 }
 
@@ -15,12 +15,12 @@ interface ContextProviderProps {
  */
 export const ContextProvider = ({
   plugin = presetPluginManager,
-  theme = defaultTheme,
+  themeSeedToken = defaultSeedToken,
   children,
 }: ContextProviderProps) => {
   return (
     <PluginProvider plugin={plugin}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider themeSeedToken={themeSeedToken}>{children}</ThemeProvider>
     </PluginProvider>
   );
 };
