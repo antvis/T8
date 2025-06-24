@@ -1,12 +1,12 @@
 <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
 
 <h1 align="center">
-<b>🧬 T8: 文本数据可视化</b>
+<b>🧬 T8：文本数据可视化</b>
 </h1>
 
 <div align="center">
 
-T8 是 AntV 技术栈下针对非结构化数据得文本可视化解决方案，其中 T 代表 Text，8 代表一个字节 8 bits，寓意这个工具可以深度透视文本底下的洞察。
+`T8` 是 AntV 技术栈下针对非结构化数据得文本可视化解决方案，其中 `T` 代表 Text，`8` 代表一个字节 8 bits，寓意这个工具可以深度透视文本底下的洞察。
 
 ![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min.js?compression=gzip)
 [![Build Status](https://github.com/antvis/t8/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/T8/actions/workflows/build.yml)
@@ -20,9 +20,9 @@ T8 是 AntV 技术栈下针对非结构化数据得文本可视化解决方案�
 
 T8 是一套声明式的 JSON Schema 语法，可以用它描述数据解读报告的内容。技术方案上，基于 JSON Schema 数据来自服务端生成的假设，前端消费 Schema 进行渲染即可。随着数据表达的多样性和即时性的要求越来越高，以及 AI、NLP 技术越来越多的被应用，前端维护文本模版将不可持续，此时使用 T8 进行统一渲染将是最佳选择。
 
-- [Introduction]() - a brief overview and T8's motivations
-- [Example]() - a live demo to learn from and copy-paste with ai
-- [Tutorials]() - interactive case-driven guides of T8's core concepts
+- [Introduction]() - 一个关于 T8 的概要介绍和想法。
+- [Example]() - 一个可运行的演示案例，并结合 AI 进行展示和可视化。
+- [Tutorials]() - 关于 T8 的核心 API 用法和原理介绍。
 
 ## ✨ Features
 
@@ -76,10 +76,6 @@ text.render();
 ## 📮 Contributing
 
 很期待我们的用户参入到 T8 的开发和反馈，也感谢所有贡献这个项目的开源社区开发者。🙏
-
-<a href="https://openomy.app/github/antvis/T8" target="_blank" style="display: block; width: 100%;" align="center">
-  <img src="https://openomy.app/svg?repo=antvis/T8&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
- </a>
 
 - [Issues](https://github.com/antvis/t8/issues) - 报告 Bug 或者提交 Pull Request
 - [Discussions](https://github.com/antvis/t8/discussions) - 在 GitHub 讨论区讨论想法
