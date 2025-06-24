@@ -4,9 +4,14 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
+import path from 'path';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const generateSourceMap = process.env.SOURCE_MAP !== 'false';
+
+const UMD_OUT_DIR = path.resolve('dist');
+const ES_OUT_DIR = path.resolve('es');
+const CJS_OUT_DIR = path.resolve('lib');
 
 /* global process */
 
@@ -19,12 +24,13 @@ const getPlugins = (outDir) => {
     }),
     commonjs(),
     typescript({
-      tsconfig: './tsconfig.json',
+      tsconfig: path.resolve('tsconfig.json'),
       outDir,
       noEmit: true,
       declaration: false,
       declarationDir: undefined,
       declarationMap: false,
+      importHelpers: true,
     }),
     json(),
   ];
@@ -37,7 +43,7 @@ const createUmdConfig = (minify = false) => ({
   input: 'src/index.ts',
   output: [
     {
-      file: `./dist/t8${minify ? '.min' : ''}.js`,
+      file: path.resolve(UMD_OUT_DIR, `t8${minify ? '.min' : ''}.js`),
       format: 'umd',
       name: 'T8',
       sourcemap: generateSourceMap,
@@ -55,7 +61,7 @@ const createUmdConfig = (minify = false) => ({
       preserveModules: false,
     },
   ],
-  plugins: [...getPlugins('./dist')],
+  plugins: getPlugins(UMD_OUT_DIR),
 });
 
 // configs
@@ -65,20 +71,15 @@ const configs = [
     input: 'src/index.ts',
     output: [
       {
-        dir: './es',
+        dir: ES_OUT_DIR,
         format: 'esm',
         sourcemap: generateSourceMap,
         preserveModules: true,
       },
     ],
-    external: [/node_modules/],
-    plugins: getPlugins('./es'),
+    external: [/preact/, /uuid/, /tslib/],
+    plugins: getPlugins(ES_OUT_DIR),
     cache: true,
-    treeshake: {
-      moduleSideEffects: false,
-      propertyReadSideEffects: false,
-      tryCatchDeoptimization: false,
-    },
   },
 
   // cjs bundle
@@ -86,20 +87,15 @@ const configs = [
     input: 'src/index.ts',
     output: [
       {
-        dir: './lib',
+        dir: CJS_OUT_DIR,
         format: 'cjs',
         sourcemap: generateSourceMap,
         preserveModules: true,
       },
     ],
-    external: [/node_modules/],
-    plugins: getPlugins('./lib'),
+    external: [/preact/, /uuid/, /tslib/],
+    plugins: getPlugins(CJS_OUT_DIR),
     cache: true,
-    treeshake: {
-      moduleSideEffects: false,
-      propertyReadSideEffects: false,
-      tryCatchDeoptimization: false,
-    },
   },
 
   createUmdConfig(isProduction),
