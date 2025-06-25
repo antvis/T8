@@ -2,6 +2,7 @@ import { h, render as preactRender } from 'preact';
 import { NarrativeTextSpec } from './schema';
 import { NarrativeTextVis } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
+import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
 
 /**
@@ -27,12 +28,18 @@ export class Text extends EE {
    */
   private themeSeedToken: SeedTokenOptions;
   /**
+   * Plugin manager for the text visualization.
+   */
+  private pluginManager: PluginManager;
+  /**
    * Event emitter for the text visualization.
    */
 
   constructor(container: string | HTMLElement) {
     super();
     this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
+
+    this.pluginManager = new PluginManager(presetPlugins);
   }
 
   /**
@@ -56,6 +63,16 @@ export class Text extends EE {
   }
 
   /**
+   * Register a plugin for the text visualization.
+   * @param plugin - The plugin to register.
+   * @returns The Text instance for method chaining.
+   */
+  registerPlugin(plugin: PluginType) {
+    this.pluginManager.register(plugin);
+    return this;
+  }
+
+  /**
    * Render the narrative text visualization.
    * @returns A function to unmount the component.
    */
@@ -68,6 +85,7 @@ export class Text extends EE {
     preactRender(
       h(NarrativeTextVis, {
         spec,
+        pluginManager: this.pluginManager,
         themeSeedToken: this.themeSeedToken,
         onClick: this.emit.bind(this),
         onMouseEnter: this.emit.bind(this),
