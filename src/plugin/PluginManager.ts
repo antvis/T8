@@ -29,7 +29,7 @@ export class PluginManager {
    * @param plugins - Optional array of plugins to register
    */
   constructor(plugins?: PluginType[]) {
-    this.registerAll(plugins);
+    if (plugins) this.registerAll(plugins);
   }
 
   /**
@@ -55,8 +55,8 @@ export class PluginManager {
    *
    * @param plugins - Array of plugins to register
    */
-  registerAll(plugins?: PluginType[]) {
-    plugins?.forEach((plugin) => this.register(plugin));
+  registerAll(plugins: PluginType[]) {
+    plugins.forEach((plugin) => this.register(plugin));
   }
 
   /**

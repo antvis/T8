@@ -2,3 +2,7 @@
 build
 coverage
 dist
+lib
+es
+types
+node_modules
