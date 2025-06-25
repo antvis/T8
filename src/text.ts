@@ -1,7 +1,8 @@
 import { h, render as preactRender } from 'preact';
 import { NarrativeTextSpec } from './schema';
-import { NarrativeTextVis } from './vis-components';
+import { Events, NarrativeTextVis } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
+import { EventEmitter } from './utils/eventEmitter';
 
 /**
  * Text component for rendering narrative text visualizations.
@@ -25,9 +26,57 @@ export class Text {
    * Theme configuration for the text visualization.
    */
   private themeSeedToken: SeedTokenOptions;
+  /**
+   * Event emitter for the text visualization.
+   */
+  private eventEmitter: EventEmitter<Events>;
 
   constructor(container: string | HTMLElement) {
     this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
+    this.eventEmitter = new EventEmitter();
+  }
+
+  /**
+   * Register a listener for an event.
+   * @param event - The event to listen for.
+   * @param listener - The listener function.
+   * @returns The Text instance for method chaining.
+   */
+  on(event: Events, listener: (...args: unknown[]) => void) {
+    this.eventEmitter.on(event, listener);
+    return this;
+  }
+
+  /**
+   * Remove a listener for an event.
+   * @param event - The event to remove the listener for.
+   * @param listener - The listener function to remove.
+   * @returns The Text instance for method chaining.
+   */
+  off(event: Events, listener: (...args: unknown[]) => void) {
+    this.eventEmitter.off(event, listener);
+    return this;
+  }
+
+  /**
+   * Register a listener for an event that will be called only once.
+   * @param event - The event to listen for.
+   * @param listener - The listener function.
+   * @returns The Text instance for method chaining.
+   */
+  once(event: Events, listener: (...args: unknown[]) => void) {
+    this.eventEmitter.once(event, listener);
+    return this;
+  }
+
+  /**
+   * Remove all listeners for an event.
+   * @param event - The event to remove the listeners for.
+   * @returns The Text instance for method chaining.
+   */
+  removeAllListeners(events?: Events[]) {
+    this.eventEmitter.removeAllListeners(events);
+    return this;
   }
 
   /**
@@ -64,6 +113,18 @@ export class Text {
       h(NarrativeTextVis, {
         spec,
         themeSeedToken: this.themeSeedToken,
+        onClickNarrative: (spec) => this.eventEmitter.emit(Events.onClickNarrative, spec),
+        onMouseEnterNarrative: (spec) => this.eventEmitter.emit(Events.onMouseEnterNarrative, spec),
+        onMouseLeaveNarrative: (spec) => this.eventEmitter.emit(Events.onMouseLeaveNarrative, spec),
+        onClickParagraph: (spec) => this.eventEmitter.emit(Events.onClickParagraph, spec),
+        onMouseEnterParagraph: (spec) => this.eventEmitter.emit(Events.onMouseEnterParagraph, spec),
+        onMouseLeaveParagraph: (spec) => this.eventEmitter.emit(Events.onMouseLeaveParagraph, spec),
+        onClickSection: (spec) => this.eventEmitter.emit(Events.onClickSection, spec),
+        onMouseEnterSection: (spec) => this.eventEmitter.emit(Events.onMouseEnterSection, spec),
+        onMouseLeaveSection: (spec) => this.eventEmitter.emit(Events.onMouseLeaveSection, spec),
+        onClickPhrase: (spec) => this.eventEmitter.emit(Events.onClickPhrase, spec),
+        onMouseEnterPhrase: (spec) => this.eventEmitter.emit(Events.onMouseEnterPhrase, spec),
+        onMouseLeavePhrase: (spec) => this.eventEmitter.emit(Events.onMouseLeavePhrase, spec),
       }),
       container,
     );

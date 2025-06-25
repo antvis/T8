@@ -22,3 +22,5 @@ export {
   createTimeDesc,
   createTrendDesc,
 } from './plugin';
+
+export { Events } from './vis-components';
