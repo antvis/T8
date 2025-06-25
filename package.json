@@ -19,6 +19,8 @@
   "scripts": {
     "test": "vitest --coverage",
     "prepare": "husky",
+    "lint": "eslint .",
+    "format": "prettier --write .",
     "dev": "vite -c vite.config.dev.mjs",
     "size": "limit-size",
     "build": "rm -rf dist es lib types && NODE_ENV=production rollup -c ./rollup.config.mjs && npm run build:schema && npm run build:types && npm run size",

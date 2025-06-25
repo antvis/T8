@@ -29,7 +29,7 @@ export class PluginManager {
    * @param plugins - Optional array of plugins to register
    */
   constructor(plugins?: PluginType[]) {
-    this.registerAll(plugins);
+    if (plugins) this.registerAll(plugins);
   }
 
   /**
