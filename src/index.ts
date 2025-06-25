@@ -23,4 +23,4 @@ export {
   createTrendDesc,
 } from './plugin';
 
-export { Events } from './vis-components';
+export { EventType } from './vis-components';

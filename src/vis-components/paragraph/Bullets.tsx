@@ -2,11 +2,11 @@ import { v4 } from 'uuid';
 import { Ol, Ul, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { ParagraphEvents } from '../types';
 import { BulletsParagraphSpec } from '../../schema';
-import { useTheme } from '../context';
+import { useTheme, useEvent } from '../context';
+import { EventType } from '../types';
 
-type BulletsProps = ParagraphEvents & {
+type BulletsProps = {
   /**
    * @description specification of bullets paragraph
    * @description.zh-CN 列表段落描述
@@ -14,18 +14,22 @@ type BulletsProps = ParagraphEvents & {
   spec: BulletsParagraphSpec;
 };
 
-export function Bullets({ spec, ...events }: BulletsProps) {
-  const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
+export function Bullets({ spec }: BulletsProps) {
+  const {
+    onClick: onClickParagraph,
+    onMouseEnter: onMouseEnterParagraph,
+    onMouseLeave: onMouseLeaveParagraph,
+  } = useEvent();
 
   const children = spec.bullets?.map((bullet) => {
     const onClickLi = () => {
-      onClickParagraph?.(bullet);
+      onClickParagraph?.(EventType.ON_CLICK_PARAGRAPH, bullet);
     };
     const onMouseEnterLi = () => {
-      onMouseEnterParagraph?.(bullet);
+      onMouseEnterParagraph?.(EventType.ON_MOUSE_ENTER_PARAGRAPH, bullet);
     };
     const onMouseLeaveLi = () => {
-      onMouseLeaveParagraph?.(bullet);
+      onMouseLeaveParagraph?.(EventType.ON_MOUSE_LEAVE_PARAGRAPH, bullet);
     };
     return (
       <Li
@@ -36,8 +40,8 @@ export function Bullets({ spec, ...events }: BulletsProps) {
         onMouseEnter={onMouseEnterLi}
         onMouseLeave={onMouseLeaveLi}
       >
-        <Phrases spec={bullet.phrases} {...phraseEvents} />
-        {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} {...events} /> : null}
+        <Phrases spec={bullet.phrases} />
+        {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} /> : null}
       </Li>
     );
   });
@@ -47,26 +51,8 @@ export function Bullets({ spec, ...events }: BulletsProps) {
 
   const themeSeedToken = useTheme();
 
-  const onClick = () => {
-    onClickParagraph?.(spec);
-  };
-  const onMouseEnter = () => {
-    onMouseEnterParagraph?.(spec);
-  };
-  const onMouseLeave = () => {
-    onMouseLeaveParagraph?.(spec);
-  };
-
   return (
-    <Comp
-      as={tag}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      theme={themeSeedToken}
-      className={cx(getPrefixCls(tag), spec.className)}
-      style={spec.styles}
-    >
+    <Comp as={tag} theme={themeSeedToken} className={cx(getPrefixCls(tag), spec.className)} style={spec.styles}>
       {children}
     </Comp>
   );

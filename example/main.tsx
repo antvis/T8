@@ -1,4 +1,4 @@
-import { type NarrativeTextSpec, Text, Events } from '../src';
+import { type NarrativeTextSpec, Text, EventType } from '../src';
 import spec from './example.json';
 
 const app = document.getElementById('app');
@@ -7,19 +7,18 @@ const app3 = document.getElementById('app3');
 
 const text = new Text(app!);
 text.schema(spec as NarrativeTextSpec);
-text.on(Events.onClickNarrative, (spec) => {
+text.on(EventType.ON_CLICK_NARRATIVE, (spec) => {
   console.log('onClickNarrative', spec);
 });
-text.on(Events.onClickParagraph, (spec) => {
+text.on(EventType.ON_CLICK_PARAGRAPH, (spec) => {
   console.log('onClickParagraph', spec);
 });
-text.on(Events.onClickSection, (spec) => {
+text.on(EventType.ON_CLICK_SECTION, (spec) => {
   console.log('onClickSection', spec);
 });
-text.on(Events.onClickPhrase, (spec) => {
+text.on(EventType.ON_CLICK_PHRASE, (spec) => {
   console.log('onClickPhrase', spec);
 });
-
 // text.theme(theme);
 text.render();
 

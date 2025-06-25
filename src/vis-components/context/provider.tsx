@@ -1,12 +1,13 @@
 import { ComponentChildren } from 'preact';
 import { PluginManager, presetPluginManager } from '../../plugin';
 import { SeedTokenOptions, defaultSeedToken } from '../../theme';
-import { ThemeProvider } from './hooks';
-import { PluginProvider } from './hooks';
+import { ThemeProvider, PluginProvider, EventProvider } from './hooks';
+import { NarrativeEvents } from '../types';
 
 interface ContextProviderProps {
   plugin?: PluginManager;
   themeSeedToken?: SeedTokenOptions;
+  events?: NarrativeEvents;
   children: ComponentChildren;
 }
 
@@ -16,11 +17,14 @@ interface ContextProviderProps {
 export const ContextProvider = ({
   plugin = presetPluginManager,
   themeSeedToken = defaultSeedToken,
+  events = {},
   children,
 }: ContextProviderProps) => {
   return (
     <PluginProvider plugin={plugin}>
-      <ThemeProvider themeSeedToken={themeSeedToken}>{children}</ThemeProvider>
+      <ThemeProvider themeSeedToken={themeSeedToken}>
+        <EventProvider events={events}>{children}</EventProvider>
+      </ThemeProvider>
     </PluginProvider>
   );
 };

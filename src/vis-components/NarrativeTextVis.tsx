@@ -4,7 +4,7 @@ import { NarrativeTextSpec } from '../schema';
 import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
-import { NarrativeEvents } from './types';
+import { EventType, NarrativeEvents } from './types';
 import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultSeedToken, SeedTokenOptions } from '../theme';
@@ -54,21 +54,21 @@ export function NarrativeTextVis({
   const narrativeDomRef = useRef<HTMLDivElement>(null);
   const { headline, sections, styles, className } = spec;
   const {
-    onClickNarrative,
-    onMouseEnterNarrative,
-    onMouseLeaveNarrative,
+    onClick: onClickNarrative,
+    onMouseEnter: onMouseEnterNarrative,
+    onMouseLeave: onMouseLeaveNarrative,
+    // TODO: add copy event
     // onCopySuccess,
     // onCopyFailure,
-    ...sectionEvents
   } = events || {};
   const onClick = () => {
-    onClickNarrative?.(spec);
+    onClickNarrative?.(EventType.ON_CLICK_NARRATIVE, spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterNarrative?.(spec);
+    onMouseEnterNarrative?.(EventType.ON_MOUSE_ENTER_NARRATIVE, spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveNarrative?.(spec);
+    onMouseLeaveNarrative?.(EventType.ON_MOUSE_LEAVE_NARRATIVE, spec);
   };
 
   // TODO:
@@ -92,7 +92,7 @@ export function NarrativeTextVis({
   // }, [copyNarrative]);
 
   return (
-    <ContextProvider themeSeedToken={themeSeedToken} plugin={pluginManager}>
+    <ContextProvider themeSeedToken={themeSeedToken} plugin={pluginManager} events={events}>
       <Container
         className={cx(className, getPrefixCls('container'))}
         style={styles}
@@ -101,10 +101,8 @@ export function NarrativeTextVis({
         onMouseLeave={onMouseLeave}
         ref={narrativeDomRef}
       >
-        {headline ? <Headline spec={headline} {...sectionEvents} /> : null}
-        {sections
-          ? sections?.map((section) => <Section key={section.key || v4()} spec={section} {...sectionEvents} />)
-          : null}
+        {headline ? <Headline spec={headline} /> : null}
+        {sections ? sections?.map((section) => <Section key={section.key || v4()} spec={section} />) : null}
       </Container>
     </ContextProvider>
   );
