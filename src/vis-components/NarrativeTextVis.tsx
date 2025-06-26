@@ -54,21 +54,21 @@ export function NarrativeTextVis({
   const narrativeDomRef = useRef<HTMLDivElement>(null);
   const { headline, sections, styles, className } = spec;
   const {
-    onClick: onClickNarrative,
-    onMouseEnter: onMouseEnterNarrative,
-    onMouseLeave: onMouseLeaveNarrative,
+    onClick: onNarrativeClick,
+    onMouseEnter: onNarrativeMouseEnter,
+    onMouseLeave: onNarrativeMouseLeave,
     // TODO: add copy event
     // onCopySuccess,
     // onCopyFailure,
   } = events || {};
   const onClick = () => {
-    onClickNarrative?.(EventType.ON_CLICK_NARRATIVE, spec);
+    onNarrativeClick?.(EventType.ON_NARRATIVE_CLICK, spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterNarrative?.(EventType.ON_MOUSE_ENTER_NARRATIVE, spec);
+    onNarrativeMouseEnter?.(EventType.ON_NARRATIVE_MOUSE_ENTER, spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveNarrative?.(EventType.ON_MOUSE_LEAVE_NARRATIVE, spec);
+    onNarrativeMouseLeave?.(EventType.ON_NARRATIVE_MOUSE_LEAVE, spec);
   };
 
   // TODO:

@@ -16,19 +16,19 @@ type SectionProps = {
 };
 
 export function Section({ spec }: SectionProps) {
-  const { onClick: onClickSection, onMouseEnter: onMouseEnterSection, onMouseLeave: onMouseLeaveSection } = useEvent();
+  const { onClick: onSectionClick, onMouseEnter: onSectionMouseEnter, onMouseLeave: onSectionMouseLeave } = useEvent();
 
   const customSectionRef = useRef<HTMLDivElement>(null);
   const pluginManager = usePluginManager();
 
   const onClick = () => {
-    onClickSection?.(EventType.ON_CLICK_SECTION, spec);
+    onSectionClick?.(EventType.ON_SECTION_CLICK, spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterSection?.(EventType.ON_MOUSE_ENTER_SECTION, spec);
+    onSectionMouseEnter?.(EventType.ON_SECTION_MOUSE_ENTER, spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveSection?.(EventType.ON_MOUSE_LEAVE_SECTION, spec);
+    onSectionMouseLeave?.(EventType.ON_SECTION_MOUSE_LEAVE, spec);
   };
 
   const renderCustomSection = () => {

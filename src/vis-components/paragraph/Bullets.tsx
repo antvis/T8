@@ -16,29 +16,29 @@ type BulletsProps = {
 
 export function Bullets({ spec }: BulletsProps) {
   const {
-    onClick: onClickParagraph,
-    onMouseEnter: onMouseEnterParagraph,
-    onMouseLeave: onMouseLeaveParagraph,
+    onClick: onParagraphClick,
+    onMouseEnter: onParagraphMouseEnter,
+    onMouseLeave: onParagraphMouseLeave,
   } = useEvent();
 
   const children = spec.bullets?.map((bullet) => {
-    const onClickLi = () => {
-      onClickParagraph?.(EventType.ON_CLICK_PARAGRAPH, bullet);
+    const onLiClick = () => {
+      onParagraphClick?.(EventType.ON_PARAGRAPH_CLICK, bullet);
     };
-    const onMouseEnterLi = () => {
-      onMouseEnterParagraph?.(EventType.ON_MOUSE_ENTER_PARAGRAPH, bullet);
+    const onLiMouseEnter = () => {
+      onParagraphMouseEnter?.(EventType.ON_PARAGRAPH_MOUSE_ENTER, bullet);
     };
-    const onMouseLeaveLi = () => {
-      onMouseLeaveParagraph?.(EventType.ON_MOUSE_LEAVE_PARAGRAPH, bullet);
+    const onLiMouseLeave = () => {
+      onParagraphMouseLeave?.(EventType.ON_PARAGRAPH_MOUSE_LEAVE, bullet);
     };
     return (
       <Li
         className={cx(getPrefixCls('li'), bullet.className)}
         key={spec.key || v4()}
         style={bullet.styles}
-        onClick={onClickLi}
-        onMouseEnter={onMouseEnterLi}
-        onMouseLeave={onMouseLeaveLi}
+        onClick={onLiClick}
+        onMouseEnter={onLiMouseEnter}
+        onMouseLeave={onLiMouseLeave}
       >
         <Phrases spec={bullet.phrases} />
         {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} /> : null}

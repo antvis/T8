@@ -30,9 +30,9 @@ function renderPhraseByDescriptor(
   descriptor: PhraseDescriptor<any>,
   theme: SeedTokenOptions,
   events: {
-    onClickPhrase: (eventType: EventType, spec: PhraseSpec) => void;
-    onMouseEnterPhrase: (eventType: EventType, spec: PhraseSpec) => void;
-    onMouseLeavePhrase: (eventType: EventType, spec: PhraseSpec) => void;
+    onPhraseClick: (eventType: EventType, spec: PhraseSpec) => void;
+    onPhraseMouseEnter: (eventType: EventType, spec: PhraseSpec) => void;
+    onPhraseMouseLeave: (eventType: EventType, spec: PhraseSpec) => void;
   },
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
@@ -48,15 +48,15 @@ function renderPhraseByDescriptor(
 
   const handleClick = () => {
     onClick?.(spec?.value, metadata);
-    events?.onClickPhrase?.(EventType.ON_CLICK_PHRASE, spec);
+    events?.onPhraseClick?.(EventType.ON_PHRASE_CLICK, spec);
   };
 
   const handleMouseEnter = () => {
     onHover?.(spec?.value, metadata);
-    events?.onMouseEnterPhrase?.(EventType.ON_MOUSE_ENTER_PHRASE, spec);
+    events?.onPhraseMouseEnter?.(EventType.ON_PHRASE_MOUSE_ENTER, spec);
   };
   const handleMouseLeave = () => {
-    events?.onMouseLeavePhrase?.(EventType.ON_MOUSE_LEAVE_PHRASE, spec);
+    events?.onPhraseMouseLeave?.(EventType.ON_PHRASE_MOUSE_LEAVE, spec);
   };
 
   const entityRef = useRef<HTMLSpanElement>(null);
@@ -119,20 +119,20 @@ function renderPhraseByDescriptor(
 
 /** <Phrase /> can use independence */
 export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase }) => {
-  const { onClick: onClickPhrase, onMouseEnter: onMouseEnterPhrase, onMouseLeave: onMouseLeavePhrase } = useEvent();
+  const { onClick: onPhraseClick, onMouseEnter: onPhraseMouseEnter, onMouseLeave: onPhraseMouseLeave } = useEvent();
   const themeSeedToken = useTheme();
   const pluginManager = usePluginManager();
 
   const onClick = () => {
-    onClickPhrase?.(EventType.ON_CLICK_PHRASE, phrase);
+    onPhraseClick?.(EventType.ON_PHRASE_CLICK, phrase);
   };
   const onMouseEnter = () => {
-    onMouseEnterPhrase?.(EventType.ON_MOUSE_ENTER_PHRASE, phrase);
+    onPhraseMouseEnter?.(EventType.ON_PHRASE_MOUSE_ENTER, phrase);
   };
   const onMouseLeave = () => {
-    onMouseLeavePhrase?.(EventType.ON_MOUSE_LEAVE_PHRASE, phrase);
+    onPhraseMouseLeave?.(EventType.ON_PHRASE_MOUSE_LEAVE, phrase);
   };
-  let defaultText = !isEmpty(onClickPhrase) ? (
+  let defaultText = !isEmpty(onPhraseClick) ? (
     <span onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {phrase.value}
     </span>
@@ -157,9 +157,9 @@ export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase }) => {
     return (
       <>
         {renderPhraseByDescriptor(phrase, descriptor, themeSeedToken, {
-          onClickPhrase,
-          onMouseEnterPhrase,
-          onMouseLeavePhrase,
+          onPhraseClick,
+          onPhraseMouseEnter,
+          onPhraseMouseLeave,
         })}
       </>
     );

@@ -11,20 +11,20 @@ type HeadlineProps = {
 
 export function Headline({ spec }: HeadlineProps) {
   const {
-    onClick: onClickParagraph,
-    onMouseEnter: onMouseEnterParagraph,
-    onMouseLeave: onMouseLeaveParagraph,
+    onClick: onParagraphClick,
+    onMouseEnter: onParagraphMouseEnter,
+    onMouseLeave: onParagraphMouseLeave,
   } = useEvent();
   const themeSeedToken = useTheme();
 
   const onClick = () => {
-    onClickParagraph?.(EventType.ON_CLICK_PARAGRAPH, spec);
+    onParagraphClick?.(EventType.ON_PARAGRAPH_CLICK, spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterParagraph?.(EventType.ON_MOUSE_ENTER_PARAGRAPH, spec);
+    onParagraphMouseEnter?.(EventType.ON_PARAGRAPH_MOUSE_ENTER, spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveParagraph?.(EventType.ON_MOUSE_LEAVE_PARAGRAPH, spec);
+    onParagraphMouseLeave?.(EventType.ON_PARAGRAPH_MOUSE_LEAVE, spec);
   };
 
   return (

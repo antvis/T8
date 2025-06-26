@@ -22,16 +22,16 @@ const app4 = document.getElementById('app4');
 
 const text = new Text(app!);
 text.schema(spec as NarrativeTextSpec);
-text.on(EventType.ON_CLICK_NARRATIVE, (spec) => {
+text.on(EventType.ON_NARRATIVE_CLICK, (spec) => {
   console.log('onClickNarrative', spec);
 });
-text.on(EventType.ON_CLICK_PARAGRAPH, (spec) => {
+text.on(EventType.ON_PARAGRAPH_CLICK, (spec) => {
   console.log('onClickParagraph', spec);
 });
-text.on(EventType.ON_CLICK_SECTION, (spec) => {
+text.on(EventType.ON_SECTION_CLICK, (spec) => {
   console.log('onClickSection', spec);
 });
-text.on(EventType.ON_CLICK_PHRASE, (spec) => {
+text.on('phrase:click', (spec) => {
   console.log('onClickPhrase', spec);
 });
 // text.theme(theme);
