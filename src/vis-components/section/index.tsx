@@ -1,13 +1,12 @@
 import { v4 } from 'uuid';
 import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { getPrefixCls, classnames as cx, functionalize } from '../../utils';
-import { SectionEvents } from '../types';
 import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
-import { usePluginManager } from '../context/hooks/plugin';
+import { usePluginManager, useEvent } from '../context';
 import { useEffect, useRef } from 'preact/hooks';
 
-type SectionProps = SectionEvents & {
+type SectionProps = {
   /**
    * @description specification of section text spec
    * @description.zh-CN Section 描述 json 信息
@@ -15,20 +14,20 @@ type SectionProps = SectionEvents & {
   spec: SectionSpec;
 };
 
-export function Section({ spec, ...events }: SectionProps) {
-  const { onClickSection, onMouseEnterSection, onMouseLeaveSection, ...paragraphEvents } = events || {};
+export function Section({ spec }: SectionProps) {
+  const { onEvent } = useEvent();
 
   const customSectionRef = useRef<HTMLDivElement>(null);
   const pluginManager = usePluginManager();
 
   const onClick = () => {
-    onClickSection?.(spec);
+    onEvent?.('section:click', spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterSection?.(spec);
+    onEvent?.('section:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveSection?.(spec);
+    onEvent?.('section:mouseleave', spec);
   };
 
   const renderCustomSection = () => {
@@ -62,8 +61,7 @@ export function Section({ spec, ...events }: SectionProps) {
       onMouseLeave={onMouseLeave}
     >
       <Container forwardRef={customSectionRef} />
-      {isStandardSection(spec) &&
-        spec.paragraphs.map((p) => <Paragraph key={p.key || v4()} spec={p} {...paragraphEvents} />)}
+      {isStandardSection(spec) && spec.paragraphs.map((p) => <Paragraph key={p.key || v4()} spec={p} />)}
     </Container>
   );
 }

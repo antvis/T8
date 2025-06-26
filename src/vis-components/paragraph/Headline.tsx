@@ -2,25 +2,24 @@ import { HeadlineSpec } from '../../schema';
 import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { ParagraphEvents } from '../types';
-import { useTheme } from '../context';
+import { useTheme, useEvent } from '../context';
 
-type HeadlineProps = ParagraphEvents & {
+type HeadlineProps = {
   spec: HeadlineSpec;
 };
 
-export function Headline({ spec, ...events }: HeadlineProps) {
-  const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
+export function Headline({ spec }: HeadlineProps) {
+  const { onEvent } = useEvent();
   const themeSeedToken = useTheme();
 
   const onClick = () => {
-    onClickParagraph?.(spec);
+    onEvent?.('paragraph:click', spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterParagraph?.(spec);
+    onEvent?.('paragraph:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveParagraph?.(spec);
+    onEvent?.('paragraph:mouseleave', spec);
   };
 
   return (
@@ -32,7 +31,7 @@ export function Headline({ spec, ...events }: HeadlineProps) {
       style={spec.styles}
       theme={themeSeedToken}
     >
-      <Phrases spec={spec.phrases} {...phraseEvents} />
+      <Phrases spec={spec.phrases} />
     </StyledHeadline>
   );
 }

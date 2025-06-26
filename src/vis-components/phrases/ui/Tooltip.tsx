@@ -1,10 +1,11 @@
-import { ComponentChildren, FunctionalComponent, cloneElement, isValidElement, render } from 'preact';
+import { ComponentChildren, FunctionalComponent, render } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import { getPrefixCls } from '../../../utils';
-import { TooltipPlacement } from '../../types';
 
 const TOOLTIP_CONTAINER_ID = 'ntv-tooltip-container';
+
+type TooltipPlacement = 'top' | 'right' | 'bottom' | 'left';
 
 // Tooltip props.
 export interface TooltipProps {
@@ -288,13 +289,6 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
     }
   };
 
-  // Clone the child element and add event handlers
-  const child = isValidElement(children) ? (
-    cloneElement(children, triggerProps)
-  ) : (
-    <span {...triggerProps}>{children}</span>
-  );
-
   // Return the modified child and tooltip
-  return child;
+  return <span {...triggerProps}>{children}</span>;
 };

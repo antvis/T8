@@ -53,22 +53,16 @@ export function NarrativeTextVis({
 }: NarrativeTextVisProps) {
   const narrativeDomRef = useRef<HTMLDivElement>(null);
   const { headline, sections, styles, className } = spec;
-  const {
-    onClickNarrative,
-    onMouseEnterNarrative,
-    onMouseLeaveNarrative,
-    // onCopySuccess,
-    // onCopyFailure,
-    ...sectionEvents
-  } = events || {};
+  const { onEvent } = events || {};
+
   const onClick = () => {
-    onClickNarrative?.(spec);
+    onEvent?.('narrative:click', spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterNarrative?.(spec);
+    onEvent?.('narrative:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveNarrative?.(spec);
+    onEvent?.('narrative:mouseleave', spec);
   };
 
   // TODO:
@@ -92,7 +86,7 @@ export function NarrativeTextVis({
   // }, [copyNarrative]);
 
   return (
-    <ContextProvider themeSeedToken={themeSeedToken} plugin={pluginManager}>
+    <ContextProvider themeSeedToken={themeSeedToken} plugin={pluginManager} events={events}>
       <Container
         className={cx(className, getPrefixCls('container'))}
         style={styles}
@@ -101,10 +95,8 @@ export function NarrativeTextVis({
         onMouseLeave={onMouseLeave}
         ref={narrativeDomRef}
       >
-        {headline ? <Headline spec={headline} {...sectionEvents} /> : null}
-        {sections
-          ? sections?.map((section) => <Section key={section.key || v4()} spec={section} {...sectionEvents} />)
-          : null}
+        {headline ? <Headline spec={headline} /> : null}
+        {sections ? sections?.map((section) => <Section key={section.key || v4()} spec={section} />) : null}
       </Container>
     </ContextProvider>
   );

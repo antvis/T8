@@ -22,6 +22,18 @@ const app4 = document.getElementById('app4');
 
 const text = new Text(app!);
 text.schema(spec as NarrativeTextSpec);
+text.on('narrative:click', (spec) => {
+  console.log('onClickNarrative', spec);
+});
+text.on('paragraph:click', (spec) => {
+  console.log('onClickParagraph', spec);
+});
+text.on('section:click', (spec) => {
+  console.log('onClickSection', spec);
+});
+text.on('phrase:click', (spec) => {
+  console.log('onClickPhrase', spec);
+});
 // text.theme(theme);
 text.render();
 

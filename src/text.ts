@@ -3,6 +3,7 @@ import { NarrativeTextSpec } from './schema';
 import { NarrativeTextVis } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
+import EE from '@antv/event-emitter';
 
 /**
  * Text component for rendering narrative text visualizations.
@@ -13,7 +14,7 @@ import { PluginManager, PluginType, presetPlugins } from './plugin';
  * text.schema(spec).theme(theme).render();
  * ```
  */
-export class Text {
+export class Text extends EE {
   /**
    * Container for the text visualization.
    */
@@ -30,8 +31,12 @@ export class Text {
    * Plugin manager for the text visualization.
    */
   private pluginManager: PluginManager;
+  /**
+   * Event emitter for the text visualization.
+   */
 
   constructor(container: string | HTMLElement) {
+    super();
     this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
 
     this.pluginManager = new PluginManager(presetPlugins);
@@ -82,6 +87,7 @@ export class Text {
         spec,
         pluginManager: this.pluginManager,
         themeSeedToken: this.themeSeedToken,
+        onEvent: this.emit.bind(this),
       }),
       container,
     );

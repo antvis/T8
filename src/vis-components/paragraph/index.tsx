@@ -1,14 +1,12 @@
 import { ParagraphSpec, isHeadingParagraph, isTextParagraph, isBulletParagraph, isCustomParagraph } from '../../schema';
-
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { ParagraphEvents } from '../types';
-import { usePluginManager } from '../context/hooks/plugin';
+import { usePluginManager, useEvent } from '../context';
 import { useEffect, useRef } from 'preact/hooks';
 import { functionalize } from '../../utils';
 
-type ParagraphProps = ParagraphEvents & {
+type ParagraphProps = {
   /**
    * @description specification of paragraph text spec
    * @description.zh-CN 段落描述 json 信息
@@ -16,19 +14,20 @@ type ParagraphProps = ParagraphEvents & {
   spec: ParagraphSpec;
 };
 
-export function Paragraph({ spec, ...events }: ParagraphProps) {
+export function Paragraph({ spec }: ParagraphProps) {
   const pluginManager = usePluginManager();
 
-  const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
+  const { onEvent } = useEvent();
+
   const paragraphRef = useRef<HTMLDivElement>(null);
   const onClick = () => {
-    onClickParagraph?.(spec);
+    onEvent?.('paragraph:click', spec);
   };
   const onMouseEnter = () => {
-    onMouseEnterParagraph?.(spec);
+    onEvent?.('paragraph:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onMouseLeaveParagraph?.(spec);
+    onEvent?.('paragraph:mouseleave', spec);
   };
 
   let content = null;
@@ -48,13 +47,13 @@ export function Paragraph({ spec, ...events }: ParagraphProps) {
   }, [spec]);
 
   if (isHeadingParagraph(spec)) {
-    content = <Heading spec={spec} {...phraseEvents} />;
+    content = <Heading spec={spec} />;
   }
   if (isTextParagraph(spec)) {
-    content = <TextLine spec={spec} {...phraseEvents} />;
+    content = <TextLine spec={spec} />;
   }
   if (isBulletParagraph(spec)) {
-    content = <Bullets spec={spec} {...events} />;
+    content = <Bullets spec={spec} />;
   }
   return content ? (
     <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} ref={paragraphRef}>

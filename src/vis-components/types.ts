@@ -1,34 +1,42 @@
-import { NarrativeTextSpec, SectionSpec, ParagraphSpec, PhraseSpec, HeadlineSpec, BulletItemSpec } from '../schema';
-
-export type PhraseEvents = Partial<{
-  onClickPhrase: (spec: PhraseSpec) => void;
-  onMouseEnterPhrase: (spec: PhraseSpec) => void;
-  onMouseLeavePhrase: (spec: PhraseSpec) => void;
-}>;
+import {
+  NarrativeTextSpec,
+  SectionSpec,
+  ParagraphSpec,
+  PhraseSpec,
+  HeadlineSpec,
+  BulletItemSpec,
+  ElementType,
+} from '../schema';
 
 type NormalParagraphSpec = HeadlineSpec | ParagraphSpec | BulletItemSpec;
-export type ParagraphEvents = PhraseEvents &
-  Partial<{
-    onClickParagraph: (spec: NormalParagraphSpec) => void;
-    onMouseEnterParagraph: (spec: NormalParagraphSpec) => void;
-    onMouseLeaveParagraph: (spec: NormalParagraphSpec) => void;
-  }>;
 
-export type SectionEvents = ParagraphEvents &
-  Partial<{
-    onClickSection: (spec: SectionSpec) => void;
-    onMouseEnterSection: (spec: SectionSpec) => void;
-    onMouseLeaveSection: (spec: SectionSpec) => void;
-  }>;
+/**
+ * ElementEventMap is a type that maps an element type to an event type.
+ * It is used to define the events that can be triggered on an element.
+ * @example
+ * ```ts
+ * type ElementEventMap<ElementType, 'click'> = 'section:click' | 'paragraph:click' | 'phrase:click' | 'narrative:click';
+ * ```
+ */
+type ElementEventMap<
+  K extends ElementType = ElementType,
+  V extends keyof HTMLElementEventMap = keyof HTMLElementEventMap,
+> = `${K}:${V}`;
 
-export type NarrativeEvents = SectionEvents &
-  Partial<{
-    onClickNarrative: (spec: NarrativeTextSpec) => void;
-    onMouseEnterNarrative: (spec: NarrativeTextSpec) => void;
-    onMouseLeaveNarrative: (spec: NarrativeTextSpec) => void;
-    onCopySuccess: (e?: ClipboardEvent) => void;
-    onCopyFailure: (e?: ClipboardEvent) => void;
-  }>;
-
-// Define tooltip placement.
-export type TooltipPlacement = 'top' | 'right' | 'bottom' | 'left';
+/**
+ * NarrativeEvents is a type that maps an element type to an event type.
+ * It is used to define the events that can be triggered on an element.
+ * @example
+ * ```ts
+ * const events: NarrativeEvents = {
+ *   onMouseEnter: (eventType: 'section:mouseenter', spec: SectionSpec) => void,
+ *   onMouseLeave: (eventType: 'section:mouseleave', spec: SectionSpec) => void,
+ * };
+ * ```
+ */
+export type NarrativeEvents = Partial<{
+  onEvent: (
+    eventType: ElementEventMap,
+    spec: NarrativeTextSpec | PhraseSpec | NormalParagraphSpec | SectionSpec,
+  ) => void;
+}>;

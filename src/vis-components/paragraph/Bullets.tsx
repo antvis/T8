@@ -2,11 +2,10 @@ import { v4 } from 'uuid';
 import { Ol, Ul, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { ParagraphEvents } from '../types';
 import { BulletsParagraphSpec } from '../../schema';
-import { useTheme } from '../context';
+import { useTheme, useEvent } from '../context';
 
-type BulletsProps = ParagraphEvents & {
+type BulletsProps = {
   /**
    * @description specification of bullets paragraph
    * @description.zh-CN 列表段落描述
@@ -14,30 +13,30 @@ type BulletsProps = ParagraphEvents & {
   spec: BulletsParagraphSpec;
 };
 
-export function Bullets({ spec, ...events }: BulletsProps) {
-  const { onClickParagraph, onMouseEnterParagraph, onMouseLeaveParagraph, ...phraseEvents } = events || {};
+export function Bullets({ spec }: BulletsProps) {
+  const { onEvent } = useEvent();
 
   const children = spec.bullets?.map((bullet) => {
-    const onClickLi = () => {
-      onClickParagraph?.(bullet);
+    const onLiClick = () => {
+      onEvent?.('paragraph:click', bullet);
     };
-    const onMouseEnterLi = () => {
-      onMouseEnterParagraph?.(bullet);
+    const onLiMouseEnter = () => {
+      onEvent?.('paragraph:mouseenter', bullet);
     };
-    const onMouseLeaveLi = () => {
-      onMouseLeaveParagraph?.(bullet);
+    const onLiMouseLeave = () => {
+      onEvent?.('paragraph:mouseleave', bullet);
     };
     return (
       <Li
         className={cx(getPrefixCls('li'), bullet.className)}
         key={spec.key || v4()}
         style={bullet.styles}
-        onClick={onClickLi}
-        onMouseEnter={onMouseEnterLi}
-        onMouseLeave={onMouseLeaveLi}
+        onClick={onLiClick}
+        onMouseEnter={onLiMouseEnter}
+        onMouseLeave={onLiMouseLeave}
       >
-        <Phrases spec={bullet.phrases} {...phraseEvents} />
-        {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} {...events} /> : null}
+        <Phrases spec={bullet.phrases} />
+        {bullet?.subBullet ? <Bullets spec={bullet?.subBullet} /> : null}
       </Li>
     );
   });
@@ -47,26 +46,8 @@ export function Bullets({ spec, ...events }: BulletsProps) {
 
   const themeSeedToken = useTheme();
 
-  const onClick = () => {
-    onClickParagraph?.(spec);
-  };
-  const onMouseEnter = () => {
-    onMouseEnterParagraph?.(spec);
-  };
-  const onMouseLeave = () => {
-    onMouseLeaveParagraph?.(spec);
-  };
-
   return (
-    <Comp
-      as={tag}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      theme={themeSeedToken}
-      className={cx(getPrefixCls(tag), spec.className)}
-      style={spec.styles}
-    >
+    <Comp as={tag} theme={themeSeedToken} className={cx(getPrefixCls(tag), spec.className)} style={spec.styles}>
       {children}
     </Comp>
   );
