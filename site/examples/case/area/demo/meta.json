@@ -1,0 +1,26 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "interval.ts",
+      "title": {
+        "zh": "某公司烟花国内累计销售额趋势",
+        "en": "Domestic cumulative sales trend of fireworks"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*QlLyQ6EleE4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "area5.ts",
+      "title": {
+        "zh": "某频道视频订阅数和月收入关系",
+        "en": "Range Area Chart"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hGBYTpJauooAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

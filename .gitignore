@@ -146,3 +146,7 @@ dist/
 es/
 lib/
 types/
+
+tmp
+tmp-production
+.DS_Store
