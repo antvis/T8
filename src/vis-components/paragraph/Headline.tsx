@@ -3,28 +3,23 @@ import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
 import { useTheme, useEvent } from '../context';
-import { EventType } from '../types';
 
 type HeadlineProps = {
   spec: HeadlineSpec;
 };
 
 export function Headline({ spec }: HeadlineProps) {
-  const {
-    onClick: onParagraphClick,
-    onMouseEnter: onParagraphMouseEnter,
-    onMouseLeave: onParagraphMouseLeave,
-  } = useEvent();
+  const { onEvent } = useEvent();
   const themeSeedToken = useTheme();
 
   const onClick = () => {
-    onParagraphClick?.(EventType.ON_PARAGRAPH_CLICK, spec);
+    onEvent?.('paragraph:click', spec);
   };
   const onMouseEnter = () => {
-    onParagraphMouseEnter?.(EventType.ON_PARAGRAPH_MOUSE_ENTER, spec);
+    onEvent?.('paragraph:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onParagraphMouseLeave?.(EventType.ON_PARAGRAPH_MOUSE_LEAVE, spec);
+    onEvent?.('paragraph:mouseleave', spec);
   };
 
   return (

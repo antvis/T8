@@ -1,4 +1,4 @@
-import { type NarrativeTextSpec, Text, EventType } from '../src';
+import { type NarrativeTextSpec, Text } from '../src';
 import spec from './example.json';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
@@ -22,13 +22,13 @@ const app4 = document.getElementById('app4');
 
 const text = new Text(app!);
 text.schema(spec as NarrativeTextSpec);
-text.on(EventType.ON_NARRATIVE_CLICK, (spec) => {
+text.on('narrative:click', (spec) => {
   console.log('onClickNarrative', spec);
 });
-text.on(EventType.ON_PARAGRAPH_CLICK, (spec) => {
+text.on('paragraph:click', (spec) => {
   console.log('onClickParagraph', spec);
 });
-text.on(EventType.ON_SECTION_CLICK, (spec) => {
+text.on('section:click', (spec) => {
   console.log('onClickSection', spec);
 });
 text.on('phrase:click', (spec) => {

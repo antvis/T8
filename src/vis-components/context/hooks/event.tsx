@@ -13,7 +13,7 @@ export function EventProvider({ events, children }: EventProviderProps) {
 
 const EventContext = createContext<NarrativeEvents>({});
 
-export function useEvent() {
+export function useEvent(): NarrativeEvents {
   const events = useContext(EventContext);
   return events;
 }

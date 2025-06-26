@@ -14,7 +14,6 @@ import { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { Tooltip } from './ui';
 import { SeedTokenOptions } from '../../theme';
-import { EventType } from '../types';
 
 type PhraseProps = {
   /**
@@ -29,11 +28,7 @@ function renderPhraseByDescriptor(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   descriptor: PhraseDescriptor<any>,
   theme: SeedTokenOptions,
-  events: {
-    onPhraseClick: (eventType: EventType, spec: PhraseSpec) => void;
-    onPhraseMouseEnter: (eventType: EventType, spec: PhraseSpec) => void;
-    onPhraseMouseLeave: (eventType: EventType, spec: PhraseSpec) => void;
-  },
+  onEvent: (eventType: string, spec: PhraseSpec) => void,
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
   const {
@@ -48,15 +43,15 @@ function renderPhraseByDescriptor(
 
   const handleClick = () => {
     onClick?.(spec?.value, metadata);
-    events?.onPhraseClick?.(EventType.ON_PHRASE_CLICK, spec);
+    onEvent?.('phrase:click', spec);
   };
 
   const handleMouseEnter = () => {
     onHover?.(spec?.value, metadata);
-    events?.onPhraseMouseEnter?.(EventType.ON_PHRASE_MOUSE_ENTER, spec);
+    onEvent?.('phrase:mouseenter', spec);
   };
   const handleMouseLeave = () => {
-    events?.onPhraseMouseLeave?.(EventType.ON_PHRASE_MOUSE_LEAVE, spec);
+    onEvent?.('phrase:mouseleave', spec);
   };
 
   const entityRef = useRef<HTMLSpanElement>(null);
@@ -97,7 +92,7 @@ function renderPhraseByDescriptor(
   );
 
   const nodeWithEvents =
-    !isEmpty(events) || isFunction(onClick) || isFunction(onHover) ? (
+    isFunction(onEvent) || isFunction(onClick) || isFunction(onHover) ? (
       <span onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         {defaultNode}
       </span>
@@ -119,20 +114,20 @@ function renderPhraseByDescriptor(
 
 /** <Phrase /> can use independence */
 export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase }) => {
-  const { onClick: onPhraseClick, onMouseEnter: onPhraseMouseEnter, onMouseLeave: onPhraseMouseLeave } = useEvent();
+  const { onEvent } = useEvent();
   const themeSeedToken = useTheme();
   const pluginManager = usePluginManager();
 
   const onClick = () => {
-    onPhraseClick?.(EventType.ON_PHRASE_CLICK, phrase);
+    onEvent?.('phrase:click', phrase);
   };
   const onMouseEnter = () => {
-    onPhraseMouseEnter?.(EventType.ON_PHRASE_MOUSE_ENTER, phrase);
+    onEvent?.('phrase:mouseenter', phrase);
   };
   const onMouseLeave = () => {
-    onPhraseMouseLeave?.(EventType.ON_PHRASE_MOUSE_LEAVE, phrase);
+    onEvent?.('phrase:mouseleave', phrase);
   };
-  let defaultText = !isEmpty(onPhraseClick) ? (
+  let defaultText = !isEmpty(onEvent) ? (
     <span onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {phrase.value}
     </span>
@@ -154,15 +149,7 @@ export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase }) => {
 
   const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
   if (descriptor) {
-    return (
-      <>
-        {renderPhraseByDescriptor(phrase, descriptor, themeSeedToken, {
-          onPhraseClick,
-          onPhraseMouseEnter,
-          onPhraseMouseLeave,
-        })}
-      </>
-    );
+    return <>{renderPhraseByDescriptor(phrase, descriptor, themeSeedToken, onEvent)}</>;
   }
 
   return defaultText;

@@ -87,9 +87,7 @@ export class Text extends EE {
         spec,
         pluginManager: this.pluginManager,
         themeSeedToken: this.themeSeedToken,
-        onClick: this.emit.bind(this),
-        onMouseEnter: this.emit.bind(this),
-        onMouseLeave: this.emit.bind(this),
+        onEvent: this.emit.bind(this),
       }),
       container,
     );

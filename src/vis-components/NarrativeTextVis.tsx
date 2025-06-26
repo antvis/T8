@@ -4,7 +4,7 @@ import { NarrativeTextSpec } from '../schema';
 import { Container } from './styled';
 import { Headline } from './paragraph';
 import { Section } from './section';
-import { EventType, NarrativeEvents } from './types';
+import { NarrativeEvents } from './types';
 import { classnames as cx, getPrefixCls } from '../utils';
 // import { copyToClipboard, getSelectionContentForCopy } from '../chore/exporter/helpers/copy';
 import { defaultSeedToken, SeedTokenOptions } from '../theme';
@@ -53,22 +53,16 @@ export function NarrativeTextVis({
 }: NarrativeTextVisProps) {
   const narrativeDomRef = useRef<HTMLDivElement>(null);
   const { headline, sections, styles, className } = spec;
-  const {
-    onClick: onNarrativeClick,
-    onMouseEnter: onNarrativeMouseEnter,
-    onMouseLeave: onNarrativeMouseLeave,
-    // TODO: add copy event
-    // onCopySuccess,
-    // onCopyFailure,
-  } = events || {};
+  const { onEvent } = events || {};
+
   const onClick = () => {
-    onNarrativeClick?.(EventType.ON_NARRATIVE_CLICK, spec);
+    onEvent?.('narrative:click', spec);
   };
   const onMouseEnter = () => {
-    onNarrativeMouseEnter?.(EventType.ON_NARRATIVE_MOUSE_ENTER, spec);
+    onEvent?.('narrative:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onNarrativeMouseLeave?.(EventType.ON_NARRATIVE_MOUSE_LEAVE, spec);
+    onEvent?.('narrative:mouseleave', spec);
   };
 
   // TODO:

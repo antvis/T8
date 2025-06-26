@@ -5,7 +5,6 @@ import { Bullets } from './Bullets';
 import { usePluginManager, useEvent } from '../context';
 import { useEffect, useRef } from 'preact/hooks';
 import { functionalize } from '../../utils';
-import { EventType } from '../types';
 
 type ParagraphProps = {
   /**
@@ -18,21 +17,17 @@ type ParagraphProps = {
 export function Paragraph({ spec }: ParagraphProps) {
   const pluginManager = usePluginManager();
 
-  const {
-    onClick: onParagraphClick,
-    onMouseEnter: onParagraphMouseEnter,
-    onMouseLeave: onParagraphMouseLeave,
-  } = useEvent();
+  const { onEvent } = useEvent();
 
   const paragraphRef = useRef<HTMLDivElement>(null);
   const onClick = () => {
-    onParagraphClick?.(EventType.ON_PARAGRAPH_CLICK, spec);
+    onEvent?.('paragraph:click', spec);
   };
   const onMouseEnter = () => {
-    onParagraphMouseEnter?.(EventType.ON_PARAGRAPH_MOUSE_ENTER, spec);
+    onEvent?.('paragraph:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onParagraphMouseLeave?.(EventType.ON_PARAGRAPH_MOUSE_LEAVE, spec);
+    onEvent?.('paragraph:mouseleave', spec);
   };
 
   let content = null;

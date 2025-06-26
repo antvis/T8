@@ -19,3 +19,5 @@ export type CustomMetaData = {
   customType: string;
   [key: string]: unknown;
 };
+
+export type ElementType = 'section' | 'paragraph' | 'phrase' | 'narrative';

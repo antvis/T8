@@ -4,7 +4,6 @@ import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
 import { BulletsParagraphSpec } from '../../schema';
 import { useTheme, useEvent } from '../context';
-import { EventType } from '../types';
 
 type BulletsProps = {
   /**
@@ -15,21 +14,17 @@ type BulletsProps = {
 };
 
 export function Bullets({ spec }: BulletsProps) {
-  const {
-    onClick: onParagraphClick,
-    onMouseEnter: onParagraphMouseEnter,
-    onMouseLeave: onParagraphMouseLeave,
-  } = useEvent();
+  const { onEvent } = useEvent();
 
   const children = spec.bullets?.map((bullet) => {
     const onLiClick = () => {
-      onParagraphClick?.(EventType.ON_PARAGRAPH_CLICK, bullet);
+      onEvent?.('paragraph:click', bullet);
     };
     const onLiMouseEnter = () => {
-      onParagraphMouseEnter?.(EventType.ON_PARAGRAPH_MOUSE_ENTER, bullet);
+      onEvent?.('paragraph:mouseenter', bullet);
     };
     const onLiMouseLeave = () => {
-      onParagraphMouseLeave?.(EventType.ON_PARAGRAPH_MOUSE_LEAVE, bullet);
+      onEvent?.('paragraph:mouseleave', bullet);
     };
     return (
       <Li

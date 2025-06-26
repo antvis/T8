@@ -5,7 +5,6 @@ import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
 import { usePluginManager, useEvent } from '../context';
 import { useEffect, useRef } from 'preact/hooks';
-import { EventType } from '../types';
 
 type SectionProps = {
   /**
@@ -16,19 +15,19 @@ type SectionProps = {
 };
 
 export function Section({ spec }: SectionProps) {
-  const { onClick: onSectionClick, onMouseEnter: onSectionMouseEnter, onMouseLeave: onSectionMouseLeave } = useEvent();
+  const { onEvent } = useEvent();
 
   const customSectionRef = useRef<HTMLDivElement>(null);
   const pluginManager = usePluginManager();
 
   const onClick = () => {
-    onSectionClick?.(EventType.ON_SECTION_CLICK, spec);
+    onEvent?.('section:click', spec);
   };
   const onMouseEnter = () => {
-    onSectionMouseEnter?.(EventType.ON_SECTION_MOUSE_ENTER, spec);
+    onEvent?.('section:mouseenter', spec);
   };
   const onMouseLeave = () => {
-    onSectionMouseLeave?.(EventType.ON_SECTION_MOUSE_LEAVE, spec);
+    onEvent?.('section:mouseleave', spec);
   };
 
   const renderCustomSection = () => {
