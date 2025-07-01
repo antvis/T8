@@ -40,6 +40,7 @@ Please write the article strictly according to the uploaded JSON Schema structur
 ### Entity label type (`entity_type` list)
 
 Below is a list of types supported by entity phrases. Please be sure to strictly mark entities according to the following table:
+
 | Type | Description | Example |
 | -------------------------------------------------------------------------------------------------------------------------------
 | `metric_name` | Indicator name | "Shipment", "Growth Rate" |
