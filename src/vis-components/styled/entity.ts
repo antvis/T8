@@ -11,6 +11,7 @@ const getEntityStyle = (theme: SeedTokenOptions) => {
     lineHeight: '1.5em',
     borderRadius: '2px',
     color: theme.colorEntityBase,
+    margin: '0 2px',
   };
 };
 
