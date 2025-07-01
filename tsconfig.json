@@ -17,10 +17,11 @@
     "outDir": "./types",
     "declarationDir": "./types",
     "declarationMap": true,
-    "rootDir": "./src",
+    "rootDirs": ["./src", "./__tests__"],
     "emitDeclarationOnly": true,
-    "noEmit": false
+    "noEmit": false,
+    "types": ["vitest/globals"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["node_modules", "**/es", "**/lib", "**/dist", "**/build"]
 }
