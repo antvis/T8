@@ -1,12 +1,9 @@
-/**
- * @vitest-environment jsdom
- */
-
 import { Text, NarrativeTextSpec } from '../src';
 import SCHEMA from '../example/example.json';
+import './matcher';
 
 describe('Text', () => {
-  test('render', () => {
+  test('simple', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const text = new Text(div);
@@ -15,8 +12,7 @@ describe('Text', () => {
 
     const destroy = text.render();
 
-    expect(div.innerHTML).toContain('Bookings This Quarter Higher than Usual');
-
+    expect(div).toBeDOMEqual('text-simple');
     destroy();
   });
 });
