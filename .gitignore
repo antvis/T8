@@ -146,3 +146,6 @@ dist/
 es/
 lib/
 types/
+
+# Snapshot
+__tests__/snapshot/**/*-actual.*
