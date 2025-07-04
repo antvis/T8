@@ -7,20 +7,15 @@
     "experimentalDecorators": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "pretty": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "declaration": true,
     "inlineSourceMap": true,
     "jsxImportSource": "preact",
     "jsx": "react-jsx",
-    "outDir": "./types",
-    "declarationDir": "./types",
-    "declarationMap": true,
-    "rootDir": "./src",
-    "emitDeclarationOnly": true,
-    "noEmit": false
+    "rootDirs": ["./src", "./__tests__"],
+    "noEmit": true,
+    "types": ["vitest/globals"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["node_modules", "**/es", "**/lib", "**/dist", "**/build"]
 }
