@@ -1,14 +1,5 @@
 ---
-title: 基本样式与 API
-order: 2
-group:
-  path: /example
-  title: 使用示例
-  order: 1
-nav:
-  title: 解读文本可视化
-  path: /narrative
-  order: 2
+title: Basic Styles and API
 ---
 
 ## NarrativeTextVis
@@ -80,7 +71,7 @@ import { NarrativeTextVisProps, Phrase } from '@antv/narrative-text-vis';
 export default () => (
   <div style={{ marginBottom: 48 }}>
     <Descriptions title="Data marking specification" bordered size="small">
-      <Descriptions.Item label="指标名 metric_name">
+      <Descriptions.Item label="Metric Name (metric_name)">
         <Phrase
           spec={{
             type: 'entity',
@@ -91,7 +82,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="指标值 metric_value">
+      <Descriptions.Item label="Metric Value (metric_value)">
         <Phrase
           spec={{
             type: 'entity',
@@ -103,7 +94,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="其他指标 other_metric_value">
+      <Descriptions.Item label="Other Metric Value (other_metric_value)">
         <Phrase
           spec={{
             type: 'entity',
@@ -115,7 +106,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="差值 delta_value">
+      <Descriptions.Item label="Delta Value (delta_value)">
         <Phrase
           spec={{
             type: 'entity',
@@ -129,7 +120,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="比率 ratio_value">
+      <Descriptions.Item label="Ratio Value (ratio_value)">
         <Phrase
           spec={{
             type: 'entity',
@@ -142,7 +133,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="贡献度 contribute_ratio">
+      <Descriptions.Item label="Contribution Ratio (contribute_ratio)">
         <Phrase
           spec={{
             type: 'entity',
@@ -154,7 +145,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="趋势描述 trend_desc">
+      <Descriptions.Item label="Trend Description (trend_desc)">
         <Phrase
           spec={{
             type: 'entity',
@@ -169,23 +160,23 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="维度值 dim_value">
+      <Descriptions.Item label="Dimension Value (dim_value)">
         <Phrase
           spec={{
             type: 'entity',
-            value: '北京',
+            value: 'Beijing',
             metadata: {
               entityType: 'dim_value',
               detail: {
-                left: '城市',
+                left: 'City',
                 op: '=',
-                right: '北京',
+                right: 'Beijing',
               },
             },
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="时间描述 time_desc">
+      <Descriptions.Item label="Time Description (time_desc)">
         <Phrase
           spec={{
             type: 'entity',
@@ -196,7 +187,7 @@ export default () => (
           }}
         />
       </Descriptions.Item>
-      <Descriptions.Item label="占比 proportion">
+      <Descriptions.Item label="Proportion (proportion)">
         <Phrase
           spec={{
             type: 'entity',
@@ -225,7 +216,7 @@ export default () => {
   return (
     <div>
       <p>
-        饼图
+        Pie Chart
         <ProportionChart data={-0.1} />
         <ProportionChart data={0.1} />
         <ProportionChart data={0.6} />
@@ -234,7 +225,7 @@ export default () => {
       </p>
       <br />
       <p>
-        折线图
+        Line Chart
         <SingleLineChart data={[1, 2, 6, 18, 24, 48]} />
         <SingleLineChart data={[1, 2, 10, 12, 35, 60, 38, 24]} />
         <SingleLineChart data={[52, 44, 42, 21, 15, 6]} />

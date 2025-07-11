@@ -1,59 +1,76 @@
 import { defineConfig } from 'vitepress';
 
+const createLangConfig = (lang: string, label: string) => {
+  return {
+    label,
+    lang,
+    link: `/${lang}/`,
+    themeConfig: {
+      nav: [
+        { text: 'Home', link: `/${lang}/` },
+        { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
+        { text: 'Schema', link: `/${lang}/schema/index` },
+        { text: 'Vis', link: `/${lang}/vis/index` },
+      ],
+      sidebar: {
+        [`/${lang}/tutorial/`]: [
+          {
+            text: 'Tutorial',
+            items: [
+              { text: 'Quick Start', link: `/${lang}/tutorial/quick-start` },
+              { text: 'Advanced', link: `/${lang}/tutorial/advanced` },
+            ],
+          },
+        ],
+        [`/${lang}/schema/`]: [
+          {
+            text: 'Schema',
+            items: [
+              { text: '介绍', link: `/${lang}/schema/index` },
+              { text: '总体结构', link: `/${lang}/schema/structure` },
+              {
+                text: '类型定义',
+                items: [
+                  { text: 'NarrativeText', link: `/${lang}/schema/types/narrative-text` },
+                  { text: 'Section', link: `/${lang}/schema/types/section` },
+                  { text: 'Paragraph', link: `/${lang}/schema/types/paragraph` },
+                  { text: 'Phrase & Entity', link: `/${lang}/schema/types/phrase` },
+                ],
+              },
+            ],
+          },
+        ],
+        [`/${lang}/vis/`]: [
+          {
+            text: 'Vis',
+            items: [
+              { text: 'Overview', link: `/${lang}/vis/index` },
+              { text: 'Custom', link: `/${lang}/vis/custom` },
+              { text: 'Interactive', link: `/${lang}/vis/interactive` },
+              { text: 'Style', link: `/${lang}/vis/style` },
+              { text: 'Theme', link: `/${lang}/vis/theme` },
+            ],
+          },
+        ],
+      },
+    },
+  };
+};
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'AntV T8',
   description: '🧬 Narrative text visualization for unstructured data.',
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Tutorial', link: '/tutorial/quick-start' },
-      { text: 'Schema', link: '/schema/index' },
-      { text: 'vis', link: '/vis/index' },
-    ],
-
-    sidebar: {
-      '/tutorial/': [
-        {
-          text: '教程',
-          items: [
-            { text: '快速开始', link: '/tutorial/quick-start' },
-            { text: '进阶', link: '/tutorial/advanced' },
-          ],
-        },
-      ],
-
-      '/schema/': [
-        {
-          items: [{ text: 'Schema', link: '/schema/index' }],
-        },
-      ],
-
-      '/vis/': [
-        {
-          text: '可视化',
-          items: [
-            { text: '组件', link: '/vis/index' },
-            { text: '样式', link: '/vis/style' },
-            { text: '主题', link: '/vis/theme' },
-            { text: '交互', link: '/vis/interactive' },
-            { text: '自定义', link: '/vis/custom' },
-          ],
-        },
-      ],
-
-      '/': [
-        {
-          text: '快速导航',
-          items: [
-            { text: '教程', link: '/tutorial/quick-start' },
-            { text: 'API 文档', link: '/api/runtime' },
-          ],
-        },
-      ],
+    logo: {
+      src: 'https://avatars.githubusercontent.com/u/19199542?s=200&v=4',
+      height: 60,
     },
+    socialLinks: [{ icon: 'github', link: 'https://github.com/antvis/t8' }],
+  },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
+  locales: {
+    en: createLangConfig('en', 'English'),
+    zh: createLangConfig('zh', '简体中文'),
   },
 });

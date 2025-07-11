@@ -1,17 +1,19 @@
 ---
-title: 分析交互
-order: 6
-group:
-  path: /example
-  title: 使用示例
-  order: 1
-nav:
-  title: 解读文本可视化
-  path: /narrative
-  order: 2
+title: 交互分析
 ---
 
-## 洞察分析
+# 交互分析
+
+T8 提供了强大的交互分析功能，允许用户通过可定制的文本和可视化来探索和分析数据。
+
+## 基本示例
+
+以下示例演示了如何创建一个交互式分析界面，包含：
+
+- 日期比较选择
+- 趋势描述自定义
+- 图表类型切换
+- 洞察输入
 
 ```jsx
 import React, { useState, useEffect, useCallback, useRef } from 'react';
@@ -59,7 +61,7 @@ function fetchData(compareDate = moment().subtract(1, 'week').format(DATE_FORMAT
                   { type: 'text', value: ' ' },
                   { type: 'entity', value: 'GMV', metadata: { entityType: 'metric_name' } },
                   { type: 'text', value: ' ' },
-                  { type: 'entity', value: `${baseData.gmv} 万`, metadata: { entityType: 'metric_value' } },
+                  { type: 'entity', value: `${baseData.gmv}万`, metadata: { entityType: 'metric_value' } },
                   { type: 'text', value: '，对比基准日期' },
                   {
                     type: 'custom',
@@ -70,9 +72,10 @@ function fetchData(compareDate = moment().subtract(1, 'week').format(DATE_FORMAT
                       allowRange: [0, 30],
                     },
                   },
+                  { type: 'text', value: deltaValue > 0 ? '增加 ' : '减少 ' },
                   {
                     type: 'entity',
-                    value: `${Math.abs(deltaValue).toFixed(2)} 万`,
+                    value: `${Math.abs(deltaValue).toFixed(2)}万`,
                     metadata: { entityType: 'delta_value', assessment: getAssessment(deltaValue) },
                   },
                   { type: 'text', value: '（' },
@@ -82,7 +85,6 @@ function fetchData(compareDate = moment().subtract(1, 'week').format(DATE_FORMAT
                     metadata: { entityType: 'ratio_value', assessment: getAssessment(ratioValue) },
                   },
                   { type: 'text', value: '）' },
-                  { type: 'text', value: deltaValue > 0 ? '增加 ' : '减少 ' },
                   {
                     type: 'custom',
                     value: '',
@@ -187,7 +189,6 @@ export default () => {
               }}
             />
           );
-          return null;
         },
       }),
       createCustomPhraseFactory({
@@ -248,112 +249,30 @@ export default () => {
         },
       }),
     ]);
-  }, [getTextSpecFormServer]);
-
-  return <NarrativeTextVis spec={textSpec} pluginManager={pluginManager} />;
-};
-```
-
-## 图表联动
-
-hover 文本内容，高亮对应数据饼图区块。
-
-🚧 TODO 图表联动文本显示，需完善状态系统，eg active，规范状态显示样式
-
-<style>
-  .hover-g2plot-pie {
-    cursor: pointer;
-    margin-bottom: 2px;
-  }
-  .hover-g2plot-pie:hover {
-    background-color: #EEF7FF;
-  }
-</style>
-
-```jsx
-import React, { useRef, useEffect } from 'react';
-import { Pie } from '@antv/g2plot';
-import { NarrativeTextVis } from '@antv/narrative-text-vis';
-import { get } from 'lodash';
-
-const data = [
-  { city: '北京', mau: 1000, rc: +0.12 },
-  { city: '上海', mau: 800, rc: -0.22 },
-  { city: '广州', mau: 600, rc: +0.02 },
-];
-
-const textSpec = {
-  sections: [
-    {
-      paragraphs: [
-        {
-          type: 'normal',
-          phrases: [{ type: 'text', value: '各城市数据表现是:' }],
-        },
-        {
-          type: 'bullets',
-          isOrder: true,
-          bullets: data.map((item) => ({
-            type: 'bullet-item',
-            className: 'hover-g2plot-pie',
-            phrases: [
-              { type: 'entity', value: item.city, metadata: { entityType: 'dim_value' } },
-              { type: 'text', value: ' 的 ' },
-              { type: 'entity', value: 'MAU', metadata: { entityType: 'metric_name' } },
-              { type: 'text', value: ' 是 ' },
-              { type: 'entity', value: item.mau, metadata: { entityType: 'metric_value' } },
-              { type: 'text', value: ' 环比 ' },
-              {
-                type: 'entity',
-                value: Math.abs(item.rc) * 100 + '%',
-                metadata: { entityType: 'ratio_value', assessment: item.rc > 0 ? 'positive' : 'negative' },
-              },
-              { type: 'text', value: '。' },
-            ],
-          })),
-        },
-      ],
-    },
-  ],
-};
-
-export default () => {
-  const chartContainerRef = useRef();
-  const chartRef = useRef();
-
-  useEffect(() => {
-    if (chartContainerRef.current) {
-      chartRef.current = new Pie(chartContainerRef.current, {
-        data,
-        angleField: 'mau',
-        colorField: 'city',
-        padding: 20,
-      });
-      chartRef.current.render();
-    }
   }, []);
 
-  const onMouseEnterParagraph = (spec) => {
-    if (chartRef.current) {
-      const type = get(spec, 'phrases[0].value');
-      chartRef.current.setState('selected', (datum) => datum.city === type);
-      chartRef.current.setState('selected', (datum) => datum.city !== type, false);
-    }
-  };
-  const onMouseLeaveParagraph = () => {
-    if (chartRef.current) {
-      chartRef.current.setState('selected', () => true, false);
-    }
-  };
   return (
-    <>
-      <NarrativeTextVis
-        spec={textSpec}
-        onMouseEnterParagraph={onMouseEnterParagraph}
-        onMouseLeaveParagraph={onMouseLeaveParagraph}
-      />
-      <div ref={chartContainerRef}></div>
-    </>
+    <Spin spinning={loading}>
+      <NarrativeTextVis spec={textSpec} pluginManager={pluginManager} />
+    </Spin>
   );
 };
 ```
+
+## 交互功能
+
+### 日期比较
+
+用户可以使用日期选择器在指定范围内选择比较日期。文本和可视化将自动更新以显示所选日期与当前日期之间的比较。
+
+### 趋势描述
+
+用户可以从预定义的趋势描述（明显、平缓、可忽略不计）中进行选择，以更好地描述数据变化。这有助于提供更准确和有意义的洞察。
+
+### 图表类型切换
+
+可以在不同的图表类型（折线图、散点图）之间切换，从不同角度查看数据。
+
+### 洞察输入
+
+用户可以使用文本输入框输入他们对数据的洞察。这允许直接在叙述中捕获用户的观察和分析。
