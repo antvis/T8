@@ -10,7 +10,7 @@ const createLangConfig = (lang: string, label: string) => {
         { text: 'Home', link: `/${lang}/` },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
         { text: 'Schema', link: `/${lang}/schema/index` },
-        { text: 'Vis', link: `/${lang}/vis/index` },
+        { text: 'API', link: `/${lang}/api/index` },
       ],
       sidebar: {
         [`/${lang}/tutorial/`]: [
@@ -18,7 +18,14 @@ const createLangConfig = (lang: string, label: string) => {
             text: 'Tutorial',
             items: [
               { text: 'Quick Start', link: `/${lang}/tutorial/quick-start` },
-              { text: 'Advanced', link: `/${lang}/tutorial/advanced` },
+              {
+                text: 'Advanced',
+                items: [
+                  { text: 'Theme', link: `/${lang}/tutorial/advanced/theme` },
+                  { text: 'Events', link: `/${lang}/tutorial/advanced/events` },
+                  { text: 'Plugin', link: `/${lang}/tutorial/advanced/plugin` },
+                ],
+              },
             ],
           },
         ],
@@ -26,10 +33,10 @@ const createLangConfig = (lang: string, label: string) => {
           {
             text: 'Schema',
             items: [
-              { text: '介绍', link: `/${lang}/schema/index` },
-              { text: '总体结构', link: `/${lang}/schema/structure` },
+              { text: 'Overview', link: `/${lang}/schema/index` },
+              { text: 'Structure', link: `/${lang}/schema/structure` },
               {
-                text: '类型定义',
+                text: 'Types',
                 items: [
                   { text: 'NarrativeText', link: `/${lang}/schema/types/narrative-text` },
                   { text: 'Section', link: `/${lang}/schema/types/section` },
@@ -37,18 +44,6 @@ const createLangConfig = (lang: string, label: string) => {
                   { text: 'Phrase & Entity', link: `/${lang}/schema/types/phrase` },
                 ],
               },
-            ],
-          },
-        ],
-        [`/${lang}/vis/`]: [
-          {
-            text: 'Vis',
-            items: [
-              { text: 'Overview', link: `/${lang}/vis/index` },
-              { text: 'Custom', link: `/${lang}/vis/custom` },
-              { text: 'Interactive', link: `/${lang}/vis/interactive` },
-              { text: 'Style', link: `/${lang}/vis/style` },
-              { text: 'Theme', link: `/${lang}/vis/theme` },
             ],
           },
         ],

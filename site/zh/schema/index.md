@@ -2,7 +2,7 @@
 title: Schema 介绍
 ---
 
-# T8 Schema
+# Schema
 
 ## 概述
 
