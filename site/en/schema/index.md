@@ -1,43 +1,43 @@
 ---
-title: Schema 介绍
+title: Schema Introduction
 ---
 
-# T8 Schema 系统
+# Schema
 
-## 概述
+## Overview
 
-T8 Schema 是一套用于声明式描述数据解读报告的 JSON Schema 规范。它提供了一个完整的类型系统，用于构建结构化的叙事文本可视化内容。
+T8 Schema is a JSON Schema specification for declaratively describing data interpretation reports. It provides a complete type system for building structured narrative text visualization content.
 
-## 核心概念
+## Core Concepts
 
-T8 Schema 系统主要包含以下核心概念：
+The T8 Schema system includes the following core concepts:
 
-1. **叙事文本 (NarrativeText)**
+1. **NarrativeText**
 
-   - 作为整个文档的顶层容器
-   - 包含标题（Headline）和多个段落区块（Section）
-   - 支持全局样式配置
+   - Acts as the top-level container for the entire document
+   - Contains a headline and multiple sections
+   - Supports global style configuration
 
-2. **段落区块 (Section)**
+2. **Section**
 
-   - 用于组织和管理相关内容的段落集合
-   - 支持标准段落组和自定义区块
-   - 可以灵活扩展以适应不同的展示需求
+   - Used to organize and manage collections of related paragraphs
+   - Supports standard paragraph groups and custom blocks
+   - Can be flexibly extended to accommodate different presentation needs
 
-3. **段落 (Paragraph)**
+3. **Paragraph**
 
-   - 支持多种段落类型：标题、正文、列表等
-   - 每种类型都有其特定的结构和用途
-   - 可以通过自定义类型扩展
+   - Supports multiple paragraph types: headings, body text, lists, etc.
+   - Each type has its specific structure and purpose
+   - Can be extended through custom types
 
-4. **短语 (Phrase)**
-   - 作为文本的最小组成单位
-   - 包括纯文本、实体和自定义短语
-   - 支持丰富的样式和交互配置
+4. **Phrase**
+   - Serves as the smallest unit of text composition
+   - Includes plain text, entities, and custom phrases
+   - Supports rich styling and interaction configuration
 
-## 类型系统
+## Type System
 
-通过以下方式可以在 TypeScript 项目中使用 T8 的类型定义：
+You can use T8's type definitions in TypeScript projects as follows:
 
 ```ts
 import type {
@@ -48,38 +48,38 @@ import type {
 } from '@antv/t8';
 ```
 
-主要的类型定义包括：
+The main type definitions include:
 
-- `NarrativeTextSpec`: 顶层文档结构
-- `SectionSpec`: 段落区块结构
-- `ParagraphSpec`: 段落类型定义
-- `PhraseSpec`: 短语类型定义
-- `EntityType`: 实体类型枚举
-- `CommonProps`: 通用属性定义
+- `NarrativeTextSpec`: Top-level document structure
+- `SectionSpec`: Section block structure
+- `ParagraphSpec`: Paragraph type definitions
+- `PhraseSpec`: Phrase type definitions
+- `EntityType`: Entity type enumeration
+- `CommonProps`: Common property definitions
 
-## 扩展性
+## Extensibility
 
-T8 Schema 设计了完善的扩展机制：
+T8 Schema has a well-designed extension mechanism:
 
-1. **自定义区块**
+1. **Custom Blocks**
 
-   - 通过 `CustomBlockElement` 接口扩展
-   - 可以实现完全自定义的区块结构
+   - Extended through the `CustomBlockElement` interface
+   - Enables implementation of fully customized block structures
 
-2. **自定义短语**
+2. **Custom Phrases**
 
-   - 通过 `CustomPhraseSpec` 接口扩展
-   - 支持自定义元数据和渲染逻辑
+   - Extended through the `CustomPhraseSpec` interface
+   - Supports custom metadata and rendering logic
 
-3. **样式系统**
-   - 所有组件都支持 `CommonProps`
-   - 可以通过 `styles` 和 `className` 自定义样式
+3. **Style System**
+   - All components support `CommonProps`
+   - Styles can be customized through `styles` and `className`
 
-## 详细文档
+## Detailed Documentation
 
-- [总体结构](./structure.md) - 了解 Schema 的整体组织结构
-- 类型定义
-  - [NarrativeText](./types/narrative-text.md) - 顶层文本结构
-  - [Section](./types/section.md) - 段落区块
-  - [Paragraph](./types/paragraph.md) - 段落类型
-  - [Phrase & Entity](./types/phrase.md) - 短语和实体
+- [Overall Structure](./structure.md) - Understand the overall organization of the Schema
+- Type Definitions
+  - [NarrativeText](./types/narrative-text.md) - Top-level text structure
+  - [Section](./types/section.md) - Section blocks
+  - [Paragraph](./types/paragraph.md) - Paragraph types
+  - [Phrase & Entity](./types/phrase.md) - Phrases and entities
