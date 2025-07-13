@@ -71,6 +71,9 @@ export default defineConfig({
       src: 'https://avatars.githubusercontent.com/u/19199542?s=200&v=4',
       height: 60,
     },
+    search: {
+      provider: 'local',
+    },
     socialLinks: [{ icon: 'github', link: 'https://github.com/antvis/t8' }],
   },
 
