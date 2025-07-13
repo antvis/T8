@@ -64,6 +64,10 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/antvis/t8' }],
   },
 
+  rewrites: {
+    '/': '/en',
+  },
+
   locales: {
     en: createLangConfig('en', 'English'),
     zh: createLangConfig('zh', '简体中文'),
