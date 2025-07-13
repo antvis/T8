@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-import llmstxt from 'vitepress-plugin-llms';
+import llmstxt, { copyOrDownloadAsMarkdownButtons } from 'vitepress-plugin-llms';
 
 const createLangConfig = (lang: string, label: string) => {
   return {
@@ -59,6 +59,11 @@ export default defineConfig({
   vite: {
     // @ts-expect-error type error
     plugins: [llmstxt()],
+  },
+  markdown: {
+    config(md) {
+      md.use(copyOrDownloadAsMarkdownButtons);
+    },
   },
   description: '🧬 Narrative text visualization for unstructured data.',
   themeConfig: {
