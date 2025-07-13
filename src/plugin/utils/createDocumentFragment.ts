@@ -7,7 +7,7 @@
  * use function `addElement` to add element to original element.
  */
 export const createDocumentFragment = (
-  element: HTMLElement | string | number,
+  element: string | number | Element,
   value: string,
   position: 'suffix' | 'prefix' = 'suffix',
 ): DocumentFragment => {
@@ -16,7 +16,7 @@ export const createDocumentFragment = (
   const originalElementSpan = value;
   fragment.textContent = originalElementSpan;
 
-  let newElement: HTMLElement | undefined = undefined;
+  let newElement: Element | undefined = undefined;
 
   if (typeof element === 'string' || typeof element === 'number') {
     newElement = document.createElement('span');
