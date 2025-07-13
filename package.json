@@ -1,6 +1,6 @@
 {
   "name": "@antv/t8",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "T8 is a text visualization solution for unstructured data within the AntV technology stack, and it is a declarative JSON Schema syntax that can be used to describe the content of data interpretation reports.",
   "main": "lib/index.js",
   "module": "es/index.js",
