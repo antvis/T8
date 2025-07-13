@@ -5,6 +5,8 @@ import DefaultTheme from 'vitepress/theme';
 import './style.css';
 // @ts-expect-error no types
 import CopyOrDownloadAsMarkdownButtons from './components/CopyOrDownloadAsMarkdownButtons.vue';
+import { Sandbox } from 'vitepress-plugin-sandpack';
+import 'vitepress-plugin-sandpack/dist/style.css';
 
 export default {
   extends: DefaultTheme,
@@ -15,5 +17,6 @@ export default {
   },
   enhanceApp({ app }) {
     app.component('CopyOrDownloadAsMarkdownButtons', CopyOrDownloadAsMarkdownButtons);
+    app.component('Sandbox', Sandbox);
   },
 } satisfies Theme;

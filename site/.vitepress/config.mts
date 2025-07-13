@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress';
 import llmstxt, { copyOrDownloadAsMarkdownButtons } from 'vitepress-plugin-llms';
+import container from 'markdown-it-container';
+import { renderSandbox } from 'vitepress-plugin-sandpack';
 
 const createLangConfig = (lang: string, label: string) => {
   return {
@@ -63,6 +65,13 @@ export default defineConfig({
   markdown: {
     config(md) {
       md.use(copyOrDownloadAsMarkdownButtons);
+      md
+        // the second parameter is html tag name
+        .use(container, 'sandbox', {
+          render(tokens, idx) {
+            return renderSandbox(tokens, idx, 'sandbox');
+          },
+        });
     },
   },
   description: '🧬 Narrative text visualization for unstructured data.',
