@@ -64,12 +64,15 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
-      md.use(copyOrDownloadAsMarkdownButtons);
-      md
-        // the second parameter is html tag name
+      md.use(copyOrDownloadAsMarkdownButtons)
         .use(container, 'sandbox', {
           render(tokens, idx) {
             return renderSandbox(tokens, idx, 'sandbox');
+          },
+        })
+        .use(container, 'my-sandbox', {
+          render(tokens, idx) {
+            return renderSandbox(tokens, idx, 'my-sandbox');
           },
         });
     },
