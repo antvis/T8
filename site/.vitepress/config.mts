@@ -1,13 +1,14 @@
 import { defineConfig } from 'vitepress';
+import llmstxt from 'vitepress-plugin-llms';
 
 const createLangConfig = (lang: string, label: string) => {
   return {
     label,
     lang,
-    link: `/${lang}/`,
+    link: `/${lang}`,
     themeConfig: {
       nav: [
-        { text: 'Home', link: `/${lang}/` },
+        { text: 'Home', link: `/${lang}` },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
         { text: 'Schema', link: `/${lang}/schema/index` },
         { text: 'API', link: `/${lang}/api/index` },
@@ -55,6 +56,10 @@ const createLangConfig = (lang: string, label: string) => {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'AntV T8',
+  vite: {
+    // @ts-expect-error type error
+    plugins: [llmstxt()],
+  },
   description: '🧬 Narrative text visualization for unstructured data.',
   themeConfig: {
     logo: {

@@ -36,8 +36,8 @@ Especially with the development of augmented analytics, rendering engines are ne
 
 ## Features
 
-- Standardized JSON schema for data interpretation text ([narrative-text-schema](../schema/index.html))
-- Pure JS rendering engine [Text](../narrative/index.html) for text-schema
+- Standardized JSON schema for data interpretation text ([narrative-text-schema](../schema/index.md))
+- Pure JS rendering engine `Text` for text-schema
   - Parses text structure description JSON schema into HTML
   - Standard visual representation of data phrases (such as metric values, ratios, differences, proportions, contributions, etc.)
   - Data-driven display of inline charts (mini pie, mini line) to improve text reading efficiency

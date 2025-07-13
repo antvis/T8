@@ -36,8 +36,8 @@ narrative 相关技术基于 `JSON` 数据来自 LLM 大模型生成的假设，
 
 ## 特性
 
-- 数据解读文本的规范描述 json schema（[narrative-text-schema](../schema/index.html)）；
-- text-schema 的纯 JS 渲染引擎 [Text](../narrative/index.html)；
+- 数据解读文本的规范描述 json schema（[narrative-text-schema](../schema/index.md)）；
+- text-schema 的纯 JS 渲染引擎 `Text`；
   - 解析文本结构描述 json schema 为 html；
   - 数据短语（如指标值、比率、差值、占比、贡献度等）标准视觉表示；
   - 行内小图（mini pie、mini line）数据驱动展示，提高文本看数效率；
