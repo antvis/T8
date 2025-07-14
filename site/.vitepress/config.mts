@@ -57,7 +57,7 @@ const createLangConfig = (lang: string, label: string) => {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'AntV T8',
+  title: 'T8: Text Visualization',
   vite: {
     // @ts-expect-error type error
     plugins: [llmstxt()],
@@ -81,7 +81,9 @@ export default defineConfig({
   themeConfig: {
     logo: {
       src: 'https://avatars.githubusercontent.com/u/19199542?s=200&v=4',
-      height: 60,
+      onClick: () => {
+        window.open('https://antv.antgroup.com', '_blank');
+      },
     },
     search: {
       provider: 'local',
