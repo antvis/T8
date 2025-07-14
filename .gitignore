@@ -145,7 +145,7 @@ bun.lockb
 dist/
 es/
 lib/
-types/
+/types/
 
 # Snapshot
 __tests__/snapshot/**/*-actual.*

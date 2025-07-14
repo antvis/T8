@@ -1,5 +1,5 @@
 ---
-title: Event Handling
+title: Event Listening
 order: 3
 group:
   title: Advanced Usage
@@ -10,16 +10,16 @@ nav:
   order: 1
 ---
 
-# Event Handling
+# Event Listening
 
-T8 provides a complete event system that allows you to listen and respond to various interaction events in text visualization.
+T8 provides a complete event system that allows you to monitor and respond to various interaction events in text visualization.
 
 ## Event Types
 
 T8 supports the following levels of events:
 
 1. Narrative text events (`narrative:*`)
-2. Section events (`section:*`)
+2. Section block events (`section:*`)
 3. Paragraph events (`paragraph:*`)
 4. Phrase events (`phrase:*`)
 
@@ -51,9 +51,130 @@ text.on('narrative:click', (spec) => {
 });
 ```
 
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('light', { fontSize: 40 });
+
+text.on('phrase:click', (spec) => {
+  console.log('Phrase clicked:', spec);
+});
+
+// Listen for paragraph click events
+text.on('paragraph:click', (spec) => {
+  console.log('Paragraph clicked:', spec);
+});
+
+// Listen for section click events
+text.on('section:click', (spec) => {
+  console.log('Section clicked:', spec);
+});
+
+// Listen for narrative text click events
+text.on('narrative:click', (spec) => {
+  console.log('Narrative text clicked:', spec);
+});
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
 ## Event Parameters
 
-Each event handler receives an event parameter object containing detailed information about the event:
+Each event handler receives an event parameter object that contains detailed information about the event:
 
 ```ts
 text.on('phrase:click', (spec) => {
@@ -112,5 +233,5 @@ text.on('narrative:click', (spec) => {
   console.log('4. Narrative text clicked');
 });
 
-// When a phrase is clicked, all the above event handlers will execute in sequence
+// When a phrase is clicked, all of the above event handlers will execute in sequence
 ```

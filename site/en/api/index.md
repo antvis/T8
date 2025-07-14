@@ -30,10 +30,10 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 
 #### theme
 
-| Parameter | Type                        | Required | Description               |
-| --------- | --------------------------- | -------- | ------------------------- |
-| theme     | 'dark' \| 'light'           | Yes      | Theme name                |
-| seedToken | Partial\<SeedTokenOptions\> | No       | Theme token configuration |
+| Parameter | Type                        | Required | Description        |
+| --------- | --------------------------- | -------- | ------------------ |
+| theme     | 'dark' \| 'light'           | Yes      | Theme name         |
+| seedToken | Partial\<SeedTokenOptions\> | No       | Theme token config |
 
 **Return Value**
 
@@ -64,10 +64,10 @@ interface NarrativeTextSpec {
 }
 ```
 
-| Property | Type          | Required | Description                     |
-| -------- | ------------- | -------- | ------------------------------- |
-| headline | HeadlineSpec  | No       | Headline specification          |
-| sections | SectionSpec[] | No       | Array of section specifications |
+| Property | Type          | Required | Description       |
+| -------- | ------------- | -------- | ----------------- |
+| headline | HeadlineSpec  | No       | Headline spec     |
+| sections | SectionSpec[] | No       | Array of sections |
 
 ### SectionSpec
 
@@ -75,12 +75,12 @@ interface NarrativeTextSpec {
 type SectionSpec = (StandardSectionSpec | CustomBlockElement) & CommonProps;
 ```
 
-| Property   | Type                  | Required | Description                       |
-| ---------- | --------------------- | -------- | --------------------------------- |
-| paragraphs | ParagraphSpec[]       | No       | Array of paragraph specifications |
-| customType | string                | No       | Custom block type                 |
-| styles     | Record\<string, any\> | No       | Style object                      |
-| className  | string                | No       | Class name                        |
+| Property   | Type                  | Required | Description         |
+| ---------- | --------------------- | -------- | ------------------- |
+| paragraphs | ParagraphSpec[]       | No       | Array of paragraphs |
+| customType | string                | No       | Custom block type   |
+| styles     | Record\<string, any\> | No       | Style object        |
+| className  | string                | No       | Class name          |
 
 ### ParagraphSpec
 
@@ -102,7 +102,7 @@ enum ParagraphType {
 | Property   | Type             | Required | Description                                   |
 | ---------- | ---------------- | -------- | --------------------------------------------- |
 | type       | ParagraphType    | Yes      | Paragraph type                                |
-| phrases    | PhraseSpec[]     | Yes      | Array of phrase specifications                |
+| phrases    | PhraseSpec[]     | Yes      | Array of phrases                              |
 | bullets    | BulletItemSpec[] | No       | Array of bullet items (only for BULLETS type) |
 | customType | string           | No       | Custom block type (only for custom blocks)    |
 
@@ -132,8 +132,8 @@ type EntityType =
   | 'metric_value' // Metric value, e.g., 1.23 million
   | 'other_metric_value' // Other metric value
   | 'contribute_ratio' // Contribution ratio, e.g., 23%
-  | 'delta_value' // Change value, e.g., -1.2
-  | 'ratio_value' // Change ratio, e.g., +23%
+  | 'delta_value' // Delta value, e.g., -1.2
+  | 'ratio_value' // Ratio value, e.g., +23%
   | 'trend_desc' // Trend description, e.g., up/down
   | 'dim_value' // Dimension value, e.g., sex = man
   | 'time_desc' // Time description, e.g., 2021-11-19
@@ -180,18 +180,18 @@ interface PhraseDescriptor<MetaData> {
 }
 ```
 
-| Property    | Type                                        | Required | Description                                |
-| ----------- | ------------------------------------------- | -------- | ------------------------------------------ |
-| key         | string                                      | Yes      | Unique plugin identifier                   |
-| isEntity    | boolean                                     | Yes      | Whether it's an entity phrase plugin       |
-| render      | function \| HTMLElement \| DocumentFragment | No       | Render function or element                 |
-| tooltip     | false \| object                             | No       | Tooltip configuration                      |
-| classNames  | string[] \| function                        | No       | Array of class names or generator function |
-| style       | CSSProperties \| function                   | No       | Style object or generator function         |
-| onHover     | function                                    | No       | Hover event handler                        |
-| onClick     | function                                    | No       | Click event handler                        |
-| getText     | function                                    | No       | Get plain text content function            |
-| getMarkdown | function                                    | No       | Get Markdown content function              |
+| Property    | Type                                        | Required | Description                     |
+| ----------- | ------------------------------------------- | -------- | ------------------------------- |
+| key         | string                                      | Yes      | Unique plugin identifier        |
+| isEntity    | boolean                                     | Yes      | Whether it's an entity phrase   |
+| render      | function \| HTMLElement \| DocumentFragment | No       | Render function or element      |
+| tooltip     | false \| object                             | No       | Tooltip configuration           |
+| classNames  | string[] \| function                        | No       | Class names array or function   |
+| style       | CSSProperties \| function                   | No       | Style object or function        |
+| onHover     | function                                    | No       | Hover event handler             |
+| onClick     | function                                    | No       | Click event handler             |
+| getText     | function                                    | No       | Get plain text content function |
+| getMarkdown | function                                    | No       | Get Markdown content function   |
 
 ### BlockDescriptor
 
@@ -207,15 +207,15 @@ interface BlockDescriptor<CustomBlockSpec> {
 }
 ```
 
-| Property    | Type                      | Required | Description                        |
-| ----------- | ------------------------- | -------- | ---------------------------------- |
-| key         | string                    | Yes      | Unique plugin identifier           |
-| isBlock     | true                      | Yes      | Identifies as a block plugin       |
-| className   | string \| function        | No       | Class name or generator function   |
-| style       | CSSProperties \| function | No       | Style object or generator function |
-| render      | function                  | No       | Render function                    |
-| getText     | function                  | No       | Get plain text content function    |
-| getMarkdown | function                  | No       | Get Markdown content function      |
+| Property    | Type                      | Required | Description                     |
+| ----------- | ------------------------- | -------- | ------------------------------- |
+| key         | string                    | Yes      | Unique plugin identifier        |
+| isBlock     | true                      | Yes      | Identifies as a block plugin    |
+| className   | string \| function        | No       | Class name or function          |
+| style       | CSSProperties \| function | No       | Style object or function        |
+| render      | function                  | No       | Render function                 |
+| getText     | function                  | No       | Get plain text content function |
+| getMarkdown | function                  | No       | Get Markdown content function   |
 
 ### Preset Plugin Factory Functions
 
@@ -248,4 +248,40 @@ interface SeedTokenOptions {
   // Base configuration
   fontSize: number;
   lineHeight: number;
+  fontFamily: string;
+
+  // Color system
+  colorBase: string; // Base text color
+  colorEntityBase: string; // Entity base color
+  colorHeadingBase: string; // Heading base color
+  colorPositive: string; // Positive color
+  colorNegative: string; // Negative color
+  colorConclusion: string; // Conclusion color
+  colorDimensionValue: string; // Dimension value color
+  colorMetricName: string; // Metric name color
+  colorMetricValue: string; // Metric value color
+  colorOtherValue: string; // Other value color
+  colorProportionShadow: string; // Proportion chart shadow color
+  colorProportionFill: string; // Proportion chart fill color
+  colorLineStroke: string; // Line chart stroke color
+}
 ```
+
+| Property              | Type   | Required | Description                   |
+| --------------------- | ------ | -------- | ----------------------------- |
+| fontSize              | number | Yes      | Base font size                |
+| lineHeight            | number | Yes      | Base line height              |
+| fontFamily            | string | Yes      | Font family                   |
+| colorBase             | string | Yes      | Base text color               |
+| colorEntityBase       | string | Yes      | Entity base color             |
+| colorHeadingBase      | string | Yes      | Heading base color            |
+| colorPositive         | string | Yes      | Positive color                |
+| colorNegative         | string | Yes      | Negative color                |
+| colorConclusion       | string | Yes      | Conclusion color              |
+| colorDimensionValue   | string | Yes      | Dimension value color         |
+| colorMetricName       | string | Yes      | Metric name color             |
+| colorMetricValue      | string | Yes      | Metric value color            |
+| colorOtherValue       | string | Yes      | Other value color             |
+| colorProportionShadow | string | Yes      | Proportion chart shadow color |
+| colorProportionFill   | string | Yes      | Proportion chart fill color   |
+| colorLineStroke       | string | Yes      | Line chart stroke color       |
