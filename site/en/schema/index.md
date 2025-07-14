@@ -10,19 +10,19 @@ T8 Schema is a JSON Schema specification for declaratively describing data inter
 
 ## Core Concepts
 
-The T8 Schema system includes the following core concepts:
+T8 Schema system includes the following core concepts:
 
 1. **NarrativeText**
 
    - Acts as the top-level container for the entire document
-   - Contains a headline and multiple sections
+   - Contains Headline and multiple Section blocks
    - Supports global style configuration
 
 2. **Section**
 
    - Used to organize and manage collections of related paragraphs
    - Supports standard paragraph groups and custom blocks
-   - Can be flexibly extended to accommodate different presentation needs
+   - Can be flexibly extended to accommodate different display requirements
 
 3. **Paragraph**
 
@@ -59,21 +59,21 @@ The main type definitions include:
 
 ## Extensibility
 
-T8 Schema has a well-designed extension mechanism:
+T8 Schema has designed a comprehensive extension mechanism:
 
 1. **Custom Blocks**
 
-   - Extended through the `CustomBlockElement` interface
-   - Enables implementation of fully customized block structures
+   - Extend through the `CustomBlockElement` interface
+   - Can implement completely custom block structures
 
 2. **Custom Phrases**
 
-   - Extended through the `CustomPhraseSpec` interface
+   - Extend through the `CustomPhraseSpec` interface
    - Supports custom metadata and rendering logic
 
 3. **Style System**
    - All components support `CommonProps`
-   - Styles can be customized through `styles` and `className`
+   - Can customize styles through `styles` and `className`
 
 ## Detailed Documentation
 

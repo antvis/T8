@@ -12,7 +12,7 @@ nav:
 
 # Theme Configuration
 
-T8 provides a flexible theme configuration system. You can use the `theme` method to set the theme style for text visualization.
+T8 provides a flexible theme configuration system. You can use the `theme` method to set the text visualization theme style.
 
 ## Basic Usage
 
@@ -33,18 +33,122 @@ text.theme('dark', {
 });
 ```
 
-## Configuration Options
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+app.style.background = 'black';
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('dark', { fontSize: 40 });
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## Configuration Items
 
 ### Basic Configuration
 
-Basic configuration items control the fundamental text styles:
+Basic configuration items control the basic text styles:
 
-| Option      | Type   | Default                  | Description      |
-| ----------- | ------ | ------------------------ | ---------------- |
-| fontFamily  | string | 'PingFangSC, sans-serif' | Font family      |
-| fontSize    | number | 14                       | Base font size   |
-| lineHeight  | number | 24                       | Base line height |
-| borderColor | string | 'rgb(199, 199, 199)'     | Border color     |
+| Configuration Item | Type   | Default Value            | Description      |
+| ------------------ | ------ | ------------------------ | ---------------- |
+| fontFamily         | string | 'PingFangSC, sans-serif' | Font family      |
+| fontSize           | number | 14                       | Base font size   |
+| lineHeight         | number | 24                       | Base line height |
+| borderColor        | string | 'rgb(199, 199, 199)'     | Border color     |
 
 ### Heading Configuration
 
@@ -76,9 +180,9 @@ You can configure the size and line height of different heading levels through `
 
 ### Color Configuration
 
-T8 provides a complete set of preset colors for both light and dark themes. Each theme includes the following color configurations:
+T8 provides a complete set of preset colors for light and dark themes. Each theme includes the following color configurations:
 
-| Option                | Description             | Light Theme         | Dark Theme                |
+| Configuration Item    | Description             | Light Theme         | Dark Theme                |
 | --------------------- | ----------------------- | ------------------- | ------------------------- |
 | colorBase             | Base text color         | rgba(0, 0, 0, 0.65) | rgba(255, 255, 255, 0.65) |
 | colorEntityBase       | Entity base color       | rgba(0, 0, 0, 0.65) | rgba(255, 255, 255, 0.65) |
@@ -90,15 +194,15 @@ T8 provides a complete set of preset colors for both light and dark themes. Each
 | colorMetricName       | Metric name color       | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
 | colorMetricValue      | Metric value color      | #1677FF             | #4B91FF                   |
 | colorOtherValue       | Other value color       | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
-| colorProportionShadow | Proportion shadow color | #CDDDFD             | #CDDDFD                   |
-| colorProportionFill   | Proportion fill color   | #3471F9             | #3471F9                   |
-| colorLineStroke       | Line stroke color       | #5B8FF9             | #5B8FF9                   |
+| colorProportionShadow | Proportion chart shadow | #CDDDFD             | #CDDDFD                   |
+| colorProportionFill   | Proportion chart fill   | #3471F9             | #3471F9                   |
+| colorLineStroke       | Line chart stroke       | #5B8FF9             | #5B8FF9                   |
 
 ## Theme Customization
 
-### Overriding Preset Themes
+### Overriding Preset Theme
 
-You can override partial configurations while using preset themes:
+You can override part of the configuration based on the preset theme:
 
 ```ts
 text.theme('dark', {
@@ -122,7 +226,7 @@ text.theme('dark', {
 
 ### Complete Example
 
-Here's a complete example including all configuration options:
+This is a complete example containing all configuration items:
 
 ```ts
 text.theme('dark', {

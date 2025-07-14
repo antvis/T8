@@ -10,7 +10,6 @@ const createLangConfig = (lang: string, label: string) => {
     link: `/${lang}`,
     themeConfig: {
       nav: [
-        { text: 'Home', link: `/${lang}` },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
         { text: 'Schema', link: `/${lang}/schema/index` },
         { text: 'API', link: `/${lang}/api/index` },
@@ -57,7 +56,7 @@ const createLangConfig = (lang: string, label: string) => {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'AntV T8',
+  title: 'T8: Text Visualization',
   vite: {
     // @ts-expect-error type error
     plugins: [llmstxt()],
@@ -80,8 +79,10 @@ export default defineConfig({
   description: '🧬 Narrative text visualization for unstructured data.',
   themeConfig: {
     logo: {
-      src: 'https://avatars.githubusercontent.com/u/19199542?s=200&v=4',
-      height: 60,
+      src: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FBLnQIAzx6cAAAAAQDAAAAgAemJ7AQ/original',
+      onClick: () => {
+        window.open('https://antv.antgroup.com', '_blank');
+      },
     },
     search: {
       provider: 'local',
