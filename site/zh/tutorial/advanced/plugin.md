@@ -59,44 +59,148 @@ import {
 2. `mode`: 合并模式，可选 'merge'（默认）或 'overwrite'
 
 ```ts
-const metricValuePlugin = createMetricValue(
-  {
-    // 样式编码
-    style: (value, metadata, themeSeedToken) => ({
-      color: metadata.assessment === 'positive' ? themeSeedToken.colorPositive : themeSeedToken.colorNegative,
-      fontSize: themeSeedToken.fontSize,
-    }),
-    // 工具提示
-    tooltip: (value, metadata) => ({
-      title: metadata.description,
-    }),
-    // 事件处理
-    onClick: (value, metadata) => {
-      console.log('Clicked:', value, metadata);
-    },
-  },
-  'merge',
-);
-```
+import { createDimensionValue } from '@antv/t8';
 
-### 实际示例
-
-下面是一个完整的示例，展示如何自定义指标值和对比值的展示：
-
-```tsx
-import { createMetricValue, Text } from '@antv/t8';
-
-const metricValuePlugin = createMetricValue({
+const dimensionValueDescriptor = {
+  // 样式编码
   style: (value, metadata, themeSeedToken) => ({
-    color: themeSeedToken.colorPrimary,
-    fontWeight: 600,
+    color: 'red',
+    fontSize: '40px',
   }),
-});
+  // 工具提示
+  tooltip: {
+    title: (value) => value,
+  },
+  // 事件处理
+  onClick: (value, metadata) => {
+    console.log('Clicked:', value, metadata);
+  },
+};
 
-// 使用插件管理器
-const text = new Text('#container');
-text.registerPlugin(metricValuePlugin);
+const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
 ```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createDimensionValue } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const dimensionValueDescriptor = {
+  // 样式编码
+  style: (value, metadata, themeSeedToken) => ({
+    color: 'red',
+    fontSize: '40px',
+  }),
+  // 工具提示
+  tooltip: {
+    title: (value) => value,
+  },
+  // 事件处理
+  onClick: (value, metadata) => {
+    console.log('Clicked:', value, metadata);
+  },
+};
+
+const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(dimensionPlugin);
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "dim_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
 
 ## 自定义短语插件（CustomPhrase）
 
@@ -111,17 +215,137 @@ import { createCustomPhraseFactory } from '@antv/t8';
 
 const customPhrasePlugin = createCustomPhraseFactory({
   // 唯一标识符
-  key: 'custom-type',
+  key: 'custom_type',
   // 自定义渲染内容
   render: (value, metadata) => {
     const element = document.createElement('span');
     element.textContent = `${metadata.level}-${value}`;
     element.style.backgroundColor = '#f0f0f0';
+    element.style.color = 'red';
     element.style.padding = '0 4px';
     return element;
   },
 });
 ```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createCustomPhraseFactory } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const customPhrasePlugin = createCustomPhraseFactory({
+  // 唯一标识符
+  key: 'custom_type',
+  // 自定义渲染内容
+  render: (value, metadata) => {
+    const element = document.createElement('span');
+    element.textContent = `${metadata.level}-${value}`;
+    element.style.backgroundColor = '#f0f0f0';
+    element.style.color = 'red';
+    element.style.padding = '0 4px';
+    return element;
+  },
+});
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(customPhrasePlugin);
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "custom",
+              "value": "average deal size",
+              "metadata": {
+                "level": 1,
+                "customType": "custom_type"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
 
 ## 自定义区块插件（CustomBlock）
 
@@ -138,6 +362,7 @@ const customBlockPlugin = createCustomBlockFactory({
   key: 'custom-block',
   // 自定义类名
   className: 'custom-block-class',
+
   // 自定义样式
   style: {
     padding: '16px',
@@ -146,8 +371,139 @@ const customBlockPlugin = createCustomBlockFactory({
   // 自定义渲染
   render: (metadata) => {
     const container = document.createElement('div');
-    container.textContent = '自定义区块内容';
+    container.style.color = 'red';
+    container.style.backgroundColor = 'green';
+    container.style.fontSize = '40px';
+    container.textContent = 'This is custom Block';
     return container;
   },
 });
 ```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createCustomBlockFactory } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const customBlockPlugin = createCustomBlockFactory({
+  key: 'custom-block',
+  // 自定义类名
+  className: 'custom-block-class',
+
+  // 自定义样式
+  style: {
+    padding: '16px',
+    backgroundColor: '#f0f0f0',
+  },
+  // 自定义渲染
+  render: (metadata) => {
+    const container = document.createElement('div');
+    container.style.color = 'red';
+    container.style.backgroundColor = 'green';
+    container.style.fontSize = '40px';
+    container.textContent = 'This is custom Block';
+    return container;
+  },
+});
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(customBlockPlugin);
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "customType": "custom-block"
+    },
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "dim_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::

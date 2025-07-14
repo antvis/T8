@@ -51,6 +51,127 @@ text.on('narrative:click', (spec) => {
 });
 ```
 
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 40 });
+
+text.on('phrase:click', (spec) => {
+  console.log('短语被点击：', spec);
+});
+
+// 监听段落点击事件
+text.on('paragraph:click', (spec) => {
+  console.log('段落被点击：', spec);
+});
+
+// 监听区块点击事件
+text.on('section:click', (spec) => {
+  console.log('区块被点击：', spec);
+});
+
+// 监听整个叙事文本的点击事件
+text.on('narrative:click', (spec) => {
+  console.log('叙事文本被点击：', spec);
+});
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
 ## 事件参数
 
 每个事件处理函数都会收到一个事件参数对象，包含了与事件相关的详细信息：

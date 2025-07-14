@@ -33,6 +33,110 @@ text.theme('dark', {
 });
 ```
 
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+app.style.background = 'black';
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('dark', { fontSize: 40 });
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
 ## 配置项
 
 ### 基础配置
