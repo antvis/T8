@@ -79,7 +79,7 @@ export default defineConfig({
   description: '🧬 Narrative text visualization for unstructured data.',
   themeConfig: {
     logo: {
-      src: 'https://avatars.githubusercontent.com/u/19199542?s=200&v=4',
+      src: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FBLnQIAzx6cAAAAAQDAAAAgAemJ7AQ/original',
       onClick: () => {
         window.open('https://antv.antgroup.com', '_blank');
       },
