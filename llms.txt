@@ -1,4 +1,4 @@
-# T8: Text Visualization
+# 🧬 T8: Text Visualization Solution for Unstructured Data
 
 > 🧬 Narrative text visualization for unstructured data.
 
