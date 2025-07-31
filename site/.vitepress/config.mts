@@ -77,6 +77,7 @@ export default defineConfig({
     },
   },
   description: '🧬 Narrative text visualization for unstructured data.',
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   themeConfig: {
     logo: {
       src: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FBLnQIAzx6cAAAAAQDAAAAgAemJ7AQ/original',
