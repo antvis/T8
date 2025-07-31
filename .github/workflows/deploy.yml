@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - deploy-gh-pages # for testing
 
 jobs:
   deploy-site:
