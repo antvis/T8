@@ -56,7 +56,7 @@ const createLangConfig = (lang: string, label: string) => {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'T8: Text Visualization',
+  title: '🧬 T8: Text Visualization Solution for Unstructured Data',
   vite: {
     // @ts-expect-error type error
     plugins: [llmstxt()],
@@ -77,6 +77,7 @@ export default defineConfig({
     },
   },
   description: '🧬 Narrative text visualization for unstructured data.',
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   themeConfig: {
     logo: {
       src: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FBLnQIAzx6cAAAAAQDAAAAgAemJ7AQ/original',
@@ -84,6 +85,7 @@ export default defineConfig({
         window.open('https://antv.antgroup.com', '_blank');
       },
     },
+    siteTitle: 'T8 - Text Visualization',
     search: {
       provider: 'local',
     },
