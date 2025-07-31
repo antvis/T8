@@ -1,0 +1,5407 @@
+---
+url: /en/api.md
+---
+
+# API Reference
+
+## Text
+
+### constructor
+
+```typescript
+constructor(container: string | HTMLElement, options?: TextOptions);
+```
+
+| Parameter | Type                  | Required | Description                                             |
+| --------- | --------------------- | -------- | ------------------------------------------------------- |
+| container | string | HTMLElement | Yes      | Container element, can be a DOM selector or DOM element |
+
+#### schema
+
+| Parameter | Type              | Required | Description                             |
+| --------- | ----------------- | -------- | --------------------------------------- |
+| spec      | NarrativeTextSpec | Yes      | Text visualization specification object |
+
+**Return Value**
+
+| Type | Description                             |
+| ---- | --------------------------------------- |
+| Text | Text instance, supports method chaining |
+
+#### theme
+
+| Parameter | Type                        | Required | Description        |
+| --------- | --------------------------- | -------- | ------------------ |
+| theme     | 'dark' | 'light'           | Yes      | Theme name         |
+| seedToken | Partial\<SeedTokenOptions> | No       | Theme token config |
+
+**Return Value**
+
+| Type | Description                             |
+| ---- | --------------------------------------- |
+| Text | Text instance, supports method chaining |
+
+#### registerPlugin
+
+| Parameter | Type                       | Required | Description                       |
+| --------- | -------------------------- | -------- | --------------------------------- |
+| plugin    | PluginType | PluginType\[] | Yes      | Single plugin or array of plugins |
+
+**Return Value**
+
+| Type | Description                             |
+| ---- | --------------------------------------- |
+| Text | Text instance, supports method chaining |
+
+## Schema
+
+### NarrativeTextSpec
+
+```typescript
+interface NarrativeTextSpec {
+  headline?: HeadlineSpec;
+  sections?: SectionSpec[];
+}
+```
+
+| Property | Type          | Required | Description       |
+| -------- | ------------- | -------- | ----------------- |
+| headline | HeadlineSpec  | No       | Headline spec     |
+| sections | SectionSpec\[] | No       | Array of sections |
+
+### SectionSpec
+
+```typescript
+type SectionSpec = (StandardSectionSpec | CustomBlockElement) & CommonProps;
+```
+
+| Property   | Type                  | Required | Description         |
+| ---------- | --------------------- | -------- | ------------------- |
+| paragraphs | ParagraphSpec\[]       | No       | Array of paragraphs |
+| customType | string                | No       | Custom block type   |
+| styles     | Record\<string, any> | No       | Style object        |
+| className  | string                | No       | Class name          |
+
+### ParagraphSpec
+
+```typescript
+type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomBlockElement;
+
+enum ParagraphType {
+  HEADING1 = 'heading1',
+  HEADING2 = 'heading2',
+  HEADING3 = 'heading3',
+  HEADING4 = 'heading4',
+  HEADING5 = 'heading5',
+  HEADING6 = 'heading6',
+  NORMAL = 'normal',
+  BULLETS = 'bullets',
+}
+```
+
+| Property   | Type             | Required | Description                                   |
+| ---------- | ---------------- | -------- | --------------------------------------------- |
+| type       | ParagraphType    | Yes      | Paragraph type                                |
+| phrases    | PhraseSpec\[]     | Yes      | Array of phrases                              |
+| bullets    | BulletItemSpec\[] | No       | Array of bullet items (only for BULLETS type) |
+| customType | string           | No       | Custom block type (only for custom blocks)    |
+
+### PhraseSpec
+
+```typescript
+type PhraseSpec = TextPhraseSpec | EntityPhraseSpec | CustomPhraseSpec<CustomMetaData>;
+
+enum PhraseType {
+  TEXT = 'text',
+  ENTITY = 'entity',
+  CUSTOM = 'custom',
+}
+```
+
+| Property | Type                             | Required | Description    |
+| -------- | -------------------------------- | -------- | -------------- |
+| type     | PhraseType                       | Yes      | Phrase type    |
+| value    | string                           | Yes      | Phrase content |
+| metadata | EntityMetaData | CustomMetaData | No       | Metadata       |
+
+### EntityType
+
+```typescript
+type EntityType =
+  | 'metric_name' // Metric name, e.g., DAU
+  | 'metric_value' // Metric value, e.g., 1.23 million
+  | 'other_metric_value' // Other metric value
+  | 'contribute_ratio' // Contribution ratio, e.g., 23%
+  | 'delta_value' // Delta value, e.g., -1.2
+  | 'ratio_value' // Ratio value, e.g., +23%
+  | 'trend_desc' // Trend description, e.g., up/down
+  | 'dim_value' // Dimension value, e.g., sex = man
+  | 'time_desc' // Time description, e.g., 2021-11-19
+  | 'proportion'; // Proportion, e.g., 20%
+```
+
+## Plugin System
+
+### PluginManager
+
+```typescript
+class PluginManager {
+  constructor(plugins?: PluginType[]);
+  protected entities: Partial<Record<EntityType, PhraseDescriptor<EntityMetaData>>>;
+  protected customPhrases: Record<string, PhraseDescriptor<any>>;
+  protected customBlocks: Record<string, BlockDescriptor<any>>;
+}
+```
+
+#### constructor
+
+| Parameter | Type         | Required | Description      |
+| --------- | ------------ | -------- | ---------------- |
+| plugins   | PluginType\[] | No       | Array of plugins |
+
+### PhraseDescriptor
+
+```typescript
+interface PhraseDescriptor<MetaData> {
+  key: string;
+  isEntity: boolean;
+  render?: ((value: string, metadata: MetaData) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
+  tooltip?:
+    | false
+    | (Omit<TooltipProps, 'children' | 'title'> & {
+        title: ((value: string, metadata: MetaData) => HTMLElement | string | number) | HTMLElement | string | number;
+      });
+  classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
+  style?: CSSProperties | ((value: string, metadata: MetaData, themeSeedToken: SeedTokenOptions) => CSSProperties);
+  onHover?: (value: string, metadata: MetaData) => string;
+  onClick?: (value: string, metadata: MetaData) => string;
+  getText?: (value: string, metadata: MetaData) => string;
+  getMarkdown?: (value: string, metadata: MetaData) => string;
+}
+```
+
+| Property    | Type                                        | Required | Description                     |
+| ----------- | ------------------------------------------- | -------- | ------------------------------- |
+| key         | string                                      | Yes      | Unique plugin identifier        |
+| isEntity    | boolean                                     | Yes      | Whether it's an entity phrase   |
+| render      | function | HTMLElement | DocumentFragment | No       | Render function or element      |
+| tooltip     | false | object                             | No       | Tooltip configuration           |
+| classNames  | string\[] | function                        | No       | Class names array or function   |
+| style       | CSSProperties | function                   | No       | Style object or function        |
+| onHover     | function                                    | No       | Hover event handler             |
+| onClick     | function                                    | No       | Click event handler             |
+| getText     | function                                    | No       | Get plain text content function |
+| getMarkdown | function                                    | No       | Get Markdown content function   |
+
+### BlockDescriptor
+
+```typescript
+interface BlockDescriptor<CustomBlockSpec> {
+  key: string;
+  isBlock: true;
+  className?: string | ((spec: CustomBlockSpec) => string);
+  style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
+  render?: (spec: CustomBlockSpec) => HTMLElement | DocumentFragment;
+  getText?: (spec: CustomBlockSpec) => string;
+  getMarkdown?: (spec: CustomBlockSpec) => string;
+}
+```
+
+| Property    | Type                      | Required | Description                     |
+| ----------- | ------------------------- | -------- | ------------------------------- |
+| key         | string                    | Yes      | Unique plugin identifier        |
+| isBlock     | true                      | Yes      | Identifies as a block plugin    |
+| className   | string | function        | No       | Class name or function          |
+| style       | CSSProperties | function | No       | Style object or function        |
+| render      | function                  | No       | Render function                 |
+| getText     | function                  | No       | Get plain text content function |
+| getMarkdown | function                  | No       | Get Markdown content function   |
+
+### Preset Plugin Factory Functions
+
+```typescript
+function createMetricName(
+  customDescriptor?: SpecificEntityPhraseDescriptor,
+  mode?: CustomEntityMode,
+): PhraseDescriptor<EntityMetaData>;
+```
+
+| Parameter        | Type                           | Required | Description                        |
+| ---------------- | ------------------------------ | -------- | ---------------------------------- |
+| customDescriptor | SpecificEntityPhraseDescriptor | No       | Custom descriptor                  |
+| mode             | CustomEntityMode               | No       | Merge mode, 'merge' or 'overwrite' |
+
+**Return Value**
+
+| Type                               | Description                     |
+| ---------------------------------- | ------------------------------- |
+| PhraseDescriptor\<EntityMetaData> | Entity phrase plugin descriptor |
+
+*Note: Other preset plugin factory functions (createMetricValue, createDeltaValue, etc.) have the same parameters and return values as createMetricName.*
+
+## Theme System
+
+### SeedTokenOptions
+
+```typescript
+interface SeedTokenOptions {
+  // Base configuration
+  fontSize: number;
+  lineHeight: number;
+  fontFamily: string;
+
+  // Color system
+  colorBase: string; // Base text color
+  colorEntityBase: string; // Entity base color
+  colorHeadingBase: string; // Heading base color
+  colorPositive: string; // Positive color
+  colorNegative: string; // Negative color
+  colorConclusion: string; // Conclusion color
+  colorDimensionValue: string; // Dimension value color
+  colorMetricName: string; // Metric name color
+  colorMetricValue: string; // Metric value color
+  colorOtherValue: string; // Other value color
+  colorProportionShadow: string; // Proportion chart shadow color
+  colorProportionFill: string; // Proportion chart fill color
+  colorLineStroke: string; // Line chart stroke color
+}
+```
+
+| Property              | Type   | Required | Description                   |
+| --------------------- | ------ | -------- | ----------------------------- |
+| fontSize              | number | Yes      | Base font size                |
+| lineHeight            | number | Yes      | Base line height              |
+| fontFamily            | string | Yes      | Font family                   |
+| colorBase             | string | Yes      | Base text color               |
+| colorEntityBase       | string | Yes      | Entity base color             |
+| colorHeadingBase      | string | Yes      | Heading base color            |
+| colorPositive         | string | Yes      | Positive color                |
+| colorNegative         | string | Yes      | Negative color                |
+| colorConclusion       | string | Yes      | Conclusion color              |
+| colorDimensionValue   | string | Yes      | Dimension value color         |
+| colorMetricName       | string | Yes      | Metric name color             |
+| colorMetricValue      | string | Yes      | Metric value color            |
+| colorOtherValue       | string | Yes      | Other value color             |
+| colorProportionShadow | string | Yes      | Proportion chart shadow color |
+| colorProportionFill   | string | Yes      | Proportion chart fill color   |
+| colorLineStroke       | string | Yes      | Line chart stroke color       |
+
+---
+
+---
+url: /zh/api.md
+---
+
+# API 参考
+
+## Text
+
+### constructor
+
+```typescript
+constructor(container: string | HTMLElement, options?: TextOptions);
+```
+
+| 参数      | 类型                  | 必填 | 说明                                   |
+| --------- | --------------------- | ---- | -------------------------------------- |
+| container | string | HTMLElement | 是   | 容器元素，可以是 DOM 选择器或 DOM 元素 |
+
+#### schema
+
+| 参数 | 类型              | 必填 | 说明               |
+| ---- | ----------------- | ---- | ------------------ |
+| spec | NarrativeTextSpec | 是   | 文本可视化规范对象 |
+
+**返回值**
+
+| 类型 | 说明                    |
+| ---- | ----------------------- |
+| Text | Text 实例，支持链式调用 |
+
+#### theme
+
+| 参数      | 类型                        | 必填 | 说明         |
+| --------- | --------------------------- | ---- | ------------ |
+| theme     | 'dark' | 'light'           | 是   | 主题名称     |
+| seedToken | Partial\<SeedTokenOptions> | 否   | 主题令牌配置 |
+
+**返回值**
+
+| 类型 | 说明                    |
+| ---- | ----------------------- |
+| Text | Text 实例，支持链式调用 |
+
+#### registerPlugin
+
+| 参数   | 类型                       | 必填 | 说明               |
+| ------ | -------------------------- | ---- | ------------------ |
+| plugin | PluginType | PluginType\[] | 是   | 单个插件或插件数组 |
+
+**返回值**
+
+| 类型 | 说明                    |
+| ---- | ----------------------- |
+| Text | Text 实例，支持链式调用 |
+
+## Schema
+
+### NarrativeTextSpec
+
+```typescript
+interface NarrativeTextSpec {
+  headline?: HeadlineSpec;
+  sections?: SectionSpec[];
+}
+```
+
+| 属性     | 类型          | 必填 | 说明         |
+| -------- | ------------- | ---- | ------------ |
+| headline | HeadlineSpec  | 否   | 标题规范     |
+| sections | SectionSpec\[] | 否   | 章节规范数组 |
+
+### SectionSpec
+
+```typescript
+type SectionSpec = (StandardSectionSpec | CustomBlockElement) & CommonProps;
+```
+
+| 属性       | 类型                  | 必填 | 说明           |
+| ---------- | --------------------- | ---- | -------------- |
+| paragraphs | ParagraphSpec\[]       | 否   | 段落规范数组   |
+| customType | string                | 否   | 自定义区块类型 |
+| styles     | Record\<string, any> | 否   | 样式对象       |
+| className  | string                | 否   | 类名           |
+
+### ParagraphSpec
+
+```typescript
+type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomBlockElement;
+
+enum ParagraphType {
+  HEADING1 = 'heading1',
+  HEADING2 = 'heading2',
+  HEADING3 = 'heading3',
+  HEADING4 = 'heading4',
+  HEADING5 = 'heading5',
+  HEADING6 = 'heading6',
+  NORMAL = 'normal',
+  BULLETS = 'bullets',
+}
+```
+
+| 属性       | 类型             | 必填 | 说明                                  |
+| ---------- | ---------------- | ---- | ------------------------------------- |
+| type       | ParagraphType    | 是   | 段落类型                              |
+| phrases    | PhraseSpec\[]     | 是   | 短语规范数组                          |
+| bullets    | BulletItemSpec\[] | 否   | 列表项规范数组（仅用于 BULLETS 类型） |
+| customType | string           | 否   | 自定义区块类型（仅用于自定义区块）    |
+
+### PhraseSpec
+
+```typescript
+type PhraseSpec = TextPhraseSpec | EntityPhraseSpec | CustomPhraseSpec<CustomMetaData>;
+
+enum PhraseType {
+  TEXT = 'text',
+  ENTITY = 'entity',
+  CUSTOM = 'custom',
+}
+```
+
+| 属性     | 类型                             | 必填 | 说明     |
+| -------- | -------------------------------- | ---- | -------- |
+| type     | PhraseType                       | 是   | 短语类型 |
+| value    | string                           | 是   | 短语内容 |
+| metadata | EntityMetaData | CustomMetaData | 否   | 元数据   |
+
+### EntityType
+
+```typescript
+type EntityType =
+  | 'metric_name' // 指标名称，如 DAU
+  | 'metric_value' // 指标值，如 1.23 million
+  | 'other_metric_value' // 其他指标值
+  | 'contribute_ratio' // 贡献度，如 23%
+  | 'delta_value' // 变化值，如 -1.2
+  | 'ratio_value' // 变化率，如 +23%
+  | 'trend_desc' // 趋势描述，如 up/down
+  | 'dim_value' // 维值，如 sex = man
+  | 'time_desc' // 时间描述，如 2021-11-19
+  | 'proportion'; // 占比，如 20%
+```
+
+## 插件系统
+
+### PluginManager
+
+```typescript
+class PluginManager {
+  constructor(plugins?: PluginType[]);
+  protected entities: Partial<Record<EntityType, PhraseDescriptor<EntityMetaData>>>;
+  protected customPhrases: Record<string, PhraseDescriptor<any>>;
+  protected customBlocks: Record<string, BlockDescriptor<any>>;
+}
+```
+
+#### constructor
+
+| 参数    | 类型         | 必填 | 说明     |
+| ------- | ------------ | ---- | -------- |
+| plugins | PluginType\[] | 否   | 插件数组 |
+
+### PhraseDescriptor
+
+```typescript
+interface PhraseDescriptor<MetaData> {
+  key: string;
+  isEntity: boolean;
+  render?: ((value: string, metadata: MetaData) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
+  tooltip?:
+    | false
+    | (Omit<TooltipProps, 'children' | 'title'> & {
+        title: ((value: string, metadata: MetaData) => HTMLElement | string | number) | HTMLElement | string | number;
+      });
+  classNames?: string[] | ((value: string, metadata: MetaData) => string[]);
+  style?: CSSProperties | ((value: string, metadata: MetaData, themeSeedToken: SeedTokenOptions) => CSSProperties);
+  onHover?: (value: string, metadata: MetaData) => string;
+  onClick?: (value: string, metadata: MetaData) => string;
+  getText?: (value: string, metadata: MetaData) => string;
+  getMarkdown?: (value: string, metadata: MetaData) => string;
+}
+```
+
+| 属性        | 类型                                        | 必填 | 说明                   |
+| ----------- | ------------------------------------------- | ---- | ---------------------- |
+| key         | string                                      | 是   | 插件唯一标识           |
+| isEntity    | boolean                                     | 是   | 是否为实体短语插件     |
+| render      | function | HTMLElement | DocumentFragment | 否   | 渲染函数或元素         |
+| tooltip     | false | object                             | 否   | 工具提示配置           |
+| classNames  | string\[] | function                        | 否   | 类名数组或生成函数     |
+| style       | CSSProperties | function                   | 否   | 样式对象或生成函数     |
+| onHover     | function                                    | 否   | 悬停事件处理函数       |
+| onClick     | function                                    | 否   | 点击事件处理函数       |
+| getText     | function                                    | 否   | 获取纯文本内容函数     |
+| getMarkdown | function                                    | 否   | 获取 Markdown 内容函数 |
+
+### BlockDescriptor
+
+```typescript
+interface BlockDescriptor<CustomBlockSpec> {
+  key: string;
+  isBlock: true;
+  className?: string | ((spec: CustomBlockSpec) => string);
+  style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
+  render?: (spec: CustomBlockSpec) => HTMLElement | DocumentFragment;
+  getText?: (spec: CustomBlockSpec) => string;
+  getMarkdown?: (spec: CustomBlockSpec) => string;
+}
+```
+
+| 属性        | 类型                      | 必填 | 说明                   |
+| ----------- | ------------------------- | ---- | ---------------------- |
+| key         | string                    | 是   | 插件唯一标识           |
+| isBlock     | true                      | 是   | 标识为区块插件         |
+| className   | string | function        | 否   | 类名或生成函数         |
+| style       | CSSProperties | function | 否   | 样式对象或生成函数     |
+| render      | function                  | 否   | 渲染函数               |
+| getText     | function                  | 否   | 获取纯文本内容函数     |
+| getMarkdown | function                  | 否   | 获取 Markdown 内容函数 |
+
+### 预设插件工厂函数
+
+```typescript
+function createMetricName(
+  customDescriptor?: SpecificEntityPhraseDescriptor,
+  mode?: CustomEntityMode,
+): PhraseDescriptor<EntityMetaData>;
+```
+
+| 参数             | 类型                           | 必填 | 说明                             |
+| ---------------- | ------------------------------ | ---- | -------------------------------- |
+| customDescriptor | SpecificEntityPhraseDescriptor | 否   | 自定义描述符                     |
+| mode             | CustomEntityMode               | 否   | 合并模式，'merge' 或 'overwrite' |
+
+**返回值**
+
+| 类型                               | 说明               |
+| ---------------------------------- | ------------------ |
+| PhraseDescriptor\<EntityMetaData> | 实体短语插件描述符 |
+
+*注：其他预设插件工厂函数（createMetricValue, createDeltaValue 等）的参数和返回值与 createMetricName 相同。*
+
+## 主题系统
+
+### SeedTokenOptions
+
+```typescript
+interface SeedTokenOptions {
+  // 基础配置
+  fontSize: number;
+  lineHeight: number;
+  fontFamily: string;
+
+  // 颜色系统
+  colorBase: string; // 基础文本颜色
+  colorEntityBase: string; // 实体基础颜色
+  colorHeadingBase: string; // 标题基础颜色
+  colorPositive: string; // 正向颜色
+  colorNegative: string; // 负向颜色
+  colorConclusion: string; // 结论颜色
+  colorDimensionValue: string; // 维度值颜色
+  colorMetricName: string; // 指标名颜色
+  colorMetricValue: string; // 指标值颜色
+  colorOtherValue: string; // 其他值颜色
+  colorProportionShadow: string; // 占比图表阴影颜色
+  colorProportionFill: string; // 占比图表填充颜色
+  colorLineStroke: string; // 折线图线条颜色
+}
+```
+
+| 属性                  | 类型   | 必填 | 说明             |
+| --------------------- | ------ | ---- | ---------------- |
+| fontSize              | number | 是   | 基础字号大小     |
+| lineHeight            | number | 是   | 基础行高         |
+| fontFamily            | string | 是   | 字体族           |
+| colorBase             | string | 是   | 基础文本颜色     |
+| colorEntityBase       | string | 是   | 实体基础颜色     |
+| colorHeadingBase      | string | 是   | 标题基础颜色     |
+| colorPositive         | string | 是   | 正向颜色         |
+| colorNegative         | string | 是   | 负向颜色         |
+| colorConclusion       | string | 是   | 结论颜色         |
+| colorDimensionValue   | string | 是   | 维度值颜色       |
+| colorMetricName       | string | 是   | 指标名颜色       |
+| colorMetricValue      | string | 是   | 指标值颜色       |
+| colorOtherValue       | string | 是   | 其他值颜色       |
+| colorProportionShadow | string | 是   | 占比图表阴影颜色 |
+| colorProportionFill   | string | 是   | 占比图表填充颜色 |
+| colorLineStroke       | string | 是   | 折线图线条颜色   |
+
+---
+
+---
+url: /en/tutorial/advanced/events.md
+---
+
+# Event Listening
+
+T8 provides a complete event system that allows you to monitor and respond to various interaction events in text visualization.
+
+## Event Types
+
+T8 supports the following levels of events:
+
+1. Narrative text events (`narrative:*`)
+2. Section block events (`section:*`)
+3. Paragraph events (`paragraph:*`)
+4. Phrase events (`phrase:*`)
+
+## Basic Usage
+
+Use the `on` method to register event listeners:
+
+```ts
+const text = new Text('#container');
+
+// Listen for phrase click events
+text.on('phrase:click', (spec) => {
+  console.log('Phrase clicked:', spec);
+});
+
+// Listen for paragraph click events
+text.on('paragraph:click', (spec) => {
+  console.log('Paragraph clicked:', spec);
+});
+
+// Listen for section click events
+text.on('section:click', (spec) => {
+  console.log('Section clicked:', spec);
+});
+
+// Listen for narrative text click events
+text.on('narrative:click', (spec) => {
+  console.log('Narrative text clicked:', spec);
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('light', { fontSize: 40 });
+
+text.on('phrase:click', (spec) => {
+  console.log('Phrase clicked:', spec);
+});
+
+// Listen for paragraph click events
+text.on('paragraph:click', (spec) => {
+  console.log('Paragraph clicked:', spec);
+});
+
+// Listen for section click events
+text.on('section:click', (spec) => {
+  console.log('Section clicked:', spec);
+});
+
+// Listen for narrative text click events
+text.on('narrative:click', (spec) => {
+  console.log('Narrative text clicked:', spec);
+});
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## Event Parameters
+
+Each event handler receives an event parameter object that contains detailed information about the event:
+
+```ts
+text.on('phrase:click', (spec) => {
+  const {
+    type, // Event type
+    value, // Phrase value
+    metadata, // Related metadata
+    // ... other properties
+  } = spec;
+
+  // Handle the event
+});
+```
+
+## Event Unbinding
+
+You can use the `off` method to remove event listeners:
+
+```ts
+// Define event handler
+const handleClick = (spec) => {
+  console.log('Click event:', spec);
+};
+
+// Register event
+text.on('phrase:click', handleClick);
+
+// Remove specific event listener
+text.off('phrase:click', handleClick);
+
+// Remove all listeners for a specific event type
+text.off('phrase:click');
+
+// Remove all event listeners
+text.off();
+```
+
+## Event Bubbling
+
+T8's event system supports event bubbling mechanism, where events propagate from the most specific element up to more general elements:
+
+```ts
+text.on('phrase:click', (spec) => {
+  console.log('1. Phrase clicked');
+});
+
+text.on('paragraph:click', (spec) => {
+  console.log('2. Paragraph clicked');
+});
+
+text.on('section:click', (spec) => {
+  console.log('3. Section clicked');
+});
+
+text.on('narrative:click', (spec) => {
+  console.log('4. Narrative text clicked');
+});
+
+// When a phrase is clicked, all of the above event handlers will execute in sequence
+```
+
+---
+
+---
+url: /en/schema/types/narrative-text.md
+---
+
+# NarrativeText
+
+`NarrativeTextSpec` is the top-level type in the T8 Schema system, used to describe the structure of an entire narrative text document. It defines the overall layout, organization, and style specifications of the document.
+
+## Type Definition
+
+```ts
+import type { CommonProps } from './common';
+import type { HeadlineSpec, SectionSpec } from './structure';
+
+type NarrativeTextSpec = CommonProps & {
+  headline?: HeadlineSpec;
+  sections?: SectionSpec[];
+};
+```
+
+## Core Components
+
+### HeadlineSpec
+
+The headline component is used to define the document's main title:
+
+```ts
+type HeadlineSpec = CommonProps & {
+  type: 'headline';
+  phrases: PhraseSpec[];
+};
+```
+
+## Property Descriptions
+
+### NarrativeTextSpec
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `headline` | `HeadlineSpec` | No | Document headline configuration |
+| `sections` | `SectionSpec[]` | No | List of document section blocks |
+| `styles` | `CSSProperties` | No | Document-level CSS styles |
+| `className` | `string` | No | CSS class name for the document container |
+| `key` | `string` | No | Preact key property for optimizing rendering performance |
+
+### HeadlineSpec
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `'headline'` | Yes | Fixed value identifying this as a headline component |
+| `phrases` | `PhraseSpec[]` | Yes | Headline content composed of phrases |
+| `styles` | `CSSProperties` | No | CSS styles for the headline |
+| `className` | `string` | No | CSS class name for the headline |
+| `key` | `string` | No | Preact key property |
+
+## Usage Examples
+
+### Basic Usage
+
+```ts
+const spec: NarrativeTextSpec = {
+  headline: {
+    type: 'headline',
+    phrases: [
+      {
+        type: 'text',
+        value: 'Data Analysis Report',
+      },
+    ],
+  },
+  sections: [
+    {
+      paragraphs: [
+        {
+          type: 'normal',
+          phrases: [
+            {
+              type: 'text',
+              value: 'Report content...',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+## Best Practices
+
+1. **Document Structure**
+   * Use `headline` to define clear document titles
+   * Organize content structure through `sections`
+   * Maintain clear and consistent hierarchical structure
+
+2. **Style Management**
+   * Use `styles` to define global styles
+   * Implement theme customization through `className`
+   * Avoid defining too many styles at the top level to maintain style maintainability
+
+3. **Performance Optimization**
+   * Use the `key` property appropriately
+   * Avoid overly deep nested structures
+   * Control the number of sections and phrases
+
+---
+
+---
+url: /zh/schema/types/narrative-text.md
+---
+
+# NarrativeText
+
+`NarrativeTextSpec` 是 T8 Schema 系统的顶层类型，用于描述整个叙事文本文档的结构。它定义了文档的整体布局、组织方式和样式规范。
+
+## 类型定义
+
+```ts
+import type { CommonProps } from './common';
+import type { HeadlineSpec, SectionSpec } from './structure';
+
+type NarrativeTextSpec = CommonProps & {
+  headline?: HeadlineSpec;
+  sections?: SectionSpec[];
+};
+```
+
+## 核心组件
+
+### HeadlineSpec
+
+标题组件用于定义文档的主标题：
+
+```ts
+type HeadlineSpec = CommonProps & {
+  type: 'headline';
+  phrases: PhraseSpec[];
+};
+```
+
+## 属性说明
+
+### NarrativeTextSpec
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `headline` | `HeadlineSpec` | 否 | 文档标题配置 |
+| `sections` | `SectionSpec[]` | 否 | 文档的段落区块列表 |
+| `styles` | `CSSProperties` | 否 | 文档级别的 CSS 样式 |
+| `className` | `string` | 否 | 文档容器的 CSS 类名 |
+| `key` | `string` | 否 | Preact key 属性，用于优化渲染性能 |
+
+### HeadlineSpec
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `'headline'` | 是 | 固定值，标识这是一个标题组件 |
+| `phrases` | `PhraseSpec[]` | 是 | 标题内容，由短语组成 |
+| `styles` | `CSSProperties` | 否 | 标题的 CSS 样式 |
+| `className` | `string` | 否 | 标题的 CSS 类名 |
+| `key` | `string` | 否 | Preact key 属性 |
+
+## 使用示例
+
+### 基础用法
+
+```ts
+const spec: NarrativeTextSpec = {
+  headline: {
+    type: 'headline',
+    phrases: [
+      {
+        type: 'text',
+        value: '数据分析报告',
+      },
+    ],
+  },
+  sections: [
+    {
+      paragraphs: [
+        {
+          type: 'normal',
+          phrases: [
+            {
+              type: 'text',
+              value: '报告内容...',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+## 最佳实践
+
+1. **文档结构**
+   * 使用 `headline` 定义清晰的文档标题
+   * 通过 `sections` 合理组织内容结构
+   * 保持层级结构的清晰和一致
+
+2. **样式管理**
+   * 使用 `styles` 定义全局样式
+   * 通过 `className` 实现主题定制
+   * 避免在顶层定义过多的样式，保持样式的可维护性
+
+3. **性能优化**
+   * 合理使用 `key` 属性
+   * 避免过深的嵌套结构
+   * 控制 sections 和 phrases 的数量
+
+---
+
+---
+url: /en/schema/structure.md
+---
+
+# Structure Overview
+
+![overview](https://gw.alipayobjects.com/mdn/rms_e59602/afts/img/A*QpAmQYCQL2cAAAAAAAAAAAAAARQnAQ)
+
+A data report includes the following components in its overall structure:
+
+* `Headline`: The title;
+* `Section`: Sections used to divide different report topics;
+
+A `Section` contains multiple `Paragraph`s, which can be of the following types:
+
+* `heading1` ~ `heading6` (note that these are different from the report-level Headline, which specifically refers to the article title);
+* `normal` for regular text paragraphs, corresponding to the HTML `<p>` tag;
+* `bullets` for lists, which can be ordered or unordered, corresponding to HTML `<ul>` and `<ol>` tags, supporting multi-level list nesting;
+* `custom` for custom paragraph types;
+* `visualization` for visualization charts (not currently supported, can be implemented through custom paragraphs);
+
+Besides the standard type containing multiple `Paragraph`s, `Section` can also be customized.
+
+Except for custom paragraphs, `heading`, `normal`, and `bullets` are all composed of multiple `Phrase`s, which include the following types:
+
+* `text` for plain text;
+* `entity` for entities, which correspond to specific data content in the data report;
+* `custom` for custom phrases;
+
+---
+
+---
+url: /en/schema/types/paragraph.md
+---
+
+# Paragraph
+
+`ParagraphSpec` defines the types of paragraphs in a document, including headings, body text, lists, and more. It is the basic organizational unit of document content, using different paragraph types to achieve diverse content presentation.
+
+## Type Definition
+
+```ts
+import type { CommonProps, CustomBlockElement } from './common';
+import type { PhraseSpec } from './phrase';
+
+export type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomBlockElement;
+
+export enum ParagraphType {
+  HEADING1 = 'heading1',
+  HEADING2 = 'heading2',
+  HEADING3 = 'heading3',
+  HEADING4 = 'heading4',
+  HEADING5 = 'heading5',
+  HEADING6 = 'heading6',
+  NORMAL = 'normal',
+  BULLETS = 'bullets',
+}
+
+export type HeadingParagraphSpec = CommonProps & {
+  type: ParagraphType.HEADING1 | ParagraphType.HEADING2 | ParagraphType.HEADING3 |
+        ParagraphType.HEADING4 | ParagraphType.HEADING5 | ParagraphType.HEADING6;
+  phrases: PhraseSpec[];
+};
+
+export type TextParagraphSpec = CommonProps & {
+  type: ParagraphType.NORMAL;
+  phrases: PhraseSpec[];
+};
+
+export type BulletsParagraphSpec = CommonProps & {
+  type: ParagraphType.BULLETS;
+  isOrder: boolean;
+  bullets: BulletItemSpec[];
+};
+
+export type BulletItemSpec = CommonProps & {
+  type: 'bullet-item';
+  phrases: PhraseSpec[];
+  subBullet?: BulletsParagraphSpec;
+};
+```
+
+## Paragraph Type Descriptions
+
+### Heading Paragraph (HeadingParagraphSpec)
+
+Used to create headings of different levels:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `ParagraphType.HEADING1` ~ `HEADING6` | Yes | Heading level |
+| `phrases` | `PhraseSpec[]` | Yes | Heading content |
+| `styles` | `CSSProperties` | No | Heading styles |
+| `className` | `string` | No | CSS class name |
+
+### Text Paragraph (TextParagraphSpec)
+
+Used for regular text content:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `ParagraphType.NORMAL` | Yes | Fixed as 'normal' |
+| `phrases` | `PhraseSpec[]` | Yes | Paragraph content |
+| `styles` | `CSSProperties` | No | Paragraph styles |
+| `className` | `string` | No | CSS class name |
+
+### Bullets Paragraph (BulletsParagraphSpec)
+
+Used to create ordered or unordered lists:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `ParagraphType.BULLETS` | Yes | Fixed as 'bullets' |
+| `isOrder` | `boolean` | Yes | Whether it's an ordered list |
+| `bullets` | `BulletItemSpec[]` | Yes | Array of list items |
+| `styles` | `CSSProperties` | No | List styles |
+| `className` | `string` | No | CSS class name |
+
+### Bullet Item (BulletItemSpec)
+
+Individual item in a list:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `'bullet-item'` | Yes | Fixed as 'bullet-item' |
+| `phrases` | `PhraseSpec[]` | Yes | List item content |
+| `subBullet` | `BulletsParagraphSpec` | No | Nested sub-list |
+| `styles` | `CSSProperties` | No | List item styles |
+| `className` | `string` | No | CSS class name |
+
+## Usage Examples
+
+### Heading Paragraph
+
+```ts
+const heading: HeadingParagraphSpec = {
+  type: 'heading1',
+  phrases: [
+    {
+      type: 'text',
+      value: 'Data Analysis Report',
+    },
+  ],
+  styles: {
+    marginBottom: '1em',
+  },
+};
+```
+
+### Text Paragraph
+
+```ts
+const text: TextParagraphSpec = {
+  type: 'normal',
+  phrases: [
+    {
+      type: 'text',
+      value: 'Based on the data analysis, ',
+    },
+    {
+      type: 'entity',
+      value: 'user growth rate',
+      metadata: {
+        entityType: 'metric_name',
+      },
+    },
+    {
+      type: 'text',
+      value: 'reached ',
+    },
+    {
+      type: 'entity',
+      value: '15%',
+      metadata: {
+        entityType: 'ratio_value',
+        assessment: 'positive',
+      },
+    },
+  ],
+};
+```
+
+### Bullets Paragraph
+
+```ts
+const list: BulletsParagraphSpec = {
+  type: 'bullets',
+  isOrder: true,
+  bullets: [
+    {
+      type: 'bullet-item',
+      phrases: [
+        {
+          type: 'text',
+          value: 'User Growth Analysis',
+        },
+      ],
+      subBullet: {
+        type: 'bullets',
+        isOrder: false,
+        bullets: [
+          {
+            type: 'bullet-item',
+            phrases: [
+              {
+                type: 'text',
+                value: 'New Users: 10,000',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+};
+```
+
+## Best Practices
+
+1. **Paragraph Organization**
+   * Use appropriate paragraph types to express content
+   * Maintain clear and consistent paragraph hierarchy
+   * Use heading levels (h1-h6) appropriately
+
+2. **List Usage**
+   * Choose ordered/unordered lists based on content
+   * Use nested lists moderately
+   * Keep list structures concise
+
+3. **Style Management**
+   * Use unified style themes
+   * Avoid excessive inline styles
+   * Prioritize using className for style management
+
+---
+
+---
+url: /zh/schema/types/paragraph.md
+---
+
+# Paragraph
+
+`ParagraphSpec` 定义了文档中的段落类型，包括标题、正文、列表等多种形式。它是文档内容的基本组织单位，通过不同的段落类型来实现多样化的内容展示。
+
+## 类型定义
+
+```ts
+import type { CommonProps, CustomBlockElement } from './common';
+import type { PhraseSpec } from './phrase';
+
+export type ParagraphSpec = HeadingParagraphSpec | TextParagraphSpec | BulletsParagraphSpec | CustomBlockElement;
+
+export enum ParagraphType {
+  HEADING1 = 'heading1',
+  HEADING2 = 'heading2',
+  HEADING3 = 'heading3',
+  HEADING4 = 'heading4',
+  HEADING5 = 'heading5',
+  HEADING6 = 'heading6',
+  NORMAL = 'normal',
+  BULLETS = 'bullets',
+}
+
+export type HeadingParagraphSpec = CommonProps & {
+  type: ParagraphType.HEADING1 | ParagraphType.HEADING2 | ParagraphType.HEADING3 |
+        ParagraphType.HEADING4 | ParagraphType.HEADING5 | ParagraphType.HEADING6;
+  phrases: PhraseSpec[];
+};
+
+export type TextParagraphSpec = CommonProps & {
+  type: ParagraphType.NORMAL;
+  phrases: PhraseSpec[];
+};
+
+export type BulletsParagraphSpec = CommonProps & {
+  type: ParagraphType.BULLETS;
+  isOrder: boolean;
+  bullets: BulletItemSpec[];
+};
+
+export type BulletItemSpec = CommonProps & {
+  type: 'bullet-item';
+  phrases: PhraseSpec[];
+  subBullet?: BulletsParagraphSpec;
+};
+```
+
+## 段落类型说明
+
+### 标题段落 (HeadingParagraphSpec)
+
+用于创建不同级别的标题：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `ParagraphType.HEADING1` ~ `HEADING6` | 是 | 标题级别 |
+| `phrases` | `PhraseSpec[]` | 是 | 标题内容 |
+| `styles` | `CSSProperties` | 否 | 标题样式 |
+| `className` | `string` | 否 | CSS 类名 |
+
+### 正文段落 (TextParagraphSpec)
+
+用于普通文本内容：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `ParagraphType.NORMAL` | 是 | 固定为 'normal' |
+| `phrases` | `PhraseSpec[]` | 是 | 段落内容 |
+| `styles` | `CSSProperties` | 否 | 段落样式 |
+| `className` | `string` | 否 | CSS 类名 |
+
+### 列表段落 (BulletsParagraphSpec)
+
+用于创建有序或无序列表：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `ParagraphType.BULLETS` | 是 | 固定为 'bullets' |
+| `isOrder` | `boolean` | 是 | 是否为有序列表 |
+| `bullets` | `BulletItemSpec[]` | 是 | 列表项数组 |
+| `styles` | `CSSProperties` | 否 | 列表样式 |
+| `className` | `string` | 否 | CSS 类名 |
+
+### 列表项 (BulletItemSpec)
+
+列表中的单个项目：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `'bullet-item'` | 是 | 固定为 'bullet-item' |
+| `phrases` | `PhraseSpec[]` | 是 | 列表项内容 |
+| `subBullet` | `BulletsParagraphSpec` | 否 | 嵌套的子列表 |
+| `styles` | `CSSProperties` | 否 | 列表项样式 |
+| `className` | `string` | 否 | CSS 类名 |
+
+## 使用示例
+
+### 标题段落
+
+```ts
+const heading: HeadingParagraphSpec = {
+  type: 'heading1',
+  phrases: [
+    {
+      type: 'text',
+      value: '数据分析报告',
+    },
+  ],
+  styles: {
+    marginBottom: '1em',
+  },
+};
+```
+
+### 正文段落
+
+```ts
+const text: TextParagraphSpec = {
+  type: 'normal',
+  phrases: [
+    {
+      type: 'text',
+      value: '根据数据分析，',
+    },
+    {
+      type: 'entity',
+      value: '用户增长率',
+      metadata: {
+        entityType: 'metric_name',
+      },
+    },
+    {
+      type: 'text',
+      value: '达到了',
+    },
+    {
+      type: 'entity',
+      value: '15%',
+      metadata: {
+        entityType: 'ratio_value',
+        assessment: 'positive',
+      },
+    },
+  ],
+};
+```
+
+### 列表段落
+
+```ts
+const list: BulletsParagraphSpec = {
+  type: 'bullets',
+  isOrder: true,
+  bullets: [
+    {
+      type: 'bullet-item',
+      phrases: [
+        {
+          type: 'text',
+          value: '用户增长分析',
+        },
+      ],
+      subBullet: {
+        type: 'bullets',
+        isOrder: false,
+        bullets: [
+          {
+            type: 'bullet-item',
+            phrases: [
+              {
+                type: 'text',
+                value: '新增用户：10,000',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+};
+```
+
+## 最佳实践
+
+1. **段落组织**
+   * 使用适当的段落类型表达内容
+   * 保持段落层级的清晰和一致
+   * 合理使用标题层级（h1-h6）
+
+2. **列表使用**
+   * 根据内容选择有序/无序列表
+   * 适度使用嵌套列表
+   * 保持列表结构的简洁
+
+3. **样式管理**
+   * 使用统一的样式主题
+   * 避免内联样式过多
+   * 优先使用 className 进行样式管理
+
+---
+
+---
+url: /en/schema/types/phrase.md
+---
+
+# Phrase & Entity
+
+`PhraseSpec` defines the smallest semantic unit in text, including plain text, entities, and custom phrases. It is the most basic content carrier in T8, using different types of phrases to achieve rich text expression and data visualization.
+
+## Type Definition
+
+```ts
+import type { CommonProps, CustomMetaData } from './common';
+
+export enum PhraseType {
+  TEXT = 'text',
+  ENTITY = 'entity',
+  CUSTOM = 'custom',
+}
+
+export type PhraseSpec = TextPhraseSpec | EntityPhraseSpec | CustomPhraseSpec;
+
+// Plain text phrase
+export interface TextPhraseSpec extends CommonProps {
+  type: PhraseType.TEXT;
+  value: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+}
+
+// Entity phrase
+export interface EntityPhraseSpec extends CommonProps {
+  type: PhraseType.ENTITY;
+  value?: string;
+  metadata?: EntityMetaData;
+}
+
+// Custom phrase
+export interface CustomPhraseSpec<P extends CustomMetaData = CustomMetaData> extends CommonProps {
+  type: PhraseType.CUSTOM;
+  value?: string;
+  metadata?: P;
+}
+
+// Entity type definition
+export type ValueAssessment = 'positive' | 'negative' | 'equal';
+
+export const EntityType = [
+  'metric_name',      // Main indicator name, e.g., DAU
+  'metric_value',     // Main indicator value, e.g., 1.23 million
+  'other_metric_value', // Other indicator values
+  'contribute_ratio', // Contribution ratio, e.g., 23%
+  'delta_value',      // Change value, e.g., -1.2
+  'ratio_value',      // Change ratio, e.g., +23%
+  'trend_desc',       // Trend description, e.g., up/down
+  'dim_value',        // Dimension value, e.g., sex = man
+  'time_desc',        // Time description, e.g., 2021-11-19
+  'proportion',       // Proportion, e.g., 20%
+] as const;
+
+export type EntityType = (typeof EntityType)[number];
+
+export type EntityMetaData = {
+  entityType: EntityType;
+  assessment?: ValueAssessment;
+  origin?: number;
+  detail?: unknown;
+  sourceId?: string;
+};
+```
+
+## Phrase Type Descriptions
+
+### Text Phrase (TextPhraseSpec)
+
+The most basic text display unit:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `PhraseType.TEXT` | Yes | Fixed as 'text' |
+| `value` | `string` | Yes | Text content |
+| `bold` | `boolean` | No | Whether to bold |
+| `italic` | `boolean` | No | Whether to italicize |
+| `underline` | `boolean` | No | Whether to underline |
+| `styles` | `CSSProperties` | No | Custom styles |
+| `className` | `string` | No | CSS class name |
+
+### Entity Phrase (EntityPhraseSpec)
+
+Used to display data entities:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `PhraseType.ENTITY` | Yes | Fixed as 'entity' |
+| `value` | `string` | No | Display text |
+| `metadata` | `EntityMetaData` | No | Entity metadata |
+| `styles` | `CSSProperties` | No | Custom styles |
+| `className` | `string` | No | CSS class name |
+
+### Custom Phrase (CustomPhraseSpec)
+
+Used for custom display extensions:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | `PhraseType.CUSTOM` | Yes | Fixed as 'custom' |
+| `value` | `string` | No | Display text |
+| `metadata` | `CustomMetaData` | No | Custom metadata |
+| `styles` | `CSSProperties` | No | Custom styles |
+| `className` | `string` | No | CSS class name |
+
+## Entity Type System
+
+### EntityType
+
+| Type | Description | Example | Usage |
+|------|-------------|---------|--------|
+| `metric_name` | Main indicator name | DAU | Identify key metrics |
+| `metric_value` | Main indicator value | 100w | Display primary data |
+| `other_metric_value` | Other indicator value | 1.23 | Display secondary data |
+| `delta_value` | Change value | -12 | Show magnitude of change |
+| `ratio_value` | Change ratio | +10% | Show rate of change |
+| `contribute_ratio` | Contribution ratio | 40% | Show contribution proportion |
+| `trend_desc` | Trend description | Periodic | Describe data trends |
+| `dim_value` | Dimension value | Beijing | Display dimension data |
+| `time_desc` | Time | July 15 | Time information |
+| `proportion` | Proportion | 20% | Show ratios |
+
+### EntityMetaData
+
+Entity metadata configuration:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `entityType` | `EntityType` | Yes | Entity type |
+| `assessment` | `ValueAssessment` | No | Value assessment (positive/negative/equal) |
+| `origin` | `number` | No | Original data value |
+| `detail` | `unknown` | No | Detailed information (for popups etc.) |
+| `sourceId` | `string` | No | Data source identifier |
+
+## Usage Examples
+
+### Text Phrase
+
+```ts
+const text: TextPhraseSpec = {
+  type: 'text',
+  value: 'Overall Performance',
+  bold: true,
+  styles: {
+    color: '#666',
+  },
+};
+```
+
+### Entity Phrase
+
+```ts
+const entity: EntityPhraseSpec = {
+  type: 'entity',
+  value: '15%',
+  metadata: {
+    entityType: 'ratio_value',
+    assessment: 'positive',
+    origin: 0.15,
+    detail: {
+      previousValue: '12%',
+      change: '+3%',
+    },
+  },
+  styles: {
+    color: '#f5222d',
+  },
+};
+```
+
+## Best Practices
+
+1. **Phrase Type Selection**
+   * Use TextPhraseSpec for regular text
+   * Use EntityPhraseSpec for data entities
+   * Use CustomPhraseSpec for special display requirements
+
+2. **Entity Data Handling**
+   * Use EntityType appropriately to categorize data
+   * Mark data trends through assessment
+   * Provide more context through detail
+
+3. **Style Management**
+   * Use the theme system for unified styling
+   * Implement style reuse through className
+   * Use styles for special styling needs
+
+---
+
+---
+url: /zh/schema/types/phrase.md
+---
+
+# Phrase & Entity
+
+`PhraseSpec` 定义了文本中的最小语义单位，包括纯文本、实体和自定义短语。它是 T8 中最基础的内容承载单元，通过不同类型的短语来实现丰富的文本表达和数据可视化。
+
+## 类型定义
+
+```ts
+import type { CommonProps, CustomMetaData } from './common';
+
+export enum PhraseType {
+  TEXT = 'text',
+  ENTITY = 'entity',
+  CUSTOM = 'custom',
+}
+
+export type PhraseSpec = TextPhraseSpec | EntityPhraseSpec | CustomPhraseSpec;
+
+// 纯文本短语
+export interface TextPhraseSpec extends CommonProps {
+  type: PhraseType.TEXT;
+  value: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+}
+
+// 实体短语
+export interface EntityPhraseSpec extends CommonProps {
+  type: PhraseType.ENTITY;
+  value?: string;
+  metadata?: EntityMetaData;
+}
+
+// 自定义短语
+export interface CustomPhraseSpec<P extends CustomMetaData = CustomMetaData> extends CommonProps {
+  type: PhraseType.CUSTOM;
+  value?: string;
+  metadata?: P;
+}
+
+// 实体类型定义
+export type ValueAssessment = 'positive' | 'negative' | 'equal';
+
+export const EntityType = [
+  'metric_name',      // 主指标名，如：DAU
+  'metric_value',     // 主指标值，如：1.23 million
+  'other_metric_value', // 其他指标值
+  'contribute_ratio', // 贡献度，如：23%
+  'delta_value',      // 变化值，如：-1.2
+  'ratio_value',      // 变化率，如：+23%
+  'trend_desc',       // 趋势描述，如：up/down
+  'dim_value',        // 维值，如：sex = man
+  'time_desc',        // 时间描述，如：2021-11-19
+  'proportion',       // 占比，如：20%
+] as const;
+
+export type EntityType = (typeof EntityType)[number];
+
+export type EntityMetaData = {
+  entityType: EntityType;
+  assessment?: ValueAssessment;
+  origin?: number;
+  detail?: unknown;
+  sourceId?: string;
+};
+```
+
+## 短语类型说明
+
+### 文本短语 (TextPhraseSpec)
+
+最基础的文本展示单元：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `PhraseType.TEXT` | 是 | 固定为 'text' |
+| `value` | `string` | 是 | 文本内容 |
+| `bold` | `boolean` | 否 | 是否加粗 |
+| `italic` | `boolean` | 否 | 是否斜体 |
+| `underline` | `boolean` | 否 | 是否下划线 |
+| `styles` | `CSSProperties` | 否 | 自定义样式 |
+| `className` | `string` | 否 | CSS 类名 |
+
+### 实体短语 (EntityPhraseSpec)
+
+用于展示数据实体：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `PhraseType.ENTITY` | 是 | 固定为 'entity' |
+| `value` | `string` | 否 | 显示文本 |
+| `metadata` | `EntityMetaData` | 否 | 实体元数据 |
+| `styles` | `CSSProperties` | 否 | 自定义样式 |
+| `className` | `string` | 否 | CSS 类名 |
+
+### 自定义短语 (CustomPhraseSpec)
+
+用于扩展自定义展示：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `type` | `PhraseType.CUSTOM` | 是 | 固定为 'custom' |
+| `value` | `string` | 否 | 显示文本 |
+| `metadata` | `CustomMetaData` | 否 | 自定义元数据 |
+| `styles` | `CSSProperties` | 否 | 自定义样式 |
+| `className` | `string` | 否 | CSS 类名 |
+
+## 实体类型系统
+
+### EntityType
+
+| 类型 | 说明 | 示例 | 用途 |
+|------|------|------|------|
+| `metric_name` | 主指标名 | DAU | 标识关键指标 |
+| `metric_value` | 主指标值 | 100w | 展示主要数据 |
+| `other_metric_value` | 其他指标值 | 1.23 | 展示次要数据 |
+| `delta_value` | 差值 | -12 | 展示变化量 |
+| `ratio_value` | 差率 | +10% | 展示变化率 |
+| `contribute_ratio` | 贡献度 | 40% | 展示占比贡献 |
+| `trend_desc` | 趋势描述 | 周期性 | 描述数据趋势 |
+| `dim_value` | 维值 | 北京 | 展示维度数据 |
+| `time_desc` | 时间 | 7月15日 | 时间信息 |
+| `proportion` | 占比 | 20% | 展示比例 |
+
+### EntityMetaData
+
+实体元数据配置：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `entityType` | `EntityType` | 是 | 实体类型 |
+| `assessment` | `ValueAssessment` | 否 | 数值评估（正/负/持平）|
+| `origin` | `number` | 否 | 原始数据值 |
+| `detail` | `unknown` | 否 | 详细信息（用于弹窗等）|
+| `sourceId` | `string` | 否 | 数据源标识 |
+
+## 使用示例
+
+### 文本短语
+
+```ts
+const text: TextPhraseSpec = {
+  type: 'text',
+  value: '总体表现',
+  bold: true,
+  styles: {
+    color: '#666',
+  },
+};
+```
+
+### 实体短语
+
+```ts
+const entity: EntityPhraseSpec = {
+  type: 'entity';,
+  value: '15%',
+  metadata: {
+    entityType: 'ratio_value',
+    assessment: 'positive',
+    origin: 0.15,
+    detail: {
+      previousValue: '12%',
+      change: '+3%',
+    },
+  },
+  styles: {
+    color: '#f5222d',
+  },
+};
+```
+
+## 最佳实践
+
+1. **短语类型选择**
+   * 使用 TextPhraseSpec 处理普通文本
+   * 使用 EntityPhraseSpec 处理数据实体
+   * 使用 CustomPhraseSpec 实现特殊展示需求
+
+2. **实体数据处理**
+   * 合理使用 EntityType 分类数据
+   * 通过 assessment 标注数据趋势
+   * 利用 detail 提供更多上下文信息
+
+3. **样式管理**
+   * 使用主题系统统一样式
+   * 通过 className 实现样式复用
+   * 使用 styles 处理特殊样式需求
+
+---
+
+---
+url: /en/tutorial/advanced/plugin.md
+---
+
+# Plugin System
+
+T8 provides a powerful plugin system that allows you to customize and extend text visualization functionality. The plugin system includes three types of plugins:
+
+* Entity Phrase Plugins (EntityPhrase): Used to customize the display of predefined entities such as metric names, metric values, etc.
+* Custom Phrase Plugins (CustomPhrase): Used to extend new phrase types
+* Custom Block Plugins (CustomBlock): Used to customize paragraph and section level displays
+
+## Plugin Manager
+
+All plugins are managed uniformly through the `PluginManager`. The `PluginManager` is responsible for registering and managing different types of plugins:
+
+```ts
+import { PluginManager } from '@antv/t8';
+
+const plugin = /* create a plugin with factory function */
+
+// Use plugin manager
+const text = new Text('#container');
+text.registerPlugin(plugin);
+```
+
+## Entity Phrase Plugins (EntityPhrase)
+
+Entity phrase plugins are used to customize the display style and interaction behavior of predefined entities. T8 has built-in a series of entity types, and each entity type has a corresponding factory function to create plugins.
+
+### Preset Entity Plugins
+
+```ts
+import {
+  createMetricName, // Metric name
+  createMetricValue, // Metric value
+  createDeltaValue, // Comparison difference
+  createRatioValue, // Comparison ratio
+  createDimensionValue, // Dimension value
+  createProportion, // Proportion
+  createTimeDesc, // Time description
+  createTrendDesc, // Trend description
+} from '@antv/t8';
+```
+
+### Preset Entity Plugin Configuration
+
+Each entity plugin factory function accepts two parameters:
+
+1. `descriptor`: Descriptor object for defining entity styles and behaviors
+2. `mode`: Merge mode, can be 'merge' (default) or 'overwrite'
+
+```ts
+import { createDimensionValue } from '@antv/t8';
+
+const dimensionValueDescriptor = {
+  // Style encoding
+  style: (value, metadata, themeSeedToken) => ({
+    color: 'red',
+    fontSize: '40px',
+  }),
+  // Tooltip
+  tooltip: {
+    title: (value) => value,
+  },
+  // Event handling
+  onClick: (value, metadata) => {
+    console.log('Clicked:', value, metadata);
+  },
+};
+
+const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createDimensionValue } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const dimensionValueDescriptor = {
+  // Style encoding
+  style: (value, metadata, themeSeedToken) => ({
+    color: 'red',
+    fontSize: '40px',
+  }),
+  // Tooltip
+  tooltip: {
+    title: (value) => value,
+  },
+  // Event handling
+  onClick: (value, metadata) => {
+    console.log('Clicked:', value, metadata);
+  },
+};
+
+const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(dimensionPlugin);
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "dim_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## Custom Phrase Plugins (CustomPhrase)
+
+Use `createCustomPhraseFactory` to create custom phrase plugins:
+
+```ts
+import { createCustomPhraseFactory } from '@antv/t8';
+
+const customPhrasePlugin = createCustomPhraseFactory({
+  // Unique identifier
+  key: 'custom_type',
+  // Custom render content
+  render: (value, metadata) => {
+    const element = document.createElement('span');
+    element.textContent = `${metadata.level}-${value}`;
+    element.style.backgroundColor = '#f0f0f0';
+    element.style.color = 'red';
+    element.style.padding = '0 4px';
+    return element;
+  },
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createCustomPhraseFactory } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const customPhrasePlugin = createCustomPhraseFactory({
+  // Unique identifier
+  key: 'custom_type',
+  // Custom render content
+  render: (value, metadata) => {
+    const element = document.createElement('span');
+    element.textContent = `${metadata.level}-${value}`;
+    element.style.backgroundColor = '#f0f0f0';
+    element.style.color = 'red';
+    element.style.padding = '0 4px';
+    return element;
+  },
+});
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(customPhrasePlugin);
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "custom",
+              "value": "average deal size",
+              "metadata": {
+                "level": 1,
+                "customType": "custom_type"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## Custom Block Plugins (CustomBlock)
+
+Block plugins are used to customize paragraph and section level displays, such as adding charts, custom layouts, etc.
+
+### Creating Block Plugins
+
+Use `createCustomBlockFactory` to create block plugins:
+
+```ts
+import { createCustomBlockFactory } from '@antv/t8';
+
+const customBlockPlugin = createCustomBlockFactory({
+  key: 'custom-block',
+  // Custom class name
+  className: 'custom-block-class',
+
+  // Custom style
+  style: {
+    padding: '16px',
+    backgroundColor: '#f0f0f0',
+  },
+  // Custom rendering
+  render: (metadata) => {
+    const container = document.createElement('div');
+    container.style.color = 'red';
+    container.style.backgroundColor = 'green';
+    container.style.fontSize = '40px';
+    container.textContent = 'This is custom Block';
+    return container;
+  },
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createCustomBlockFactory } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const customBlockPlugin = createCustomBlockFactory({
+  key: 'custom-block',
+  // Custom class name
+  className: 'custom-block-class',
+
+  // Custom style
+  style: {
+    padding: '16px',
+    backgroundColor: '#f0f0f0',
+  },
+  // Custom rendering
+  render: (metadata) => {
+    const container = document.createElement('div');
+    container.style.color = 'red';
+    container.style.backgroundColor = 'green';
+    container.style.fontSize = '40px';
+    container.textContent = 'This is custom Block';
+    return container;
+  },
+});
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(customBlockPlugin);
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "customType": "custom-block"
+    },
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+---
+
+---
+url: /en/tutorial/quick-start.md
+---
+
+# Quick Start
+
+## What is T8
+
+> T8 is a text visualization solution under the AntV technology stack, where T stands for Text, and 8 represents a byte of 8 bits, implying that this tool can deeply analyze insights beneath the text.
+
+Currently, it mainly focuses on a specific area: **Insight-based narrative text display and editing capabilities**.
+
+***"The cost of building `text-schema` is high, why should I use T8 instead of directly concatenating DOM?"***
+
+To answer this question, we need to first clarify where the `JSON` comes from.
+
+Narrative-related technology is based on the assumption that `JSON` data comes from LLM (Large Language Models), and the frontend consumes the schema for rendering. As the requirements for data expression diversity and real-time response increase, and NLP technology is increasingly applied, maintaining text templates on the frontend will become unsustainable. At this point, using NarrativeTextVis for unified rendering will be the best choice.
+
+However, it's undeniable that for quite some time, similar text expressions can be satisfied with one or several default templates. Considering the learning cost of `text-schema`, using familiar `dom/jsx` for development might seem like a better choice. *If your business has low requirements for text expression extensibility and relatively fixed templates, please use the syntax you're familiar with.* However, using text-schema will bring the following benefits:
+
+* As a standard description for interpretive text, it can staticize text data structure, maintain in one place and reuse everywhere;
+* The `JSON` format makes it conducive to data storage and further consumption;
+* Standardized styling, looks good by default;
+* Word-scale charts are supported by default, and more inline data displays can be obtained with version upgrades;
+* Extensibility of related interactions;
+
+## Usage Scenarios
+
+In the full process of data analysis display, besides visualization charts, describing data phenomena and providing insight conclusions through **text** to assist analysis is also very important.
+
+Especially with the development of augmented analytics, the data text descriptions directly output with the help of NLP (Natural Language Processing) need a rendering engine to present them in the user interface. Narrative-text related technical solutions are aimed at solving this scenario.
+
+## Features
+
+* Standardized JSON schema description for data interpretation text ([narrative-text-schema](../schema/index.md));
+* Pure JS rendering engine `Text` for text-schema;
+  * Parse text structure description JSON schema into HTML;
+  * Standard visual representation of data phrases (such as metric values, ratios, differences, proportions, contribution rates, etc.);
+  * Data-driven display of inline charts (mini pie, mini line) to improve text reading efficiency;
+
+## Basic Usage
+
+T8 can be installed using regular package management tools such as npm or Yarn.
+
+```bash
+$ npm install @antv/t8
+```
+
+```bash
+$ yarn add @antv/t8
+```
+
+After installation, you can export the `Text` object and API from the T8 library.
+
+```html
+<div id="container"></div>
+```
+
+```js
+import { Text } from '@antv/t8';
+
+// Schema to be visualized
+const spec = {
+  /*  */
+};
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('dark');
+
+// Render
+const unmont = text.render();
+
+// Destroy
+unmont();
+```
+
+If you haven't encountered any other issues, you should get the following clear data text visualization effect.
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('light');
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "This quarter, "
+            },
+            {
+              "type": "entity",
+              "value": "bookings",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "are higher than usual for this point in the quarter. "
+            },
+            {
+              "type": "text",
+              "value": "They are "
+            },
+            {
+              "type": "entity",
+              "value": "$348k",
+              "metadata": {
+                "entityType": "metric_value",
+                "origin": 348.12
+              }
+            },
+            {
+              "type": "text",
+              "value": ". "
+            },
+            {
+              "type": "text",
+              "value": "They were made up of "
+            },
+            {
+              "type": "entity",
+              "value": "29 deals",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ", "
+            },
+            {
+              "type": "text",
+              "value": "with the "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "being "
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "entity",
+              "value": "Bookings ",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "are up "
+            },
+            {
+              "type": "entity",
+              "value": "$180.3k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "positive"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter. "
+            },
+            {
+              "type": "text",
+              "value": "They are up "
+            },
+            {
+              "type": "entity",
+              "value": "$106.1k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "positive"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last year. "
+            },
+            {
+              "type": "text",
+              "value": "They are "
+            },
+            {
+              "type": "entity",
+              "value": "$110k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "46.2%",
+              "metadata": {
+                "entityType": "contribute_ratio"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "greater than average bookings at the same time each quarter over the previous year. "
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "Looking across the most relevant dimensions, "
+            },
+            {
+              "type": "text",
+              "value": "the "
+            },
+            {
+              "type": "entity",
+              "value": "increase",
+              "metadata": {
+                "entityType": "trend_desc",
+                "detail": [1, 2, 6, 18, 24, 48]
+              }
+            },
+            {
+              "type": "text",
+              "value": " relative to the same time last quarter was primarily driven by"
+            }
+          ]
+        },
+        {
+          "type": "bullets",
+          "isOrder": false,
+          "bullets": [
+            {
+              "type": "bullet-item",
+              "phrases": [
+                {
+                  "type": "text",
+                  "value": "the "
+                },
+                {
+                  "type": "entity",
+                  "value": "Prospecting",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " "
+                },
+                {
+                  "type": "text",
+                  "value": "lead source"
+                },
+                {
+                  "type": "text",
+                  "value": " ("
+                },
+                {
+                  "type": "entity",
+                  "value": "$50.6k",
+                  "metadata": {
+                    "entityType": "delta_value",
+                    "assessment": "positive"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": ") "
+                },
+                {
+                  "type": "custom",
+                  "value": "See all lead sources.",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx1"
+                  }
+                }
+              ],
+              "subBullet": {
+                "type": "bullets",
+                "isOrder": true,
+                "bullets": [
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 1"
+                      }
+                    ],
+                    "subBullet": {
+                      "type": "bullets",
+                      "isOrder": false,
+                      "bullets": [
+                        {
+                          "type": "bullet-item",
+                          "phrases": [
+                            {
+                              "type": "text",
+                              "value": "sub node 1.1, the proportion percentage is "
+                            },
+                            {
+                              "type": "entity",
+                              "value": "45%",
+                              "metadata": {
+                                "entityType": "proportion",
+                                "origin": 0.45
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "bullet-item",
+                          "phrases": [
+                            {
+                              "type": "text",
+                              "value": "sub node 1.2, the proportion percentage is "
+                            },
+                            {
+                              "type": "entity",
+                              "value": "65%",
+                              "metadata": {
+                                "entityType": "proportion"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [
+                {
+                  "type": "entity",
+                  "value": "Keely Townsend",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " ("
+                },
+                {
+                  "type": "entity",
+                  "value": "$86.2k",
+                  "metadata": {
+                    "entityType": "delta_value",
+                    "assessment": "positive"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": ") "
+                },
+                {
+                  "type": "custom",
+                  "value": "See all account executives",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx2"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "."
+                }
+              ]
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [
+                {
+                  "type": "text",
+                  "value": "the "
+                },
+                {
+                  "type": "entity",
+                  "value": "New Client",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " "
+                },
+                {
+                  "type": "text",
+                  "value": "opportunity type"
+                },
+                {
+                  "type": "text",
+                  "value": " ("
+                },
+                {
+                  "type": "entity",
+                  "value": "$160.1k",
+                  "metadata": {
+                    "entityType": "delta_value",
+                    "assessment": "positive"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": ") "
+                },
+                {
+                  "type": "custom",
+                  "value": "See all opportunity types",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "number of deals",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "29",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is up "
+            },
+            {
+              "type": "entity",
+              "value": "17",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "positive"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "12",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headline": {
+    "type": "headline",
+    "phrases": [
+      {
+        "type": "text",
+        "value": "Bookings This Quarter Higher than Usual"
+      }
+    ]
+  }
+}
+```
+
+:::
+
+---
+
+---
+url: /en/schema.md
+---
+
+# Schema
+
+## Overview
+
+T8 Schema is a JSON Schema specification for declaratively describing data interpretation reports. It provides a complete type system for building structured narrative text visualization content.
+
+## Core Concepts
+
+T8 Schema system includes the following core concepts:
+
+1. **NarrativeText**
+
+   * Acts as the top-level container for the entire document
+   * Contains Headline and multiple Section blocks
+   * Supports global style configuration
+
+2. **Section**
+
+   * Used to organize and manage collections of related paragraphs
+   * Supports standard paragraph groups and custom blocks
+   * Can be flexibly extended to accommodate different display requirements
+
+3. **Paragraph**
+
+   * Supports multiple paragraph types: headings, body text, lists, etc.
+   * Each type has its specific structure and purpose
+   * Can be extended through custom types
+
+4. **Phrase**
+   * Serves as the smallest unit of text composition
+   * Includes plain text, entities, and custom phrases
+   * Supports rich styling and interaction configuration
+
+## Type System
+
+You can use T8's type definitions in TypeScript projects as follows:
+
+```ts
+import type {
+  NarrativeTextSpec,
+  ParagraphSpec,
+  PhraseSpec,
+  // ...
+} from '@antv/t8';
+```
+
+The main type definitions include:
+
+* `NarrativeTextSpec`: Top-level document structure
+* `SectionSpec`: Section block structure
+* `ParagraphSpec`: Paragraph type definitions
+* `PhraseSpec`: Phrase type definitions
+* `EntityType`: Entity type enumeration
+* `CommonProps`: Common property definitions
+
+## Extensibility
+
+T8 Schema has designed a comprehensive extension mechanism:
+
+1. **Custom Blocks**
+
+   * Extend through the `CustomBlockElement` interface
+   * Can implement completely custom block structures
+
+2. **Custom Phrases**
+
+   * Extend through the `CustomPhraseSpec` interface
+   * Supports custom metadata and rendering logic
+
+3. **Style System**
+   * All components support `CommonProps`
+   * Can customize styles through `styles` and `className`
+
+## Detailed Documentation
+
+* [Overall Structure](./structure.md) - Understand the overall organization of the Schema
+* Type Definitions
+  * [NarrativeText](./types/narrative-text.md) - Top-level text structure
+  * [Section](./types/section.md) - Section blocks
+  * [Paragraph](./types/paragraph.md) - Paragraph types
+  * [Phrase & Entity](./types/phrase.md) - Phrases and entities
+
+---
+
+---
+url: /zh/schema.md
+---
+
+# Schema
+
+## 概述
+
+T8 Schema 是一套用于声明式描述数据解读报告的 JSON Schema 规范。它提供了一个完整的类型系统，用于构建结构化的叙事文本可视化内容。
+
+## 核心概念
+
+T8 Schema 系统主要包含以下核心概念：
+
+1. **叙事文本 (NarrativeText)**
+
+   * 作为整个文档的顶层容器
+   * 包含标题（Headline）和多个段落区块（Section）
+   * 支持全局样式配置
+
+2. **段落区块 (Section)**
+
+   * 用于组织和管理相关内容的段落集合
+   * 支持标准段落组和自定义区块
+   * 可以灵活扩展以适应不同的展示需求
+
+3. **段落 (Paragraph)**
+
+   * 支持多种段落类型：标题、正文、列表等
+   * 每种类型都有其特定的结构和用途
+   * 可以通过自定义类型扩展
+
+4. **短语 (Phrase)**
+   * 作为文本的最小组成单位
+   * 包括纯文本、实体和自定义短语
+   * 支持丰富的样式和交互配置
+
+## 类型系统
+
+通过以下方式可以在 TypeScript 项目中使用 T8 的类型定义：
+
+```ts
+import type {
+  NarrativeTextSpec,
+  ParagraphSpec,
+  PhraseSpec,
+  // ...
+} from '@antv/t8';
+```
+
+主要的类型定义包括：
+
+* `NarrativeTextSpec`: 顶层文档结构
+* `SectionSpec`: 段落区块结构
+* `ParagraphSpec`: 段落类型定义
+* `PhraseSpec`: 短语类型定义
+* `EntityType`: 实体类型枚举
+* `CommonProps`: 通用属性定义
+
+## 扩展性
+
+T8 Schema 设计了完善的扩展机制：
+
+1. **自定义区块**
+
+   * 通过 `CustomBlockElement` 接口扩展
+   * 可以实现完全自定义的区块结构
+
+2. **自定义短语**
+
+   * 通过 `CustomPhraseSpec` 接口扩展
+   * 支持自定义元数据和渲染逻辑
+
+3. **样式系统**
+   * 所有组件都支持 `CommonProps`
+   * 可以通过 `styles` 和 `className` 自定义样式
+
+## 详细文档
+
+* [总体结构](./structure.md) - 了解 Schema 的整体组织结构
+* 类型定义
+  * [NarrativeText](./types/narrative-text.md) - 顶层文本结构
+  * [Section](./types/section.md) - 段落区块
+  * [Paragraph](./types/paragraph.md) - 段落类型
+  * [Phrase & Entity](./types/phrase.md) - 短语和实体
+
+---
+
+---
+url: /en/schema/types/section.md
+---
+
+# Section
+
+`SectionSpec` defines the paragraph blocks in a document and is the core unit of content organization. It supports both standard paragraph organization and fully customized block structures, providing flexible layout capabilities for documents.
+
+## Type Definition
+
+```ts
+import type { CommonProps, CustomBlockElement } from './common';
+import type { ParagraphSpec } from './paragraph';
+
+export type StandardSectionSpec = {
+  paragraphs?: ParagraphSpec[];
+};
+
+export type SectionSpec = (StandardSectionSpec | CustomBlockElement) & CommonProps;
+```
+
+## Type Descriptions
+
+### StandardSectionSpec
+
+Standard paragraph block, used for organizing regular document content:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `paragraphs` | `ParagraphSpec[]` | No | List of paragraphs, can contain different types of paragraphs |
+
+### CustomBlockElement
+
+Custom block, used for extending special display requirements:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `customType` | `string` | Yes | Custom block type identifier |
+| `styles` | `CSSProperties` | No | Block CSS styles |
+| `className` | `string` | No | Block CSS class name |
+| `key` | `string` | No | Custom identifier |
+| `[key: string]` | `unknown` | No | Other custom properties |
+
+## Usage Examples
+
+### Standard Section Block
+
+```ts
+const standardSection: SectionSpec = {
+  paragraphs: [
+    {
+      type: 'heading1',
+      phrases: [
+        {
+          type: 'text',
+          value: 'Data Overview',
+        },
+      ],
+    },
+    {
+      type: 'normal',
+      phrases: [
+        {
+          type: 'text',
+          value: 'This report will analyze data from the following dimensions:',
+        },
+      ],
+    },
+    {
+      type: 'bullets',
+      isOrder: false,
+      bullets: [
+        {
+          type: 'bullet-item',
+          phrases: [
+            {
+              type: 'text',
+              value: 'User Growth Trends',
+            },
+          ],
+        },
+        {
+          type: 'bullet-item',
+          phrases: [
+            {
+              type: 'text',
+              value: 'Geographic Distribution',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+## Best Practices
+
+1. **Content Organization**
+   * Use `StandardSectionSpec` to organize regular text content
+   * Arrange paragraphs in a logical order through the `paragraphs` array
+   * Maintain clear and consistent paragraph hierarchy
+
+2. **Style Management**
+   * Use `styles` to define block-level styles
+   * Implement theme customization through `className`
+   * Be mindful of style scoping to avoid style pollution
+
+---
+
+---
+url: /zh/schema/types/section.md
+---
+
+# Section
+
+`SectionSpec` 定义了文档中的段落区块，是内容组织的核心单元。它支持标准的段落组织形式和完全自定义的区块结构，为文档提供了灵活的布局能力。
+
+## 类型定义
+
+```ts
+import type { CommonProps, CustomBlockElement } from './common';
+import type { ParagraphSpec } from './paragraph';
+
+export type StandardSectionSpec = {
+  paragraphs?: ParagraphSpec[];
+};
+
+export type SectionSpec = (StandardSectionSpec | CustomBlockElement) & CommonProps;
+```
+
+## 类型说明
+
+### StandardSectionSpec
+
+标准段落区块，用于组织常规的文档内容：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `paragraphs` | `ParagraphSpec[]` | 否 | 段落列表，可以包含不同类型的段落 |
+
+### CustomBlockElement
+
+自定义区块，用于扩展特殊的展示需求：
+
+| 属性 | 类型 | 必填 | 描述 |
+|------|------|------|------|
+| `customType` | `string` | 是 | 自定义区块的类型标识 |
+| `styles` | `CSSProperties` | 否 | 区块的 CSS 样式 |
+| `className` | `string` | 否 | 区块的 CSS 类名 |
+| `key` | `string` | 否 | 自定义标识 |
+| `[key: string]` | `unknown` | 否 | 其他自定义属性 |
+
+## 使用示例
+
+### 标准段落区块
+
+```ts
+const standardSection: SectionSpec = {
+  paragraphs: [
+    {
+      type: 'heading1',
+      phrases: [
+        {
+          type: 'text',
+          value: '数据概览',
+        },
+      ],
+    },
+    {
+      type: 'normal',
+      phrases: [
+        {
+          type: 'text',
+          value: '本报告将从以下几个维度分析数据：',
+        },
+      ],
+    },
+    {
+      type: 'bullets',
+      isOrder: false,
+      bullets: [
+        {
+          type: 'bullet-item',
+          phrases: [
+            {
+              type: 'text',
+              value: '用户增长趋势',
+            },
+          ],
+        },
+        {
+          type: 'bullet-item',
+          phrases: [
+            {
+              type: 'text',
+              value: '地域分布情况',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+```
+
+## 最佳实践
+
+1. **内容组织**
+   * 使用 `StandardSectionSpec` 组织常规文本内容
+   * 通过 `paragraphs` 数组合理安排段落顺序
+   * 保持段落层级的清晰和一致
+
+2. **样式管理**
+   * 使用 `styles` 定义区块级样式
+   * 通过 `className` 实现主题定制
+   * 注意样式的作用域，避免样式污染
+
+---
+
+---
+url: /en/tutorial/advanced/theme.md
+---
+
+# Theme Configuration
+
+T8 provides a flexible theme configuration system. You can use the `theme` method to set the text visualization theme style.
+
+## Basic Usage
+
+```ts
+const text = new Text('#container');
+
+// Use light theme
+text.theme('light');
+
+// Use dark theme
+text.theme('dark');
+
+// Custom theme configuration
+text.theme('dark', {
+  fontSize: 12,
+  lineHeight: 20,
+  // ... other configurations
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+app.style.background = 'black';
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Specify visualization elements
+text.schema(spec).theme('dark', { fontSize: 40 });
+
+// Render
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## Configuration Items
+
+### Basic Configuration
+
+Basic configuration items control the basic text styles:
+
+| Configuration Item | Type   | Default Value            | Description      |
+| ------------------ | ------ | ------------------------ | ---------------- |
+| fontFamily         | string | 'PingFangSC, sans-serif' | Font family      |
+| fontSize           | number | 14                       | Base font size   |
+| lineHeight         | number | 24                       | Base line height |
+| borderColor        | string | 'rgb(199, 199, 199)'     | Border color     |
+
+### Heading Configuration
+
+You can configure the size and line height of different heading levels through `fontSizeMultiples` and `lineHeightMultiples`:
+
+```ts
+{
+  // Heading font size multipliers
+  fontSizeMultiples: {
+    h1: 2,      // 2 times base font size
+    h2: 1.72,   // 1.72 times base font size
+    h3: 1.4,    // 1.4 times base font size
+    h4: 1.15,   // 1.15 times base font size
+    h5: 1.08,   // 1.08 times base font size
+    h6: 1.08,   // 1.08 times base font size
+  },
+
+  // Heading line height multipliers
+  lineHeightMultiples: {
+    h1: 1.5,    // 1.5 times base line height
+    h2: 1.3,    // 1.3 times base line height
+    h3: 1.15,   // 1.15 times base line height
+    h4: 1,      // 1 times base line height
+    h5: 1,      // 1 times base line height
+    h6: 1,      // 1 times base line height
+  }
+}
+```
+
+### Color Configuration
+
+T8 provides a complete set of preset colors for light and dark themes. Each theme includes the following color configurations:
+
+| Configuration Item    | Description             | Light Theme         | Dark Theme                |
+| --------------------- | ----------------------- | ------------------- | ------------------------- |
+| colorBase             | Base text color         | rgba(0, 0, 0, 0.65) | rgba(255, 255, 255, 0.65) |
+| colorEntityBase       | Entity base color       | rgba(0, 0, 0, 0.65) | rgba(255, 255, 255, 0.65) |
+| colorHeadingBase      | Heading base color      | rgba(0, 0, 0, 0.85) | rgba(255, 255, 255, 0.85) |
+| colorPositive         | Positive value color    | #FA541C             | #FA541C                   |
+| colorNegative         | Negative value color    | #13A8A8             | #13A8A8                   |
+| colorConclusion       | Conclusion color        | #1F0352             | #D8C3F3                   |
+| colorDimensionValue   | Dimension value color   | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
+| colorMetricName       | Metric name color       | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
+| colorMetricValue      | Metric value color      | #1677FF             | #4B91FF                   |
+| colorOtherValue       | Other value color       | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
+| colorProportionShadow | Proportion chart shadow | #CDDDFD             | #CDDDFD                   |
+| colorProportionFill   | Proportion chart fill   | #3471F9             | #3471F9                   |
+| colorLineStroke       | Line chart stroke       | #5B8FF9             | #5B8FF9                   |
+
+## Theme Customization
+
+### Overriding Preset Theme
+
+You can override part of the configuration based on the preset theme:
+
+```ts
+text.theme('dark', {
+  // Override basic configuration
+  fontSize: 16,
+  lineHeight: 28,
+
+  // Override color configuration
+  colorMetricValue: '#1890ff',
+  colorPositive: '#52c41a',
+  colorNegative: '#ff4d4f',
+
+  // Override heading configuration
+  fontSizeMultiples: {
+    h1: 2.5,
+    h2: 2,
+    // ... other heading configurations
+  },
+});
+```
+
+### Complete Example
+
+This is a complete example containing all configuration items:
+
+```ts
+text.theme('dark', {
+  // Basic configuration
+  fontFamily: 'PingFangSC, sans-serif',
+  fontSize: 14,
+  lineHeight: 24,
+  borderColor: 'rgb(199, 199, 199)',
+
+  // Heading size configuration
+  fontSizeMultiples: {
+    h1: 2,
+    h2: 1.72,
+    h3: 1.4,
+    h4: 1.15,
+    h5: 1.08,
+    h6: 1.08,
+  },
+
+  // Heading line height configuration
+  lineHeightMultiples: {
+    h1: 1.5,
+    h2: 1.3,
+    h3: 1.15,
+    h4: 1,
+    h5: 1,
+    h6: 1,
+  },
+
+  // Color configuration
+  colorBase: 'rgba(255, 255, 255, 0.65)',
+  colorEntityBase: 'rgba(255, 255, 255, 0.65)',
+  colorHeadingBase: 'rgba(255, 255, 255, 0.85)',
+  colorPositive: '#FA541C',
+  colorNegative: '#13A8A8',
+  colorConclusion: '#D8C3F3',
+  colorDimensionValue: 'rgba(255, 255, 255, 0.88)',
+  colorMetricName: 'rgba(255, 255, 255, 0.88)',
+  colorMetricValue: '#4B91FF',
+  colorOtherValue: 'rgba(255, 255, 255, 0.88)',
+  colorProportionShadow: '#CDDDFD',
+  colorProportionFill: '#3471F9',
+  colorLineStroke: '#5B8FF9',
+});
+```
+
+---
+
+---
+url: /en.md
+---
+
+
+---
+
+---
+url: /zh.md
+---
+
+
+---
+
+---
+url: /zh/tutorial/advanced/theme.md
+---
+
+# 主题配置
+
+T8 提供了灵活的主题配置系统，你可以通过 `theme` 方法来设置文本可视化的主题样式。
+
+## 基础用法
+
+```ts
+const text = new Text('#container');
+
+// 使用亮色主题
+text.theme('light');
+
+// 使用暗色主题
+text.theme('dark');
+
+// 自定义主题配置
+text.theme('dark', {
+  fontSize: 12,
+  lineHeight: 20,
+  // ... 其他配置
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+app.style.background = 'black';
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('dark', { fontSize: 40 });
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## 配置项
+
+### 基础配置
+
+基础配置项控制文本的基本样式：
+
+| 配置项      | 类型   | 默认值                   | 说明         |
+| ----------- | ------ | ------------------------ | ------------ |
+| fontFamily  | string | 'PingFangSC, sans-serif' | 字体族       |
+| fontSize    | number | 14                       | 基础字号大小 |
+| lineHeight  | number | 24                       | 基础行高     |
+| borderColor | string | 'rgb(199, 199, 199)'     | 边框颜色     |
+
+### 标题配置
+
+通过 `fontSizeMultiples` 和 `lineHeightMultiples` 可以配置不同级别标题的大小和行高：
+
+```ts
+{
+  // 标题字号倍数
+  fontSizeMultiples: {
+    h1: 2,      // 2 倍基础字号
+    h2: 1.72,   // 1.72 倍基础字号
+    h3: 1.4,    // 1.4 倍基础字号
+    h4: 1.15,   // 1.15 倍基础字号
+    h5: 1.08,   // 1.08 倍基础字号
+    h6: 1.08,   // 1.08 倍基础字号
+  },
+
+  // 标题行高倍数
+  lineHeightMultiples: {
+    h1: 1.5,    // 1.5 倍基础行高
+    h2: 1.3,    // 1.3 倍基础行高
+    h3: 1.15,   // 1.15 倍基础行高
+    h4: 1,      // 1 倍基础行高
+    h5: 1,      // 1 倍基础行高
+    h6: 1,      // 1 倍基础行高
+  }
+}
+```
+
+### 颜色配置
+
+T8 为亮色和暗色主题提供了一套完整的预设颜色。每个主题都包含以下颜色配置：
+
+| 配置项                | 说明           | 亮色主题            | 暗色主题                  |
+| --------------------- | -------------- | ------------------- | ------------------------- |
+| colorBase             | 基础文本颜色   | rgba(0, 0, 0, 0.65) | rgba(255, 255, 255, 0.65) |
+| colorEntityBase       | 实体基础颜色   | rgba(0, 0, 0, 0.65) | rgba(255, 255, 255, 0.65) |
+| colorHeadingBase      | 标题基础颜色   | rgba(0, 0, 0, 0.85) | rgba(255, 255, 255, 0.85) |
+| colorPositive         | 正向值颜色     | #FA541C             | #FA541C                   |
+| colorNegative         | 负向值颜色     | #13A8A8             | #13A8A8                   |
+| colorConclusion       | 结论颜色       | #1F0352             | #D8C3F3                   |
+| colorDimensionValue   | 维度值颜色     | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
+| colorMetricName       | 指标名称颜色   | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
+| colorMetricValue      | 指标值颜色     | #1677FF             | #4B91FF                   |
+| colorOtherValue       | 其他值颜色     | rgba(0, 0, 0, 0.88) | rgba(255, 255, 255, 0.88) |
+| colorProportionShadow | 比例图阴影颜色 | #CDDDFD             | #CDDDFD                   |
+| colorProportionFill   | 比例图填充颜色 | #3471F9             | #3471F9                   |
+| colorLineStroke       | 折线图描边颜色 | #5B8FF9             | #5B8FF9                   |
+
+## 主题定制
+
+### 覆盖预设主题
+
+你可以在使用预设主题的基础上覆盖部分配置：
+
+```ts
+text.theme('dark', {
+  // 覆盖基础配置
+  fontSize: 16,
+  lineHeight: 28,
+
+  // 覆盖颜色配置
+  colorMetricValue: '#1890ff',
+  colorPositive: '#52c41a',
+  colorNegative: '#ff4d4f',
+
+  // 覆盖标题配置
+  fontSizeMultiples: {
+    h1: 2.5,
+    h2: 2,
+    // ... 其他标题配置
+  },
+});
+```
+
+### 完整示例
+
+这是一个包含所有配置项的完整示例：
+
+```ts
+text.theme('dark', {
+  // 基础配置
+  fontFamily: 'PingFangSC, sans-serif',
+  fontSize: 14,
+  lineHeight: 24,
+  borderColor: 'rgb(199, 199, 199)',
+
+  // 标题大小配置
+  fontSizeMultiples: {
+    h1: 2,
+    h2: 1.72,
+    h3: 1.4,
+    h4: 1.15,
+    h5: 1.08,
+    h6: 1.08,
+  },
+
+  // 标题行高配置
+  lineHeightMultiples: {
+    h1: 1.5,
+    h2: 1.3,
+    h3: 1.15,
+    h4: 1,
+    h5: 1,
+    h6: 1,
+  },
+
+  // 颜色配置
+  colorBase: 'rgba(255, 255, 255, 0.65)',
+  colorEntityBase: 'rgba(255, 255, 255, 0.65)',
+  colorHeadingBase: 'rgba(255, 255, 255, 0.85)',
+  colorPositive: '#FA541C',
+  colorNegative: '#13A8A8',
+  colorConclusion: '#D8C3F3',
+  colorDimensionValue: 'rgba(255, 255, 255, 0.88)',
+  colorMetricName: 'rgba(255, 255, 255, 0.88)',
+  colorMetricValue: '#4B91FF',
+  colorOtherValue: 'rgba(255, 255, 255, 0.88)',
+  colorProportionShadow: '#CDDDFD',
+  colorProportionFill: '#3471F9',
+  colorLineStroke: '#5B8FF9',
+});
+```
+
+---
+
+---
+url: /zh/tutorial/advanced/events.md
+---
+
+# 事件监听
+
+T8 提供了完整的事件系统，允许你监听和响应文本可视化中的各种交互事件。
+
+## 事件类型
+
+T8 支持以下几种级别的事件：
+
+1. 叙事文本事件 (`narrative:*`)
+2. 段落区块事件 (`section:*`)
+3. 段落事件 (`paragraph:*`)
+4. 短语事件 (`phrase:*`)
+
+## 基础用法
+
+使用 `on` 方法来注册事件监听器：
+
+```ts
+const text = new Text('#container');
+
+// 监听短语点击事件
+text.on('phrase:click', (spec) => {
+  console.log('短语被点击：', spec);
+});
+
+// 监听段落点击事件
+text.on('paragraph:click', (spec) => {
+  console.log('段落被点击：', spec);
+});
+
+// 监听区块点击事件
+text.on('section:click', (spec) => {
+  console.log('区块被点击：', spec);
+});
+
+// 监听整个叙事文本的点击事件
+text.on('narrative:click', (spec) => {
+  console.log('叙事文本被点击：', spec);
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 40 });
+
+text.on('phrase:click', (spec) => {
+  console.log('短语被点击：', spec);
+});
+
+// 监听段落点击事件
+text.on('paragraph:click', (spec) => {
+  console.log('段落被点击：', spec);
+});
+
+// 监听区块点击事件
+text.on('section:click', (spec) => {
+  console.log('区块被点击：', spec);
+});
+
+// 监听整个叙事文本的点击事件
+text.on('narrative:click', (spec) => {
+  console.log('叙事文本被点击：', spec);
+});
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## 事件参数
+
+每个事件处理函数都会收到一个事件参数对象，包含了与事件相关的详细信息：
+
+```ts
+text.on('phrase:click', (spec) => {
+  const {
+    type, // 事件类型
+    value, // 短语的值
+    metadata, // 相关元数据
+    // ... 其他属性
+  } = spec;
+
+  // 处理事件
+});
+```
+
+## 事件解绑
+
+你可以使用 `off` 方法来移除事件监听器：
+
+```ts
+// 定义事件处理函数
+const handleClick = (spec) => {
+  console.log('点击事件：', spec);
+};
+
+// 注册事件
+text.on('phrase:click', handleClick);
+
+// 移除特定的事件监听器
+text.off('phrase:click', handleClick);
+
+// 移除某个事件类型的所有监听器
+text.off('phrase:click');
+
+// 移除所有事件监听器
+text.off();
+```
+
+## 事件冒泡
+
+T8 的事件系统支持事件冒泡机制，事件会从最具体的元素开始，向上传播到更一般的元素：
+
+```ts
+text.on('phrase:click', (spec) => {
+  console.log('1. 短语被点击');
+});
+
+text.on('paragraph:click', (spec) => {
+  console.log('2. 段落被点击');
+});
+
+text.on('section:click', (spec) => {
+  console.log('3. 区块被点击');
+});
+
+text.on('narrative:click', (spec) => {
+  console.log('4. 叙事文本被点击');
+});
+
+// 当点击一个短语时，上述所有事件处理函数都会按顺序执行
+```
+
+---
+
+---
+url: /zh/tutorial/quick-start.md
+---
+
+# 快速开始
+
+## T8 是什么
+
+> T8 是 AntV 技术栈下文本可视化解决方案，其中 T 代表 Text，8 代表一个字节 8 bits，寓意这个工具可以深度透视文本底下的洞察。
+
+当前主要致力于细分领域：**基于洞察的解读文本（narrative-text）展示及编辑能力**。
+
+***`text-schema` 构建成本高不如直接拼接 DOM 快，我为什么还要用 T8？***
+
+要解答这个问题需要先明确 `JSON` 从哪儿来？
+
+narrative 相关技术基于 `JSON` 数据来自 LLM 大模型生成的假设，前端消费 schema 进行渲染即可。随着数据表达的多样性和即时性的要求越来越高，以及 NLP 技术越来越多的被应用，前端维护文本模版将不可持续。此时使用 NarrativeTextVis 进行统一渲染将是最佳选择。
+
+但是不可否认仍然将有很长一段时间，类似的文本表达可以通过默认的一套或者几套模版满足需求，结合 `text-schema` 对于的学习成本，使用前端熟悉的 `dom/jsx` 进行开发似乎是更好的选择。*如果你的业务对文本表述扩展性要求不高，且模版相对固定，请使用你熟悉的语法。* 但是如果使用 text-schema 将带来以下好处：
+
+* 作为一种解读文本的标准描述，可静态化文本数据结构，一处维护各处复用;
+* `JSON` 格式决定了其有利于数据储存和进一步消费;
+* 样式规范，默认好看；
+* 行内小图（word-scale chart）是默认的支持的，并且随着版本升级可获得更多行内数据展示；
+* 相关交互的可扩展性；
+
+## 使用场景
+
+在数据分析全流程展示上，除了可视化图表外，通过**文本**描述数据现象、给出洞察结论辅助分析，也十分重要。
+
+尤其随着增强分析技术的发展，借助 NLP（自然语言处理）直接输出的数据文本描述需要渲染引擎将其呈现在用户界面。narrative-text 相关技术方案就是针对该场景的解决方案。
+
+## 特性
+
+* 数据解读文本的规范描述 json schema（[narrative-text-schema](../schema/index.md)）；
+* text-schema 的纯 JS 渲染引擎 `Text`；
+  * 解析文本结构描述 json schema 为 html；
+  * 数据短语（如指标值、比率、差值、占比、贡献度等）标准视觉表示；
+  * 行内小图（mini pie、mini line）数据驱动展示，提高文本看数效率；
+
+## 基本使用
+
+T8 可以使用常规的包管理工具安装，例如 npm 或者 Yarn 等。
+
+```bash
+$ npm install @antv/t8
+```
+
+```bash
+$ yarn add @antv/t8
+```
+
+安装之后，在 T8 这个库中，就可以导出 `Text` 对象和 API。
+
+```html
+<div id="container"></div>
+```
+
+```js
+import { Text } from '@antv/t8';
+
+// 待可视化的 schema
+const spec = {
+  /*  */
+};
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('dark');
+
+// 渲染
+const unmont = text.render();
+
+// 销毁
+unmont();
+```
+
+如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+import spec from './example.json';
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light');
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "This quarter, "
+            },
+            {
+              "type": "entity",
+              "value": "bookings",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "are higher than usual for this point in the quarter. "
+            },
+            {
+              "type": "text",
+              "value": "They are "
+            },
+            {
+              "type": "entity",
+              "value": "$348k",
+              "metadata": {
+                "entityType": "metric_value",
+                "origin": 348.12
+              }
+            },
+            {
+              "type": "text",
+              "value": ". "
+            },
+            {
+              "type": "text",
+              "value": "They were made up of "
+            },
+            {
+              "type": "entity",
+              "value": "29 deals",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ", "
+            },
+            {
+              "type": "text",
+              "value": "with the "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "being "
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "entity",
+              "value": "Bookings ",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "are up "
+            },
+            {
+              "type": "entity",
+              "value": "$180.3k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "positive"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter. "
+            },
+            {
+              "type": "text",
+              "value": "They are up "
+            },
+            {
+              "type": "entity",
+              "value": "$106.1k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "positive"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last year. "
+            },
+            {
+              "type": "text",
+              "value": "They are "
+            },
+            {
+              "type": "entity",
+              "value": "$110k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "46.2%",
+              "metadata": {
+                "entityType": "contribute_ratio"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "greater than average bookings at the same time each quarter over the previous year. "
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "Looking across the most relevant dimensions, "
+            },
+            {
+              "type": "text",
+              "value": "the "
+            },
+            {
+              "type": "entity",
+              "value": "increase",
+              "metadata": {
+                "entityType": "trend_desc",
+                "detail": [1, 2, 6, 18, 24, 48]
+              }
+            },
+            {
+              "type": "text",
+              "value": " relative to the same time last quarter was primarily driven by"
+            }
+          ]
+        },
+        {
+          "type": "bullets",
+          "isOrder": false,
+          "bullets": [
+            {
+              "type": "bullet-item",
+              "phrases": [
+                {
+                  "type": "text",
+                  "value": "the "
+                },
+                {
+                  "type": "entity",
+                  "value": "Prospecting",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " "
+                },
+                {
+                  "type": "text",
+                  "value": "lead source"
+                },
+                {
+                  "type": "text",
+                  "value": " ("
+                },
+                {
+                  "type": "entity",
+                  "value": "$50.6k",
+                  "metadata": {
+                    "entityType": "delta_value",
+                    "assessment": "positive"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": ") "
+                },
+                {
+                  "type": "custom",
+                  "value": "See all lead sources.",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx1"
+                  }
+                }
+              ],
+              "subBullet": {
+                "type": "bullets",
+                "isOrder": true,
+                "bullets": [
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 1"
+                      }
+                    ],
+                    "subBullet": {
+                      "type": "bullets",
+                      "isOrder": false,
+                      "bullets": [
+                        {
+                          "type": "bullet-item",
+                          "phrases": [
+                            {
+                              "type": "text",
+                              "value": "sub node 1.1, the proportion percentage is "
+                            },
+                            {
+                              "type": "entity",
+                              "value": "45%",
+                              "metadata": {
+                                "entityType": "proportion",
+                                "origin": 0.45
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "bullet-item",
+                          "phrases": [
+                            {
+                              "type": "text",
+                              "value": "sub node 1.2, the proportion percentage is "
+                            },
+                            {
+                              "type": "entity",
+                              "value": "65%",
+                              "metadata": {
+                                "entityType": "proportion"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "bullet-item",
+                    "phrases": [
+                      {
+                        "type": "text",
+                        "value": "sub node 2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [
+                {
+                  "type": "entity",
+                  "value": "Keely Townsend",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " ("
+                },
+                {
+                  "type": "entity",
+                  "value": "$86.2k",
+                  "metadata": {
+                    "entityType": "delta_value",
+                    "assessment": "positive"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": ") "
+                },
+                {
+                  "type": "custom",
+                  "value": "See all account executives",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx2"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "."
+                }
+              ]
+            },
+            {
+              "type": "bullet-item",
+              "phrases": [
+                {
+                  "type": "text",
+                  "value": "the "
+                },
+                {
+                  "type": "entity",
+                  "value": "New Client",
+                  "metadata": {
+                    "entityType": "dim_value"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": " "
+                },
+                {
+                  "type": "text",
+                  "value": "opportunity type"
+                },
+                {
+                  "type": "text",
+                  "value": " ("
+                },
+                {
+                  "type": "entity",
+                  "value": "$160.1k",
+                  "metadata": {
+                    "entityType": "delta_value",
+                    "assessment": "positive"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": ") "
+                },
+                {
+                  "type": "custom",
+                  "value": "See all opportunity types",
+                  "metadata": {
+                    "interaction": "click",
+                    "show": "modal",
+                    "tableId": "0xx3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "value": "."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "number of deals",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "29",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is up "
+            },
+            {
+              "type": "entity",
+              "value": "17",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "positive"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "12",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        },
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "headline": {
+    "type": "headline",
+    "phrases": [
+      {
+        "type": "text",
+        "value": "Bookings This Quarter Higher than Usual"
+      }
+    ]
+  }
+}
+```
+
+:::
+
+---
+
+---
+url: /zh/schema/structure.md
+---
+
+# 总体结构说明
+
+![overview](https://gw.alipayobjects.com/mdn/rms_e59602/afts/img/A*QpAmQYCQL2cAAAAAAAAAAAAAARQnAQ)
+
+一份数据报告从整体结构上，包括：
+
+* `Headline` 标题；
+* `Section` 段落，用于划分不同报告主题；
+
+`Section` 内包含了多个 `Paragraph`，段落类型可能有：
+
+* `heading1` ~ `heading6`（注意这里和报告级别的 不同，Headline 不同，Headline 特指文章标题）；
+* `normal` 即普通文本段落，对应 html 的 `<p>` 标签；
+* `bullets` 列表，可以分为有序列表和无序列表，对应 html 的 `<ul>` 和 `<ol>` 标签，支持多级列表嵌套；
+* `custom` 自定义段落类型；
+* `visualization` 可视化图表（暂不支持，可通过自定义段落实现）；
+
+`Section` 除了标准类型含多个 `Paragraph` 之外，还可以自定义。
+
+除了自定义段落之外，`heading`、`normal`、`bullets` 都是由多个 `Phrase` 组成的，即短语，`Phrase` 的类型主要包括：
+
+* `text` 纯文本;
+* `entity` 实体，也就是数据报告中对应明细数据的内容;
+* `custom` 自定义短语;
+
+---
+
+---
+url: /zh/tutorial/advanced/plugin.md
+---
+
+# 插件系统
+
+T8 提供了强大的插件系统，允许你自定义和扩展文本可视化的功能。插件系统主要包括三种类型的插件：
+
+* 实体短语插件（EntityPhrase）：用于自定义指标名、指标值等预定义实体的展示
+* 自定义短语插件（CustomPhrase）：用于扩展新的短语类型
+* 自定义区块插件（CustomBlock）：用于自定义段落和章节级别的展示
+
+## 插件管理器
+
+所有插件都通过 `PluginManager` 进行统一管理。`PluginManager` 负责注册和管理不同类型的插件：
+
+```ts
+import { PluginManager } from '@antv/t8';
+
+const plugin = /* create a plugin with factory function */
+
+// 使用插件管理器
+const text = new Text('#container');
+text.registerPlugin(plugin);
+```
+
+## 实体短语插件（EntityPhrase）
+
+实体短语插件用于自定义预定义实体的展示样式和交互行为。T8 内置了一系列实体类型，每个实体类型都有对应的工厂函数来创建插件。
+
+### 预设实体插件
+
+```ts
+import {
+  createMetricName, // 指标名称
+  createMetricValue, // 指标值
+  createDeltaValue, // 对比差值
+  createRatioValue, // 对比差率
+  createDimensionValue, // 维度值
+  createProportion, // 占比
+  createTimeDesc, // 时间描述
+  createTrendDesc, // 趋势描述
+} from '@antv/t8';
+```
+
+### 预设实体插件配置
+
+每个实体插件工厂函数接收两个参数：
+
+1. `descriptor`: 描述器对象，用于定义实体的样式和行为
+2. `mode`: 合并模式，可选 'merge'（默认）或 'overwrite'
+
+```ts
+import { createDimensionValue } from '@antv/t8';
+
+const dimensionValueDescriptor = {
+  // 样式编码
+  style: (value, metadata, themeSeedToken) => ({
+    color: 'red',
+    fontSize: '40px',
+  }),
+  // 工具提示
+  tooltip: {
+    title: (value) => value,
+  },
+  // 事件处理
+  onClick: (value, metadata) => {
+    console.log('Clicked:', value, metadata);
+  },
+};
+
+const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createDimensionValue } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const dimensionValueDescriptor = {
+  // 样式编码
+  style: (value, metadata, themeSeedToken) => ({
+    color: 'red',
+    fontSize: '40px',
+  }),
+  // 工具提示
+  tooltip: {
+    title: (value) => value,
+  },
+  // 事件处理
+  onClick: (value, metadata) => {
+    console.log('Clicked:', value, metadata);
+  },
+};
+
+const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(dimensionPlugin);
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "dim_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## 自定义短语插件（CustomPhrase）
+
+当预定义的实体类型无法满足需求时，你可以使用自定义短语插件来创建新的短语类型。
+
+### 创建自定义短语
+
+使用 `createCustomPhraseFactory` 来创建自定义短语插件：
+
+```ts
+import { createCustomPhraseFactory } from '@antv/t8';
+
+const customPhrasePlugin = createCustomPhraseFactory({
+  // 唯一标识符
+  key: 'custom_type',
+  // 自定义渲染内容
+  render: (value, metadata) => {
+    const element = document.createElement('span');
+    element.textContent = `${metadata.level}-${value}`;
+    element.style.backgroundColor = '#f0f0f0';
+    element.style.color = 'red';
+    element.style.padding = '0 4px';
+    return element;
+  },
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createCustomPhraseFactory } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const customPhrasePlugin = createCustomPhraseFactory({
+  // 唯一标识符
+  key: 'custom_type',
+  // 自定义渲染内容
+  render: (value, metadata) => {
+    const element = document.createElement('span');
+    element.textContent = `${metadata.level}-${value}`;
+    element.style.backgroundColor = '#f0f0f0';
+    element.style.color = 'red';
+    element.style.padding = '0 4px';
+    return element;
+  },
+});
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(customPhrasePlugin);
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "custom",
+              "value": "average deal size",
+              "metadata": {
+                "level": 1,
+                "customType": "custom_type"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
+
+## 自定义区块插件（CustomBlock）
+
+区块插件用于自定义段落和章节级别的展示，比如添加图表、自定义布局等。
+
+### 创建区块插件
+
+使用 `createCustomBlockFactory` 来创建区块插件：
+
+```ts
+import { createCustomBlockFactory } from '@antv/t8';
+
+const customBlockPlugin = createCustomBlockFactory({
+  key: 'custom-block',
+  // 自定义类名
+  className: 'custom-block-class',
+
+  // 自定义样式
+  style: {
+    padding: '16px',
+    backgroundColor: '#f0f0f0',
+  },
+  // 自定义渲染
+  render: (metadata) => {
+    const container = document.createElement('div');
+    container.style.color = 'red';
+    container.style.backgroundColor = 'green';
+    container.style.fontSize = '40px';
+    container.textContent = 'This is custom Block';
+    return container;
+  },
+});
+```
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text, createCustomBlockFactory } from '@antv/t8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+
+const customBlockPlugin = createCustomBlockFactory({
+  key: 'custom-block',
+  // 自定义类名
+  className: 'custom-block-class',
+
+  // 自定义样式
+  style: {
+    padding: '16px',
+    backgroundColor: '#f0f0f0',
+  },
+  // 自定义渲染
+  render: (metadata) => {
+    const container = document.createElement('div');
+    container.style.color = 'red';
+    container.style.backgroundColor = 'green';
+    container.style.fontSize = '40px';
+    container.textContent = 'This is custom Block';
+    return container;
+  },
+});
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 指定可视化元素
+text.schema(spec).theme('light', { fontSize: 20 });
+
+text.registerPlugin(customBlockPlugin);
+
+// 渲染
+text.render();
+```
+
+```json example.json
+{
+  "sections": [
+    {
+      "customType": "custom-block"
+    },
+    {
+      "key": "insight",
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "The "
+            },
+            {
+              "type": "entity",
+              "value": "average deal size",
+              "metadata": {
+                "entityType": "dim_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$12k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": "is down "
+            },
+            {
+              "type": "entity",
+              "value": "$2k",
+              "metadata": {
+                "entityType": "delta_value",
+                "assessment": "negative"
+              }
+            },
+            {
+              "type": "text",
+              "value": " "
+            },
+            {
+              "type": "text",
+              "value": "relative to the same time last quarter"
+            },
+            {
+              "type": "text",
+              "value": " ("
+            },
+            {
+              "type": "entity",
+              "value": "$14k",
+              "metadata": {
+                "entityType": "metric_value"
+              }
+            },
+            {
+              "type": "text",
+              "value": ") "
+            },
+            {
+              "type": "text",
+              "value": ". "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+:::
