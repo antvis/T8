@@ -3,7 +3,7 @@ import { ValueAssessment, EntityMetaData } from '../../schema';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { getPrefixCls, isNumber } from '../../utils';
-import { createDocumentFragment } from '../utils';
+import { createInlineDocument } from '../utils';
 import { SeedTokenOptions } from '../../theme';
 
 const MARGIN_RIGHT = 1;
@@ -12,7 +12,7 @@ const defaultDeltaValueDescriptor: SpecificEntityPhraseDescriptor = {
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
   render: (value, { assessment }) => {
-    return createDocumentFragment(getComparePrefix(assessment, ['-', '+']), value, 'prefix');
+    return createInlineDocument(getComparePrefix(assessment, ['-', '+']), value, 'prefix');
   },
   style: (value, { assessment }, themeSeedToken) => ({
     color: getCompareColor(assessment, themeSeedToken),
@@ -29,7 +29,7 @@ const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
   getText: getAssessmentText,
   render: (value, { assessment }) => {
     const prefix = getComparePrefix(assessment, [createArrow('up'), createArrow('down')]);
-    return createDocumentFragment(prefix as HTMLElement | string, value, 'prefix');
+    return createInlineDocument(prefix as HTMLElement | string, value, 'prefix');
   },
   style: (value, { assessment }, themeSeedToken) => ({
     color: getCompareColor(assessment, themeSeedToken),

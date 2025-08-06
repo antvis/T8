@@ -2,7 +2,7 @@ import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { Proportion } from '../../charts';
 import { render as preactRender, h } from 'preact';
-import { createDocumentFragment } from '../utils';
+import { createInlineDocument } from '../utils';
 import { isNumber } from '../../utils';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
@@ -10,7 +10,7 @@ const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
     const chartElement = document.createElement('span');
     preactRender(h(Proportion, { data: getProportionNumber(value, origin as number) }), chartElement);
 
-    return createDocumentFragment(chartElement, value, 'suffix');
+    return createInlineDocument(chartElement, value, 'suffix');
   },
   tooltip: {
     title: (value, metadata) => (isNumber(metadata.origin) ? `${metadata.origin}` : null),

@@ -1,3 +1,3 @@
 export { isBlockDescriptor, isEntityDescriptor, isCustomPhraseDescriptor } from './isPluginType';
-export { createDocumentFragment } from './createDocumentFragment';
+export { createInlineDocument } from './createInlineDocument';
 export { getMergedDescriptor } from './getMergedDescriptor';
