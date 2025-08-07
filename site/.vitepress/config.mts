@@ -26,6 +26,7 @@ const createLangConfig = (lang: string, label: string) => {
                   { text: 'Theme', link: `/${lang}/tutorial/advanced/theme` },
                   { text: 'Events', link: `/${lang}/tutorial/advanced/events` },
                   { text: 'Plugin', link: `/${lang}/tutorial/advanced/plugin` },
+                  { text: 'Streaming', link: `/${lang}/tutorial/advanced/streaming` },
                 ],
               },
             ],

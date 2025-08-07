@@ -53,6 +53,37 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | ---- | --------------------------------------- |
 | Text | Text instance, supports method chaining |
 
+#### streamRender
+
+| Parameter       | Type   | Required | Description                                                                             |
+| --------------- | ------ | -------- | --------------------------------------------------------------------------------------- |
+| newJSONFragment | string | Yes      | A JSON string fragment to append and parse incrementally.                               |
+| options         | object | No       | Optional callbacks: onError (error: string), onComplete (result: T8ClarinetParseResult) |
+
+#### clear
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
+#### render
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
+**Return Value**
+
+| Type     | Description                                  |
+| -------- | -------------------------------------------- |
+| function | Unmount function to remove the visualization |
+
+#### unmount
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
 ## Schema
 
 ### NarrativeTextSpec
