@@ -55,7 +55,7 @@ export function Section({ spec }: SectionProps) {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Container dangerouslySetInnerHTML={{ __html: sectionContent?.outerHTML || '' }} />
+      {sectionContent && <Container dangerouslySetInnerHTML={{ __html: sectionContent.outerHTML }} />}
       {isStandardSection(spec) && spec.paragraphs.map((p) => <Paragraph key={p.key || v4()} spec={p} />)}
     </Container>
   );

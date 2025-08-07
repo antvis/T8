@@ -41,6 +41,17 @@ export function Paragraph({ spec }: ParagraphProps) {
     return null;
   }, [spec]);
 
+  if (paragraphContent) {
+    return (
+      <div
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        dangerouslySetInnerHTML={{ __html: paragraphContent.outerHTML }}
+      />
+    );
+  }
+
   if (isHeadingParagraph(spec)) {
     content = <Heading spec={spec} />;
   }
@@ -51,12 +62,9 @@ export function Paragraph({ spec }: ParagraphProps) {
     content = <Bullets spec={spec} />;
   }
   return content ? (
-    <div
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      dangerouslySetInnerHTML={{ __html: paragraphContent?.outerHTML || '' }}
-    />
+    <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      {content}
+    </div>
   ) : null;
 }
 
