@@ -20,6 +20,7 @@
 - [Schema 介绍](/zh/schema.md)
 - [Section](/en/schema/types/section.md)
 - [Section](/zh/schema/types/section.md)
+- [Streaming Output](/en/tutorial/advanced/streaming.md)
 - [Theme Configuration](/en/tutorial/advanced/theme.md)
 - [Untitled](/en.md)
 - [Untitled](/zh.md)
@@ -28,3 +29,4 @@
 - [快速开始](/zh/tutorial/quick-start.md)
 - [总体结构](/zh/schema/structure.md)
 - [插件系统](/zh/tutorial/advanced/plugin.md)
+- [流式输出](/zh/tutorial/advanced/streaming.md)

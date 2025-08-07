@@ -53,6 +53,37 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | ---- | --------------------------------------- |
 | Text | Text instance, supports method chaining |
 
+#### streamRender
+
+| Parameter       | Type   | Required | Description                                                                             |
+| --------------- | ------ | -------- | --------------------------------------------------------------------------------------- |
+| newJSONFragment | string | Yes      | A JSON string fragment to append and parse incrementally.                               |
+| options         | object | No       | Optional callbacks: onError (error: string), onComplete (result: T8ClarinetParseResult) |
+
+#### clear
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
+#### render
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
+**Return Value**
+
+| Type     | Description                                  |
+| -------- | -------------------------------------------- |
+| function | Unmount function to remove the visualization |
+
+#### unmount
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
 ## Schema
 
 ### NarrativeTextSpec
@@ -342,6 +373,37 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | 类型 | 说明                    |
 | ---- | ----------------------- |
 | Text | Text 实例，支持链式调用 |
+
+#### streamRender
+
+| 参数            | 类型   | 必填 | 说明                                                                          |
+| --------------- | ------ | ---- | ----------------------------------------------------------------------------- |
+| newJSONFragment | string | 是   | 追加并增量解析的 JSON 字符串片段。                                            |
+| options         | object | 否   | 可选回调：onError (error: string)，onComplete (result: T8ClarinetParseResult) |
+
+#### clear
+
+| 参数 | 类型 | 必填 | 说明 |
+| ---- | ---- | ---- | ---- |
+| (无) |      |      |      |
+
+#### render
+
+| 参数 | 类型 | 必填 | 说明 |
+| ---- | ---- | ---- | ---- |
+| (无) |      |      |      |
+
+**返回值**
+
+| 类型     | 说明                     |
+| -------- | ------------------------ |
+| function | 卸载函数，移除可视化组件 |
+
+#### unmount
+
+| 参数 | 类型 | 必填 | 说明 |
+| ---- | ---- | ---- | ---- |
+| (无) |      |      |      |
 
 ## Schema
 
@@ -3421,6 +3483,63 @@ const standardSection: SectionSpec = {
 ---
 
 ---
+url: /en/tutorial/advanced/streaming.md
+---
+
+# Streaming Output
+
+In some scenarios, you may want to render narrative text in a streaming or incremental fashion, such as when receiving data from a server in chunks or simulating real-time updates. The T8 library provides a convenient API for this: `text.streamRender`.
+
+## When to Use Streaming Output?
+
+* **Real-time data**: Display content as it arrives, e.g., from a WebSocket or server-sent events.
+* **Progressive user experience**: Let users see partial results immediately.
+* **AI chat and content generation**: In AI scenarios (such as LLM chatbots, smart Q\&A, or AI writing), the backend model often returns text in chunks. Streaming rendering allows users to see the AI's response as it is being generated, greatly improving the interactive experience.
+
+## How Streaming Works in T8
+
+The `Text` class exposes a `streamRender` method, which allows you to append JSON fragments and incrementally update the visualization. Internally, it uses a streaming JSON parser to handle incomplete or chunked data.
+
+## Example for Streaming Render
+
+```typescript
+import { Text } from 't8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+const text = new Text(app!);
+text.theme('dark');
+
+// Utility: delay for a given ms
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Mock streaming data
+async function streamingRender() {
+  const value = JSON.stringify(spec, null, 2).split('\n');
+  for (let i = 0; i < value.length; i++) {
+    await delay(Math.random() * 30 + 20); // Simulate network latency
+    text.streamRender(value[i]);
+  }
+}
+
+streamingRender().then(() => {
+  console.log('All data processed.');
+});
+```
+
+## API Reference
+
+* `text.streamRender(newJSONFragment: string, options?: { onError?: (error: string) => void; onComplete?: (result: T8ClarinetParseResult) => void; })`
+  * Appends a JSON fragment and tries to parse/update the visualization.
+  * Calls `onError` if parsing fails, or `onComplete` if a valid document is parsed.
+* `text.clear()`
+  * Resets the internal parser and clears the visualization.
+
+---
+
+---
 url: /en/tutorial/advanced/theme.md
 ---
 
@@ -5405,3 +5524,60 @@ text.render();
 ```
 
 :::
+
+---
+
+---
+url: /zh/tutorial/advanced/streaming.md
+---
+
+# 流式输出
+
+在某些场景下，你可能希望以流式或增量的方式渲染叙述文本，比如从服务端分片接收数据，或模拟实时更新。T8 提供了便捷的 API：`text.streamRender`。
+
+## 什么时候需要流式输出？
+
+* **实时数据**：如 WebSocket、SSE 等场景，数据到达即展示。
+* **渐进式体验**：让用户即时看到部分结果。
+* **AI 对话与内容生成**：在 AI 对话、智能问答、AI 写作等场景下，后端大模型通常会分批返回文本片段。通过流式渲染，用户可以实时看到 AI 的生成过程，极大提升交互体验。
+
+## T8 的流式原理
+
+`Text` 类暴露了 `streamRender` 方法，可以不断追加 JSON 片段并增量更新可视化。内部采用流式 JSON 解析器，支持不完整或分块数据。
+
+## 流式渲染事例
+
+```typescript
+import { Text } from 't8';
+import spec from './example.json';
+
+const app = document.getElementById('app');
+const text = new Text(app!);
+text.theme('dark');
+
+// 工具函数：延迟指定毫秒
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// 模拟流式数据
+async function streamingRender() {
+  const value = JSON.stringify(spec, null, 2).split('\n');
+  for (let i = 0; i < value.length; i++) {
+    await delay(Math.random() * 30 + 20); // 模拟网络延迟
+    text.streamRender(value[i]);
+  }
+}
+
+streamingRender().then(() => {
+  console.log('All data processed.');
+});
+```
+
+## API 参考
+
+* `text.streamRender(newJSONFragment: string, options?: { onError?: (error: string) => void; onComplete?: (result: T8ClarinetParseResult) => void; })`
+  * 附加 JSON 片段并尝试解析/更新可视化效果。
+  * 如果解析失败，则调用 `onError`；如果解析到有效文档，则调用 `onComplete`。
+* `text.clear()`
+  * 重置内部解析器并清除可视化效果。

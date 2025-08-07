@@ -53,6 +53,37 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | ---- | ----------------------- |
 | Text | Text 实例，支持链式调用 |
 
+#### streamRender
+
+| 参数            | 类型   | 必填 | 说明                                                                          |
+| --------------- | ------ | ---- | ----------------------------------------------------------------------------- |
+| newJSONFragment | string | 是   | 追加并增量解析的 JSON 字符串片段。                                            |
+| options         | object | 否   | 可选回调：onError (error: string)，onComplete (result: T8ClarinetParseResult) |
+
+#### clear
+
+| 参数 | 类型 | 必填 | 说明 |
+| ---- | ---- | ---- | ---- |
+| (无) |      |      |      |
+
+#### render
+
+| 参数 | 类型 | 必填 | 说明 |
+| ---- | ---- | ---- | ---- |
+| (无) |      |      |      |
+
+**返回值**
+
+| 类型     | 说明                     |
+| -------- | ------------------------ |
+| function | 卸载函数，移除可视化组件 |
+
+#### unmount
+
+| 参数 | 类型 | 必填 | 说明 |
+| ---- | ---- | ---- | ---- |
+| (无) |      |      |      |
+
 ## Schema
 
 ### NarrativeTextSpec
