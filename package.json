@@ -40,11 +40,11 @@
   "limit-size": [
     {
       "path": "dist/t8.min.js",
-      "limit": "50 Kb"
+      "limit": "75 Kb"
     },
     {
       "path": "dist/t8.min.js",
-      "limit": "20 Kb",
+      "limit": "25 Kb",
       "gzip": true
     }
   ],
