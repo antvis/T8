@@ -13,6 +13,10 @@ const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   tooltip: false,
 };
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
 
 const app = document.getElementById('app');
@@ -54,30 +58,19 @@ text4.registerPlugin(dimensionPlugin);
 text4.theme('dark');
 text4.render();
 
-const value = JSON.stringify(spec, null, 2).split('\n');
-
 const text5 = new Text(app5!);
-text5.registerPlugin(dimensionPlugin);
+// text5.registerPlugin(dimensionPlugin);
 text5.theme('dark');
 
-const mockAsyncOperation = async (data: string): Promise<void> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log(`Processing: ${data}`);
-      text5.streamRender(data);
-      resolve();
-    }, 50);
-  });
-};
-
-const processData = async (data: string[]): Promise<void> => {
-  console.log('Starting to process data...');
-
-  for (let i = 0; i < data.length; i++) {
-    await mockAsyncOperation(data[i]);
+// mock streaming data
+async function streamingRender() {
+  const value = JSON.stringify(spec, null, 2).split('\n');
+  for (let i = 0; i < value.length; i++) {
+    await delay(Math.random() * 30 + 20);
+    text5.streamRender(value[i]);
   }
+}
 
+streamingRender().then(() => {
   console.log('All data processed.');
-};
-
-processData(value);
+});

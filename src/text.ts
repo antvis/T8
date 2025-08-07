@@ -33,7 +33,7 @@ export class Text extends EE {
    */
   private pluginManager: PluginManager;
   /**
-   * The parser for the text visualization.
+   * The streaming parser for the NTV schema.
    */
   private parser: T8ClarinetParser;
 

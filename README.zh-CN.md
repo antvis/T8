@@ -13,7 +13,7 @@
 [![npm Version](https://img.shields.io/npm/v/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 [![npm License](https://img.shields.io/npm/l/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 
-<img alt="T8 examples dark" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eGSkRauCayYAAAAAT4AAAAgAemJ7AQ/fmt.avif" />
+<video src="https://github.com/user-attachments/assets/ecf953a9-efd1-4c72-9d12-d84316004b88" />
 </div>
 
 `T8` 是一套声明式的 JSON Schema 语法，可以用它描述数据解读报告的内容。技术方案上，基于 JSON Schema 数据来自服务端生成的假设，前端消费 Schema 进行渲染即可。随着数据表达的多样性和即时性的要求越来越高，以及 AI、NLP 技术越来越多的被应用，前端维护文本模版将不可持续，此时使用 T8 进行统一渲染将是最佳选择。

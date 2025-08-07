@@ -1,4 +1,13 @@
 {
+  "headline": {
+    "type": "headline",
+    "phrases": [
+      {
+        "type": "text",
+        "value": "Bookings This Quarter Higher than Usual"
+      }
+    ]
+  },
   "sections": [
     {
       "paragraphs": [
@@ -552,14 +561,5 @@
         }
       ]
     }
-  ],
-  "headline": {
-    "type": "headline",
-    "phrases": [
-      {
-        "type": "text",
-        "value": "Bookings This Quarter Higher than Usual"
-      }
-    ]
-  }
+  ]
 }
