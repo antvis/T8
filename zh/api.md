@@ -165,7 +165,7 @@ class PluginManager {
 interface PhraseDescriptor<MetaData> {
   key: string;
   isEntity: boolean;
-  render?: ((value: string, metadata: MetaData) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
+  render?: ((value: string, metadata: MetaData) => HTMLElement) | HTMLElement;
   tooltip?:
     | false
     | (Omit<TooltipProps, 'children' | 'title'> & {
@@ -180,18 +180,18 @@ interface PhraseDescriptor<MetaData> {
 }
 ```
 
-| 属性        | 类型                                        | 必填 | 说明                   |
-| ----------- | ------------------------------------------- | ---- | ---------------------- |
-| key         | string                                      | 是   | 插件唯一标识           |
-| isEntity    | boolean                                     | 是   | 是否为实体短语插件     |
-| render      | function | HTMLElement | DocumentFragment | 否   | 渲染函数或元素         |
-| tooltip     | false | object                             | 否   | 工具提示配置           |
-| classNames  | string\[] | function                        | 否   | 类名数组或生成函数     |
-| style       | CSSProperties | function                   | 否   | 样式对象或生成函数     |
-| onHover     | function                                    | 否   | 悬停事件处理函数       |
-| onClick     | function                                    | 否   | 点击事件处理函数       |
-| getText     | function                                    | 否   | 获取纯文本内容函数     |
-| getMarkdown | function                                    | 否   | 获取 Markdown 内容函数 |
+| 属性        | 类型                      | 必填 | 说明                   |
+| ----------- | ------------------------- | ---- | ---------------------- |
+| key         | string                    | 是   | 插件唯一标识           |
+| isEntity    | boolean                   | 是   | 是否为实体短语插件     |
+| render      | function | HTMLElement   | 否   | 渲染函数或元素         |
+| tooltip     | false | object           | 否   | 工具提示配置           |
+| classNames  | string\[] | function      | 否   | 类名数组或生成函数     |
+| style       | CSSProperties | function | 否   | 样式对象或生成函数     |
+| onHover     | function                  | 否   | 悬停事件处理函数       |
+| onClick     | function                  | 否   | 点击事件处理函数       |
+| getText     | function                  | 否   | 获取纯文本内容函数     |
+| getMarkdown | function                  | 否   | 获取 Markdown 内容函数 |
 
 ### BlockDescriptor
 
@@ -201,7 +201,7 @@ interface BlockDescriptor<CustomBlockSpec> {
   isBlock: true;
   className?: string | ((spec: CustomBlockSpec) => string);
   style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
-  render?: (spec: CustomBlockSpec) => HTMLElement | DocumentFragment;
+  render?: (spec: CustomBlockSpec) => HTMLElement;
   getText?: (spec: CustomBlockSpec) => string;
   getMarkdown?: (spec: CustomBlockSpec) => string;
 }
