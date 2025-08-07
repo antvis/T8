@@ -23,7 +23,7 @@ export const Li = createStyledComponent({
 });
 
 export const Ol = createStyledComponent({
-  element: 'div',
+  element: 'ol',
   factoryStyles: (theme) => ({
     ...getBulletStyle(theme),
     listStyleType: 'decimal',
@@ -31,7 +31,7 @@ export const Ol = createStyledComponent({
 });
 
 export const Ul = createStyledComponent({
-  element: 'div',
+  element: 'ul',
   factoryStyles: (theme) => ({
     ...getBulletStyle(theme),
     listStyleType: 'disc',
