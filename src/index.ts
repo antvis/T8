@@ -23,4 +23,4 @@ export {
   createTrendDesc,
 } from './plugin';
 
-export { parseT8WithClarinet } from './utils/t8ClarinetParser';
+export { parseT8WithClarinet, createT8ClarinetParser } from './utils/t8ClarinetParser';

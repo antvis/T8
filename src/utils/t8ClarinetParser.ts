@@ -13,212 +13,225 @@ export interface T8ClarinetParseResult {
 }
 
 /**
- * T8 Clarinet Parser
+ * T8 Clarinet Parser State
+ */
+interface ParserState {
+  parser: clarinet.CParser;
+  buffer: string;
+  result: Partial<NarrativeTextSpec>;
+  isComplete: boolean;
+  error: string | undefined;
+  currentValue: unknown;
+  currentPath: (string | number)[];
+  wrapperStructure: string[];
+}
+
+/**
+ * Create a new T8 Clarinet Parser instance
  * Handles streaming JSON parsing for T8 narrative text specifications
  */
-export class T8ClarinetParser {
-  // Core parser instance
-  private parser: clarinet.CParser;
-
-  // State management
-  private buffer: string = '';
-  private result: Partial<NarrativeTextSpec> = {};
-  private isComplete: boolean = false;
-  private error: string | undefined = undefined;
-  private currentValue: unknown = null;
-
-  // Navigation state - tracks current position in the JSON structure
-  private currentPath: (string | number)[] = []; // e.g., ['sections', 'paragraphs', 'phrases']
-  private wrapperStructure: string[] = []; // e.g., ['object', 'object', 'array']
-
-  constructor() {
-    this.parser = new clarinet.CParser();
-    this.setupEventHandlers();
-  }
-
-  /**
-   * Append JSON fragment for parsing
-   */
-  append(chunk: string): void {
-    this.buffer += chunk;
-    try {
-      this.parser.write(chunk);
-    } catch (error) {
-      this.error = error instanceof Error ? error.message : 'Unknown error';
-    }
-  }
-
-  /**
-   * Get current parse result
-   */
-  getResult(): T8ClarinetParseResult {
-    return {
-      document: this.result,
-      isComplete: this.isComplete,
-      error: this.error,
-      currentPath: this.currentPath,
-    };
-  }
-
-  /**
-   * Reset parser to initial state
-   */
-  reset(): void {
-    this.clearState();
-    this.initializeParser();
-  }
-
-  /**
-   * Get current error message
-   */
-  getError(): string | undefined {
-    return this.error;
-  }
+export function createT8ClarinetParser() {
+  // State management using closure
+  let state: ParserState = {
+    parser: new clarinet.CParser(),
+    buffer: '',
+    result: {},
+    isComplete: false,
+    error: undefined,
+    currentValue: null,
+    currentPath: [],
+    wrapperStructure: [],
+  };
 
   /**
    * Initialize the clarinet parser and set up event handlers
    */
-  private initializeParser(): void {
-    this.parser = new clarinet.CParser();
-    this.setupEventHandlers();
-  }
+  const initializeParser = (): void => {
+    state.parser = new clarinet.CParser();
+    setupEventHandlers();
+  };
 
   /**
    * Clear all parser state
    */
-  private clearState(): void {
-    this.buffer = '';
-    this.result = {};
-    this.isComplete = false;
-    this.currentPath = [];
-    this.error = undefined;
-    this.currentValue = null;
-    this.wrapperStructure = [];
-  }
+  const clearState = (): void => {
+    state = {
+      parser: new clarinet.CParser(),
+      buffer: '',
+      result: {},
+      isComplete: false,
+      error: undefined,
+      currentValue: null,
+      currentPath: [],
+      wrapperStructure: [],
+    };
+  };
 
   /**
    * Set up clarinet parser event handlers
    */
-  private setupEventHandlers(): void {
-    this.setupObjectHandlers();
-    this.setupArrayHandlers();
-    this.setupValueHandlers();
-    this.setupErrorHandlers();
-  }
+  const setupEventHandlers = (): void => {
+    setupObjectHandlers();
+    setupArrayHandlers();
+    setupValueHandlers();
+    setupErrorHandlers();
+  };
 
   /**
    * Set up object-related event handlers
    */
-  private setupObjectHandlers(): void {
-    this.parser.onopenobject = (key) => {
-      this.handleObjectOpen(key);
+  const setupObjectHandlers = (): void => {
+    state.parser.onopenobject = (key) => {
+      handleObjectOpen(key);
     };
 
-    this.parser.oncloseobject = () => {
-      this.handleObjectClose();
+    state.parser.oncloseobject = () => {
+      handleObjectClose();
     };
 
-    this.parser.onkey = (key) => {
-      this.currentPath.push(key);
+    state.parser.onkey = (key) => {
+      state.currentPath.push(key);
     };
-  }
+  };
 
   /**
    * Set up array-related event handlers
    */
-  private setupArrayHandlers(): void {
-    this.parser.onopenarray = () => {
-      this.handleArrayOpen();
+  const setupArrayHandlers = (): void => {
+    state.parser.onopenarray = () => {
+      handleArrayOpen();
     };
 
-    this.parser.onclosearray = () => {
-      this.handleArrayClose();
+    state.parser.onclosearray = () => {
+      handleArrayClose();
     };
-  }
+  };
 
   /**
    * Set up value and completion event handlers
    */
-  private setupValueHandlers(): void {
-    this.parser.onvalue = (value) => {
-      this.handleValue(value);
+  const setupValueHandlers = (): void => {
+    state.parser.onvalue = (value) => {
+      handleValue(value);
     };
 
-    this.parser.onend = () => {
-      this.isComplete = true;
+    state.parser.onend = () => {
+      state.isComplete = true;
     };
-  }
+  };
 
   /**
    * Set up error handling
    */
-  private setupErrorHandlers(): void {
-    this.parser.onerror = (error) => {
-      this.error = error.message;
+  const setupErrorHandlers = (): void => {
+    state.parser.onerror = (error) => {
+      state.error = error.message;
     };
-  }
+  };
 
   /**
    * Handle opening of an object
    */
-  private handleObjectOpen(key: string): void {
-    this.wrapperStructure.push('object');
-    setValueByPath(this.result, this.currentPath, { [key]: undefined });
-    this.currentPath.push(key);
-  }
+  const handleObjectOpen = (key: string): void => {
+    state.wrapperStructure.push('object');
+    setValueByPath(state.result, state.currentPath, { [key]: undefined });
+    state.currentPath.push(key);
+  };
 
   /**
    * Handle closing of an object
    */
-  private handleObjectClose(): void {
-    this.wrapperStructure.pop();
-    const currentArrayIndex = this.currentPath.pop();
+  const handleObjectClose = (): void => {
+    state.wrapperStructure.pop();
+    const currentArrayIndex = state.currentPath.pop();
 
     // If we're inside an array, increment the index
-    if (this.wrapperStructure[this.wrapperStructure.length - 1] === 'array') {
-      this.currentPath.push(Number(currentArrayIndex) + 1);
+    if (state.wrapperStructure[state.wrapperStructure.length - 1] === 'array') {
+      state.currentPath.push(Number(currentArrayIndex) + 1);
     }
-  }
+  };
 
   /**
    * Handle opening of an array
    */
-  private handleArrayOpen(): void {
-    this.wrapperStructure.push('array');
-    setValueByPath(this.result, this.currentPath, []);
-    this.currentPath.push(0);
-  }
+  const handleArrayOpen = (): void => {
+    state.wrapperStructure.push('array');
+    setValueByPath(state.result, state.currentPath, []);
+    state.currentPath.push(0);
+  };
 
   /**
    * Handle closing of an array
    */
-  private handleArrayClose(): void {
-    this.wrapperStructure.pop();
-    this.currentPath.pop();
+  const handleArrayClose = (): void => {
+    state.wrapperStructure.pop();
+    state.currentPath.pop();
 
     // Remove the parent key if we're not nested in another array
-    if (this.wrapperStructure[this.wrapperStructure.length - 1] !== 'array') {
-      this.currentPath.pop();
+    if (state.wrapperStructure[state.wrapperStructure.length - 1] !== 'array') {
+      state.currentPath.pop();
     }
-  }
+  };
 
   /**
    * Handle value assignment
    */
-  private handleValue(value: unknown): void {
-    this.currentValue = value;
-    setValueByPath(this.result, this.currentPath, this.currentValue);
+  const handleValue = (value: unknown): void => {
+    state.currentValue = value;
+    setValueByPath(state.result, state.currentPath, state.currentValue);
 
-    const currentArrayIndex = this.currentPath.pop();
+    const currentArrayIndex = state.currentPath.pop();
 
     // If we're inside an array, increment the index for the next element
-    if (this.wrapperStructure[this.wrapperStructure.length - 1] === 'array') {
-      this.currentPath.push(Number(currentArrayIndex) + 1);
+    if (state.wrapperStructure[state.wrapperStructure.length - 1] === 'array') {
+      state.currentPath.push(Number(currentArrayIndex) + 1);
     }
-  }
+  };
+
+  // Initialize the parser
+  initializeParser();
+
+  // Return the public API
+  return {
+    /**
+     * Append JSON fragment for parsing
+     */
+    append: (chunk: string): void => {
+      state.buffer += chunk;
+      try {
+        state.parser.write(chunk);
+      } catch (error) {
+        state.error = error instanceof Error ? error.message : 'Unknown error';
+      }
+    },
+
+    /**
+     * Get current parse result
+     */
+    getResult: (): T8ClarinetParseResult => ({
+      document: state.result,
+      isComplete: state.isComplete,
+      error: state.error,
+      currentPath: state.currentPath,
+    }),
+
+    /**
+     * Reset parser to initial state
+     */
+    reset: (): void => {
+      clearState();
+      initializeParser();
+    },
+
+    /**
+     * Get current error message
+     */
+    getError: (): string | undefined => state.error,
+  };
 }
 
-const parser = new T8ClarinetParser();
+// Create a singleton instance for backward compatibility
+const parser = createT8ClarinetParser();
 
 /**
  * Parse T8 JSON fragment with streaming support
