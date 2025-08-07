@@ -27,10 +27,20 @@ interface ParserState {
 }
 
 /**
+ * T8 Clarinet Parser
+ */
+export interface T8ClarinetParser {
+  append: (chunk: string) => void;
+  getResult: () => T8ClarinetParseResult;
+  reset: () => void;
+  getError: () => string | undefined;
+}
+
+/**
  * Create a new T8 Clarinet Parser instance
  * Handles streaming JSON parsing for T8 narrative text specifications
  */
-export function createT8ClarinetParser() {
+export function createT8ClarinetParser(): T8ClarinetParser {
   // State management using closure
   let state: ParserState = {
     parser: new clarinet.CParser(),
@@ -230,29 +240,29 @@ export function createT8ClarinetParser() {
   };
 }
 
-// Create a singleton instance for backward compatibility
-const parser = createT8ClarinetParser();
+// // Create a singleton instance for backward compatibility
+// const parser = createT8ClarinetParser();
 
-/**
- * Parse T8 JSON fragment with streaming support
- */
-export function parseT8WithClarinet(
-  fragment: string,
-  options: {
-    onError?: (error: string) => void;
-    onComplete?: (result: T8ClarinetParseResult) => void;
-  },
-): () => void {
-  parser.append(fragment);
-  const result = parser.getResult();
+// /**
+//  * Parse T8 JSON fragment with streaming support
+//  */
+// export function parseT8WithClarinet(
+//   fragment: string,
+//   options: {
+//     onError?: (error: string) => void;
+//     onComplete?: (result: T8ClarinetParseResult) => void;
+//   },
+// ): () => void {
+//   parser.append(fragment);
+//   const result = parser.getResult();
 
-  if (options.onComplete) {
-    options.onComplete(result);
-  }
+//   if (options.onComplete) {
+//     options.onComplete(result);
+//   }
 
-  if (options.onError && result.error) {
-    options.onError(result.error);
-  }
+//   if (options.onError && result.error) {
+//     options.onError(result.error);
+//   }
 
-  return parser.reset;
-}
+//   return parser.reset;
+// }
