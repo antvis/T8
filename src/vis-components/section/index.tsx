@@ -4,7 +4,7 @@ import { getPrefixCls, classnames as cx, functionalize } from '../../utils';
 import { Container } from '../styled';
 import { Paragraph } from '../paragraph';
 import { usePluginManager, useEvent } from '../context';
-import { useEffect, useRef } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 
 type SectionProps = {
   /**
@@ -17,7 +17,6 @@ type SectionProps = {
 export function Section({ spec }: SectionProps) {
   const { onEvent } = useEvent();
 
-  const customSectionRef = useRef<HTMLDivElement>(null);
   const pluginManager = usePluginManager();
 
   const onClick = () => {
@@ -34,21 +33,17 @@ export function Section({ spec }: SectionProps) {
     if (isCustomSection(spec)) {
       const descriptor = pluginManager.getBlockDescriptor(spec.customType);
       if (descriptor) {
-        return functionalize<HTMLElement | DocumentFragment>(descriptor.render, null)(spec);
+        return functionalize<HTMLElement>(descriptor.render, null)(spec);
       }
     }
     return null;
   };
 
-  useEffect(() => {
-    if (customSectionRef.current && isCustomSection(spec)) {
-      const contentResult = renderCustomSection();
-      if (contentResult instanceof DocumentFragment || contentResult instanceof HTMLElement) {
-        customSectionRef.current.appendChild(contentResult);
-      } else {
-        console.warn('Unexpected content type returned from render function:', contentResult);
-      }
+  const sectionContent: HTMLElement | null = useMemo(() => {
+    if (isCustomSection(spec)) {
+      return renderCustomSection();
     }
+    return null;
   }, [spec]);
 
   return (
@@ -60,7 +55,7 @@ export function Section({ spec }: SectionProps) {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Container forwardRef={customSectionRef} />
+      <Container dangerouslySetInnerHTML={{ __html: sectionContent?.outerHTML || '' }} />
       {isStandardSection(spec) && spec.paragraphs.map((p) => <Paragraph key={p.key || v4()} spec={p} />)}
     </Container>
   );
