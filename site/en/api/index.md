@@ -165,7 +165,7 @@ class PluginManager {
 interface PhraseDescriptor<MetaData> {
   key: string;
   isEntity: boolean;
-  render?: ((value: string, metadata: MetaData) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
+  render?: ((value: string, metadata: MetaData) => HTMLElement) | HTMLElement;
   tooltip?:
     | false
     | (Omit<TooltipProps, 'children' | 'title'> & {
@@ -180,18 +180,18 @@ interface PhraseDescriptor<MetaData> {
 }
 ```
 
-| Property    | Type                                        | Required | Description                     |
-| ----------- | ------------------------------------------- | -------- | ------------------------------- |
-| key         | string                                      | Yes      | Unique plugin identifier        |
-| isEntity    | boolean                                     | Yes      | Whether it's an entity phrase   |
-| render      | function \| HTMLElement \| DocumentFragment | No       | Render function or element      |
-| tooltip     | false \| object                             | No       | Tooltip configuration           |
-| classNames  | string[] \| function                        | No       | Class names array or function   |
-| style       | CSSProperties \| function                   | No       | Style object or function        |
-| onHover     | function                                    | No       | Hover event handler             |
-| onClick     | function                                    | No       | Click event handler             |
-| getText     | function                                    | No       | Get plain text content function |
-| getMarkdown | function                                    | No       | Get Markdown content function   |
+| Property    | Type                      | Required | Description                     |
+| ----------- | ------------------------- | -------- | ------------------------------- |
+| key         | string                    | Yes      | Unique plugin identifier        |
+| isEntity    | boolean                   | Yes      | Whether it's an entity phrase   |
+| render      | function \| HTMLElement   | No       | Render function or element      |
+| tooltip     | false \| object           | No       | Tooltip configuration           |
+| classNames  | string[] \| function      | No       | Class names array or function   |
+| style       | CSSProperties \| function | No       | Style object or function        |
+| onHover     | function                  | No       | Hover event handler             |
+| onClick     | function                  | No       | Click event handler             |
+| getText     | function                  | No       | Get plain text content function |
+| getMarkdown | function                  | No       | Get Markdown content function   |
 
 ### BlockDescriptor
 
@@ -201,7 +201,7 @@ interface BlockDescriptor<CustomBlockSpec> {
   isBlock: true;
   className?: string | ((spec: CustomBlockSpec) => string);
   style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
-  render?: (spec: CustomBlockSpec) => HTMLElement | DocumentFragment;
+  render?: (spec: CustomBlockSpec) => HTMLElement;
   getText?: (spec: CustomBlockSpec) => string;
   getMarkdown?: (spec: CustomBlockSpec) => string;
 }
