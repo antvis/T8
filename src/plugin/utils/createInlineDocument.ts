@@ -6,15 +6,15 @@
  * @returns - new container element, type: HTMLSpanElement.
  * use function `addElement` to add element to original element.
  */
-export const createDocumentFragment = (
+export const createInlineDocument = (
   element: string | number | Element,
   value: string,
   position: 'suffix' | 'prefix' = 'suffix',
-): DocumentFragment => {
-  const fragment = document.createDocumentFragment();
+): HTMLSpanElement => {
+  const span = document.createElement('span');
 
   const originalElementSpan = value;
-  fragment.textContent = originalElementSpan;
+  span.textContent = originalElementSpan;
 
   let newElement: Element | undefined = undefined;
 
@@ -27,11 +27,11 @@ export const createDocumentFragment = (
 
   if (newElement) {
     if (position === 'suffix') {
-      fragment.appendChild(newElement);
+      span.appendChild(newElement);
     } else {
-      fragment.insertBefore(newElement, fragment.firstChild);
+      span.insertBefore(newElement, span.firstChild);
     }
   }
 
-  return fragment;
+  return span;
 };

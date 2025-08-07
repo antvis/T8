@@ -17,9 +17,9 @@ export interface PhraseDescriptor<MetaData> {
    * render callback of phrase, T8 will use the return value to render the phrase
    * @param value phrase spec value
    * @param metadata phrase spec metadata
-   * @returns HTMLElement | DocumentFragment T8 will use the return value to render the phrase
+   * @returns HTMLElement T8 will use the return value to render the phrase
    */
-  render?: ((value: string, metadata: MetaData) => HTMLElement | DocumentFragment) | HTMLElement | DocumentFragment;
+  render?: ((value: string, metadata: MetaData) => HTMLElement) | HTMLElement;
   /**
    * tooltip of phrases
    */
@@ -63,7 +63,7 @@ export interface BlockDescriptor<CustomBlockSpec> {
   isBlock: true;
   className?: string | ((spec: CustomBlockSpec) => string);
   style?: CSSProperties | ((spec: CustomBlockSpec) => CSSProperties);
-  render?: (spec: CustomBlockSpec) => HTMLElement | DocumentFragment;
+  render?: (spec: CustomBlockSpec) => HTMLElement;
   getText?: (spec: CustomBlockSpec) => string;
   getMarkdown?: (spec: CustomBlockSpec) => string;
 }

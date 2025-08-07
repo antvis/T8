@@ -4,6 +4,7 @@ import { NarrativeTextVis } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
+import { createT8ClarinetParser, T8ClarinetParser, T8ClarinetParseResult } from './utils/t8ClarinetParser';
 
 /**
  * Text component for rendering narrative text visualizations.
@@ -32,14 +33,16 @@ export class Text extends EE {
    */
   private pluginManager: PluginManager;
   /**
-   * Event emitter for the text visualization.
+   * The parser for the text visualization.
    */
+  private parser: T8ClarinetParser;
 
   constructor(container: string | HTMLElement) {
     super();
     this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
 
     this.pluginManager = new PluginManager(presetPlugins);
+    this.parser = createT8ClarinetParser();
   }
 
   /**
@@ -96,5 +99,44 @@ export class Text extends EE {
     return () => {
       preactRender(null, container as HTMLElement);
     };
+  }
+
+  /**
+   * Stream render the narrative text visualization.
+   * @param newJSONFragment - The new JSON fragment to render.
+   * @param options - The options for the stream render.
+   * @returns The Text instance for method chaining.
+   */
+  streamRender(
+    newJSONFragment: string,
+    options?: {
+      onError?: (error: string) => void;
+      onComplete?: (result: T8ClarinetParseResult) => void;
+    },
+  ) {
+    this.parser.append(newJSONFragment);
+    const result = this.parser.getResult();
+    if (result.error) {
+      options?.onError?.(result.error);
+    } else {
+      options?.onComplete?.(result);
+      this.schema(result.document as NarrativeTextSpec);
+      this.render();
+    }
+  }
+
+  /**
+   * Clear the parser.
+   */
+  clear() {
+    this.parser.reset();
+    this.unmount();
+  }
+
+  /**
+   * Unmount the component.
+   */
+  unmount() {
+    preactRender(null, this.container as HTMLElement);
   }
 }

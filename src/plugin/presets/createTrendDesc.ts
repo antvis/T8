@@ -2,14 +2,14 @@ import { SingleLine } from '../../charts';
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { render as preactRender, h } from 'preact';
-import { createDocumentFragment } from '../utils';
+import { createInlineDocument } from '../utils';
 
 const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { detail }) => {
     const chartElement = document.createElement('span');
     preactRender(h(SingleLine, { data: detail as number[] }), chartElement);
 
-    return createDocumentFragment(chartElement, value, 'suffix');
+    return createInlineDocument(chartElement, value, 'suffix');
   },
   style: (value, _, themeSeedToken) => ({
     color: themeSeedToken.colorConclusion,

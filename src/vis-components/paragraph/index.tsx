@@ -3,7 +3,7 @@ import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
 import { usePluginManager, useEvent } from '../context';
-import { useEffect, useRef } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 import { functionalize } from '../../utils';
 
 type ParagraphProps = {
@@ -19,7 +19,6 @@ export function Paragraph({ spec }: ParagraphProps) {
 
   const { onEvent } = useEvent();
 
-  const paragraphRef = useRef<HTMLDivElement>(null);
   const onClick = () => {
     onEvent?.('paragraph:click', spec);
   };
@@ -32,19 +31,26 @@ export function Paragraph({ spec }: ParagraphProps) {
 
   let content = null;
 
-  useEffect(() => {
+  const paragraphContent: HTMLElement | null = useMemo(() => {
     if (isCustomParagraph(spec)) {
       const descriptor = pluginManager.getBlockDescriptor(spec.customType);
-      if (descriptor && descriptor?.render) {
-        const result = functionalize<HTMLElement | DocumentFragment>(descriptor.render, null)(spec);
-        if (result instanceof DocumentFragment || result instanceof HTMLElement) {
-          paragraphRef.current?.appendChild(result);
-        } else {
-          console.warn('Unexpected content type returned from render function:', result);
-        }
+      if (descriptor) {
+        return functionalize<HTMLElement>(descriptor.render, null)(spec);
       }
     }
+    return null;
   }, [spec]);
+
+  if (paragraphContent) {
+    return (
+      <div
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        dangerouslySetInnerHTML={{ __html: paragraphContent.outerHTML }}
+      />
+    );
+  }
 
   if (isHeadingParagraph(spec)) {
     content = <Heading spec={spec} />;
@@ -56,7 +62,7 @@ export function Paragraph({ spec }: ParagraphProps) {
     content = <Bullets spec={spec} />;
   }
   return content ? (
-    <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} ref={paragraphRef}>
+    <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {content}
     </div>
   ) : null;

@@ -19,7 +19,7 @@ const getPlugins = (outDir) => {
   const plugins = [
     nodeResolve({
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
-      preferBuiltins: true,
+      preferBuiltins: false,
       browser: true,
     }),
     commonjs(),

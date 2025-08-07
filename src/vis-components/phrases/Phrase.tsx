@@ -11,7 +11,7 @@ import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, i
 import { PhraseDescriptor } from '../../plugin';
 import { useTheme, usePluginManager, useEvent } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
-import { useEffect, useRef } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 import { Tooltip } from './ui';
 import { SeedTokenOptions } from '../../theme';
 
@@ -54,42 +54,31 @@ function renderPhraseByDescriptor(
     onEvent?.('phrase:mouseleave', spec);
   };
 
-  const entityRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (entityRef.current) {
-      const contentResult = functionalize<HTMLElement | DocumentFragment | string>(render, null)(
-        value,
-        metadata as EntityMetaData,
-      );
-      if (typeof contentResult === 'string' || typeof contentResult === 'number') {
-        entityRef.current.textContent = contentResult;
-      } else if (contentResult instanceof DocumentFragment || contentResult instanceof HTMLElement) {
-        entityRef.current.appendChild(contentResult);
-      } else {
-        // Handle other possible return types or log a warning
-        console.warn('Unexpected content type returned from render function:', contentResult);
-      }
-    }
-  }, [value, metadata]);
-
-  const defaultNode: ComponentChildren = (
-    <Entity
-      theme={theme}
-      forwardRef={entityRef}
-      style={{
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...functionalize(descriptorStyle, {})(spec?.value, metadata as any, theme),
-        ...specStyles,
-      }}
-      className={cx(
-        getPrefixCls('value'),
-        isEntityPhrase(spec) ? getPrefixCls(kebabCase(spec.metadata.entityType)) : '',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...(functionalize(classNames, [])(spec?.value, metadata as any) as Array<string>),
-      )}
-    />
+  const contentResult = useMemo(
+    () => functionalize<HTMLElement | string>(render, null)(value, metadata as EntityMetaData),
+    [value, metadata],
   );
+  const entityProps = {
+    theme,
+    style: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...functionalize(descriptorStyle, {})(spec?.value, metadata as any, theme),
+      ...specStyles,
+    },
+    className: cx(
+      getPrefixCls('value'),
+      isEntityPhrase(spec) ? getPrefixCls(kebabCase(spec.metadata.entityType)) : '',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ...(functionalize(classNames, [])(spec?.value, metadata as any) as Array<string>),
+    ),
+  };
+
+  const defaultNode: ComponentChildren =
+    typeof contentResult === 'string' || typeof contentResult === 'number' ? (
+      <Entity {...entityProps}>{contentResult}</Entity>
+    ) : (
+      <Entity {...entityProps} dangerouslySetInnerHTML={{ __html: contentResult.outerHTML }} />
+    );
 
   const nodeWithEvents =
     isFunction(onEvent) || isFunction(onClick) || isFunction(onHover) ? (
