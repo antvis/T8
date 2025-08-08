@@ -26,3 +26,9 @@ url: /zh/schema/structure.md
 * `text` 纯文本;
 * `entity` 实体，也就是数据报告中对应明细数据的内容;
 * `custom` 自定义短语;
+
+***
+
+最新的 `T8` 标准 JSON Schema 定义如下，或者从远程源 [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json) 抓取：
+
+<<< @/../schema.json

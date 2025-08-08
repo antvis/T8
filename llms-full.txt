@@ -1115,6 +1115,12 @@ Except for custom paragraphs, `heading`, `normal`, and `bullets` are all compose
 * `entity` for entities, which correspond to specific data content in the data report;
 * `custom` for custom phrases;
 
+***
+
+The latest standard JSON Schema definition for `T8` is as follows, or fetch from [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json):
+
+<<< @/../schema.json
+
 ---
 
 ---
@@ -3823,6 +3829,42 @@ url: /zh.md
 ---
 
 ---
+url: /en/tutorial/advanced/llm.md
+---
+
+# Large Language Model Applications
+
+Large language models excel in understanding and processing textual information, while `T8` provides a standardized Schema and rendering capability for text display. By combining these two, we can effortlessly achieve the visualization of user data briefings, improving the efficiency of reading and interpreting text-based data.
+
+Through this approach, we can provide users with an AI Agent application or use it as a tool or MCP for Agent applications to assist in establishing business workflows.
+
+## Overall Process
+
+* **Data Retrieval**: Acquire data by integrating various data retrieval tools such as search results, knowledge bases, datasets, models, tools, APIs, etc.
+* **Structuring Text Data**: Process the retrieved data into a T8-compatible and renderable JSON Schema format using large language models combined with prompt engineering.
+* **Render Schema**: If working within a code-editing application, integrate with `T8`'s API; if on an Agent platform, integrate `T8` using the platform's "Custom Card" feature.
+
+## Prompt Engineering
+
+<<< @/../prompt.md
+
+## JSON Schema
+
+We provide the latest standard JSON Schema definition for `T8`, used for generating data with large models.
+
+* `NPM Package`: [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json).
+* `GitHub Repository`: [GitHub](https://github.com/antvis/T8/blob/main/schema.json).
+* `Build`: Clone the T8 source code and run the `npm run build` command to generate the `schema.json` file.
+
+<<< @/../schema.json
+
+## Case Study
+
+We have built a T8 case study based on Ant Group’s Agent Platform [TBox](https://www.tbox.cn/). You can refer to \[Text Summary].
+
+---
+
+---
 url: /zh/tutorial/advanced/theme.md
 ---
 
@@ -5021,6 +5063,12 @@ url: /zh/schema/structure.md
 * `entity` 实体，也就是数据报告中对应明细数据的内容;
 * `custom` 自定义短语;
 
+***
+
+最新的 `T8` 标准 JSON Schema 定义如下，或者从远程源 [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json) 抓取：
+
+<<< @/../schema.json
+
 ---
 
 ---
@@ -5581,3 +5629,39 @@ streamingRender().then(() => {
   * 如果解析失败，则调用 `onError`；如果解析到有效文档，则调用 `onComplete`。
 * `text.clear()`
   * 重置内部解析器并清除可视化效果。
+
+---
+
+---
+url: /zh/tutorial/advanced/llm.md
+---
+
+# 大模型应用
+
+大模型下在于对于文本信息的理解和处理上有很大的优势，而 T8 具备有文本显示的标准 Schema 和渲染能力，二者互相配合，可以轻松实现用户数据简报信息的可视化，提升文本数据阅读的效率。
+
+通过这样的方式，可以提供一个给用户使用的 AI Agent 应用，或者作为 Agent 应用的工具或者 MCP，辅助业务流程的建立。
+
+## 整体流程
+
+* **获取数据信息**：通过增加一些数据检索工具，获取数据信息，比如：搜索结果、知识库、数据集、模型、工具、API 等。
+* **对文本数据结构化处理**：通过大模型 + 提示词的方式，将上一步获取的数据信息，处理成 T8 可识别、可渲染的 JSON Schema 格式。
+* **渲染 Schema**：如果是通过代码编辑应用，则结合 `T8` 的 API 集成；如果通过 Agent 平台，需要通过平台 `自定义卡片` 的能力集成 `T8`。
+
+## 提示词 Prompt
+
+<<< @/../prompt.zh-CN.md
+
+## JSON Schema
+
+我们提供了 `T8` 最新的标准 JSON Schema 定义，用于给大模型生成数据。
+
+* `NPM 包`：[unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json)。
+* `GitHub`：库\`：[GitHub](https://github.com/antvis/T8/blob/main/schema.json)。
+* `构建`：通过 clone T8 源码，运行 `npm run build` 命令，会生成 `schema.json` 文件。
+
+<<< @/../schema.json
+
+## 案例
+
+我们基于蚂蚁 Agent 平台[百宝箱](https://www.tbox.cn/)，构建了一个 T8 的案例，可以参考 \[Text Summary]。
