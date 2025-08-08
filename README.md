@@ -76,6 +76,17 @@ If all goes well, you can get the following narrative text visualization!
 
 <img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GDPUToCi8ncAAAAATrAAAAgAemJ7AQ/fmt.webp" />
 
+## 🤖 Using in LLM
+
+T8 can be used to output specific text into a schema that meets the requirements, and then render it in a more easily readable text. For the processing of text, LLM is one of the core advantages of large models. To help you better use T8, we provide several pieces of content that can be used in your own Agent to quickly generate and render text information summaries.
+
+1. JSON Schema: Standard JSON Schema format for describing the format and structure of text, which can be obtained from [remote](http://unpkg.com/@antv/t8/dist/schema.json) or from the current GitHub repository.
+2. Prompt Template: A set of templates for prompting LLMs, see [prompt.md](./prompt.md) and [prompt.zh-CN.md](./prompt.zh-CN.md).
+3. Some examples: [T8 Schema Example](./example/example.json).
+4. An example of an agent based on the [tbox](https://www.tbox.cn/): [Text Summary].
+
+We welcome all contributors to T8 and all our backers, and thank you for your suggestions and feedback.
+
 ## 📮 Contributing
 
 This project exists thanks to all the people who contribute. And thank you to all our backers! 🙏

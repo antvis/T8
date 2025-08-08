@@ -75,6 +75,17 @@ unmont();
 
 <img alt="T8 examples light" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GDPUToCi8ncAAAAATrAAAAgAemJ7AQ/fmt.webp" />
 
+## 🤖 在大模型中使用
+
+T8 可以用来对于特定的文本输出成符合要求的 `schema`，然后渲染出更加易于阅读的文本，而对于文本的处理是大模型 LLM 的核心优势之一。为了帮助大家更好的使用 T8，我们提供了一系列的内容，方便大家在自己的 Agent 中快速生成和渲染文本信息简报。
+
+1. JSON Schema：标准的 JSON Schema 格式，用于描述文本的格式和结构，可以从[远程获取](http://unpkg.com/@antv/t8/dist/schema.json)，也可以从当前 GitHub 仓库获得。
+2. 面向 LLM 的提示词模版，见 [prompt.md](./prompt.md) 和 [prompt.zh-CN.md](./prompt.zh-CN.md)。
+3. 一些案例：[案例](./example/example.json)。
+4. 一个基于百宝箱的 Agent 案例：数据文本简报。
+
+欢迎大家在自己的 AI Agent 中使用后，给出反馈和优化建议。
+
 ## 📮 Contributing
 
 很期待我们的用户参入到 T8 的开发和反馈，也感谢所有贡献这个项目的开源社区开发者。🙏
