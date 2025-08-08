@@ -27,6 +27,7 @@ const createLangConfig = (lang: string, label: string) => {
                   { text: 'Events', link: `/${lang}/tutorial/advanced/events` },
                   { text: 'Plugin', link: `/${lang}/tutorial/advanced/plugin` },
                   { text: 'Streaming', link: `/${lang}/tutorial/advanced/streaming` },
+                  { text: 'With LLM', link: `/${lang}/tutorial/advanced/llm` },
                 ],
               },
             ],
@@ -92,13 +93,12 @@ export default defineConfig({
     },
     socialLinks: [{ icon: 'github', link: 'https://github.com/antvis/t8' }],
   },
-
   rewrites: {
     '/': '/en',
   },
-
   locales: {
     en: createLangConfig('en', 'English'),
     zh: createLangConfig('zh', '简体中文'),
   },
+  prompt: 'abc',
 });
