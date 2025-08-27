@@ -1,6 +1,4 @@
-import { getElementFontSize } from '../utils/getElementFontSize';
-import { createSvg } from '../utils/createSvg';
-import { arc } from '../utils';
+import { createSvg, getElementFontSize, arc } from '../utils';
 
 // Background color for the unfilled portion of the circle
 const PROPORTION_SHADOW_COLOR = '#CDDDFD';

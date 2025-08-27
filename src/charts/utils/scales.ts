@@ -17,9 +17,22 @@ export const scaleLinear =
   (n) => {
     const [d1, d2] = domain;
     const [r1, r2] = range;
-    // Returns the intermediate value when the range is zero.
-    if (r1 === r2) return (d2 - d1) / 2;
-    return (n / (r2 - r1)) * (d2 - d1);
+
+    // Avoid division by zero if the domain is a single point.
+    // In this case, all input values will map to the start of the range.
+    if (d1 === d2) {
+      return r1;
+    }
+
+    // If the range is a single point, all input values will map to that point.
+    if (r1 === r2) {
+      return r1;
+    }
+
+    // The core linear interpolation formula.
+    // It calculates the proportional position of 'n' within the domain
+    // and then maps that position to the corresponding value in the range.
+    return r1 + ((r2 - r1) * (n - d1)) / (d2 - d1);
   };
 
 /**

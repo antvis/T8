@@ -1,7 +1,4 @@
-import { getElementFontSize } from '../utils/getElementFontSize';
-import { createSvg } from '../utils/createSvg';
-import { scaleLinear } from '../utils/scales';
-import { line, area } from '../utils/paths';
+import { createSvg, getElementFontSize, scaleLinear, line, area } from '../utils';
 
 const LINE_STROKE_COLOR = '#5B8FF9';
 const LINE_FILL_COLOR = '#5B8FF9';
@@ -27,11 +24,11 @@ export const renderLineChart = (container: Element, config: LineChartConfig): vo
 
   const svg = createSvg(container, width, height);
 
-  const xScale = scaleLinear([0, width], [0, data?.length - 1]);
+  const xScale = scaleLinear([0, data?.length - 1], [0, width]);
   // Find min and max values in data for Y-axis scaling
   const [min, max] = [Math.min(...data), Math.max(...data)];
   // Create scale for Y-axis with slight padding (SCALE_ADJUST)
-  const yScale = scaleLinear([SCALE_ADJUST, height - SCALE_ADJUST], [min, max]);
+  const yScale = scaleLinear([min, max], [SCALE_ADJUST, height - SCALE_ADJUST]);
 
   // Create gradient
   const defs = svg.append('defs');

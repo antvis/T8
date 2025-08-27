@@ -39,7 +39,7 @@ export const area = (xScale: Scale, yScale: Scale, y0: number) => {
     if (!data.length) return '';
 
     const points = data.map((d, i) => [xScale(i), y0 - yScale(d)] as Point);
-    const areaPoints = [...points, [points[points.length - 1][0], y0], points[0]];
+    const areaPoints = [...points, [points[points.length - 1][0], y0], [points[0][0], y0]];
 
     return areaPoints.reduce((path, [x, y], i) => {
       if (i === 0) return `M${x} ${y}`;
@@ -67,6 +67,44 @@ export const arc = (radius: number) => {
       `A${centerX} ${centerY} 0 ${largeArcFlag} 1 ${dx} ${dy}`,
       `L${centerX} ${centerY}`,
       'Z',
+    ].join(' ');
+  };
+};
+
+/**
+ * Creates an arrow generator function
+ * Converts start and end points to SVG path data for lines with arrowheads
+ *
+ * @param xScale - Scale function for X coordinates
+ * @param yScale - Scale function for Y coordinates
+ * @returns Function that generates SVG path data from start and end points
+ */
+export const arrow = (xScale: Scale, yScale: Scale, height: number, arrowheadLength = 2, arrowheadWidth = 2) => {
+  return (startData: { index: number; value: number }, endData: { index: number; value: number }): string => {
+    const startX = xScale(startData.index + 0.5);
+    const startY = height - yScale(startData.value);
+    const endX = xScale(endData.index + 0.5);
+    const endY = height - yScale(endData.value);
+
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
+    const angle = Math.atan2(deltaY, deltaX);
+
+    const basePointX = endX - arrowheadLength * Math.cos(angle);
+    const basePointY = endY - arrowheadLength * Math.sin(angle);
+
+    const arrowPoint1X = basePointX - (arrowheadWidth / 2) * Math.sin(angle);
+    const arrowPoint1Y = basePointY + (arrowheadWidth / 2) * Math.cos(angle);
+    const arrowPoint2X = basePointX + (arrowheadWidth / 2) * Math.sin(angle);
+    const arrowPoint2Y = basePointY - (arrowheadWidth / 2) * Math.cos(angle);
+
+    return [
+      `M${startX} ${startY}`,
+      `L${basePointX} ${basePointY}`,
+      `M${endX} ${endY}`,
+      `L${arrowPoint1X} ${arrowPoint1Y}`,
+      `L${arrowPoint2X} ${arrowPoint2Y}`,
+      `Z`,
     ].join(' ');
   };
 };
