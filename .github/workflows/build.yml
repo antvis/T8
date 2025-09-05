@@ -25,8 +25,10 @@ jobs:
           npm run build
           npx vitest --coverage --watch=false
 
-      - name: Update coverall
-        if: ${{ success() }}
-        uses: coverallsapp/github-action@master
+      - name: 💡 Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: ./coverage/coverage-final.json
+          flags: t8
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
