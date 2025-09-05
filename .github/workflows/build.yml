@@ -11,19 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: ⤵️ Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js environment
+      - name: 🎉 Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Run test
-        run: |
-          npm install
-          npm run build
-          npx vitest --coverage --watch=false
+      - name: 🚧 Install
+        run: npm install
+
+      - name: 🚀 Build
+        run: npm run build
+
+      - name: ✅ Test
+        run: npx vitest --coverage --watch=false
 
       - name: 💡 Upload coverage to Codecov
         uses: codecov/codecov-action@v5
