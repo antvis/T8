@@ -6,7 +6,7 @@ export default defineConfig({
     testTimeout: 100_000,
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./__tests__/matcher/index.ts'],
+    setupFiles: ['__tests__/setup.ts'],
     include: ['__tests__/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
     coverage: {
       include: ['src/**/*.ts'],
