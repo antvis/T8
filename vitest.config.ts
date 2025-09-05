@@ -6,10 +6,9 @@ export default defineConfig({
     testTimeout: 100_000,
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./__tests__/matcher/index.ts'],
     include: ['__tests__/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
     coverage: {
-      reporter: ['lcov'],
-      provider: 'istanbul',
       include: ['src/**/*.ts'],
     },
   },
