@@ -30,6 +30,7 @@ interface ParserState {
  * T8 Clarinet Parser
  */
 export interface T8ClarinetParser {
+  close: () => void;
   append: (chunk: string) => void;
   getResult: () => T8ClarinetParseResult;
   reset: () => void;
@@ -203,6 +204,10 @@ export function createT8ClarinetParser(): T8ClarinetParser {
 
   // Return the public API
   return {
+    close: (): void => {
+      state.parser.close();
+    },
+
     /**
      * Append JSON fragment for parsing
      */
@@ -239,30 +244,3 @@ export function createT8ClarinetParser(): T8ClarinetParser {
     getError: (): string | undefined => state.error,
   };
 }
-
-// // Create a singleton instance for backward compatibility
-// const parser = createT8ClarinetParser();
-
-// /**
-//  * Parse T8 JSON fragment with streaming support
-//  */
-// export function parseT8WithClarinet(
-//   fragment: string,
-//   options: {
-//     onError?: (error: string) => void;
-//     onComplete?: (result: T8ClarinetParseResult) => void;
-//   },
-// ): () => void {
-//   parser.append(fragment);
-//   const result = parser.getResult();
-
-//   if (options.onComplete) {
-//     options.onComplete(result);
-//   }
-
-//   if (options.onError && result.error) {
-//     options.onError(result.error);
-//   }
-
-//   return parser.reset;
-// }

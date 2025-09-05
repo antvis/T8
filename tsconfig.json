@@ -14,7 +14,7 @@
     "jsx": "react-jsx",
     "rootDirs": ["./src", "./__tests__"],
     "noEmit": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "node"]
   },
   "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["node_modules", "**/es", "**/lib", "**/dist", "**/build"]

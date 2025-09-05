@@ -11,7 +11,7 @@ import { CustomBlockElement } from '../common';
 import type { SectionSpec, StandardSectionSpec } from '../structure';
 
 export function isCustomSection(spec: SectionSpec): spec is CustomBlockElement {
-  return isObject(spec) && 'customType' in spec;
+  return !!spec && isObject(spec) && 'customType' in spec;
 }
 
 export function isCustomParagraph(spec: ParagraphSpec): spec is CustomBlockElement {
@@ -31,7 +31,7 @@ export function isBulletParagraph(spec: ParagraphSpec): spec is BulletsParagraph
 }
 
 export function isHeadingParagraph(spec: ParagraphSpec): spec is HeadingParagraphSpec {
-  if (isObject(spec) && 'type' in spec && isString(spec.type)) {
+  if (!!spec && isObject(spec) && 'type' in spec && isString(spec.type)) {
     const weight = getHeadingWeight(spec?.type);
     return spec.type.startsWith('heading') && !Number.isNaN(weight);
   }

@@ -10,6 +10,7 @@
 
 ![gzip size](https://img.badgesize.io/https://unpkg.com/@antv/t8/dist/t8.min?compression=gzip)
 [![Build Status](https://github.com/antvis/t8/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/T8/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/antvis/T8/graph/badge.svg?token=A8fR9pUkbc)](https://codecov.io/gh/antvis/T8)
 [![npm Version](https://img.shields.io/npm/v/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 [![npm License](https://img.shields.io/npm/l/@antv/t8.svg)](https://www.npmjs.com/package/@antv/t8)
 
