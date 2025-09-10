@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { getElementFontSize, DEFAULT_FONT_SIZE } from '../../../src/charts/hooks/getElementFontSize';
+import { getElementFontSize, DEFAULT_FONT_SIZE } from '../../../src/charts/utils/getElementFontSize';
 import { vi } from 'vitest';
 
 describe('getElementFontSize', () => {
