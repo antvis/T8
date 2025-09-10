@@ -34,20 +34,3 @@ export const scaleLinear =
     // and then maps that position to the corresponding value in the range.
     return r1 + ((r2 - r1) * (n - d1)) / (d2 - d1);
   };
-
-/**
- * Creates a band scale for categorical data
- * Maps discrete categories to continuous positions
- *
- * @param domain - Array of category names
- * @param range - Output range [min, max] for positioning
- * @param padding - Padding between bands (0-1)
- * @returns A function that maps category names to positions
- */
-export const scaleBand = (domain: string[], range: Range, padding = 0.1) => {
-  const bandWidth = (range[1] - range[0]) / domain.length;
-  return (d: string) => {
-    const index = domain.indexOf(d);
-    return range[0] + index * bandWidth + (bandWidth * padding) / 2;
-  };
-};

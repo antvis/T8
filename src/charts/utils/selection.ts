@@ -65,6 +65,6 @@ export class Selection {
   }
 
   nodes(): Element[] {
-    return this.elements;
+    return [...this.elements];
   }
 }

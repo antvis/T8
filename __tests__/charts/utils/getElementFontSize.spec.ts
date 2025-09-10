@@ -70,7 +70,6 @@ describe('getElementFontSize', () => {
   });
 
   it('should work with IE currentStyle fallback', () => {
-    // @ts-expect-error for testing purposes
     window.getComputedStyle = undefined;
     // @ts-expect-error for testing purposes
     testElement.currentStyle = { 'font-size': '20px' };
