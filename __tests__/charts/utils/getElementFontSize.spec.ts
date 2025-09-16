@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { getElementFontSize, DEFAULT_FONT_SIZE } from '../../../src/charts/hooks/getElementFontSize';
+import { getElementFontSize, DEFAULT_FONT_SIZE } from '../../../src/charts/utils/getElementFontSize';
 import { vi } from 'vitest';
 
 describe('getElementFontSize', () => {
@@ -70,7 +70,6 @@ describe('getElementFontSize', () => {
   });
 
   it('should work with IE currentStyle fallback', () => {
-    // @ts-expect-error for testing purposes
     window.getComputedStyle = undefined;
     // @ts-expect-error for testing purposes
     testElement.currentStyle = { 'font-size': '20px' };

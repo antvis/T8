@@ -1,14 +1,13 @@
 import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
-import { Proportion } from '../../charts';
-import { render as preactRender, h } from 'preact';
+import { renderProportionChart } from '../../charts';
 import { createInlineDocument } from '../utils';
 import { isNumber } from '../../utils';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { origin }) => {
     const chartElement = document.createElement('span');
-    preactRender(h(Proportion, { data: getProportionNumber(value, origin as number) }), chartElement);
+    renderProportionChart(chartElement, { data: getProportionNumber(value, origin as number) });
 
     return createInlineDocument(chartElement, value, 'suffix');
   },
