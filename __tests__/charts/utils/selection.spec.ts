@@ -118,13 +118,6 @@ describe('Selection', () => {
       const result = selection.attr('fill', 'red');
       expect(result).toBe(selection);
     });
-
-    it('should only set attributes on SVG elements', () => {
-      const div = document.createElement('div');
-      const selection = new Selection(div);
-      selection.attr('test', 'value');
-      expect(div.getAttribute('test')).toBeNull();
-    });
   });
 
   describe('style', () => {

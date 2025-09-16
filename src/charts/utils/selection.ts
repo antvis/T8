@@ -22,7 +22,7 @@ export class Selection {
 
   attr(name: string, value: string | number): Selection {
     this.elements.forEach((el) => {
-      if (el instanceof SVGElement) {
+      if (el instanceof Element) {
         el.setAttribute(name, String(value));
       }
     });
@@ -31,8 +31,8 @@ export class Selection {
 
   style(name: string, value: string): Selection {
     this.elements.forEach((el) => {
-      if (el instanceof SVGElement) {
-        el.style.setProperty(name, value);
+      if (el instanceof Element) {
+        (el as HTMLElement).style.setProperty(name, value);
       }
     });
     return this;
