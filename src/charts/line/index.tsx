@@ -17,6 +17,8 @@ export interface LineChartConfig {
  */
 export const renderLineChart = (container: Element, config: LineChartConfig): void => {
   const { data = [] } = config;
+  if (!data.length) return;
+
   const chartSize = getElementFontSize(container);
 
   const height = chartSize;

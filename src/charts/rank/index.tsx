@@ -43,10 +43,9 @@ export const renderRankChart = (
   drawSvgCallback?: (svg: Selection, xScale: Scale, yScale: Scale) => void,
 ): void => {
   const { data = [] } = config;
+  if (!data.length) return;
 
   const chartSize = getElementFontSize(container);
-
-  if (!data.length) return;
 
   // Clear existing content
   container.innerHTML = '';

@@ -31,7 +31,9 @@ export class Selection {
 
   style(name: string, value: string): Selection {
     this.elements.forEach((el) => {
-      (el as HTMLElement).style.setProperty(name, value);
+      if (el instanceof SVGElement) {
+        el.style.setProperty(name, value);
+      }
     });
     return this;
   }
