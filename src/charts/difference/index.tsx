@@ -9,6 +9,8 @@ export interface DifferenceChartConfig {
 
 export const renderDifferenceChart = (container: Element, config: DifferenceChartConfig): void => {
   const { data = [] } = config;
+  if (!data.length) return;
+
   const chartSize = getElementFontSize(container);
 
   renderRankChart(container, { data }, (svg, xScale, yScale) => {
@@ -21,6 +23,4 @@ export const renderDifferenceChart = (container: Element, config: DifferenceChar
       .attr('stroke', ARROW_FILL_COLOR)
       .attr('fill', ARROW_FILL_COLOR);
   });
-
-  if (!data.length) return;
 };

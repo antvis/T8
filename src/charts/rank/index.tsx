@@ -33,6 +33,9 @@ const getGap = (data: number[]) => {
 
 /**
  * Renders a rank chart with bars
+ * @param container - The container element
+ * @param config - The rank chart configuration
+ * @param drawSvgCallback - A callback function to draw the SVG on the chart
  */
 export const renderRankChart = (
   container: Element,

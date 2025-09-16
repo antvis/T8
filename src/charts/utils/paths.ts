@@ -63,8 +63,8 @@ export const arc = (radius: number) => {
     const largeArcFlag = endAngle <= Math.PI ? 0 : 1;
 
     return [
-      `M${centerX} ${0}`,
-      `A${centerX} ${centerY} 0 ${largeArcFlag} 1 ${dx} ${dy}`,
+      `M${centerX} ${centerY - radius}`,
+      `A${radius} ${radius} 0 ${largeArcFlag} 1 ${dx} ${dy}`,
       `L${centerX} ${centerY}`,
       'Z',
     ].join(' ');

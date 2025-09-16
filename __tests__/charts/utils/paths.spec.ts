@@ -99,7 +99,7 @@ describe('paths', () => {
       const result = arcGenerator(100, 100, Math.PI / 4); // 45 degrees
       const expectedDx = 100 + 50 * Math.sin(Math.PI / 4);
       const expectedDy = 100 - 50 * Math.cos(Math.PI / 4);
-      expect(result).toBe(`M100 0 A100 100 0 0 1 ${expectedDx} ${expectedDy} L100 100 Z`);
+      expect(result).toBe(`M100 50 A50 50 0 0 1 ${expectedDx} ${expectedDy} L100 100 Z`);
     });
 
     it('should generate correct SVG path for large angle', () => {
@@ -107,25 +107,25 @@ describe('paths', () => {
       const result = arcGenerator(100, 100, Math.PI * 1.5); // 270 degrees
       const expectedDx = 100 + 50 * Math.sin(Math.PI * 1.5);
       const expectedDy = 100 - 50 * Math.cos(Math.PI * 1.5);
-      expect(result).toBe(`M100 0 A100 100 0 1 1 ${expectedDx} ${expectedDy} L100 100 Z`);
+      expect(result).toBe(`M100 50 A50 50 0 1 1 ${expectedDx} ${expectedDy} L100 100 Z`);
     });
 
     it('should use large arc flag for angles > π', () => {
       const arcGenerator = arc(radius);
       const result = arcGenerator(100, 100, Math.PI + 0.1);
-      expect(result).toContain('A100 100 0 1 1'); // Large arc flag should be 1
+      expect(result).toContain('A50 50 0 1 1'); // Large arc flag should be 1
     });
 
     it('should use small arc flag for angles ≤ π', () => {
       const arcGenerator = arc(radius);
       const result = arcGenerator(100, 100, Math.PI);
-      expect(result).toContain('A100 100 0 0 1'); // Large arc flag should be 0
+      expect(result).toContain('A50 50 0 0 1'); // Large arc flag should be 0
     });
 
     it('should handle zero angle', () => {
       const arcGenerator = arc(radius);
       const result = arcGenerator(100, 100, 0);
-      expect(result).toBe('M100 0 A100 100 0 0 1 100 50 L100 100 Z');
+      expect(result).toBe('M100 50 A50 50 0 0 1 100 50 L100 100 Z');
     });
   });
 
