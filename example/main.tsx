@@ -22,12 +22,11 @@ export const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'o
 
 const appChart = document.getElementById('app-chart');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function renderChart(fn: (container: Element, config: any) => void) {
+function renderChart<T>(fn: (container: Element, config: T) => void) {
   const element = document.createElement('span');
   appChart?.appendChild(element);
 
-  return (config: unknown) => {
+  return (config: T) => {
     fn(element, config);
   };
 }
