@@ -22,7 +22,8 @@ export const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'o
 
 const appChart = document.getElementById('app-chart');
 
-function renderChart(fn: (container: Element, config: unknown) => void) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function renderChart(fn: (container: Element, config: any) => void) {
   const element = document.createElement('span');
   appChart?.appendChild(element);
 
