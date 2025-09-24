@@ -3,7 +3,13 @@ import spec from './example.json';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
-import { renderDifferenceChart, renderLineChart, renderProportionChart, renderRankChart } from '../src/charts';
+import {
+  renderDifferenceChart,
+  renderLineChart,
+  renderProportionChart,
+  renderRankChart,
+  renderAnomalyChart,
+} from '../src/charts';
 
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -91,3 +97,4 @@ renderChart(renderDifferenceChart)({ data: [1, 2, 3, 4, 5] });
 renderChart(renderProportionChart)({ data: 0.3 });
 renderChart(renderLineChart)({ data: [1, 2, 3, 4, 5] });
 renderChart(renderRankChart)({ data: [1, 2, 3, 4, 5] });
+renderChart(renderAnomalyChart)({ data: [0, 1, 0, 0, 1, 0, 1, 0, 0] });
