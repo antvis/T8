@@ -109,7 +109,15 @@ export const arrow = (xScale: Scale, yScale: Scale, height: number, arrowheadLen
   };
 };
 
-// A simplified implementation of d3.curveBasis
+/**
+ * Generates an SVG path string for a smooth Bézier curve (similar to d3.curveBasis)
+ * based on a set of input points.
+ *
+ * NOTE: This is a simplified B-spline implementation suitable for smooth line generation,
+ *
+ * @param points - An array of coordinate pairs [[x0, y0], [x1, y1], ...] to be interpolated.
+ * @returns A complete SVG path data string (starting with 'M' followed by 'C' segments).
+ */
 export function curveBasis(points: [number, number][]): string {
   if (points.length < 4) {
     // For simplicity, return a straight line for few points

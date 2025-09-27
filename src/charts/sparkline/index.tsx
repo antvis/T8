@@ -1,7 +1,10 @@
 import { createCurvePath, createSvg, extent, max, mean, scaleLinear } from '../utils';
 import { ticks } from '../utils/scales';
 
-export interface Distribution1Config {
+const KDE_BANDWIDTH = 7; // Controls the smoothness of the KDE plot.
+const TICK_COUNT = 40; // Number of points to sample for the density estimation.
+
+export interface Distribution2Config {
   data: { cate: string; value: number }[];
   aspectRatio: string;
   sparkLinePosition: string;
@@ -13,7 +16,7 @@ export interface Distribution1Config {
  * @param container
  * @param config
  */
-export const renderDistribution2 = (container: Element, config: Distribution1Config) => {
+export const renderDistribution2 = (container: Element, config: Distribution2Config) => {
   const { data, aspectRatio, wordElement, sparkLinePosition } = config;
 
   function kernelDensityEstimator(kernel: (v: number) => number, X: number[]) {
@@ -63,19 +66,19 @@ export const renderDistribution2 = (container: Element, config: Distribution1Con
     height = 20;
   }
 
-  // 清理旧的SVG
+  // Clear old SVG
   while (container.firstChild) {
-    container.removeChild(container.firstChild);
+    container.innerHTML = '';
   }
 
   const valueExtent = extent(values);
   if (valueExtent[0] === undefined) {
-    throw new Error('Error');
+    throw new Error('Input data is empty or invalid, cannot calculate value extent.');
   }
 
   const xScale = scaleLinear(valueExtent, [padding, width - padding]);
 
-  const kde = kernelDensityEstimator(kernelEpanechnikov(7), ticks(valueExtent, 40));
+  const kde = kernelDensityEstimator(kernelEpanechnikov(KDE_BANDWIDTH), ticks(valueExtent, TICK_COUNT));
   const density = kde(values);
 
   const maxDensity = max(density, (d) => d[1]);

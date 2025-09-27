@@ -6,10 +6,6 @@ export function max<T>(array: T[], accessor?: (d: T) => number): number | undefi
   // Use the accessor if provided, otherwise assume the array already contains numbers.
   const values = accessor ? array.map(accessor) : (array as number[]);
 
-  if (values.length === 0) {
-    return undefined;
-  }
-
   return Math.max(...values);
 }
 
