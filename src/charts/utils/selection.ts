@@ -69,4 +69,13 @@ export class Selection {
   nodes(): Element[] {
     return [...this.elements];
   }
+  datum(data): Selection {
+    this.elements.forEach((el) => {
+      // Store the data on the element, a common D3 practice
+      // You can also use a private field on the Selection instance.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (el as any).__data__ = data;
+    });
+    return this;
+  }
 }
