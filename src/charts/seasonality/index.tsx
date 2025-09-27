@@ -1,10 +1,15 @@
-import { createSvg, getElementFontSize, scaleLinear, line } from '../utils';
-
-const SCALE_ADJUST = 2;
-const WIDTH_MARGIN = 0.5;
-const LINE_STROKE_COLOR = '#5B8FF9';
-const RANGE_COLOR = '#FF8C00';
-const OPACITY = 0.6;
+import {
+  createSvg,
+  getElementFontSize,
+  scaleLinear,
+  line,
+  getSafeDomain,
+  SCALE_ADJUST,
+  WIDTH_MARGIN,
+  RANGE_COLOR,
+  OPACITY,
+  LINE_STROKE_COLOR,
+} from '../utils';
 
 export interface SeasonalityChartConfig {
   data: number[];
@@ -16,15 +21,12 @@ export const renderSeasonalityChart = (container: Element, config: SeasonalityCh
 
   if (!data.length) return;
 
-  const isValid = range.every((el) => {
-    if (!Array.isArray(el)) return false;
-    if (el.length !== 2) return false;
-    if (el[1] <= el[0]) return false;
-    if (typeof el[0] !== 'number' || typeof el[1] !== 'number') return false;
-    return true;
-  });
+  const isRangeValid = range.every(
+    (el) =>
+      Array.isArray(el) && el.length === 2 && typeof el[0] === 'number' && typeof el[1] === 'number' && el[0] < el[1],
+  );
 
-  if (!isValid) {
+  if (!isRangeValid) {
     console.warn('Invalid range input:', range);
     return;
   }
@@ -36,16 +38,25 @@ export const renderSeasonalityChart = (container: Element, config: SeasonalityCh
   const svg = createSvg(container, width, height);
 
   const xScale = scaleLinear([0, data?.length - 1], [0, width]);
-  const [min, max] = [Math.min(...data), Math.max(...data)];
-  const yScale = scaleLinear([min, max], [SCALE_ADJUST, height - SCALE_ADJUST]);
+  const yDomain = getSafeDomain(data);
+
+  const yScale = scaleLinear(yDomain, [SCALE_ADJUST, height - SCALE_ADJUST]);
 
   range.forEach((el) => {
+    const dataLastIndex = data.length - 1;
+    const start = Math.max(0, el[0]);
+    const end = Math.min(dataLastIndex, el[1]);
+
+    if (start >= end) {
+      return;
+    }
+
     svg
       .append('rect')
       .attr('x', xScale(el[0]))
       .attr('y', SCALE_ADJUST)
       .attr('width', xScale(el[1]) - xScale(el[0]) - WIDTH_MARGIN)
-      .attr('height', height - SCALE_ADJUST * 2)
+      .attr('height', height)
       .attr('fill', RANGE_COLOR)
       .attr('fill-opacity', OPACITY);
   });
