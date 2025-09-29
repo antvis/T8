@@ -7,8 +7,8 @@ const TICK_COUNT = 40; // Number of points to sample for the density estimation.
 export interface Distribution2Config {
   data: { cate: string; value: number }[];
   aspectRatio: string;
-  sparkLinePosition: string;
-  wordElement?: HTMLSpanElement;
+  //   sparkLinePosition: string;
+  //   wordElement?: HTMLSpanElement;
 }
 
 /**
@@ -17,7 +17,7 @@ export interface Distribution2Config {
  * @param config
  */
 export const renderDistribution2 = (container: Element, config: Distribution2Config) => {
-  const { data, aspectRatio, wordElement, sparkLinePosition } = config;
+  const { data, aspectRatio } = config;
 
   function kernelDensityEstimator(kernel: (v: number) => number, X: number[]) {
     return (V: number[]): [number, number][] => X.map((x) => [x, mean(V, (v) => kernel(x - v))]);
@@ -84,44 +84,7 @@ export const renderDistribution2 = (container: Element, config: Distribution2Con
   const maxDensity = max(density, (d) => d[1]);
   const finalYScale = scaleLinear([0, maxDensity], [height - padding, padding]);
 
-  if (wordElement && (sparkLinePosition === 'up' || sparkLinePosition === 'down')) {
-    const rect = wordElement.getBoundingClientRect();
-    const newDiv = document.createElement('span');
-    newDiv.setAttribute('data-highlight-color-name', 'red');
-    newDiv.classList.add('sparklines');
-    newDiv.style.position = 'absolute';
-    if (sparkLinePosition === 'up') {
-      newDiv.style.top = '-20px';
-      newDiv.style.left = '0px';
-    } else {
-      newDiv.style.top = '0px';
-      newDiv.style.left = '0px';
-    }
-
-    newDiv.style.width = `${rect.width + 20}px`;
-    newDiv.style.height = `${rect.height + 20}px`;
-    wordElement.appendChild(newDiv);
-    const svg = createSvg(newDiv, width, height);
-    const svgD3 = svg.attr('width', width).attr('height', 20).style('position', 'absolute');
-    if (sparkLinePosition === 'up') {
-      svgD3.style('top', '0').style('left', '0');
-    } else {
-      svgD3.style('bottom', '0').style('left', '0');
-    }
-
-    svgD3.append('g').attr('transform', `translate(0,${height})`);
-    const pathData = createCurvePath(xScale, finalYScale, density);
-    svgD3
-      .append('path')
-      .attr('class', 'mypath')
-      .datum(density)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 2)
-      .attr('stroke-linejoin', 'round')
-      .attr('d', pathData);
-  }
-
+  //   不确定要不要加上wordelement
   // 使用新的 createSvg 函数来创建和选择 SVG 元素
   const svgD3 = createSvg(container, width, height);
 
