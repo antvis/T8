@@ -5,10 +5,12 @@ import { createDimensionValue } from '../src/plugin/presets/createDimensionValue
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
 import {
   renderDifferenceChart,
-  renderDistribution2,
   renderLineChart,
   renderProportionChart,
   renderRankChart,
+  renderSeasonalityChart,
+  renderAnomalyChart,
+  renderDistribution2,
 } from '../src/charts';
 import { mockDistribution2Data } from './mock';
 
@@ -98,6 +100,16 @@ renderChart(renderDifferenceChart)({ data: [1, 2, 3, 4, 5] });
 renderChart(renderProportionChart)({ data: 0.3 });
 renderChart(renderLineChart)({ data: [1, 2, 3, 4, 5] });
 renderChart(renderRankChart)({ data: [1, 2, 3, 4, 5] });
+renderChart(renderSeasonalityChart)({
+  data: [3, 11, 5, 1, 10, 3, 11, 5, 16, 2, 5, 19, 1, 13, 11, 5, 16, 2],
+  range: [
+    [-1, 2],
+    [3, 4],
+    [5, 10],
+    [12, 100],
+  ],
+});
+renderChart(renderAnomalyChart)({ data: [0, 1, 0, 0, 1, 0, 1, 0, 0] });
 
 const chartConfig = {
   data: mockDistribution2Data,
