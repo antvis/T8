@@ -16,8 +16,6 @@ url: /zh/tutorial/advanced/llm.md
 
 ## 提示词 Prompt
 
-<<< @/../prompt.zh-CN.md
-
 ## JSON Schema
 
 我们提供了 `T8` 最新的标准 JSON Schema 定义，用于给大模型生成数据。
@@ -25,8 +23,6 @@ url: /zh/tutorial/advanced/llm.md
 * `NPM 包`：[unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json)。
 * `GitHub`：库\`：[GitHub](https://github.com/antvis/T8/blob/main/schema.json)。
 * `构建`：通过 clone T8 源码，运行 `npm run build` 命令，会生成 `schema.json` 文件。
-
-<<< @/../schema.json
 
 ## 案例
 

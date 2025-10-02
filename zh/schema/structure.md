@@ -30,5 +30,3 @@ url: /zh/schema/structure.md
 ***
 
 最新的 `T8` 标准 JSON Schema 定义如下，或者从远程源 [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json) 抓取：
-
-<<< @/../schema.json

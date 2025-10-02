@@ -16,8 +16,6 @@ Through this approach, we can provide users with an AI Agent application or use 
 
 ## Prompt Engineering
 
-<<< @/../prompt.md
-
 ## JSON Schema
 
 We provide the latest standard JSON Schema definition for `T8`, used for generating data with large models.
@@ -25,8 +23,6 @@ We provide the latest standard JSON Schema definition for `T8`, used for generat
 * `NPM Package`: [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json).
 * `GitHub Repository`: [GitHub](https://github.com/antvis/T8/blob/main/schema.json).
 * `Build`: Clone the T8 source code and run the `npm run build` command to generate the `schema.json` file.
-
-<<< @/../schema.json
 
 ## Case Study
 

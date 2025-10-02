@@ -30,5 +30,3 @@ Except for custom paragraphs, `heading`, `normal`, and `bullets` are all compose
 ***
 
 The latest standard JSON Schema definition for `T8` is as follows, or fetch from [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json):
-
-<<< @/../schema.json

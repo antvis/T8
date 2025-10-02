@@ -1119,8 +1119,6 @@ Except for custom paragraphs, `heading`, `normal`, and `bullets` are all compose
 
 The latest standard JSON Schema definition for `T8` is as follows, or fetch from [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json):
 
-<<< @/../schema.json
-
 ---
 
 ---
@@ -4444,8 +4442,6 @@ Through this approach, we can provide users with an AI Agent application or use 
 
 ## Prompt Engineering
 
-<<< @/../prompt.md
-
 ## JSON Schema
 
 We provide the latest standard JSON Schema definition for `T8`, used for generating data with large models.
@@ -4453,8 +4449,6 @@ We provide the latest standard JSON Schema definition for `T8`, used for generat
 * `NPM Package`: [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json).
 * `GitHub Repository`: [GitHub](https://github.com/antvis/T8/blob/main/schema.json).
 * `Build`: Clone the T8 source code and run the `npm run build` command to generate the `schema.json` file.
-
-<<< @/../schema.json
 
 ## Case Study
 
@@ -5665,8 +5659,6 @@ url: /zh/schema/structure.md
 
 最新的 `T8` 标准 JSON Schema 定义如下，或者从远程源 [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json) 抓取：
 
-<<< @/../schema.json
-
 ---
 
 ---
@@ -6846,8 +6838,6 @@ url: /zh/tutorial/advanced/llm.md
 
 ## 提示词 Prompt
 
-<<< @/../prompt.zh-CN.md
-
 ## JSON Schema
 
 我们提供了 `T8` 最新的标准 JSON Schema 定义，用于给大模型生成数据。
@@ -6855,8 +6845,6 @@ url: /zh/tutorial/advanced/llm.md
 * `NPM 包`：[unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json)。
 * `GitHub`：库\`：[GitHub](https://github.com/antvis/T8/blob/main/schema.json)。
 * `构建`：通过 clone T8 源码，运行 `npm run build` 命令，会生成 `schema.json` 文件。
-
-<<< @/../schema.json
 
 ## 案例
 
