@@ -9,6 +9,7 @@ import {
   renderProportionChart,
   renderRankChart,
   renderSeasonalityChart,
+  renderAnomalyChart,
 } from '../src/charts';
 
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
@@ -106,3 +107,4 @@ renderChart(renderSeasonalityChart)({
     [12, 100],
   ],
 });
+renderChart(renderAnomalyChart)({ data: [0, 1, 0, 0, 1, 0, 1, 0, 0] });

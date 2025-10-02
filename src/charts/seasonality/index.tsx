@@ -6,7 +6,7 @@ import {
   getSafeDomain,
   SCALE_ADJUST,
   WIDTH_MARGIN,
-  RANGE_COLOR,
+  HIGHLIGHT_COLOR,
   OPACITY,
   LINE_STROKE_COLOR,
 } from '../utils';
@@ -57,7 +57,7 @@ export const renderSeasonalityChart = (container: Element, config: SeasonalityCh
       .attr('y', SCALE_ADJUST)
       .attr('width', xScale(el[1]) - xScale(el[0]) - WIDTH_MARGIN)
       .attr('height', height)
-      .attr('fill', RANGE_COLOR)
+      .attr('fill', HIGHLIGHT_COLOR)
       .attr('fill-opacity', OPACITY);
   });
 
