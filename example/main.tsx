@@ -10,9 +10,8 @@ import {
   renderRankChart,
   renderSeasonalityChart,
   renderAnomalyChart,
-  renderDistribution2,
+  renderDistribution,
 } from '../src/charts';
-import { mockDistribution2Data } from './mock';
 
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,6 +37,18 @@ function renderChart<T>(fn: (container: Element, config: T) => void) {
   return (config: T) => {
     fn(element, config);
   };
+}
+
+/**
+ * get random integer between min and max
+ * @param min
+ * @param max
+ * @returns
+ */
+function getRandomInt(min: number, max: number) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
 }
 
 const app = document.getElementById('app');
@@ -111,9 +122,27 @@ renderChart(renderSeasonalityChart)({
 });
 renderChart(renderAnomalyChart)({ data: [0, 1, 0, 0, 1, 0, 1, 0, 0] });
 
-const chartConfig = {
-  data: mockDistribution2Data,
-  aspectRatio: '4:1',
-  sparkLinePosition: 'right',
-};
-renderChart(renderDistribution2)(chartConfig);
+const distributionData: number[] = [];
+const SAMPLE_SIZE = 200;
+
+// generate distribution data, 330-370, 530-570, 630-670
+// 330-370: 30%
+// 530-570: 20%
+// 630-670: 50%
+// you will see three peaks in the distribution chart
+
+for (let i = 0; i < SAMPLE_SIZE * 0.3; i++) {
+  distributionData.push(getRandomInt(330, 370));
+}
+
+for (let i = 0; i < SAMPLE_SIZE * 0.5; i++) {
+  distributionData.push(getRandomInt(530, 570));
+}
+// 50% 数据集中在 350 附近（高销量）
+for (let i = 0; i < SAMPLE_SIZE * 0.2; i++) {
+  distributionData.push(getRandomInt(630, 670));
+}
+
+renderChart(renderDistribution)({
+  data: distributionData,
+});

@@ -4,4 +4,4 @@ export { renderRankChart, type RankChartConfig } from './rank';
 export { renderDifferenceChart, type DifferenceChartConfig } from './difference';
 export { renderSeasonalityChart, type SeasonalityChartConfig } from './seasonality';
 export { renderAnomalyChart, type AnomalyChartConfig } from './anomaly';
-export { renderDistribution2 } from './sparkline';
+export { renderDistribution, type DistributionConfig } from './distribution';
