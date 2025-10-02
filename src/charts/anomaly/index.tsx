@@ -1,10 +1,7 @@
-import { createSvg, getElementFontSize, scaleLinear } from '../utils';
+import { createSvg, getElementFontSize, LINE_STROKE_COLOR, scaleLinear, HIGHLIGHT_COLOR, SCALE_ADJUST } from '../utils';
 
-const LINE_COLOR = '#1890FF';
-const ANOMALY_COLOR = '#FF8C00';
 const ANOMALY_WIDTH = 1;
 const ANOMALY_HEIGHT = 12;
-const SCALE_ADJUST = 2;
 
 export interface AnomalyChartConfig {
   data: number[];
@@ -30,7 +27,7 @@ export const renderAnomalyChart = (container: Element, config: AnomalyChartConfi
     .attr('y1', centerY)
     .attr('x2', width - SCALE_ADJUST)
     .attr('y2', centerY)
-    .attr('stroke', LINE_COLOR)
+    .attr('stroke', LINE_STROKE_COLOR)
     .attr('stroke-width', 1);
 
   data.forEach((value, index) => {
@@ -43,7 +40,7 @@ export const renderAnomalyChart = (container: Element, config: AnomalyChartConfi
         .attr('y1', centerY - ANOMALY_HEIGHT / 2)
         .attr('x2', x)
         .attr('y2', centerY + ANOMALY_HEIGHT / 2)
-        .attr('stroke', ANOMALY_COLOR)
+        .attr('stroke', HIGHLIGHT_COLOR)
         .attr('stroke-width', ANOMALY_WIDTH);
     }
   });
