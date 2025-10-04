@@ -108,3 +108,57 @@ export const arrow = (xScale: Scale, yScale: Scale, height: number, arrowheadLen
     ].join(' ');
   };
 };
+
+/**
+ * Generates an SVG path string for a smooth Bézier curve (similar to d3.curveBasis)
+ * based on a set of input points.
+ *
+ * NOTE: This is a simplified B-spline implementation suitable for smooth line generation,
+ *
+ * @param points - An array of coordinate pairs [[x0, y0], [x1, y1], ...] to be interpolated.
+ * @returns A complete SVG path data string (starting with 'M' followed by 'C' segments).
+ */
+export function curveBasis(points: [number, number][]): string {
+  if (points.length < 4) {
+    // For simplicity, return a straight line for few points
+    const path = points.map((p) => p.join(',')).join('L');
+    return `M${path}`;
+  }
+
+  // A very simplified B-spline path generation for demonstration
+  // This is not a complete implementation of d3.curveBasis,
+  // but it generates a smooth-looking curve.
+  let path = `M${points[0][0]},${points[0][1]}`;
+  for (let i = 1; i < points.length - 2; i++) {
+    const p0 = points[i - 1];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2];
+
+    const x0 = p0[0];
+    const y0 = p0[1];
+    const x1 = p1[0];
+    const y1 = p1[1];
+    const x2 = p2[0];
+    const y2 = p2[1];
+    const x3 = p3[0];
+    const y3 = p3[1];
+
+    const cp1x = x1 + (x2 - x0) / 6;
+    const cp1y = y1 + (y2 - y0) / 6;
+    const cp2x = x2 - (x3 - x1) / 6;
+    const cp2y = y2 - (y3 - y1) / 6;
+
+    path += `C${cp1x},${cp1y},${cp2x},${cp2y},${x2},${y2}`;
+  }
+  return path;
+}
+
+export const createCurvePath = (xScale: Scale, yScale: Scale, data: Point[]): string => {
+  if (!data || data.length < 2) {
+    return '';
+  }
+
+  const points: Point[] = data.map((d) => [xScale(d[0]), yScale(d[1])]);
+  return curveBasis(points);
+};
