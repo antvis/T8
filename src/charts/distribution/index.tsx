@@ -66,7 +66,6 @@ export const renderDistribution = (container: Element, config: DistributionConfi
   svgD3
     .append('path')
     .attr('class', 'mypath')
-    .datum(density)
     .attr('fill', 'none')
     .attr('stroke', LINE_STROKE_COLOR)
     .attr('stroke-width', 1)
