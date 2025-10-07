@@ -5,3 +5,4 @@ export { renderDifferenceChart, type DifferenceChartConfig } from './difference'
 export { renderSeasonalityChart, type SeasonalityChartConfig } from './seasonality';
 export { renderAnomalyChart, type AnomalyChartConfig } from './anomaly';
 export { renderDistribution, type DistributionConfig } from './distribution';
+export { renderAssociationChart, type AssociationChartConfig } from './association';

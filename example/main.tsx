@@ -11,6 +11,7 @@ import {
   renderSeasonalityChart,
   renderAnomalyChart,
   renderDistribution,
+  renderAssociationChart,
 } from '../src/charts';
 
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
@@ -145,4 +146,12 @@ for (let i = 0; i < SAMPLE_SIZE * 0.2; i++) {
 
 renderChart(renderDistribution)({
   data: distributionData,
+});
+
+renderChart(renderAssociationChart)({
+  data: [
+    { x: -1, y: -2 },
+    { x: 2, y: 2 },
+    { x: 3, y: 20 },
+  ],
 });

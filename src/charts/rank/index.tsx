@@ -64,7 +64,7 @@ export const renderRankChart = (
   const xScale = scaleLinear([0, data.length - 1], [0, width - barWidth]);
   const maxValue = Math.max(...data);
   const minValue = Math.min(...data);
-  const yScale = scaleLinear([minValue, maxValue], [SCALE_ADJUST, height - SCALE_ADJUST]);
+  const yScale = scaleLinear([minValue, maxValue], [height - SCALE_ADJUST, SCALE_ADJUST]);
 
   // Draw bars
   data.forEach((value, index) => {
@@ -75,9 +75,9 @@ export const renderRankChart = (
       .append('rect')
       .attr('class', 'bar')
       .attr('x', x)
-      .attr('y', height - y)
+      .attr('y', y)
       .attr('width', barWidth)
-      .attr('height', y)
+      .attr('height', height - y)
       .attr('fill', BAR_FILL_COLOR)
       .style('cursor', 'pointer');
   });
