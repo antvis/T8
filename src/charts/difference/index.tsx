@@ -1,7 +1,5 @@
 import { renderRankChart } from '../rank';
-import { arrow } from '../utils';
-
-const ARROW_FILL_COLOR = 'rgb(250, 84, 28)';
+import { ARROW_FILL_COLOR, arrow } from '../utils';
 
 export interface DifferenceChartConfig {
   data: number[];

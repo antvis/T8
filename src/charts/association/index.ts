@@ -7,6 +7,8 @@ import {
   arrow,
   LINE_STROKE_COLOR,
   linearRegression,
+  ARROW_FILL_COLOR,
+  HIGHLIGHT_COLOR,
 } from '../utils';
 
 interface Point {
@@ -22,25 +24,35 @@ export const renderAssociationChart = (container: Element, config: AssociationCh
   const { data = [] } = config;
   if (!data.length) return;
 
+  if (data.length < 2) throw new Error('data must contain at least 2 points');
+
   const chartSize = getElementFontSize(container);
 
   const height = chartSize;
-  const width = Math.max(chartSize * 2, data.length * 2);
+  const width = chartSize * 2;
 
   const svg = createSvg(container, width, height);
 
   const xValueExtent = extent(data.map((d) => d.x));
   const yValueExtent = extent(data.map((d) => d.y));
 
-  const xScale = scaleLinear(xValueExtent, [SCALE_ADJUST, width - SCALE_ADJUST]);
-  const yScale = scaleLinear(yValueExtent, [height - SCALE_ADJUST, SCALE_ADJUST]);
+  const xValueDomain: [number, number] = [
+    xValueExtent[0] > 0 ? 0 : xValueExtent[0],
+    xValueExtent[1] < 0 ? 0 : xValueExtent[1],
+  ];
+  const yValueDomain: [number, number] = [
+    yValueExtent[0] > 0 ? 0 : yValueExtent[0],
+    yValueExtent[1] < 0 ? 0 : yValueExtent[1],
+  ];
+
+  const xScale = scaleLinear(xValueDomain, [SCALE_ADJUST, width - SCALE_ADJUST]);
+  const yScale = scaleLinear(yValueDomain, [height - SCALE_ADJUST, SCALE_ADJUST]);
 
   const zeroXPosition = xScale(0);
   const zeroYPosition = yScale(0);
 
   const linearRegressionResult = linearRegression(data);
 
-  console.log(linearRegressionResult);
   const tagData: Point[] = data.map((d) => {
     const tag = linearRegressionResult.k * d.x + linearRegressionResult.b;
 
@@ -68,8 +80,6 @@ export const renderAssociationChart = (container: Element, config: AssociationCh
 
   const arrowPath = arrow(xScale, yScale);
 
-  console.log(tagData);
-
   svg
     .append('path')
     .attr(
@@ -79,10 +89,10 @@ export const renderAssociationChart = (container: Element, config: AssociationCh
         { index: tagData[tagData.length - 1].x, value: tagData[tagData.length - 1].y },
       ),
     )
-    .attr('stroke', 'red')
-    .attr('fill', 'red');
+    .attr('stroke', ARROW_FILL_COLOR)
+    .attr('fill', ARROW_FILL_COLOR);
 
   data.map((d) => {
-    svg.append('circle').attr('cx', xScale(d.x)).attr('cy', yScale(d.y)).attr('r', 1).attr('fill', 'red');
+    svg.append('circle').attr('cx', xScale(d.x)).attr('cy', yScale(d.y)).attr('r', 1).attr('fill', HIGHLIGHT_COLOR);
   });
 };
