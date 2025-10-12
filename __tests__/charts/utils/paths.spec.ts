@@ -134,44 +134,53 @@ describe('paths', () => {
     const arrowheadWidth = 3;
 
     it('should create an arrow generator function', () => {
-      const arrowGenerator = arrow(mockXScale, mockYScale, height, arrowheadLength, arrowheadWidth);
+      const arrowGenerator = arrow(mockXScale, mockYScale, arrowheadLength, arrowheadWidth);
       expect(typeof arrowGenerator).toBe('function');
     });
 
     it('should generate correct SVG path for horizontal arrow', () => {
-      const arrowGenerator = arrow(mockXScale, mockYScale, height, arrowheadLength, arrowheadWidth);
+      const arrowGenerator = arrow(mockXScale, mockYScale, arrowheadLength, arrowheadWidth);
       const startData = { index: 0, value: 10 };
       const endData = { index: 2, value: 10 };
       const result = arrowGenerator(startData, endData);
 
-      // Should contain move to start, line to base, and arrowhead
-      expect(result).toContain('M5 50'); // Start point
-      expect(result).toContain('L20 50'); // Base point
-      expect(result).toContain('M25 50'); // End point
+      // Calculate expected coordinates:
+      // startX = mockXScale(0) = 0, startY = mockYScale(10) = 50
+      // endX = mockXScale(2) = 20, endY = mockYScale(10) = 50
+      // baseX = endX - arrowheadLength * Math.cos(0) = 20 - 5 = 15
+      expect(result).toContain('M0 50'); // Start point
+      expect(result).toContain('L15 50'); // Line to base point
+      expect(result).toContain('M20 50'); // End point
     });
 
     it('should generate correct SVG path for vertical arrow', () => {
-      const arrowGenerator = arrow(mockXScale, mockYScale, height, arrowheadLength, arrowheadWidth);
+      const arrowGenerator = arrow(mockXScale, mockYScale, arrowheadLength, arrowheadWidth);
       const startData = { index: 0, value: 10 };
       const endData = { index: 0, value: 20 };
       const result = arrowGenerator(startData, endData);
 
-      expect(result).toContain('M5 50'); // Start point
-      expect(result).toContain('M5 0'); // End point
+      // Calculate expected coordinates:
+      // startX = mockXScale(0) = 0, startY = mockYScale(10) = 50
+      // endX = mockXScale(0) = 0, endY = mockYScale(20) = 100
+      expect(result).toContain('M0 50'); // Start point
+      expect(result).toContain('M0 100'); // End point
     });
 
     it('should generate correct SVG path for diagonal arrow', () => {
-      const arrowGenerator = arrow(mockXScale, mockYScale, height, arrowheadLength, arrowheadWidth);
+      const arrowGenerator = arrow(mockXScale, mockYScale, arrowheadLength, arrowheadWidth);
       const startData = { index: 0, value: 10 };
       const endData = { index: 1, value: 20 };
       const result = arrowGenerator(startData, endData);
 
-      expect(result).toContain('M5 50'); // Start point
-      expect(result).toContain('M15 0'); // End point
+      // Calculate expected coordinates:
+      // startX = mockXScale(0) = 0, startY = mockYScale(10) = 50
+      // endX = mockXScale(1) = 10, endY = mockYScale(20) = 100
+      expect(result).toContain('M0 50'); // Start point
+      expect(result).toContain('M10 100'); // End point
     });
 
     it('should use default arrowhead dimensions when not provided', () => {
-      const arrowGenerator = arrow(mockXScale, mockYScale, height);
+      const arrowGenerator = arrow(mockXScale, mockYScale);
       const startData = { index: 0, value: 10 };
       const endData = { index: 1, value: 10 };
       const result = arrowGenerator(startData, endData);
@@ -181,22 +190,27 @@ describe('paths', () => {
     });
 
     it('should handle same start and end points', () => {
-      const arrowGenerator = arrow(mockXScale, mockYScale, height, arrowheadLength, arrowheadWidth);
+      const arrowGenerator = arrow(mockXScale, mockYScale, arrowheadLength, arrowheadWidth);
       const startData = { index: 1, value: 10 };
       const endData = { index: 1, value: 10 };
       const result = arrowGenerator(startData, endData);
 
-      expect(result).toContain('M15 50'); // Same start and end
+      // Calculate expected coordinates:
+      // startX = endX = mockXScale(1) = 10, startY = endY = mockYScale(10) = 50
+      expect(result).toContain('M10 50'); // Same start and end
     });
 
     it('should handle negative values', () => {
-      const arrowGenerator = arrow(mockXScale, mockYScale, height, arrowheadLength, arrowheadWidth);
+      const arrowGenerator = arrow(mockXScale, mockYScale, arrowheadLength, arrowheadWidth);
       const startData = { index: 0, value: -5 };
       const endData = { index: 1, value: 5 };
       const result = arrowGenerator(startData, endData);
 
-      expect(result).toContain('M5 125'); // Start point with negative value
-      expect(result).toContain('M15 75'); // End point
+      // Calculate expected coordinates:
+      // startX = mockXScale(0) = 0, startY = mockYScale(-5) = -25
+      // endX = mockXScale(1) = 10, endY = mockYScale(5) = 25
+      expect(result).toContain('M0 -25'); // Start point with negative value
+      expect(result).toContain('M10 25'); // End point
     });
   });
 });

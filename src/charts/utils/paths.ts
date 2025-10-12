@@ -79,12 +79,12 @@ export const arc = (radius: number) => {
  * @param yScale - Scale function for Y coordinates
  * @returns Function that generates SVG path data from start and end points
  */
-export const arrow = (xScale: Scale, yScale: Scale, height: number, arrowheadLength = 2, arrowheadWidth = 2) => {
+export const arrow = (xScale: Scale, yScale: Scale, arrowheadLength = 2, arrowheadWidth = 2) => {
   return (startData: { index: number; value: number }, endData: { index: number; value: number }): string => {
-    const startX = xScale(startData.index + 0.5);
-    const startY = height - yScale(startData.value);
-    const endX = xScale(endData.index + 0.5);
-    const endY = height - yScale(endData.value);
+    const startX = xScale(startData.index);
+    const startY = yScale(startData.value);
+    const endX = xScale(endData.index);
+    const endY = yScale(endData.value);
 
     const deltaX = endX - startX;
     const deltaY = endY - startY;
