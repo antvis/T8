@@ -92,7 +92,7 @@ export const renderAssociationChart = (container: Element, config: AssociationCh
     .attr('stroke', ARROW_FILL_COLOR)
     .attr('fill', ARROW_FILL_COLOR);
 
-  data.map((d) => {
+  data.forEach((d) => {
     svg.append('circle').attr('cx', xScale(d.x)).attr('cy', yScale(d.y)).attr('r', 1).attr('fill', HIGHLIGHT_COLOR);
   });
 };
