@@ -83,6 +83,8 @@ export class Text extends EE {
     const container = this.container;
     const spec = this.spec;
 
+    console.info(spec);
+
     // Render the component.
     // We use `preact` to code the `NarrativeTextVis` components.
     preactRender(
