@@ -109,9 +109,9 @@ Output must use **abbreviated JSON key names** and **numeric type value mappings
 | isI    | isI         | italicTextPhraseSpec          | 只在 true 时出现 |
 | isU    | isU         | underlineTextPhraseSpec       | 只在 true 时出现 |
 | url    | url         | urlTextPhraseSpecs            |                  |
-| styles | styles      | CommonProps                   | 建议在生成时移除 |
-| cl     | className   | CommonProps                   | 建议在生成时移除 |
-| k      | key         | CommonProps                   | 建议在生成时移除 |
+| sy     | styles      | CommonProps                   |                  |
+| cl     | className   | CommonProps                   |                  |
+| k      | key         | CommonProps                   |                  |
 | cfg    | config      | Chart                         |                  |
 | dat    | data        | Chart                         |                  |
 | r      | range       | Chart                         |                  |

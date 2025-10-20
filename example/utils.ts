@@ -27,6 +27,7 @@ const KEY_DECODER_MAP: { [shrunken: string]: string } = {
   url: 'url',
   dt: 'defaultType',
   i: 'items',
+  sy: 'styles',
   // 核心结构体键名: h -> headline, s -> sections, p -> phrases, pa -> paragraphs
   s: 'sections',
 };
