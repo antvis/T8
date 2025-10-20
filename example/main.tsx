@@ -14,9 +14,14 @@ import {
   renderDistribution,
   renderAssociationChart,
 } from '../src/charts';
-import { restoreJson } from './utils';
+import { restore as restoreJson } from './utils';
 
 const spec = restoreJson($spec);
+// const spec = $spec;
+
+console.info('spect:', spec);
+
+console.info(JSON.stringify(spec).length, JSON.stringify($spec).length);
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   style: (value, _, themeSeedToken) => ({

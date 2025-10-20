@@ -17,6 +17,8 @@ type ParagraphProps = {
 export function Paragraph({ spec }: ParagraphProps) {
   const pluginManager = usePluginManager();
 
+  console.info('paragraph spec:', spec);
+
   const { onEvent } = useEvent();
 
   const onClick = () => {
