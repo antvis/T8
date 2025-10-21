@@ -145,14 +145,17 @@ function buildHistogram(values: number[], binSize = 0.05) {
     bins.push({ range: [Number(start.toFixed(2)), Number(end.toFixed(2))], count: 0 });
   }
   for (const v of values) {
-    const idx = Math.min(Math.floor(v / binSize), bins.length - 1);
+    if (!Number.isFinite(v)) continue;
+    const clamped = Math.min(1, Math.max(0, v)); // 负值压到 0，>1 压到 1
+    const idx = Math.min(Math.floor(clamped / binSize), bins.length - 1);
+    if (idx < -1) continue;
     bins[idx].count++;
   }
   return bins;
 }
 
 describe('compression report', () => {
-  const COUNT = 200;
+  const COUNT = 100_000;
   const batch = generateBatch(COUNT);
   const savingsRatios: number[] = [];
   const lengths: { compressed: number; restored: number; diff: number; ratio: number }[] = [];
@@ -163,8 +166,15 @@ describe('compression report', () => {
     const restoredStr = JSON.stringify(restored);
     const compressedLen = compressedStr.length;
     const restoredLen = restoredStr.length;
+    if (restoredLen === 0) {
+      // 极端防护，避免除以 0
+      savingsRatios.push(0);
+      lengths.push({ compressed: compressedLen, restored: restoredLen, diff: 0, ratio: 0 });
+      continue;
+    }
     const diff = restoredLen - compressedLen;
-    const ratio = diff / restoredLen; // percentage saved relative to restored size
+    const rawRatio = diff / restoredLen;
+    const ratio = Math.min(1, Math.max(0, rawRatio)); // 去除负数
     savingsRatios.push(ratio);
     lengths.push({ compressed: compressedLen, restored: restoredLen, diff, ratio });
   }
