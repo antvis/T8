@@ -1,0 +1,127 @@
+{
+  "count": 200,
+  "mean": 0.3817,
+  "std": 0.0386,
+  "min": 0.12,
+  "max": 0.4495,
+  "median": 0.3902,
+  "example": [
+    {
+      "compressed": 1024,
+      "restored": 1695,
+      "diff": 671,
+      "ratio": 0.3958702064896755
+    },
+    {
+      "compressed": 1592,
+      "restored": 2696,
+      "diff": 1104,
+      "ratio": 0.4094955489614243
+    },
+    {
+      "compressed": 422,
+      "restored": 697,
+      "diff": 275,
+      "ratio": 0.3945480631276901
+    },
+    {
+      "compressed": 1375,
+      "restored": 2263,
+      "diff": 888,
+      "ratio": 0.3923994697304463
+    },
+    {
+      "compressed": 897,
+      "restored": 1332,
+      "diff": 435,
+      "ratio": 0.32657657657657657
+    }
+  ],
+  "sampleZScores": [0.367, 0.72, 0.333, 0.277, -1.429],
+  "histogram": [
+    {
+      "range": [0, 0.05],
+      "count": 0
+    },
+    {
+      "range": [0.05, 0.1],
+      "count": 0
+    },
+    {
+      "range": [0.1, 0.15],
+      "count": 1
+    },
+    {
+      "range": [0.15, 0.2],
+      "count": 1
+    },
+    {
+      "range": [0.2, 0.25],
+      "count": 1
+    },
+    {
+      "range": [0.25, 0.3],
+      "count": 0
+    },
+    {
+      "range": [0.3, 0.35],
+      "count": 21
+    },
+    {
+      "range": [0.35, 0.4],
+      "count": 111
+    },
+    {
+      "range": [0.4, 0.45],
+      "count": 65
+    },
+    {
+      "range": [0.45, 0.5],
+      "count": 0
+    },
+    {
+      "range": [0.5, 0.55],
+      "count": 0
+    },
+    {
+      "range": [0.55, 0.6],
+      "count": 0
+    },
+    {
+      "range": [0.6, 0.65],
+      "count": 0
+    },
+    {
+      "range": [0.65, 0.7],
+      "count": 0
+    },
+    {
+      "range": [0.7, 0.75],
+      "count": 0
+    },
+    {
+      "range": [0.75, 0.8],
+      "count": 0
+    },
+    {
+      "range": [0.8, 0.85],
+      "count": 0
+    },
+    {
+      "range": [0.85, 0.9],
+      "count": 0
+    },
+    {
+      "range": [0.9, 0.95],
+      "count": 0
+    },
+    {
+      "range": [0.95, 1],
+      "count": 0
+    },
+    {
+      "range": [1, 1],
+      "count": 0
+    }
+  ]
+}
