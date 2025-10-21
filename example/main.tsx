@@ -1,6 +1,6 @@
 import { type NarrativeTextSpec, Text } from '../src';
 // import spec from './example.json';
-import $spec from './test_json3.json';
+import $spec from './test_json7.json';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
@@ -17,9 +17,6 @@ import {
 import { restore as restoreJson } from './utils';
 
 const spec = restoreJson($spec);
-// const spec = $spec;
-
-console.info('spect:', spec);
 
 console.info(JSON.stringify(spec).length, JSON.stringify($spec).length);
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
