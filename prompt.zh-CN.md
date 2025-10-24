@@ -41,18 +41,18 @@
 
 下面是实体短语支持的类型列表，请务必严格按照下表进行实体标注：
 
-| 类型                 | 说明       | 示例                       |
-| -------------------- | ---------- | -------------------------- |
-| `metric_name`        | 指标名称   | “出货量”、“增长率”         |
-| `metric_value`       | 主指标值   | “1.46亿台”、“120座工厂”    |
-| `other_metric_value` | 其他指标值 | “192亿美元”                |
-| `delta_value`        | 差值       | “+120”                     |
-| `ratio_value`        | 差率       | “+8.4%”、“9%”              |
-| `contribute_ratio`   | 贡献度     | “40%”                      |
-| `trend_desc`         | 趋势描述   | “持续上升”、“趋于平稳”     |
-| `dim_value`          | 维度标识   | “印度”、“江苏”、“海外市场” |
-| `time_value`         | 时间标识   | “2024年Q3”、“全年”         |
-| `proportion`         | 比例描述   | “30%"                      |
+| 类型 ｜ 简写         | 说明  | 示例       |
+| -------------------- | ----- | ---------- | -------------------------- |
+| `metric_name`        | `mn`  | 指标名称   | “出货量”、“增长率”         |
+| `metric_value`       | `mv`  | 主指标值   | “1.46亿台”、“120座工厂”    |
+| `other_metric_value` | `omv` | 其他指标值 | “192亿美元”                |
+| `delta_value`        | `dev` | 差值       | “+120”                     |
+| `ratio_value`        | `rv`  | 差率       | “+8.4%”、“9%”              |
+| `contribute_ratio`   | `cr`  | 贡献度     | “40%”                      |
+| `trend_desc`         | `td`  | 趋势描述   | “持续上升”、“趋于平稳”     |
+| `dim_value`          | `dv`  | 维度标识   | “印度”、“江苏”、“海外市场” |
+| `time_value`         | `tv`  | 时间标识   | “2024年Q3”、“全年”         |
+| `proportion`         | `p`   | 比例描述   | “30%"                      |
 
 在可能的情况下，要求尽可能多的将句子中的关键信息使用 `entity` 来取代普通 `text`（如指标、数值、时间、数字等），保证生成文本的多元性，提高可读性。(尤其要提升 `delta_value`, `ratio_value`, `proportion`短语的使用频率)。
 
@@ -62,9 +62,114 @@
 
 - `origin`：数据本身在原始来源中的精确数值表示（例如，对于“1.46亿台”，其原始数值可能是 `146000000`；对于“13.9%”，其原始数值可能是 `0.139221`）。
 - `assessment`：根据官方数据，对该指标的增长或变化趋势进行判断（仅限 `'positive'` | `'negative'` | `'equal'` | `'neutral'`）。
-- `detail`：对实体内容的补充数据说明（例如，面对 `trend_desc`， `detail`应为一个具体数据组成的数组，例如 `[2,3,4,1,7]`）。
+- `detail`：对实体内容的补充数据说明（例如，面对 `trend_desc`， `detail`应为一个具体数据组成的数组，例如 `[2,3`
+- `,4,1,7]`）。
 
 ---
+
+### 映射表
+
+#### value映射
+
+| 类型                 | 简写  |
+| -------------------- | ----- |
+| `metric_name`        | `mn`  |
+| `metric_value`       | `mv`  |
+| `other_metric_value` | `omv` |
+| `delta_value`        | `dev` |
+| `ratio_value`        | `rv`  |
+| `contribute_ratio`   | `cr`  |
+| `trend_desc`         | `td`  |
+| `dim_value`          | `dv`  |
+| `time_value`         | `tv`  |
+| `proportion`         | `p`   |
+
+#### key映射
+
+| 类型         | 简写 |
+| ------------ | ---- |
+| `headline`   | `hl` |
+| `phrases`    | `ph` |
+| `type`       | `ty` |
+| `sections`   | `se` |
+| `paragraphs` | `pa` |
+| `metadata`   | `md` |
+| `entityType` | `et` |
+| `origin`     | `or` |
+| `assessment` | `as` |
+
+#### 例如：
+
+```json
+// 完全形式
+{
+  "headline": {
+    "type": "headline",
+    "phrases": [
+      {
+        "type": "text",
+        "value": "Bookings This Quarter Higher than Usual"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "paragraphs": [
+        {
+          "type": "normal",
+          "phrases": [
+            {
+              "type": "text",
+              "value": "This quarter, "
+            },
+            {
+              "type": "entity",
+              "value": "bookings",
+              "metadata": {
+                "entityType": "metric_name"
+              }
+            },
+          ]
+        }
+      ]
+    }
+  ]
+}
+// 简写形式
+{
+  "hl": {
+    "ty": "headline",
+    "ph": [
+      {
+        "type": "text",
+        "value": "Bookings This Quarter Higher than Usual"
+      }
+    ]
+  },
+  "se": [
+    {
+      "pa": [
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "This quarter, "
+            },
+            {
+              "ty": "entity",
+              "value": "bookings",
+              "md": {
+                "et": "mn"
+              }
+            },
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
 ## 其他要求
 
@@ -74,3 +179,4 @@
 - 文章语言应**自然流畅、客观专业**，避免口语化、营销色彩，以及不必要的实体或数值堆砌。
 - 在最终输出的 JSON 中，`definitions` 部分可以**直接省略**，我只需要主体 JSON 内容。
 - 在最终的输出中，任何多余的描述和 `markdown` 的代码快包裹都不需要，我只要纯文本形式的 JSON Schema。
+- 最后生成的 JSON Schema 必须是简写形式，可以参考上面的示例。

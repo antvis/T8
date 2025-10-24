@@ -1,561 +1,1765 @@
 {
-  "headline": {
-    "type": "headline",
-    "phrases": [
+  "hl": {
+    "ty": "headline",
+    "ph": [
       {
-        "type": "text",
-        "value": "Bookings This Quarter Higher than Usual"
+        "ty": "text",
+        "value": "苹果公司"
+      },
+      {
+        "ty": "entity",
+        "value": "2024财年",
+        "md": {
+          "et": "tv"
+        }
+      },
+      {
+        "ty": "text",
+        "value": "业绩剖析：服务营收"
+      },
+      {
+        "ty": "entity",
+        "value": "创历史新高",
+        "md": {
+          "et": "td",
+          "as": "positive"
+        }
+      },
+      {
+        "ty": "text",
+        "value": "，"
+      },
+      {
+        "ty": "entity",
+        "value": "大中华区",
+        "md": {
+          "et": "dv"
+        }
+      },
+      {
+        "ty": "text",
+        "value": "市场承压"
       }
     ]
   },
-  "sections": [
+  "se": [
     {
-      "paragraphs": [
+      "pa": [
         {
-          "type": "normal",
-          "phrases": [
+          "ty": "heading1",
+          "ph": [
             {
-              "type": "text",
-              "value": "This quarter, "
-            },
-            {
-              "type": "entity",
-              "value": "bookings",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are higher than usual for this point in the quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$348k",
-              "metadata": {
-                "entityType": "metric_value",
-                "origin": 348.12
-              }
-            },
-            {
-              "type": "text",
-              "value": ". "
-            },
-            {
-              "type": "text",
-              "value": "They were made up of "
-            },
-            {
-              "type": "entity",
-              "value": "29 deals",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ", "
-            },
-            {
-              "type": "text",
-              "value": "with the "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "being "
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": "."
+              "ty": "text",
+              "value": "2024财年业绩概览：营收温和增长，季度利润受税款冲击"
             }
           ]
         },
         {
-          "type": "normal",
-          "phrases": [
+          "ty": "normal",
+          "ph": [
             {
-              "type": "entity",
-              "value": "Bookings ",
-              "metadata": {
-                "entityType": "metric_name"
+              "ty": "text",
+              "value": "根据苹果公司官方发布的"
+            },
+            {
+              "ty": "entity",
+              "value": "2024财年",
+              "md": {
+                "et": "tv"
               }
             },
             {
-              "type": "text",
-              "value": " "
+              "ty": "text",
+              "value": "（截至"
             },
             {
-              "type": "text",
-              "value": "are up "
-            },
-            {
-              "type": "entity",
-              "value": "$180.3k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
+              "ty": "entity",
+              "value": "2024年9月28日",
+              "md": {
+                "et": "tv"
               }
             },
             {
-              "type": "text",
-              "value": " "
+              "ty": "text",
+              "value": "）全年业绩报告，公司"
             },
             {
-              "type": "text",
-              "value": "relative to the same time last quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are up "
-            },
-            {
-              "type": "entity",
-              "value": "$106.1k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
+              "ty": "entity",
+              "value": "总营收",
+              "md": {
+                "et": "mn"
               }
             },
             {
-              "type": "text",
-              "value": " "
+              "ty": "text",
+              "value": "达到"
             },
             {
-              "type": "text",
-              "value": "relative to the same time last year. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$110k",
-              "metadata": {
-                "entityType": "metric_value"
+              "ty": "entity",
+              "value": "3910.4亿美元",
+              "md": {
+                "et": "mv",
+                "or": 391040000000
               }
             },
             {
-              "type": "text",
-              "value": " ("
+              "ty": "text",
+              "value": "。与"
             },
             {
-              "type": "entity",
-              "value": "46.2%",
-              "metadata": {
-                "entityType": "contribute_ratio"
+              "ty": "entity",
+              "value": "2023财年",
+              "md": {
+                "et": "tv"
               }
             },
             {
-              "type": "text",
-              "value": ") "
+              "ty": "text",
+              "value": "的"
             },
             {
-              "type": "text",
-              "value": "greater than average bookings at the same time each quarter over the previous year. "
+              "ty": "entity",
+              "value": "3832.9亿美元",
+              "md": {
+                "et": "omv",
+                "or": 383290000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "相比，实现了"
+            },
+            {
+              "ty": "entity",
+              "value": "+2.02%",
+              "md": {
+                "et": "rv",
+                "or": 0.0202,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "同比增长",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。这一"
+            },
+            {
+              "ty": "entity",
+              "value": "增长",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "主要得益于"
+            },
+            {
+              "ty": "entity",
+              "value": "第四季度",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "创纪录的"
+            },
+            {
+              "ty": "entity",
+              "value": "949.3亿美元",
+              "md": {
+                "et": "mv",
+                "or": 94930000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "营收，该季度"
+            },
+            {
+              "ty": "entity",
+              "value": "同比增长",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "为"
+            },
+            {
+              "ty": "entity",
+              "value": "+6.07%",
+              "md": {
+                "et": "rv",
+                "or": 0.0607,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
             }
           ]
         },
         {
-          "type": "normal",
-          "phrases": [
+          "ty": "normal",
+          "ph": [
             {
-              "type": "text",
-              "value": "Looking across the most relevant dimensions, "
+              "ty": "text",
+              "value": "然而，在盈利能力方面，"
             },
             {
-              "type": "text",
-              "value": "the "
-            },
-            {
-              "type": "entity",
-              "value": "increase",
-              "metadata": {
-                "entityType": "trend_desc",
-                "detail": [1, 2, 6, 18, 24, 48]
+              "ty": "entity",
+              "value": "2024财年",
+              "md": {
+                "et": "tv"
               }
             },
             {
-              "type": "text",
-              "value": " relative to the same time last quarter was primarily driven by"
+              "ty": "text",
+              "value": "的表现受到"
+            },
+            {
+              "ty": "entity",
+              "value": "第四季度",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "一次性费用的显著影响。该季度"
+            },
+            {
+              "ty": "entity",
+              "value": "GAAP净利润",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "为"
+            },
+            {
+              "ty": "entity",
+              "value": "147.3亿美元",
+              "md": {
+                "et": "mv",
+                "or": 14730000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，远低于"
+            },
+            {
+              "ty": "entity",
+              "value": "去年同期",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "229.6亿美元",
+              "md": {
+                "et": "omv",
+                "or": 22960000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "同比降幅",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "显著。这主要是由于公司计入了一笔高达"
+            },
+            {
+              "ty": "entity",
+              "value": "102亿美元",
+              "md": {
+                "et": "omv",
+                "or": 10200000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "一次性税款支出",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，该支出与欧盟委员会关于爱尔兰税务实践的裁决逆转相关。剔除此项影响后，"
+            },
+            {
+              "ty": "entity",
+              "value": "第四季度",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "entity",
+              "value": "调整后稀释每股收益",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "为"
+            },
+            {
+              "ty": "entity",
+              "value": "1.64美元",
+              "md": {
+                "et": "mv",
+                "or": 1.64
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，仍显示出"
+            },
+            {
+              "ty": "entity",
+              "value": "增长趋势",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pa": [
+        {
+          "ty": "heading1",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "核心业务板块分析：服务引擎强劲，硬件产品喜忧参半"
             }
           ]
         },
         {
-          "type": "bullets",
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "苹果的"
+            },
+            {
+              "ty": "entity",
+              "value": "服务业务",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "在"
+            },
+            {
+              "ty": "entity",
+              "value": "2024财年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "继续扮演关键增长引擎的角色。该部门"
+            },
+            {
+              "ty": "entity",
+              "value": "全年营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "达到"
+            },
+            {
+              "ty": "entity",
+              "value": "961.7亿美元",
+              "md": {
+                "et": "mv",
+                "or": 96170000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，相较于"
+            },
+            {
+              "ty": "entity",
+              "value": "2023财年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "852.0亿美元",
+              "md": {
+                "et": "omv",
+                "or": 85200000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "同比增长",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "高达"
+            },
+            {
+              "ty": "entity",
+              "value": "+12.87%",
+              "md": {
+                "et": "rv",
+                "or": 0.1287,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。服务收入目前占公司"
+            },
+            {
+              "ty": "entity",
+              "value": "总营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "约24.6%",
+              "md": {
+                "et": "cr",
+                "or": 0.2459
+              }
+            },
+            {
+              "ty": "text",
+              "value": "（"
+            },
+            {
+              "ty": "entity",
+              "value": "24.59%",
+              "md": {
+                "et": "p",
+                "or": 0.2459
+              }
+            },
+            {
+              "ty": "text",
+              "value": "），其高利润率特性持续优化公司的盈利结构。这一增长得益于App Store、iCloud、Apple Music和广告业务的"
+            },
+            {
+              "ty": "entity",
+              "value": "强劲表现",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
+            }
+          ]
+        },
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "作为公司的基石，"
+            },
+            {
+              "ty": "entity",
+              "value": "iPhone业务",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "在"
+            },
+            {
+              "ty": "entity",
+              "value": "2024财年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "为"
+            },
+            {
+              "ty": "entity",
+              "value": "2011.8亿美元",
+              "md": {
+                "et": "mv",
+                "or": 201180000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，与"
+            },
+            {
+              "ty": "entity",
+              "value": "2023财年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "2005.8亿美元",
+              "md": {
+                "et": "omv",
+                "or": 200580000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "相比，"
+            },
+            {
+              "ty": "entity",
+              "value": "增长",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "微弱，"
+            },
+            {
+              "ty": "entity",
+              "value": "涨幅",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "仅为"
+            },
+            {
+              "ty": "entity",
+              "value": "+0.3%",
+              "md": {
+                "et": "rv",
+                "or": 0.003,
+                "as": "neutral"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。尽管"
+            },
+            {
+              "ty": "entity",
+              "value": "增长放缓",
+              "md": {
+                "et": "td",
+                "as": "negative"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，iPhone仍然贡献了公司"
+            },
+            {
+              "ty": "entity",
+              "value": "总营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "51.4%",
+              "md": {
+                "et": "cr",
+                "or": 0.5144
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "第四季度",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "发布的iPhone 16系列对该季度"
+            },
+            {
+              "ty": "entity",
+              "value": "营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "起到了关键推动作用。"
+            }
+          ]
+        },
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "其他硬件产品的表现则出现分化："
+            }
+          ]
+        },
+        {
+          "ty": "bullets",
           "isOrder": false,
           "bullets": [
             {
-              "type": "bullet-item",
-              "phrases": [
+              "ty": "bullet-item",
+              "ph": [
                 {
-                  "type": "text",
-                  "value": "the "
+                  "ty": "text",
+                  "value": "Mac业务："
                 },
                 {
-                  "type": "entity",
-                  "value": "Prospecting",
-                  "metadata": {
-                    "entityType": "dim_value"
+                  "ty": "entity",
+                  "value": "全年营收",
+                  "md": {
+                    "et": "mn"
                   }
                 },
                 {
-                  "type": "text",
-                  "value": " "
+                  "ty": "text",
+                  "value": "为"
                 },
                 {
-                  "type": "text",
-                  "value": "lead source"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$50.6k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
+                  "ty": "entity",
+                  "value": "299.8亿美元",
+                  "md": {
+                    "et": "mv",
+                    "or": 29980000000
                   }
                 },
                 {
-                  "type": "text",
-                  "value": ") "
+                  "ty": "text",
+                  "value": "，较"
                 },
                 {
-                  "type": "custom",
-                  "value": "See all lead sources.",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx1"
-                  }
-                }
-              ],
-              "subBullet": {
-                "type": "bullets",
-                "isOrder": true,
-                "bullets": [
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 1"
-                      }
-                    ],
-                    "subBullet": {
-                      "type": "bullets",
-                      "isOrder": false,
-                      "bullets": [
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.1, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "45%",
-                              "metadata": {
-                                "entityType": "proportion",
-                                "origin": 0.45
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.2, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "65%",
-                              "metadata": {
-                                "entityType": "proportion"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 2"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "entity",
-                  "value": "Keely Townsend",
-                  "metadata": {
-                    "entityType": "dim_value"
+                  "ty": "entity",
+                  "value": "去年",
+                  "md": {
+                    "et": "tv"
                   }
                 },
                 {
-                  "type": "text",
-                  "value": " ("
+                  "ty": "text",
+                  "value": "的"
                 },
                 {
-                  "type": "entity",
-                  "value": "$86.2k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
+                  "ty": "entity",
+                  "value": "293.6亿美元",
+                  "md": {
+                    "et": "omv",
+                    "or": 29360000000
                   }
                 },
                 {
-                  "type": "text",
-                  "value": ") "
+                  "ty": "text",
+                  "value": "，"
                 },
                 {
-                  "type": "custom",
-                  "value": "See all account executives",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx2"
+                  "ty": "entity",
+                  "value": "同比增长",
+                  "md": {
+                    "et": "mn"
                   }
                 },
                 {
-                  "type": "text",
-                  "value": "."
+                  "ty": "text",
+                  "value": "约"
+                },
+                {
+                  "ty": "entity",
+                  "value": "+2.1%",
+                  "md": {
+                    "et": "rv",
+                    "or": 0.021,
+                    "as": "positive"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "，主要受MacBook Air推动。"
                 }
               ]
             },
             {
-              "type": "bullet-item",
-              "phrases": [
+              "ty": "bullet-item",
+              "ph": [
                 {
-                  "type": "text",
-                  "value": "the "
+                  "ty": "text",
+                  "value": "iPad业务："
                 },
                 {
-                  "type": "entity",
-                  "value": "New Client",
-                  "metadata": {
-                    "entityType": "dim_value"
+                  "ty": "entity",
+                  "value": "全年营收",
+                  "md": {
+                    "et": "mn"
                   }
                 },
                 {
-                  "type": "text",
-                  "value": " "
+                  "ty": "text",
+                  "value": "出现"
                 },
                 {
-                  "type": "text",
-                  "value": "opportunity type"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$160.1k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
+                  "ty": "entity",
+                  "value": "下滑",
+                  "md": {
+                    "et": "td",
+                    "as": "negative"
                   }
                 },
                 {
-                  "type": "text",
-                  "value": ") "
+                  "ty": "text",
+                  "value": "，从"
                 },
                 {
-                  "type": "custom",
-                  "value": "See all opportunity types",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx3"
+                  "ty": "entity",
+                  "value": "2023年",
+                  "md": {
+                    "et": "tv"
                   }
                 },
                 {
-                  "type": "text",
-                  "value": "."
+                  "ty": "text",
+                  "value": "的"
+                },
+                {
+                  "ty": "entity",
+                  "value": "283.0亿美元",
+                  "md": {
+                    "et": "omv",
+                    "or": 28300000000
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "降至"
+                },
+                {
+                  "ty": "entity",
+                  "value": "266.9亿美元",
+                  "md": {
+                    "et": "mv",
+                    "or": 26690000000
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "，"
+                },
+                {
+                  "ty": "entity",
+                  "value": "降幅",
+                  "md": {
+                    "et": "mn"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "为"
+                },
+                {
+                  "ty": "entity",
+                  "value": "-5.69%",
+                  "md": {
+                    "et": "rv",
+                    "or": -0.0569,
+                    "as": "negative"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "。"
+                }
+              ]
+            },
+            {
+              "ty": "bullet-item",
+              "ph": [
+                {
+                  "ty": "text",
+                  "value": "可穿戴、家居及配件业务："
+                },
+                {
+                  "ty": "entity",
+                  "value": "营收",
+                  "md": {
+                    "et": "mn"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "同样"
+                },
+                {
+                  "ty": "entity",
+                  "value": "萎缩",
+                  "md": {
+                    "et": "td",
+                    "as": "negative"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "，"
+                },
+                {
+                  "ty": "entity",
+                  "value": "全年",
+                  "md": {
+                    "et": "tv"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "录得"
+                },
+                {
+                  "ty": "entity",
+                  "value": "370.1亿美元",
+                  "md": {
+                    "et": "mv",
+                    "or": 37010000000
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "，相较于"
+                },
+                {
+                  "ty": "entity",
+                  "value": "去年",
+                  "md": {
+                    "et": "tv"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "的"
+                },
+                {
+                  "ty": "entity",
+                  "value": "398.5亿美元",
+                  "md": {
+                    "et": "omv",
+                    "or": 39850000000
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "，"
+                },
+                {
+                  "ty": "entity",
+                  "value": "同比下降",
+                  "md": {
+                    "et": "mn"
+                  }
+                },
+                {
+                  "ty": "entity",
+                  "value": "-7.13%",
+                  "md": {
+                    "et": "rv",
+                    "or": -0.0713,
+                    "as": "negative"
+                  }
+                },
+                {
+                  "ty": "text",
+                  "value": "。"
                 }
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "pa": [
         {
-          "type": "normal",
-          "phrases": [
+          "ty": "heading1",
+          "ph": [
             {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "number of deals",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "29",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is up "
-            },
-            {
-              "type": "entity",
-              "value": "17",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "12",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
+              "ty": "text",
+              "value": "区域市场表现：欧洲增长强劲，大中华区面临挑战"
             }
           ]
         },
         {
-          "type": "normal",
-          "phrases": [
+          "ty": "normal",
+          "ph": [
             {
-              "type": "text",
-              "value": "The "
+              "ty": "text",
+              "value": "从地理区域看，"
             },
             {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
+              "ty": "entity",
+              "value": "美洲市场",
+              "md": {
+                "et": "dv"
               }
             },
             {
-              "type": "text",
-              "value": " ("
+              "ty": "text",
+              "value": "依然是苹果最大的"
             },
             {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
+              "ty": "entity",
+              "value": "收入来源",
+              "md": {
+                "et": "mn"
               }
             },
             {
-              "type": "text",
-              "value": ") "
+              "ty": "text",
+              "value": "，"
             },
             {
-              "type": "text",
-              "value": "is down "
-            },
-            {
-              "type": "entity",
-              "value": "$2k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "negative"
+              "ty": "entity",
+              "value": "2024财年",
+              "md": {
+                "et": "tv"
               }
             },
             {
-              "type": "text",
-              "value": " "
+              "ty": "text",
+              "value": "贡献了"
             },
             {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$14k",
-              "metadata": {
-                "entityType": "metric_value"
+              "ty": "entity",
+              "value": "1670.5亿美元",
+              "md": {
+                "et": "mv",
+                "or": 167050000000
               }
             },
             {
-              "type": "text",
-              "value": ") "
+              "ty": "text",
+              "value": "，"
             },
             {
-              "type": "text",
-              "value": ". "
+              "ty": "entity",
+              "value": "同比增长",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "entity",
+              "value": "+2.76%",
+              "md": {
+                "et": "rv",
+                "or": 0.0276,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "占比",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "达"
+            },
+            {
+              "ty": "entity",
+              "value": "42.7%",
+              "md": {
+                "et": "cr",
+                "or": 0.4272
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
+            }
+          ]
+        },
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "entity",
+              "value": "欧洲市场",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "表现尤为"
+            },
+            {
+              "ty": "entity",
+              "value": "强劲",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "从"
+            },
+            {
+              "ty": "entity",
+              "value": "2023年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "942.9亿美元",
+              "md": {
+                "et": "omv",
+                "or": 94290000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "增长至"
+            },
+            {
+              "ty": "entity",
+              "value": "1013.3亿美元",
+              "md": {
+                "et": "mv",
+                "or": 101330000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "同比增幅",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "达到"
+            },
+            {
+              "ty": "entity",
+              "value": "+7.46%",
+              "md": {
+                "et": "rv",
+                "or": 0.0746,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "占比",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "提升至"
+            },
+            {
+              "ty": "entity",
+              "value": "25.9%",
+              "md": {
+                "et": "cr",
+                "or": 0.2591
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
+            }
+          ]
+        },
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "然而，"
+            },
+            {
+              "ty": "entity",
+              "value": "大中华区",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "市场在"
+            },
+            {
+              "ty": "entity",
+              "value": "2024财年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "面临严峻挑战，"
+            },
+            {
+              "ty": "entity",
+              "value": "全年营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "为"
+            },
+            {
+              "ty": "entity",
+              "value": "669.5亿美元",
+              "md": {
+                "et": "mv",
+                "or": 66950000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，较"
+            },
+            {
+              "ty": "entity",
+              "value": "2023财年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "725.6亿美元",
+              "md": {
+                "et": "omv",
+                "or": 72560000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "同比下滑",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "entity",
+              "value": "-7.73%",
+              "md": {
+                "et": "rv",
+                "or": -0.0773,
+                "as": "negative"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。该"
+            },
+            {
+              "ty": "entity",
+              "value": "地区营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "占"
+            },
+            {
+              "ty": "entity",
+              "value": "总营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "比例",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "也从"
+            },
+            {
+              "ty": "entity",
+              "value": "18.9%",
+              "md": {
+                "et": "omv",
+                "or": 0.1893
+              }
+            },
+            {
+              "ty": "text",
+              "value": "降至"
+            },
+            {
+              "ty": "entity",
+              "value": "17.1%",
+              "md": {
+                "et": "p",
+                "or": 0.1712
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。尽管"
+            },
+            {
+              "ty": "entity",
+              "value": "第四季度",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "营收"
+            },
+            {
+              "ty": "entity",
+              "value": "150.3亿美元",
+              "md": {
+                "et": "mv",
+                "or": 15030000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，"
+            },
+            {
+              "ty": "entity",
+              "value": "同比降幅",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "已收窄至"
+            },
+            {
+              "ty": "entity",
+              "value": "-0.34%",
+              "md": {
+                "et": "rv",
+                "or": -0.0034,
+                "as": "neutral"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，但市场竞争加剧的"
+            },
+            {
+              "ty": "entity",
+              "value": "态势",
+              "md": {
+                "et": "td",
+                "as": "negative"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "依然严峻。"
+            }
+          ]
+        },
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "其他市场方面，"
+            },
+            {
+              "ty": "entity",
+              "value": "日本市场",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "entity",
+              "value": "营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "为"
+            },
+            {
+              "ty": "entity",
+              "value": "250.5亿美元",
+              "md": {
+                "et": "mv",
+                "or": 25050000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "（"
+            },
+            {
+              "ty": "entity",
+              "value": "同比增长",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "entity",
+              "value": "+3.28%",
+              "md": {
+                "et": "rv",
+                "or": 0.0328,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "），"
+            },
+            {
+              "ty": "entity",
+              "value": "亚太其他地区",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "entity",
+              "value": "营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "为"
+            },
+            {
+              "ty": "entity",
+              "value": "306.6亿美元",
+              "md": {
+                "et": "mv",
+                "or": 30660000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "（"
+            },
+            {
+              "ty": "entity",
+              "value": "同比增长",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "entity",
+              "value": "+3.52%",
+              "md": {
+                "et": "rv",
+                "or": 0.0352,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "），均实现了"
+            },
+            {
+              "ty": "entity",
+              "value": "稳定增长",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pa": [
+        {
+          "ty": "heading1",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "股东回报与总结"
+            }
+          ]
+        },
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "在股东回报方面，苹果公司董事会宣布派发每股"
+            },
+            {
+              "ty": "entity",
+              "value": "0.25美元",
+              "md": {
+                "et": "mv",
+                "or": 0.25
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "现金股息",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，并继续执行大规模的股票回购计划。仅在"
+            },
+            {
+              "ty": "entity",
+              "value": "第四季度",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，公司就向股东返还了"
+            },
+            {
+              "ty": "entity",
+              "value": "超过290亿美元",
+              "md": {
+                "et": "mv",
+                "or": 29000000000
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
+            }
+          ]
+        },
+        {
+          "ty": "normal",
+          "ph": [
+            {
+              "ty": "text",
+              "value": "总结"
+            },
+            {
+              "ty": "entity",
+              "value": "2024财年",
+              "md": {
+                "et": "tv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，苹果公司在"
+            },
+            {
+              "ty": "entity",
+              "value": "总营收",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "上实现了"
+            },
+            {
+              "ty": "entity",
+              "value": "温和增长",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。"
+            },
+            {
+              "ty": "entity",
+              "value": "服务业务",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "强劲势头",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "（"
+            },
+            {
+              "ty": "entity",
+              "value": "同比增长+12.87%",
+              "md": {
+                "et": "rv",
+                "or": 0.1287,
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "）再次证明了其作为第二增长曲线的"
+            },
+            {
+              "ty": "entity",
+              "value": "重要性",
+              "md": {
+                "et": "mn"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "。然而，"
+            },
+            {
+              "ty": "entity",
+              "value": "大中华区",
+              "md": {
+                "et": "dv"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "的"
+            },
+            {
+              "ty": "entity",
+              "value": "营收下滑",
+              "md": {
+                "et": "td",
+                "as": "negative"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "（"
+            },
+            {
+              "ty": "entity",
+              "value": "同比-7.73%",
+              "md": {
+                "et": "rv",
+                "or": -0.0773,
+                "as": "negative"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "）以及iPad和可穿戴设备等硬件的"
+            },
+            {
+              "ty": "entity",
+              "value": "疲软",
+              "md": {
+                "et": "td",
+                "as": "negative"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "，也凸显了公司在宏观经济压力和激烈市场竞争下面临的挑战。活跃设备安装基数的"
+            },
+            {
+              "ty": "entity",
+              "value": "持续新高",
+              "md": {
+                "et": "td",
+                "as": "positive"
+              }
+            },
+            {
+              "ty": "text",
+              "value": "仍是公司未来发展的坚实基础。"
             }
           ]
         }

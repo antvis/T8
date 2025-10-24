@@ -1,5 +1,6 @@
 import { type NarrativeTextSpec, Text } from '../src';
-import spec from './example.json';
+import originData from './example.json';
+import { transformJSON } from '../src/utils';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
@@ -50,6 +51,9 @@ function getRandomInt(min: number, max: number) {
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
 }
+
+const spec = transformJSON(originData);
+console.log(JSON.stringify(originData).length / JSON.stringify(spec).length);
 
 const app = document.getElementById('app');
 const app2 = document.getElementById('app2');
