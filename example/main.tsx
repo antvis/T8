@@ -3,16 +3,6 @@ import spec from './example.json';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
-import {
-  renderDifferenceChart,
-  renderLineChart,
-  renderProportionChart,
-  renderRankChart,
-  renderSeasonalityChart,
-  renderAnomalyChart,
-  renderDistribution,
-  renderAssociationChart,
-} from '../src/charts';
 
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -29,16 +19,16 @@ function delay(ms: number): Promise<void> {
 
 export const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
 
-const appChart = document.getElementById('app-chart');
+// const appChart = document.getElementById('app-chart');
 
-function renderChart<T>(fn: (container: Element, config: T) => void) {
-  const element = document.createElement('span');
-  appChart?.appendChild(element);
+// function renderChart<T>(fn: (container: Element, config: T) => void) {
+//   const element = document.createElement('span');
+//   appChart?.appendChild(element);
 
-  return (config: T) => {
-    fn(element, config);
-  };
-}
+//   return (config: T) => {
+//     fn(element, config);
+//   };
+// }
 
 /**
  * get random integer between min and max
@@ -108,21 +98,6 @@ streamingRender().then(() => {
   console.log('All data processed.');
 });
 
-renderChart(renderDifferenceChart)({ data: [1, 2, 3, 4, 5] });
-renderChart(renderProportionChart)({ data: 0.3 });
-renderChart(renderLineChart)({ data: [1, 2, 3, 4, 5] });
-renderChart(renderRankChart)({ data: [1, 2, 3, 4, 5] });
-renderChart(renderSeasonalityChart)({
-  data: [3, 11, 5, 1, 10, 3, 11, 5, 16, 2, 5, 19, 1, 13, 11, 5, 16, 2],
-  range: [
-    [-1, 2],
-    [3, 4],
-    [5, 10],
-    [12, 100],
-  ],
-});
-renderChart(renderAnomalyChart)({ data: [0, 1, 0, 0, 1, 0, 1, 0, 0] });
-
 const distributionData: number[] = [];
 const SAMPLE_SIZE = 200;
 
@@ -144,14 +119,14 @@ for (let i = 0; i < SAMPLE_SIZE * 0.2; i++) {
   distributionData.push(getRandomInt(630, 670));
 }
 
-renderChart(renderDistribution)({
-  data: distributionData,
-});
+// renderChart(renderDistribution)({
+//   data: distributionData,
+// });
 
-renderChart(renderAssociationChart)({
-  data: [
-    { x: -1, y: -2 },
-    { x: 2, y: 2 },
-    { x: 3, y: 20 },
-  ],
-});
+// renderChart(renderAssociationChart)({
+//   data: [
+//     { x: -1, y: -2 },
+//     { x: 2, y: 2 },
+//     { x: 3, y: 20 },
+//   ],
+// });

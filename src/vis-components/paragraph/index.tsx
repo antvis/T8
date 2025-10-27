@@ -1,8 +1,15 @@
-import { ParagraphSpec, isHeadingParagraph, isTextParagraph, isBulletParagraph, isCustomParagraph } from '../../schema';
+import {
+  ParagraphSpec,
+  isHeadingParagraph,
+  isTextParagraph,
+  isBulletParagraph,
+  isCustomParagraph,
+  ParagraphType,
+} from '../../schema';
 import { Heading } from './Heading';
 import { TextLine } from './TextLine';
 import { Bullets } from './Bullets';
-import { usePluginManager, useEvent } from '../context';
+import { usePluginManager, useEvent, CurrentParagraphInfoProvider } from '../context';
 import { useMemo } from 'preact/hooks';
 import { functionalize } from '../../utils';
 
@@ -62,9 +69,11 @@ export function Paragraph({ spec }: ParagraphProps) {
     content = <Bullets spec={spec} />;
   }
   return content ? (
-    <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      {content}
-    </div>
+    <CurrentParagraphInfoProvider paragraphType={spec.type as ParagraphType}>
+      <div onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {content}
+      </div>
+    </CurrentParagraphInfoProvider>
   ) : null;
 }
 

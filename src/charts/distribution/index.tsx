@@ -1,14 +1,7 @@
-import {
-  createCurvePath,
-  createSvg,
-  extent,
-  getElementFontSize,
-  LINE_STROKE_COLOR,
-  max,
-  mean,
-  scaleLinear,
-} from '../utils';
+import { createCurvePath, createSvg, extent, LINE_STROKE_COLOR, max, mean, scaleLinear } from '../utils';
 import { ticks } from '../utils/scales';
+import { ChartRenderFunction } from '../types';
+import { getElementFontSize } from '../../utils';
 
 const KDE_BANDWIDTH = 7; // Controls the smoothness of the KDE plot.
 const TICK_COUNT = 40; // Number of points to sample for the density estimation.
@@ -22,7 +15,12 @@ export interface DistributionConfig {
  * @param container
  * @param config
  */
-export const renderDistribution = (container: Element, config: DistributionConfig) => {
+export const renderDistribution: ChartRenderFunction<DistributionConfig> = (
+  container,
+  config,
+  paragraphType,
+  themeSeedToken,
+) => {
   const { data } = config;
 
   function kernelDensityEstimator(kernel: (v: number) => number, X: number[]) {
@@ -36,7 +34,7 @@ export const renderDistribution = (container: Element, config: DistributionConfi
     };
   }
 
-  const chartSize = getElementFontSize(container);
+  const chartSize = getElementFontSize(paragraphType, themeSeedToken);
 
   const height = chartSize;
   const width = chartSize * 2;

@@ -5,6 +5,7 @@ import { SpecificEntityPhraseDescriptor } from '../types';
 import { getPrefixCls, isNumber } from '../../utils';
 import { createInlineDocument } from '../utils';
 import { SeedTokenOptions } from '../../theme';
+import { getElementFontSize } from '../../utils';
 
 const MARGIN_RIGHT = 1;
 
@@ -27,8 +28,12 @@ export const createDeltaValue = createEntityPhraseFactory('delta_value', default
 const defaultRatioValueDescriptor: SpecificEntityPhraseDescriptor = {
   classNames: (value, { assessment }) => [getPrefixCls(`value-${assessment}`)],
   getText: getAssessmentText,
-  render: (value, { assessment }) => {
-    const prefix = getComparePrefix(assessment, [createArrow('up'), createArrow('down')]);
+  render: (value, { assessment }, paragraphType, themeSeedToken) => {
+    const fontSize = getElementFontSize(paragraphType, themeSeedToken);
+    const prefix = getComparePrefix(assessment, [
+      createArrow('up', fontSize * 0.8),
+      createArrow('down', fontSize * 0.8),
+    ]);
     return createInlineDocument(prefix as HTMLElement | string, value, 'prefix');
   },
   style: (value, { assessment }, themeSeedToken) => ({
@@ -62,10 +67,11 @@ function getAssessmentText(value: string, metadata: EntityMetaData) {
   return `${metadata?.assessment === 'negative' ? '-' : ''}${value}`;
 }
 
-function createArrow(direction: 'up' | 'down'): Element {
+function createArrow(direction: 'up' | 'down', fontSize: number): Element {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '8px');
-  svg.setAttribute('height', '9px');
+
+  svg.setAttribute('width', `${fontSize}px`);
+  svg.setAttribute('height', `${fontSize}px`);
   svg.setAttribute('viewBox', '0 0 8 9');
   svg.style.marginRight = `${MARGIN_RIGHT}px`;
   svg.setAttribute('version', '1.1');
