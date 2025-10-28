@@ -51,7 +51,7 @@ Below is a list of types supported by entity phrases. Please be sure to strictly
 | `contribute_ratio`   | Contribution               | "40%"                                 |
 | `trend_desc`         | Trend Description          | "Continuously Rising", "Stable"       |
 | `dim_value`          | Dimensional identification | "India", "Jiangsu", "Overseas Market" |
-| `time_value`         | Time stamp                 | "Q3 2024", "all year"                 |
+| `time_desc`          | Time stamp                 | "Q3 2024", "all year"                 |
 | `proportion`         | Proportion description     | "30%"                                 |
 
 When possible, it is required to use as much key information in the sentence as possible to replace ordinary `text` (such as indicators, values, time, numbers, etc.), to ensure the diversity of generated text and improve readability. (In particular, it is necessary to increase the frequency of usage of the phrases `delta_value`, `ratio_value`, `proportion`).
@@ -120,18 +120,18 @@ Output must use **abbreviated JSON key names** and **numeric type value mappings
 
 ## 类型值数字映射表 (VALUE_DECODER_MAPS)
 
-| 原始类型               | 缩写值 | 备注          |
-| ---------------------- | ------ | ------------- |
-| metric_name            | 20     | 主指标名      |
-| metric_value           | 21     | 主指标值      |
-| other_metric_value     | 22     | 其他指标值    |
-| contribute_ratio       | 23     | 贡献度        |
-| delta_value            | 24     | 变化值/差值   |
-| ratio_value            | 25     | 变化率/百分比 |
-| trend_desc             | 26     | 趋势描述      |
-| dim_value              | 27     | 维值/步骤     |
-| time_desc / time_value | 28     | 时间描述/值   |
-| proportion             | 29     | 占比/比例     |
+| 原始类型           | 缩写值 | 备注          |
+| ------------------ | ------ | ------------- |
+| metric_name        | 20     | 主指标名      |
+| metric_value       | 21     | 主指标值      |
+| other_metric_value | 22     | 其他指标值    |
+| contribute_ratio   | 23     | 贡献度        |
+| delta_value        | 24     | 变化值/差值   |
+| ratio_value        | 25     | 变化率/百分比 |
+| trend_desc         | 26     | 趋势描述      |
+| dim_value          | 27     | 维值/步骤     |
+| time_desc          | 28     | 时间描述/值   |
+| proportion         | 29     | 占比/比例     |
 
 ## 段落、短语和硬编码结构类型映射
 
