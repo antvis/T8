@@ -68,8 +68,14 @@ const VALUE_MAP = {
 
 function decodeValue(originalKey: string, value: unknown): unknown {
   if (originalKey === 'type' || originalKey === 'entityType' || originalKey === 'assessment') {
-    const key = String(value);
-    return VALUE_MAP[key] || value;
+    // 尝试数字键查找（用于 ENTITY_TYPE_MAP、PHRASE_TYPE_MAP 等）
+    const numKey = Number(value);
+    if (!isNaN(numKey) && VALUE_MAP[numKey]) {
+      return VALUE_MAP[numKey];
+    }
+    // 回退到字符串键查找（用于 ASSESSMENT_MAP）
+    const strKey = String(value);
+    return VALUE_MAP[strKey] || value;
   }
   return value;
 }
@@ -97,8 +103,15 @@ function internalRestore(shrunkenNode: unknown, ctx: RestoreContext): unknown {
   if (shrunkenNode === null || typeof shrunkenNode !== 'object') return shrunkenNode;
 
   // 数组：直接递归
-  if (Array.isArray(shrunkenNode))
+  if (Array.isArray(shrunkenNode)) {
+    // 特殊处理：如果 parentKey 是 'pa'，数组中的每个元素应该作为独立段落处理
+    if (ctx.parentKey === 'pa') {
+      return shrunkenNode.map((n, i) =>
+        internalRestore(n, { parentKey: undefined, path: `${ctx.path}[${i}]`, strict: ctx.strict }),
+      );
+    }
     return shrunkenNode.map((n, i) => internalRestore(n, { ...ctx, path: `${ctx.path}[${i}]` }));
+  }
 
   const node = shrunkenNode as Record<string, unknown>;
 
@@ -284,6 +297,11 @@ function internalRestore(shrunkenNode: unknown, ctx: RestoreContext): unknown {
       path: `${ctx.path}.${originalKey}`,
       strict: ctx.strict,
     });
+
+    // 特殊处理：如果对象只有一个 'b' 键，直接返回 bullets 段落
+    if (k === 'b' && Object.keys(node).length === 1 && restoredValue && typeof restoredValue === 'object') {
+      return restoredValue;
+    }
 
     // 单元素 title 解包
     if (originalKey === 'title' && Array.isArray(restoredValue) && restoredValue.length === 1) {
