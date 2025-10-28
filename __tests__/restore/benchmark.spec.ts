@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import Ajv from 'ajv';
-import { restore } from '../example/utils';
-import { NarrativeTextSpec } from '../src/schema/structure';
+import { restore } from '../../example/utils';
+import { NarrativeTextSpec } from '../../src/schema/structure';
 
 // Compressed structure helper types used only in test generation
 interface CompressedPhraseEntityMeta {
@@ -49,7 +49,7 @@ interface CompressedRoot {
 }
 
 // Load schema
-const schemaPath = path.resolve(__dirname, '../schema.json');
+const schemaPath = path.resolve(__dirname, '../../schema.json');
 const schema = JSON.parse(readFileSync(schemaPath, 'utf-8'));
 const ajv = new Ajv({ allErrors: true, strict: false });
 const validate = ajv.compile(schema);

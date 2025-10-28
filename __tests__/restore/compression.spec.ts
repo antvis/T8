@@ -1,7 +1,7 @@
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import path from 'path';
-import { restore } from '../example/utils';
-import { NarrativeTextSpec } from '../src/schema/structure';
+import { restore } from '../../example/utils';
+import { NarrativeTextSpec } from '../../src/schema/structure';
 
 // Reuse compressed generation types from benchmark (local simplified re-definitions)
 interface CompressedPhraseEntityMeta {
@@ -218,7 +218,7 @@ describe('compression report', () => {
       histogram: histogram.map((h) => ({ range: h.range, count: h.count })),
     };
     // Export visualization artifacts (json + markdown)
-    const outDir = path.resolve(__dirname, '../dist-reports');
+    const outDir = path.resolve(__dirname, '../../dist-reports');
     if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
     writeFileSync(path.join(outDir, 'compression-report.json'), JSON.stringify(report, null, 2), 'utf-8');
     // Simple markdown table for histogram

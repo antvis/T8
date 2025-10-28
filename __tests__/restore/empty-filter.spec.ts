@@ -1,7 +1,7 @@
-import { restore } from '../example/utils';
-import { NarrativeTextSpec } from '../src/schema/structure';
-import { ParagraphSpec, BulletsParagraphSpec, BulletItemSpec } from '../src/schema/paragraph';
-import { PhraseSpec } from '../src/schema/phrase';
+import { restore } from '../../example/utils';
+import { NarrativeTextSpec } from '../../src/schema/structure';
+import { ParagraphSpec, BulletsParagraphSpec, BulletItemSpec } from '../../src/schema/paragraph';
+import { PhraseSpec } from '../../src/schema/phrase';
 
 // Cases with empty paragraphs / bullets to ensure pruning
 
