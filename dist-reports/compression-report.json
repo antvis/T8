@@ -1,43 +1,43 @@
 {
   "count": 100000,
-  "mean": 0.3855,
-  "std": 0.0344,
+  "mean": 0.3857,
+  "std": 0.0341,
   "min": 0,
-  "max": 0.5252,
-  "median": 0.3911,
+  "max": 0.5226,
+  "median": 0.391,
   "example": [
     {
-      "compressed": 517,
-      "restored": 794,
-      "diff": 277,
-      "ratio": 0.34886649874055414
+      "compressed": 1091,
+      "restored": 1770,
+      "diff": 679,
+      "ratio": 0.38361581920903953
     },
     {
-      "compressed": 144,
-      "restored": 169,
-      "diff": 25,
-      "ratio": 0.14792899408284024
+      "compressed": 1048,
+      "restored": 1808,
+      "diff": 760,
+      "ratio": 0.42035398230088494
     },
     {
-      "compressed": 1020,
-      "restored": 1687,
-      "diff": 667,
-      "ratio": 0.3953764078245406
+      "compressed": 1288,
+      "restored": 2123,
+      "diff": 835,
+      "ratio": 0.39331135186057464
     },
     {
-      "compressed": 338,
-      "restored": 522,
-      "diff": 184,
-      "ratio": 0.3524904214559387
+      "compressed": 897,
+      "restored": 1432,
+      "diff": 535,
+      "ratio": 0.37360335195530725
     },
     {
-      "compressed": 211,
-      "restored": 320,
-      "diff": 109,
-      "ratio": 0.340625
+      "compressed": 1062,
+      "restored": 1732,
+      "diff": 670,
+      "ratio": 0.38683602771362585
     }
   ],
-  "sampleZScores": [-1.067, -6.914, 0.286, -0.962, -1.307],
+  "sampleZScores": [-0.06, 1.019, 0.225, -0.354, 0.035],
   "histogram": [
     {
       "range": [0, 0.05],
@@ -45,43 +45,43 @@
     },
     {
       "range": [0.05, 0.1],
-      "count": 36
+      "count": 42
     },
     {
       "range": [0.1, 0.15],
-      "count": 103
+      "count": 82
     },
     {
       "range": [0.15, 0.2],
-      "count": 233
+      "count": 210
     },
     {
       "range": [0.2, 0.25],
-      "count": 484
+      "count": 499
     },
     {
       "range": [0.25, 0.3],
-      "count": 1356
+      "count": 1274
     },
     {
       "range": [0.3, 0.35],
-      "count": 6922
+      "count": 6936
     },
     {
       "range": [0.35, 0.4],
-      "count": 57628
+      "count": 57813
     },
     {
       "range": [0.4, 0.45],
-      "count": 32537
+      "count": 32445
     },
     {
       "range": [0.45, 0.5],
-      "count": 616
+      "count": 618
     },
     {
       "range": [0.5, 0.55],
-      "count": 16
+      "count": 12
     },
     {
       "range": [0.55, 0.6],
