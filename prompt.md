@@ -83,71 +83,71 @@ Output must use **abbreviated JSON key names** and **numeric type value mappings
 
 **Important:** Array structures must be optimized. Convert all element arrays (e.g., phrases, paragraphs, bullets) into objects containing **dt** (default type) and **i** (items). A child item only needs to explicitly include a **t** key if its type differs from the parent's **dt**.
 
-## 缩减键名映射表
+## Abbreviated Key Mapping Table
 
-| 缩写键 | 原始键      | 所在文件/类型                 | 备注             |
-| ------ | ----------- | ----------------------------- | ---------------- |
-| t      | type        | 所有元素                      | 最高频键         |
-| v      | value       | Phrase/BulletItem             |                  |
-| m      | metadata    | Phrase                        |                  |
-| o      | origin      | EntityMetaData                |                  |
-| d      | detail      | EntityMetaData                |                  |
-| a      | assessment  | EntityMetaData                |                  |
-| et     | entityType  | EntityMetaData                |                  |
-| sid    | sourceId    | EntityMetaData                |                  |
-| c      | chart       | EntityMetaData                |                  |
-| h      | headline    | NarrativeTextSpecs            |                  |
-| s      | sections    | NarrativeTextSpecs            |                  |
-| p      | phrases     | Headline/Paragraph/BulletItem |                  |
-| pa     | paragraphs  | StandardSectionSpec           |                  |
-| tit    | title       | Section                       |                  |
-| b      | bullets     | BulletsParagraphSpec          |                  |
-| io     | isOrder     | BulletsParagraphSpec          |                  |
-| bs     | subBullet   | BulletItemSpec                |                  |
-| ct     | customType  | CustomBlock/Meta              |                  |
-| isB    | isB         | boldTextPhraseSpec            | 只在 true 时出现 |
-| isI    | isI         | italicTextPhraseSpec          | 只在 true 时出现 |
-| isU    | isU         | underlineTextPhraseSpec       | 只在 true 时出现 |
-| url    | url         | urlTextPhraseSpecs            |                  |
-| sy     | styles      | CommonProps                   |                  |
-| cl     | className   | CommonProps                   |                  |
-| k      | key         | CommonProps                   |                  |
-| cfg    | config      | Chart                         |                  |
-| dat    | data        | Chart                         |                  |
-| r      | range       | Chart                         |                  |
-| dt     | defaultType | 结构优化数组默认类型          | 用于结构还原     |
-| i      | items       | 结构优化子项数组              | 用于结构还原     |
+| Abbreviated Key | Original Key | File/Type Location                            | Notes                          |
+| :-------------- | :----------- | :-------------------------------------------- | :----------------------------- |
+| t               | type         | All Elements                                  | Highest frequency key          |
+| v               | value        | Phrase/BulletItem                             |                                |
+| m               | metadata     | Phrase                                        |                                |
+| o               | origin       | EntityMetaData                                |                                |
+| d               | detail       | EntityMetaData                                |                                |
+| a               | assessment   | EntityMetaData                                |                                |
+| et              | entityType   | EntityMetaData                                |                                |
+| sid             | sourceId     | EntityMetaData                                |                                |
+| c               | chart        | EntityMetaData                                |                                |
+| h               | headline     | NarrativeTextSpecs                            |                                |
+| s               | sections     | NarrativeTextSpecs                            |                                |
+| p               | phrases      | Headline/Paragraph/BulletItem                 |                                |
+| pa              | paragraphs   | StandardSectionSpec                           |                                |
+| tit             | title        | Section                                       |                                |
+| b               | bullets      | BulletsParagraphSpec                          |                                |
+| io              | isOrder      | BulletsParagraphSpec                          |                                |
+| bs              | subBullet    | BulletItemSpec                                |                                |
+| ct              | customType   | CustomBlock/Meta                              |                                |
+| isB             | isB          | boldTextPhraseSpec                            | Appears only when true         |
+| isI             | isI          | italicTextPhraseSpec                          | Appears only when true         |
+| isU             | isU          | underlineTextPhraseSpec                       | Appears only when true         |
+| url             | url          | urlTextPhraseSpecs                            |                                |
+| sy              | styles       | CommonProps                                   |                                |
+| cl              | className    | CommonProps                                   |                                |
+| k               | key          | CommonProps                                   |                                |
+| cfg             | config       | Chart                                         |                                |
+| dat             | data         | Chart                                         |                                |
+| r               | range        | Chart                                         |                                |
+| dt              | defaultType  | Array default type for structure optimization | Used for structure restoration |
+| i               | items        | Sub-item array for structure optimization     | Used for structure restoration |
 
-## 类型值数字映射表 (VALUE_DECODER_MAPS)
+## Type Value Numeric Mapping Table (VALUE_DECODER_MAPS)
 
-| 原始类型           | 缩写值 | 备注          |
-| ------------------ | ------ | ------------- |
-| metric_name        | 20     | 主指标名      |
-| metric_value       | 21     | 主指标值      |
-| other_metric_value | 22     | 其他指标值    |
-| contribute_ratio   | 23     | 贡献度        |
-| delta_value        | 24     | 变化值/差值   |
-| ratio_value        | 25     | 变化率/百分比 |
-| trend_desc         | 26     | 趋势描述      |
-| dim_value          | 27     | 维值/步骤     |
-| time_desc          | 28     | 时间描述/值   |
-| proportion         | 29     | 占比/比例     |
+| Original Type      | Abbreviated Value | Notes                   |
+| :----------------- | :---------------- | :---------------------- |
+| metric_name        | 20                | Primary metric name     |
+| metric_value       | 21                | Primary metric value    |
+| other_metric_value | 22                | Other metric value      |
+| contribute_ratio   | 23                | Contribution ratio      |
+| delta_value        | 24                | Change value/Difference |
+| ratio_value        | 25                | Change rate/Percentage  |
+| trend_desc         | 26                | Trend description       |
+| dim_value          | 27                | Dimension value/Step    |
+| time_desc          | 28                | Time description/Value  |
+| proportion         | 29                | Proportion/Ratio        |
 
-## 段落、短语和硬编码结构类型映射
+## Paragraph, Phrase, and Hardcoded Structure Type Mapping
 
-| 原始类型    | 缩写值 | 所属枚举/结构 | 备注                                  |
-| ----------- | ------ | ------------- | ------------------------------------- |
-| text        | 1      | PhraseType    | 高频短语默认值                        |
-| entity      | 2      | PhraseType    |                                       |
-| custom      | 3      | PhraseType    |                                       |
-| normal      | 10     | ParagraphType | 高频段落默认值                        |
-| bullets     | 11     | ParagraphType |                                       |
-| heading1    | 12     | ParagraphType |                                       |
-| heading2    | 13     | ParagraphType |                                       |
-| heading3    | 14     | ParagraphType |                                       |
-| heading4    | 15     | ParagraphType |                                       |
-| heading5    | 16     | ParagraphType |                                       |
-| heading6    | 17     | ParagraphType |                                       |
-| headline    | 30     | 结构类型      | HeadlineSpec.type                     |
-| section     | 31     | 结构类型      | Section title.type (title 为 text 时) |
-| bullet-item | 32     | 结构类        |
+| Original Type | Abbreviated Value | Corresponding Enum/Structure | Notes                                      |
+| :------------ | :---------------- | :--------------------------- | :----------------------------------------- |
+| text          | 1                 | PhraseType                   | Default value for high-frequency phrase    |
+| entity        | 2                 | PhraseType                   |                                            |
+| custom        | 3                 | PhraseType                   |                                            |
+| normal        | 10                | ParagraphType                | Default value for high-frequency paragraph |
+| bullets       | 11                | ParagraphType                |                                            |
+| heading1      | 12                | ParagraphType                |                                            |
+| heading2      | 13                | ParagraphType                |                                            |
+| heading3      | 14                | ParagraphType                |                                            |
+| heading4      | 15                | ParagraphType                |                                            |
+| heading5      | 16                | ParagraphType                |                                            |
+| heading6      | 17                | ParagraphType                |                                            |
+| headline      | 30                | Structure Type               | HeadlineSpec.type                          |
+| section       | 31                | Structure Type               | Section title.type (when title is text)    |
+| bullet-item   | 32                | Structure Type               |                                            |

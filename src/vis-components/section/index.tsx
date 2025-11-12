@@ -16,6 +16,7 @@ type SectionProps = {
 
 export function Section({ spec }: SectionProps) {
   const { onEvent } = useEvent();
+
   const pluginManager = usePluginManager();
 
   const onClick = () => {

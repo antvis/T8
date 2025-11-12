@@ -74,3 +74,80 @@
 - 文章语言应**自然流畅、客观专业**，避免口语化、营销色彩，以及不必要的实体或数值堆砌。
 - 在最终输出的 JSON 中，`definitions` 部分可以**直接省略**，我只需要主体 JSON 内容。
 - 在最终的输出中，任何多余的描述和 `markdown` 的代码快包裹都不需要，我只要纯文本形式的 JSON Schema。
+
+## 输出格式要求
+
+**【🔥 强制指令】**
+
+输出必须使用**缩写的 JSON 键名**和**数字类型值映射**，以最小化令牌长度。严格遵守“缩减键名映射表”和“类型值数字映射表”中的定义。
+
+**重要提示：** 数组结构必须进行优化。将所有元素数组（例如，短语、段落、项目符号）转换为包含 **dt**（默认类型）和 **i**（项目）的对象。只有当子项的类型与父级的 **dt** **不同**时，才需要显式包含 **t** 键。
+
+## 缩减键名映射表
+
+| 缩写键 | 原始键      | 所在文件/类型                 | 备注             |
+| ------ | ----------- | ----------------------------- | ---------------- |
+| t      | type        | 所有元素                      | 最高频键         |
+| v      | value       | Phrase/BulletItem             |                  |
+| m      | metadata    | Phrase                        |                  |
+| o      | origin      | EntityMetaData                |                  |
+| d      | detail      | EntityMetaData                |                  |
+| a      | assessment  | EntityMetaData                |                  |
+| et     | entityType  | EntityMetaData                |                  |
+| sid    | sourceId    | EntityMetaData                |                  |
+| c      | chart       | EntityMetaData                |                  |
+| h      | headline    | NarrativeTextSpecs            |                  |
+| s      | sections    | NarrativeTextSpecs            |                  |
+| p      | phrases     | Headline/Paragraph/BulletItem |                  |
+| pa     | paragraphs  | StandardSectionSpec           |                  |
+| tit    | title       | Section                       |                  |
+| b      | bullets     | BulletsParagraphSpec          |                  |
+| io     | isOrder     | BulletsParagraphSpec          |                  |
+| bs     | subBullet   | BulletItemSpec                |                  |
+| ct     | customType  | CustomBlock/Meta              |                  |
+| isB    | isB         | boldTextPhraseSpec            | 只在 true 时出现 |
+| isI    | isI         | italicTextPhraseSpec          | 只在 true 时出现 |
+| isU    | isU         | underlineTextPhraseSpec       | 只在 true 时出现 |
+| url    | url         | urlTextPhraseSpecs            |                  |
+| sy     | styles      | CommonProps                   |                  |
+| cl     | className   | CommonProps                   |                  |
+| k      | key         | CommonProps                   |                  |
+| cfg    | config      | Chart                         |                  |
+| dat    | data        | Chart                         |                  |
+| r      | range       | Chart                         |                  |
+| dt     | defaultType | 结构优化数组默认类型          | 用于结构还原     |
+| i      | items       | 结构优化子项数组              | 用于结构还原     |
+
+## 类型值数字映射表 (VALUE_DECODER_MAPS)
+
+| 原始类型           | 缩写值 | 备注          |
+| ------------------ | ------ | ------------- |
+| metric_name        | 20     | 主指标名      |
+| metric_value       | 21     | 主指标值      |
+| other_metric_value | 22     | 其他指标值    |
+| contribute_ratio   | 23     | 贡献度        |
+| delta_value        | 24     | 变化值/差值   |
+| ratio_value        | 25     | 变化率/百分比 |
+| trend_desc         | 26     | 趋势描述      |
+| dim_value          | 27     | 维值/步骤     |
+| time_desc          | 28     | 时间描述/值   |
+| proportion         | 29     | 占比/比例     |
+
+## 段落、短语和硬编码结构类型映射
+
+| 原始类型    | 缩写值 | 所属枚举/结构 | 备注                                  |
+| ----------- | ------ | ------------- | ------------------------------------- |
+| text        | 1      | PhraseType    | 高频短语默认值                        |
+| entity      | 2      | PhraseType    |                                       |
+| custom      | 3      | PhraseType    |                                       |
+| normal      | 10     | ParagraphType | 高频段落默认值                        |
+| bullets     | 11     | ParagraphType |                                       |
+| heading1    | 12     | ParagraphType |                                       |
+| heading2    | 13     | ParagraphType |                                       |
+| heading3    | 14     | ParagraphType |                                       |
+| heading4    | 15     | ParagraphType |                                       |
+| heading5    | 16     | ParagraphType |                                       |
+| heading6    | 17     | ParagraphType |                                       |
+| headline    | 30     | 结构类型      | HeadlineSpec.type                     |
+| section     | 31     | 结构类型      | Section title.type (title 为 text 时) |
+| bullet-item | 32     | 结构类        |
