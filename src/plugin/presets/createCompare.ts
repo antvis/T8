@@ -67,11 +67,11 @@ function getAssessmentText(value: string, metadata: EntityMetaData) {
   return `${metadata?.assessment === 'negative' ? '-' : ''}${value}`;
 }
 
-function createArrow(direction: 'up' | 'down', fontSize: number): Element {
+function createArrow(direction: 'up' | 'down', size: number): Element {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
-  svg.setAttribute('width', `${fontSize}px`);
-  svg.setAttribute('height', `${fontSize}px`);
+  svg.setAttribute('width', `${size}px`);
+  svg.setAttribute('height', `${size}px`);
   svg.setAttribute('viewBox', '0 0 8 9');
   svg.style.marginRight = `${MARGIN_RIGHT}px`;
   svg.setAttribute('version', '1.1');
