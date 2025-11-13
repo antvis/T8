@@ -1,4 +1,6 @@
-import { createSvg, getElementFontSize, Scale, scaleLinear, Selection } from '../utils';
+import { createSvg, Scale, scaleLinear, Selection } from '../utils';
+import { getElementFontSize } from '../../utils';
+import { ChartRenderFunction } from '../types';
 
 // Chart colors
 const BAR_FILL_COLOR = '#5B8FF9';
@@ -18,6 +20,7 @@ export interface HighlightMessage {
  */
 export interface RankChartConfig {
   data: number[];
+  drawSvgCallback?: (svg: Selection, xScale: Scale, yScale: Scale) => void;
 }
 
 /**
@@ -37,15 +40,16 @@ const getGap = (data: number[]) => {
  * @param config - The rank chart configuration
  * @param drawSvgCallback - A callback function to draw the SVG on the chart
  */
-export const renderRankChart = (
-  container: Element,
-  config: RankChartConfig,
-  drawSvgCallback?: (svg: Selection, xScale: Scale, yScale: Scale) => void,
+export const renderRankChart: ChartRenderFunction<RankChartConfig> = (
+  container,
+  config,
+  paragraphType,
+  themeSeedToken,
 ): void => {
-  const { data = [] } = config;
+  const { data = [], drawSvgCallback } = config;
   if (!data.length) return;
 
-  const chartSize = getElementFontSize(container);
+  const chartSize = getElementFontSize(paragraphType, themeSeedToken);
 
   // Clear existing content
   container.innerHTML = '';

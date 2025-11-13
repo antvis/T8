@@ -1,8 +1,8 @@
-import { HeadlineSpec } from '../../schema';
+import { HeadlineSpec, ParagraphType } from '../../schema';
 import { Headline as StyledHeadline } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
-import { useTheme, useEvent } from '../context';
+import { useTheme, useEvent, CurrentParagraphInfoProvider } from '../context';
 
 type HeadlineProps = {
   spec: HeadlineSpec;
@@ -23,15 +23,17 @@ export function Headline({ spec }: HeadlineProps) {
   };
 
   return (
-    <StyledHeadline
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      className={cx(getPrefixCls('headline'), spec.className)}
-      style={spec.styles}
-      theme={themeSeedToken}
-    >
-      <Phrases spec={spec.phrases} />
-    </StyledHeadline>
+    <CurrentParagraphInfoProvider paragraphType={ParagraphType.HEADLINE}>
+      <StyledHeadline
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        className={cx(getPrefixCls('headline'), spec.className)}
+        style={spec.styles}
+        theme={themeSeedToken}
+      >
+        <Phrases spec={spec.phrases} />
+      </StyledHeadline>
+    </CurrentParagraphInfoProvider>
   );
 }

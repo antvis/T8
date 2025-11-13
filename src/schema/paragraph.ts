@@ -12,6 +12,7 @@ export enum ParagraphType {
   HEADING6 = 'heading6',
   NORMAL = 'normal',
   BULLETS = 'bullets',
+  HEADLINE = 'headline',
 }
 
 // As nouns the difference between heading and headline is that

@@ -6,4 +6,5 @@ export * from './kebabCase';
 export * from './cloneDeep';
 export * from './t8ClarinetParser';
 export * from './setValueByPath';
+export * from './getElementFontSize';
 export * from './schema-simplified';

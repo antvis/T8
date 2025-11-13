@@ -5,11 +5,12 @@ import {
   isTextPhrase,
   isEntityPhrase,
   EntityMetaData,
+  ParagraphType,
 } from '../../schema';
 import { Entity, Bold, Italic, Underline } from '../styled';
 import { getPrefixCls, classnames as cx, functionalize, kebabCase, isFunction, isEmpty, isNil } from '../../utils';
 import { PhraseDescriptor } from '../../plugin';
-import { useTheme, usePluginManager, useEvent } from '../context';
+import { useTheme, usePluginManager, useEvent, useCurrentParagraphInfo } from '../context';
 import { ComponentChildren, FunctionComponent } from 'preact';
 import { useMemo } from 'preact/hooks';
 import { Tooltip } from './ui';
@@ -29,6 +30,7 @@ function renderPhraseByDescriptor(
   descriptor: PhraseDescriptor<any>,
   theme: SeedTokenOptions,
   onEvent: (eventType: string, spec: PhraseSpec) => void,
+  containerParagraphType: ParagraphType,
 ) {
   const { value = '', metadata = {}, styles: specStyles = {} } = spec;
   const {
@@ -55,7 +57,13 @@ function renderPhraseByDescriptor(
   };
 
   const contentResult = useMemo(
-    () => functionalize<HTMLElement | string>(render, null)(value, metadata as EntityMetaData),
+    () =>
+      functionalize<HTMLElement | string>(render, null)(
+        value,
+        metadata as EntityMetaData,
+        containerParagraphType,
+        theme,
+      ),
     [value, metadata],
   );
   const entityProps = {
@@ -107,6 +115,8 @@ export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase }) => {
   const themeSeedToken = useTheme();
   const pluginManager = usePluginManager();
 
+  const { paragraphType } = useCurrentParagraphInfo();
+
   const onClick = () => {
     onEvent?.('phrase:click', phrase);
   };
@@ -138,7 +148,7 @@ export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase }) => {
 
   const descriptor = pluginManager?.getPhraseDescriptorBySpec(phrase);
   if (descriptor) {
-    return <>{renderPhraseByDescriptor(phrase, descriptor, themeSeedToken, onEvent)}</>;
+    return <>{renderPhraseByDescriptor(phrase, descriptor, themeSeedToken, onEvent, paragraphType)}</>;
   }
 
   return defaultText;

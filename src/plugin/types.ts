@@ -1,4 +1,4 @@
-import type { EntityMetaData, EntityType } from '../schema';
+import type { EntityMetaData, EntityType, ParagraphType } from '../schema';
 import { SeedTokenOptions } from '../theme';
 import { TooltipProps } from '../vis-components';
 
@@ -19,7 +19,14 @@ export interface PhraseDescriptor<MetaData> {
    * @param metadata phrase spec metadata
    * @returns HTMLElement T8 will use the return value to render the phrase
    */
-  render?: ((value: string, metadata: MetaData) => HTMLElement) | HTMLElement;
+  render?:
+    | ((
+        value: string,
+        metadata: MetaData,
+        paragraphType: ParagraphType,
+        themeSeedToken: SeedTokenOptions,
+      ) => HTMLElement)
+    | HTMLElement;
   /**
    * tooltip of phrases
    */

@@ -1,6 +1,6 @@
+import { getElementFontSize } from '../../utils';
 import {
   createSvg,
-  getElementFontSize,
   scaleLinear,
   line,
   getSafeDomain,
@@ -10,13 +10,19 @@ import {
   OPACITY,
   LINE_STROKE_COLOR,
 } from '../utils';
+import { ChartRenderFunction } from '../types';
 
 export interface SeasonalityChartConfig {
   data: number[];
   range: [number, number][];
 }
 
-export const renderSeasonalityChart = (container: Element, config: SeasonalityChartConfig): void => {
+export const renderSeasonalityChart: ChartRenderFunction<SeasonalityChartConfig> = (
+  container,
+  config,
+  paragraphType,
+  themeSeedToken,
+): void => {
   const { data = [], range = [] } = config;
 
   if (!data.length) return;
@@ -31,7 +37,7 @@ export const renderSeasonalityChart = (container: Element, config: SeasonalityCh
     return;
   }
 
-  const chartSize = getElementFontSize(container);
+  const chartSize = getElementFontSize(paragraphType, themeSeedToken);
   const height = chartSize;
   const width = Math.max(chartSize * 2, data.length * 2);
 

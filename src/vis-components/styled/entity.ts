@@ -6,7 +6,6 @@ const getEntityStyle = (theme: SeedTokenOptions) => {
     display: 'inline-block',
     alignItems: 'center',
     boxSizing: 'border-box',
-    fontSize: `${theme.fontSize}px`,
     fontFamily: theme.fontFamily,
     lineHeight: '1.5em',
     borderRadius: '2px',
