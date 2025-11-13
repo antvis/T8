@@ -1,7 +1,7 @@
+import { getElementFontSize } from '../../utils';
 import {
   createSvg,
   extent,
-  getElementFontSize,
   scaleLinear,
   SCALE_ADJUST,
   arrow,
@@ -10,6 +10,7 @@ import {
   ARROW_FILL_COLOR,
   HIGHLIGHT_COLOR,
 } from '../utils';
+import { ChartRenderFunction } from '../types';
 
 interface Point {
   x: number;
@@ -20,13 +21,18 @@ export interface AssociationChartConfig {
   data: Point[];
 }
 
-export const renderAssociationChart = (container: Element, config: AssociationChartConfig): void => {
+export const renderAssociationChart: ChartRenderFunction<AssociationChartConfig> = (
+  container,
+  config,
+  paragraphType,
+  themeSeedToken,
+) => {
   const { data = [] } = config;
   if (!data.length) return;
 
   if (data.length < 2) throw new Error('data must contain at least 2 points');
 
-  const chartSize = getElementFontSize(container);
+  const chartSize = getElementFontSize(paragraphType, themeSeedToken);
 
   const height = chartSize;
   const width = chartSize * 2;

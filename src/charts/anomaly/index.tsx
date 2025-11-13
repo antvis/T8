@@ -1,4 +1,6 @@
-import { createSvg, getElementFontSize, LINE_STROKE_COLOR, scaleLinear, HIGHLIGHT_COLOR, SCALE_ADJUST } from '../utils';
+import { getElementFontSize } from '../../utils';
+import { ChartRenderFunction } from '../types';
+import { createSvg, LINE_STROKE_COLOR, scaleLinear, HIGHLIGHT_COLOR, SCALE_ADJUST } from '../utils';
 
 const ANOMALY_WIDTH = 1;
 const ANOMALY_HEIGHT = 12;
@@ -7,11 +9,16 @@ export interface AnomalyChartConfig {
   data: number[];
 }
 
-export const renderAnomalyChart = (container: Element, config: AnomalyChartConfig): void => {
+export const renderAnomalyChart: ChartRenderFunction<AnomalyChartConfig> = (
+  container,
+  config,
+  paragraphType,
+  themeSeedToken,
+) => {
   const { data = [] } = config;
   if (!data.length) return;
 
-  const chartSize = getElementFontSize(container);
+  const chartSize = getElementFontSize(paragraphType, themeSeedToken);
 
   const height = chartSize;
   const width = Math.max(chartSize * 2, data.length * 2);

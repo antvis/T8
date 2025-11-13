@@ -1,4 +1,6 @@
-import { createSvg, getElementFontSize, scaleLinear, line, area } from '../utils';
+import { getElementFontSize } from '../../utils';
+import { ChartRenderFunction } from '../types';
+import { createSvg, scaleLinear, line, area } from '../utils';
 
 const LINE_STROKE_COLOR = '#5B8FF9';
 const LINE_FILL_COLOR = '#5B8FF9';
@@ -15,11 +17,16 @@ export interface LineChartConfig {
 /**
  * Renders a line chart with optional gradient fill area
  */
-export const renderLineChart = (container: Element, config: LineChartConfig): void => {
+export const renderLineChart: ChartRenderFunction<LineChartConfig> = (
+  container,
+  config,
+  paragraphType,
+  themeSeedToken,
+): void => {
   const { data = [] } = config;
   if (!data.length) return;
 
-  const chartSize = getElementFontSize(container);
+  const chartSize = getElementFontSize(paragraphType, themeSeedToken);
 
   const height = chartSize;
   const width = Math.max(chartSize * 2, data.length * 2);

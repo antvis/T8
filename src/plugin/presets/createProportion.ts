@@ -5,9 +5,14 @@ import { createInlineDocument } from '../utils';
 import { isNumber } from '../../utils';
 
 const defaultProportionDescriptor: SpecificEntityPhraseDescriptor = {
-  render: (value, { origin }) => {
+  render: (value, { origin }, paragraphType, themeSeedToken) => {
     const chartElement = document.createElement('span');
-    renderProportionChart(chartElement, { data: getProportionNumber(value, origin as number) });
+    renderProportionChart(
+      chartElement,
+      { data: getProportionNumber(value, origin as number) },
+      paragraphType,
+      themeSeedToken,
+    );
 
     return createInlineDocument(chartElement, value, 'suffix');
   },

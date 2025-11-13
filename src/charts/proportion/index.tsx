@@ -1,4 +1,6 @@
-import { createSvg, getElementFontSize, arc } from '../utils';
+import { createSvg, arc } from '../utils';
+import { getElementFontSize } from '../../utils';
+import { ChartRenderFunction } from '../types';
 
 // Background color for the unfilled portion of the circle
 const PROPORTION_SHADOW_COLOR = '#CDDDFD';
@@ -15,9 +17,14 @@ export interface ProportionChartConfig {
 /**
  * Renders a circular proportion indicator
  */
-export const renderProportionChart = (container: Element, config: ProportionChartConfig): void => {
+export const renderProportionChart: ChartRenderFunction<ProportionChartConfig> = (
+  container,
+  config,
+  paragraphType,
+  themeSeedToken,
+): void => {
   const { data = 0 } = config;
-  const chartSize = getElementFontSize(container);
+  const chartSize = getElementFontSize(paragraphType, themeSeedToken);
   const proportion = Math.max(0, Math.min(1, data)); // Clamp between 0 and 1
 
   const r = chartSize / 2;

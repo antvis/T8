@@ -4,9 +4,9 @@ import { SpecificEntityPhraseDescriptor } from '../types';
 import { createInlineDocument } from '../utils';
 
 const defaultTrendDescDescriptor: SpecificEntityPhraseDescriptor = {
-  render: (value, { detail }) => {
+  render: (value, { detail }, paragraphType, themeSeedToken) => {
     const chartElement = document.createElement('span');
-    renderLineChart(chartElement, { data: detail as number[] });
+    renderLineChart(chartElement, { data: detail as number[] }, paragraphType, themeSeedToken);
 
     return createInlineDocument(chartElement, value, 'suffix');
   },

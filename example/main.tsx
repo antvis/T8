@@ -1,8 +1,10 @@
-import { type NarrativeTextSpec, Text } from '../src';
+import { type NarrativeTextSpec, ParagraphType, Text } from '../src';
 import spec from './example.json';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
+import { SeedTokenOptions } from '../src/theme';
+
 import {
   renderDifferenceChart,
   renderLineChart,
@@ -31,12 +33,52 @@ export const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'o
 
 const appChart = document.getElementById('app-chart');
 
-function renderChart<T>(fn: (container: Element, config: T) => void) {
+const paragraphType = ParagraphType.HEADLINE;
+
+const mockThemeSeedToken: SeedTokenOptions = {
+  fontSize: 14,
+  lineHeight: 24,
+  fontFamily: 'PingFangSC, sans-serif',
+  borderColor: 'rgb(199, 199, 199)',
+  fontSizeMultiples: {
+    h1: 2,
+    h2: 1.72,
+    h3: 1.4,
+    h4: 1.15,
+    h5: 1.08,
+    h6: 1.08,
+  },
+  lineHeightMultiples: {
+    h1: 1.5,
+    h2: 1.3,
+    h3: 1.15,
+    h4: 1,
+    h5: 1,
+    h6: 1,
+  },
+  colorBase: '#000',
+  colorEntityBase: '#000',
+  colorHeadingBase: '#000',
+  colorPositive: '#000',
+  colorNegative: '#000',
+  colorConclusion: '#000',
+  colorDimensionValue: '#000',
+  colorMetricName: '#000',
+  colorMetricValue: '#000',
+  colorOtherValue: '#000',
+  colorProportionShadow: '#000',
+  colorProportionFill: '#000',
+  colorLineStroke: '#000',
+};
+
+function renderChart<T>(
+  fn: (container: Element, config: T, paragraphType: ParagraphType, themeSeedToken: SeedTokenOptions) => void,
+) {
   const element = document.createElement('span');
   appChart?.appendChild(element);
 
   return (config: T) => {
-    fn(element, config);
+    fn(element, config, paragraphType, mockThemeSeedToken);
   };
 }
 
@@ -108,21 +150,6 @@ streamingRender().then(() => {
   console.log('All data processed.');
 });
 
-renderChart(renderDifferenceChart)({ data: [1, 2, 3, 4, 5] });
-renderChart(renderProportionChart)({ data: 0.3 });
-renderChart(renderLineChart)({ data: [1, 2, 3, 4, 5] });
-renderChart(renderRankChart)({ data: [1, 2, 3, 4, 5] });
-renderChart(renderSeasonalityChart)({
-  data: [3, 11, 5, 1, 10, 3, 11, 5, 16, 2, 5, 19, 1, 13, 11, 5, 16, 2],
-  range: [
-    [-1, 2],
-    [3, 4],
-    [5, 10],
-    [12, 100],
-  ],
-});
-renderChart(renderAnomalyChart)({ data: [0, 1, 0, 0, 1, 0, 1, 0, 0] });
-
 const distributionData: number[] = [];
 const SAMPLE_SIZE = 200;
 
@@ -143,6 +170,21 @@ for (let i = 0; i < SAMPLE_SIZE * 0.5; i++) {
 for (let i = 0; i < SAMPLE_SIZE * 0.2; i++) {
   distributionData.push(getRandomInt(630, 670));
 }
+
+renderChart(renderDifferenceChart)({ data: [1, 2, 3, 4, 5] });
+renderChart(renderProportionChart)({ data: 0.3 });
+renderChart(renderLineChart)({ data: [1, 2, 3, 4, 5] });
+renderChart(renderRankChart)({ data: [1, 2, 3, 4, 5] });
+renderChart(renderSeasonalityChart)({
+  data: [3, 11, 5, 1, 10, 3, 11, 5, 16, 2, 5, 19, 1, 13, 11, 5, 16, 2],
+  range: [
+    [-1, 2],
+    [3, 4],
+    [5, 10],
+    [12, 100],
+  ],
+});
+renderChart(renderAnomalyChart)({ data: [0, 1, 0, 0, 1, 0, 1, 0, 0] });
 
 renderChart(renderDistribution)({
   data: distributionData,
