@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { restore } from '../../example/utils';
+import { restore } from '../utils/schema-simplified';
 import { NarrativeTextSpec } from '../../src/schema/structure';
 import { ParagraphSpec, BulletsParagraphSpec, BulletItemSpec } from '../../src/schema/paragraph';
 import { EntityPhraseSpec, PhraseSpec } from '../../src/schema/phrase';

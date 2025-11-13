@@ -1,4 +1,4 @@
-import { restore } from '../../example/utils';
+import { restore } from '../utils/schema-simplified';
 import { NarrativeTextSpec } from '../../src/schema/structure';
 import { ParagraphSpec, BulletsParagraphSpec, BulletItemSpec } from '../../src/schema/paragraph';
 import { PhraseSpec } from '../../src/schema/phrase';

@@ -1,6 +1,6 @@
 import { type NarrativeTextSpec, Text } from '../src';
 // import spec from './example.json';
-import $spec from './test_json7.json';
+import $spec from './test_json3.json';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
@@ -14,7 +14,7 @@ import {
   renderDistribution,
   renderAssociationChart,
 } from '../src/charts';
-import { restore as restoreJson } from './utils';
+import { restore as restoreJson } from '../src/utils/schema-simplified';
 
 const spec = restoreJson($spec);
 
