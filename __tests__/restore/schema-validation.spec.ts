@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { restore } from '../utils/schema-simplified';
+import { restore } from '../../src/utils/schema-simplified';
 import { NarrativeTextSpec } from '../../src/schema/structure';
 import { generateTestDataset, getSchemaValidator } from './test-utils';
 
