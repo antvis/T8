@@ -73,4 +73,4 @@ Try to add the following fields for each `entity` to enrich the structure and in
 - Provide the most appropriate explanation and trend analysis of the data, not just listing numbers, but also reflecting the meaning behind the data.
 - The language of the article should be natural, fluent, objective and professional, and avoid colloquialism, marketing colors, and unnecessary physical or numerical stacking.
 - In the final output JSON, the `definitions` part can be omitted directly, I only need the body JSON content.
-- In the final output, no unnecessary description and fast wrapping of `markdown` code is needed, I just want JSON Schema in plain text.
+- In the final output, no unnecessary description and fast wrapping of `markdown` code is needed(such as \```json{}\```), I just want JSON Schema in plain text.

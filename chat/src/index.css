@@ -1,0 +1,166 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #ebf2ff 0%, #fdf3ff 100%);
+  color: #0f172a;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(16px, 5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100vh;
+}
+
+.hero {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(120, 137, 255, 0.25);
+  border-radius: 24px;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+
+.hero-title {
+  margin-bottom: 8px !important;
+}
+
+.hero-desc {
+  margin: 0;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.control-card,
+.chat-card {
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+
+.control-stack {
+  width: 100%;
+}
+
+.control-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-label {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #475467;
+  font-weight: 600;
+}
+
+.credential-tip {
+  font-size: 12px;
+}
+
+.chat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-card .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-wrapper {
+  flex: 1;
+  height: clamp(420px, 70vh, 820px);
+}
+
+.chat-body {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(120, 137, 255, 0.2);
+  border-radius: 20px;
+  padding: 16px;
+  min-height: 320px;
+  height: calc(100% - 96px);
+  display: flex;
+  overflow: hidden;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+  scroll-behavior: smooth;
+}
+
+.chat-input {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(120, 137, 255, 0.2);
+  border-radius: 20px;
+  padding: 8px 12px;
+}
+
+.chat-sender {
+  width: 100%;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 8px 0 24px;
+}
+
+.narrative-viewer {
+  max-width: 560px;
+}
+
+.narrative-viewer .t8-container {
+  background: transparent;
+}
+
+@media (max-width: 1024px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+  }
+  .chat-wrapper {
+    height: clamp(360px, 65vh, 720px);
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 16px;
+  }
+
+  .hero {
+    padding: 16px;
+  }
+
+  .chat-wrapper {
+    height: clamp(320px, 60vh, 640px);
+  }
+  .chat-body {
+    padding: 12px;
+    min-height: 260px;
+    height: calc(100% - 88px);
+  }
+  .chat-input {
+    padding: 6px;
+  }
+}
