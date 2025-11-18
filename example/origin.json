@@ -1,0 +1,1095 @@
+{
+  "headline": {
+    "type": "headline",
+    "phrases": [
+      {
+        "value": "英伟达2025财年Q2财报深度解析：数据中心营收再创新高，加速计算浪潮",
+        "type": "text"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": {
+        "value": "第一部分：整体业绩表现",
+        "type": "text"
+      },
+      "paragraphs": [
+        [
+          {
+            "value": "在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "人工智能（AI）",
+            "metadata": {
+              "entityType": "dim_value",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的强劲需求推动下，",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "英伟达（NVIDIA）",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "于",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "2025财年第二季度",
+            "metadata": {
+              "entityType": "time_desc",
+              "detail": ["截至2024年7月28日"]
+            }
+          },
+          {
+            "value": "（下称",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Q2 FY2025",
+            "metadata": {
+              "entityType": "time_desc"
+            }
+          },
+          {
+            "value": "）再次交出了一份",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "超市场预期",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的财报。本季度公司实现总",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "营收",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "达",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "300.40亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "30040",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，相较于去年同期实现了惊人的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "122%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "1.22",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的同比",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "增长率",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "，环比上一季度也取得了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "15%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.15",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的增幅。",
+            "type": "text"
+          }
+        ],
+        [
+          {
+            "value": "在盈利能力方面，英伟达的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "GAAP净利润",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "为",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "165.99亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "16599",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，同比",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "飙升",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "168%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "1.68",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。这一强劲的财务数据进一步巩固了公司在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "全球AI基础设施",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "领域的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "核心",
+            "metadata": {
+              "entityType": "trend_desc"
+            }
+          },
+          {
+            "value": "地位，并表明全球数据中心正处于全面加速计算和生成式AI的现代化进程中。",
+            "type": "text"
+          }
+        ]
+      ],
+      "type": "section"
+    },
+    {
+      "title": {
+        "value": "第二部分：数据中心——绝对增长引擎",
+        "type": "text"
+      },
+      "paragraphs": [
+        [
+          {
+            "value": "作为公司业绩的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "绝对核心",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "数据中心",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "业务的表现可谓",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "势不可挡",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。该部门",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Q2",
+            "metadata": {
+              "entityType": "time_desc"
+            }
+          },
+          {
+            "value": "营收达到",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "263亿美元",
+            "metadata": {
+              "entityType": "metric_value",
+              "origin": "26300",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，创下",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "历史新高",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。这部分收入在公司总",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "营收",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "中的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "占比",
+            "metadata": {
+              "entityType": "proportion"
+            }
+          },
+          {
+            "value": "高达",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "87.7%",
+            "metadata": {
+              "entityType": "proportion",
+              "origin": "0.877",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，同比大幅增长了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "154%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "1.54",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。环比上一季度，数据中心业务也保持了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "16%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.16",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "增长",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。",
+            "type": "text"
+          }
+        ],
+        [
+          {
+            "value": "在产品层面，对",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Hopper",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "架构的需求",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "持续强劲",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，特别是来自",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "云服务提供商",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "（CSPs）的需求是本季度的主要驱动力。与此同时，下一代",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Blackwell",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "架构的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "市场预期",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "“令人难以置信”。报告还提到，",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "H200 Tensor Core",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "和",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Blackwell B200",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "处理器组合在最新MLPerf推理基准测试中",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "表现优异",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。此外，英伟达还宣布了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Spectrum-X™",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "以太网网络平台被云服务提供商、GPU云提供商和企业",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "广泛采用",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，体现了其在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "全栈",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "AI解决方案上的布局成功。",
+            "type": "text"
+          }
+        ]
+      ],
+      "type": "section"
+    },
+    {
+      "title": {
+        "value": "第三部分：细分业务板块与财务健康度",
+        "type": "text"
+      },
+      "paragraphs": [
+        [
+          {
+            "value": "除数据中心外，其他业务板块也保持了稳健的增长态势。其中，",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "游戏",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "业务本季度实现",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "营收",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "达",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "29亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "2900",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，同比增幅为",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "16%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.16",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，环比增长",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "9%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.09",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "专业可视化",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "业务收入为",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "4.54亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "454",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，同比上扬",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "20%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.20",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "汽车",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "业务收入达到",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "3.46亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "346",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，实现",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "37%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.37",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的同比",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "增长",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。",
+            "type": "text"
+          }
+        ],
+        [
+          {
+            "value": "公司的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "财务健康度",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "保持在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "极高",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "水平。本季度",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "GAAP毛利率",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "为",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "75.1%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.751",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，同比上升了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "5.0个百分点",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.050",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。尽管环比下降",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "3.3个百分点",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "-0.033",
+              "assessment": "negative"
+            }
+          },
+          {
+            "value": "，但仍处于",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "历史高位",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，主要受数据中心产品组合变化的影响。非GAAP稀释",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "每股收益",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "（EPS）达到",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "0.68美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "0.68",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，同比增幅为",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "152%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "1.52",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。",
+            "type": "text"
+          }
+        ]
+      ],
+      "type": "section"
+    },
+    {
+      "title": {
+        "value": "第四部分：未来展望与战略布局",
+        "type": "text"
+      },
+      "paragraphs": [
+        [
+          {
+            "value": "基于",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "加速计算",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "市场的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "旺盛",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "需求，英伟达对",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "2025财年第三季度",
+            "metadata": {
+              "entityType": "time_desc"
+            }
+          },
+          {
+            "value": "（Q3 FY2025）的业绩给出了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "积极",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的指引。公司预计",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Q3营收",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "约为",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "325亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "32500",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，上下浮动",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "2%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.02"
+            }
+          },
+          {
+            "value": "。这意味着，在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Q2",
+            "metadata": {
+              "entityType": "time_desc"
+            }
+          },
+          {
+            "value": "创纪录的基础上，",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "营收",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "还将环比增长约",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "8.2%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.0818",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "（基于325亿美元计算）。",
+            "type": "text"
+          }
+        ],
+        [
+          {
+            "value": "展望全年，英伟达预计其",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "毛利率",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "将维持在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "70%以上",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的中高水平，其中Q3非GAAP毛利率预计为",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "75.0%",
+            "metadata": {
+              "entityType": "ratio_value",
+              "origin": "0.750",
+              "assessment": "neutral"
+            }
+          },
+          {
+            "value": "。",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "首席执行官黄仁勋",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "表示，英伟达的增长不仅来自",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Hopper",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "的需求，",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "Blackwell",
+            "metadata": {
+              "entityType": "dim_value"
+            }
+          },
+          {
+            "value": "的预期也在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "持续升温",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。在",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "2025财年上半年",
+            "metadata": {
+              "entityType": "time_desc"
+            }
+          },
+          {
+            "value": "，公司通过股票回购和现金股利向股东回报了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "154亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "15400",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "，并宣布了",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "500亿美元",
+            "metadata": {
+              "entityType": "other_metric_value",
+              "origin": "50000",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "股票回购",
+            "metadata": {
+              "entityType": "metric_name"
+            }
+          },
+          {
+            "value": "计划，彰显了管理层对公司",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "未来增长前景",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "的",
+            "type": "text"
+          },
+          {
+            "type": "entity",
+            "value": "坚定信心",
+            "metadata": {
+              "entityType": "trend_desc",
+              "assessment": "positive"
+            }
+          },
+          {
+            "value": "。",
+            "type": "text"
+          }
+        ]
+      ],
+      "type": "section"
+    }
+  ]
+}

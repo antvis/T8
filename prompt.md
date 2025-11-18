@@ -51,7 +51,7 @@ Below is a list of types supported by entity phrases. Please be sure to strictly
 | `contribute_ratio`   | Contribution               | "40%"                                 |
 | `trend_desc`         | Trend Description          | "Continuously Rising", "Stable"       |
 | `dim_value`          | Dimensional identification | "India", "Jiangsu", "Overseas Market" |
-| `time_value`         | Time stamp                 | "Q3 2024", "all year"                 |
+| `time_desc`          | Time stamp                 | "Q3 2024", "all year"                 |
 | `proportion`         | Proportion description     | "30%"                                 |
 
 When possible, it is required to use as much key information in the sentence as possible to replace ordinary `text` (such as indicators, values, time, numbers, etc.), to ensure the diversity of generated text and improve readability. (In particular, it is necessary to increase the frequency of usage of the phrases `delta_value`, `ratio_value`, `proportion`).
@@ -74,3 +74,80 @@ Try to add the following fields for each `entity` to enrich the structure and in
 - The language of the article should be natural, fluent, objective and professional, and avoid colloquialism, marketing colors, and unnecessary physical or numerical stacking.
 - In the final output JSON, the `definitions` part can be omitted directly, I only need the body JSON content.
 - In the final output, no unnecessary description and fast wrapping of `markdown` code is needed, I just want JSON Schema in plain text.
+
+## Output format requirements
+
+**【🔥 Mandatory Instructions】**
+
+Output must use **abbreviated JSON key names** and **numeric type value mappings** to minimize token length. Strictly adhere to the definitions in the "Abbreviated Key Name Mapping Table" and "Type Value Number Mapping Table".
+
+**Important:** Array structures must be optimized. Convert all element arrays (e.g., phrases, paragraphs, bullets) into objects containing **dt** (default type) and **i** (items). A child item only needs to explicitly include a **t** key if its type differs from the parent's **dt**.
+
+## Abbreviated Key Mapping Table
+
+| Abbreviated Key | Original Key | File/Type Location                            | Notes                          |
+| :-------------- | :----------- | :-------------------------------------------- | :----------------------------- |
+| t               | type         | All Elements                                  | Highest frequency key          |
+| v               | value        | Phrase/BulletItem                             |                                |
+| m               | metadata     | Phrase                                        |                                |
+| o               | origin       | EntityMetaData                                |                                |
+| d               | detail       | EntityMetaData                                |                                |
+| a               | assessment   | EntityMetaData                                |                                |
+| et              | entityType   | EntityMetaData                                |                                |
+| sid             | sourceId     | EntityMetaData                                |                                |
+| c               | chart        | EntityMetaData                                |                                |
+| h               | headline     | NarrativeTextSpecs                            |                                |
+| s               | sections     | NarrativeTextSpecs                            |                                |
+| p               | phrases      | Headline/Paragraph/BulletItem                 |                                |
+| pa              | paragraphs   | StandardSectionSpec                           |                                |
+| tit             | title        | Section                                       |                                |
+| b               | bullets      | BulletsParagraphSpec                          |                                |
+| io              | isOrder      | BulletsParagraphSpec                          |                                |
+| bs              | subBullet    | BulletItemSpec                                |                                |
+| ct              | customType   | CustomBlock/Meta                              |                                |
+| isB             | isB          | boldTextPhraseSpec                            | Appears only when true         |
+| isI             | isI          | italicTextPhraseSpec                          | Appears only when true         |
+| isU             | isU          | underlineTextPhraseSpec                       | Appears only when true         |
+| url             | url          | urlTextPhraseSpecs                            |                                |
+| sy              | styles       | CommonProps                                   |                                |
+| cl              | className    | CommonProps                                   |                                |
+| k               | key          | CommonProps                                   |                                |
+| cfg             | config       | Chart                                         |                                |
+| dat             | data         | Chart                                         |                                |
+| r               | range        | Chart                                         |                                |
+| dt              | defaultType  | Array default type for structure optimization | Used for structure restoration |
+| i               | items        | Sub-item array for structure optimization     | Used for structure restoration |
+
+## Type Value Numeric Mapping Table (VALUE_DECODER_MAPS)
+
+| Original Type      | Abbreviated Value | Notes                   |
+| :----------------- | :---------------- | :---------------------- |
+| metric_name        | 20                | Primary metric name     |
+| metric_value       | 21                | Primary metric value    |
+| other_metric_value | 22                | Other metric value      |
+| contribute_ratio   | 23                | Contribution ratio      |
+| delta_value        | 24                | Change value/Difference |
+| ratio_value        | 25                | Change rate/Percentage  |
+| trend_desc         | 26                | Trend description       |
+| dim_value          | 27                | Dimension value/Step    |
+| time_desc          | 28                | Time description/Value  |
+| proportion         | 29                | Proportion/Ratio        |
+
+## Paragraph, Phrase, and Hardcoded Structure Type Mapping
+
+| Original Type | Abbreviated Value | Corresponding Enum/Structure | Notes                                      |
+| :------------ | :---------------- | :--------------------------- | :----------------------------------------- |
+| text          | 1                 | PhraseType                   | Default value for high-frequency phrase    |
+| entity        | 2                 | PhraseType                   |                                            |
+| custom        | 3                 | PhraseType                   |                                            |
+| normal        | 10                | ParagraphType                | Default value for high-frequency paragraph |
+| bullets       | 11                | ParagraphType                |                                            |
+| heading1      | 12                | ParagraphType                |                                            |
+| heading2      | 13                | ParagraphType                |                                            |
+| heading3      | 14                | ParagraphType                |                                            |
+| heading4      | 15                | ParagraphType                |                                            |
+| heading5      | 16                | ParagraphType                |                                            |
+| heading6      | 17                | ParagraphType                |                                            |
+| headline      | 30                | Structure Type               | HeadlineSpec.type                          |
+| section       | 31                | Structure Type               | Section title.type (when title is text)    |
+| bullet-item   | 32                | Structure Type               |                                            |
