@@ -3,7 +3,7 @@ import { createEntityPhraseFactory } from '../createEntityPhraseFactory';
 import { SpecificEntityPhraseDescriptor } from '../types';
 import { createInlineDocument } from '../utils';
 
-const defaultDifference: SpecificEntityPhraseDescriptor = {
+const defaultDifferenceDescriptor: SpecificEntityPhraseDescriptor = {
   render: (value, { detail }, paragraphType, themeSeedToken) => {
     const chartElement = document.createElement('span');
     renderDifferenceChart(chartElement, { data: detail as number[] }, paragraphType, themeSeedToken);
@@ -12,4 +12,4 @@ const defaultDifference: SpecificEntityPhraseDescriptor = {
   tooltip: false,
 };
 
-export const createDifference = createEntityPhraseFactory('difference', defaultDifference);
+export const createDifference = createEntityPhraseFactory('difference', defaultDifferenceDescriptor);

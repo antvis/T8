@@ -12,6 +12,7 @@ import { createDifference } from './createDifference';
 import { createAnomaly } from './createAnomaly';
 import { createAssociation } from './createAssociation';
 import { createDistribution } from './createDistribution';
+import { createSeasonality } from './createSeasonality';
 
 /**
  * export all entity phrase factory functions.
@@ -33,6 +34,7 @@ export const presetPlugins = [
   createAnomaly(),
   createAssociation(),
   createDistribution(),
+  createSeasonality(),
 ];
 
 /**
@@ -53,3 +55,4 @@ export { createDifference } from './createDifference';
 export { createAnomaly } from './createAnomaly';
 export { createAssociation } from './createAssociation';
 export { createDistribution } from './createDistribution';
+export { createSeasonality } from './createSeasonality';
