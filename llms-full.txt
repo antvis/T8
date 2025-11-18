@@ -1119,6 +1119,410 @@ Except for custom paragraphs, `heading`, `normal`, and `bullets` are all compose
 
 The latest standard JSON Schema definition for `T8` is as follows, or fetch from [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json):
 
+```json
+{
+  "$ref": "#/definitions/NarrativeTextSpec",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "BulletItemSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "subBullet": {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        "type": {
+          "const": "bullet-item",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "BulletsParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bullets": {
+          "items": {
+            "$ref": "#/definitions/BulletItemSpec"
+          },
+          "type": "array"
+        },
+        "className": {
+          "type": "string"
+        },
+        "isOrder": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "bullets",
+          "type": "string"
+        }
+      },
+      "required": ["bullets", "isOrder", "type"],
+      "type": "object"
+    },
+    "CustomBlockElement": {
+      "description": "basic block element structure, used for extends",
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "customType": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomMetaData": {
+      "additionalProperties": {},
+      "description": "custom phrase metadata",
+      "properties": {
+        "customType": {
+          "type": "string"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomPhraseSpec<CustomMetaData>": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/CustomMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "custom",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityMetaData": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "$ref": "#/definitions/ValueAssessment",
+          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
+        },
+        "detail": {
+          "description": "detail data, 明细数据，用于弹框展示"
+        },
+        "entityType": {
+          "$ref": "#/definitions/EntityType",
+          "description": "entity type, 实体类型标记"
+        },
+        "origin": {
+          "description": "original data, 原始数据",
+          "type": "number"
+        },
+        "sourceId": {
+          "description": "source id of the variable, to access the variable info from variableSourceMap",
+          "type": "string"
+        }
+      },
+      "required": ["entityType"],
+      "type": "object"
+    },
+    "EntityPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/EntityMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "entity",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityType": {
+      "enum": [
+        "metric_name",
+        "metric_value",
+        "other_metric_value",
+        "contribute_ratio",
+        "delta_value",
+        "ratio_value",
+        "trend_desc",
+        "dim_value",
+        "time_desc",
+        "proportion"
+      ],
+      "type": "string"
+    },
+    "HeadingParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "HeadlineSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "headline",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "NarrativeTextSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "headline": {
+          "$ref": "#/definitions/HeadlineSpec"
+        },
+        "key": {
+          "type": "string"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/definitions/SectionSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "ParagraphSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/HeadingParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/TextParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomBlockElement"
+        }
+      ]
+    },
+    "PhraseSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TextPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/EntityPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
+        }
+      ]
+    },
+    "SectionSpec": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "paragraphs": {
+              "items": {
+                "$ref": "#/definitions/ParagraphSpec"
+              },
+              "type": "array"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "customType": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "required": ["customType"],
+          "type": "object"
+        }
+      ]
+    },
+    "TextParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "normal",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "TextPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bold": {
+          "type": "boolean"
+        },
+        "className": {
+          "type": "string"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "text",
+          "type": "string"
+        },
+        "underline": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "value"],
+      "type": "object"
+    },
+    "ValueAssessment": {
+      "enum": ["positive", "negative", "equal"],
+      "type": "string"
+    }
+  }
+}
+
+```
+
 ---
 
 ---
@@ -4442,6 +4846,163 @@ Through this approach, we can provide users with an AI Agent application or use 
 
 ## Prompt Engineering
 
+```md
+You are an experienced data analyst who is good at writing structured, informative articles based on a given topic and real data.
+
+---
+
+## Mission Objective
+
+Please generate a structured article based on the JSON Schema specification I provided, combined with the given topic content or specific data. The content of the article must strictly follow the output format and entity labeling requirements.
+
+---
+
+## Data Requirements
+
+- All data must be from **publicly authentic data sources**, including but not limited to:
+- Official announcement/financial report.
+- Authoritative financial and technological media reports (such as Reuters, Bloomberg, Caixin.com, TechCrunch, etc.).
+- Reports from well-known industry research institutions (such as IDC, Canalys, Counterpoint Research, etc.).
+- **The use of any fictional, AI guessing, simulated or unproven non-public data is strictly prohibited. **
+- The data must be ** specific numbers** (for example, "146 million units", "7058 units"), rather than vague approximate numbers (such as "millions", "dozens").
+
+---
+
+## Output format requirements
+
+Please write the article strictly according to the uploaded JSON Schema structure. The following is a brief explanation of JSON Schema:
+
+- **Top Structure**: The article should contain a root object containing an array of `headline` and `sections`.
+- **Structural Elements**: Inside the `sections` array, use elements such as `paragraph`, `phrase` to construct the article content.
+
+- `section`: represents a main chapter of the article and should contain an array of `paragraphs`.
+- `paragraph`: Represents a paragraph containing an array of `phrases` and the current `paragraph` `type`, whose `phrases` array consists of `text` and `entity` elements.
+- `bullet`: used to represent the entire list.
+- `bullet-item`: used to express an item in the list.
+- `text`: Used for normal text content.
+- `entity`: Used to annotate phrases or values ​​with specific meanings, and its `metadata` contains `entity_type` and `value`.
+
+---
+
+## `entity` Writing specifications
+
+### Entity label type (`entity_type` list)
+
+Below is a list of types supported by entity phrases. Please be sure to strictly mark entities according to the following table:
+
+| Type                 | Description                | Example                               |
+| -------------------- | -------------------------- | ------------------------------------- |
+| `metric_name`        | Indicator name             | "Shipment", "Growth Rate"             |
+| `metric_value`       | Main indicator value       | "146 million units", "120 factories"  |
+| `other_metric_value` | Other metric values        | "$19.2 billion"                       |
+| `delta_value`        | Difference                 | "+120"                                |
+| `ratio_value`        | Rate                       | "+8.4%", "9%"                         |
+| `contribute_ratio`   | Contribution               | "40%"                                 |
+| `trend_desc`         | Trend Description          | "Continuously Rising", "Stable"       |
+| `dim_value`          | Dimensional identification | "India", "Jiangsu", "Overseas Market" |
+| `time_desc`          | Time stamp                 | "Q3 2024", "all year"                 |
+| `proportion`         | Proportion description     | "30%"                                 |
+
+When possible, it is required to use as much key information in the sentence as possible to replace ordinary `text` (such as indicators, values, time, numbers, etc.), to ensure the diversity of generated text and improve readability. (In particular, it is necessary to increase the frequency of usage of the phrases `delta_value`, `ratio_value`, `proportion`).
+
+### `entity` optional field (highly recommended)
+
+Try to add the following fields for each `entity` to enrich the structure and information:
+
+- `origin`: The exact numerical representation of the data itself in the original source (for example, for "146 million units", its original value might be `146 million units", and for "13.9%", its original value might be `0.139221`).
+- `assessment`: Based on official data, judge the growth or changing trend of this indicator (only `'positive'` | `'negative'` | `'equal'` | `'neutral'`).
+- `detail`: Supplementary data description of entity content (for example, in the face of `trend_desc`, `detail` should be an array of specific data, such as `[2,3,4,1,7]`).
+
+---
+
+## Other Requirements
+
+- The total number of words in the article should be no less than 800 Chinese characters (please adjust the specific number of words according to the actual amount of information).
+- The content of the article must be clear and clear in structure to ensure a natural transition between paragraphs and chapters.
+- Provide the most appropriate explanation and trend analysis of the data, not just listing numbers, but also reflecting the meaning behind the data.
+- The language of the article should be natural, fluent, objective and professional, and avoid colloquialism, marketing colors, and unnecessary physical or numerical stacking.
+- In the final output JSON, the `definitions` part can be omitted directly, I only need the body JSON content.
+- In the final output, no unnecessary description and fast wrapping of `markdown` code is needed, I just want JSON Schema in plain text.
+
+## Output format requirements
+
+**【🔥 Mandatory Instructions】**
+
+Output must use **abbreviated JSON key names** and **numeric type value mappings** to minimize token length. Strictly adhere to the definitions in the "Abbreviated Key Name Mapping Table" and "Type Value Number Mapping Table".
+
+**Important:** Array structures must be optimized. Convert all element arrays (e.g., phrases, paragraphs, bullets) into objects containing **dt** (default type) and **i** (items). A child item only needs to explicitly include a **t** key if its type differs from the parent's **dt**.
+
+## Abbreviated Key Mapping Table
+
+| Abbreviated Key | Original Key | File/Type Location                            | Notes                          |
+| :-------------- | :----------- | :-------------------------------------------- | :----------------------------- |
+| t               | type         | All Elements                                  | Highest frequency key          |
+| v               | value        | Phrase/BulletItem                             |                                |
+| m               | metadata     | Phrase                                        |                                |
+| o               | origin       | EntityMetaData                                |                                |
+| d               | detail       | EntityMetaData                                |                                |
+| a               | assessment   | EntityMetaData                                |                                |
+| et              | entityType   | EntityMetaData                                |                                |
+| sid             | sourceId     | EntityMetaData                                |                                |
+| c               | chart        | EntityMetaData                                |                                |
+| h               | headline     | NarrativeTextSpecs                            |                                |
+| s               | sections     | NarrativeTextSpecs                            |                                |
+| p               | phrases      | Headline/Paragraph/BulletItem                 |                                |
+| pa              | paragraphs   | StandardSectionSpec                           |                                |
+| tit             | title        | Section                                       |                                |
+| b               | bullets      | BulletsParagraphSpec                          |                                |
+| io              | isOrder      | BulletsParagraphSpec                          |                                |
+| bs              | subBullet    | BulletItemSpec                                |                                |
+| ct              | customType   | CustomBlock/Meta                              |                                |
+| isB             | isB          | boldTextPhraseSpec                            | Appears only when true         |
+| isI             | isI          | italicTextPhraseSpec                          | Appears only when true         |
+| isU             | isU          | underlineTextPhraseSpec                       | Appears only when true         |
+| url             | url          | urlTextPhraseSpecs                            |                                |
+| sy              | styles       | CommonProps                                   |                                |
+| cl              | className    | CommonProps                                   |                                |
+| k               | key          | CommonProps                                   |                                |
+| cfg             | config       | Chart                                         |                                |
+| dat             | data         | Chart                                         |                                |
+| r               | range        | Chart                                         |                                |
+| dt              | defaultType  | Array default type for structure optimization | Used for structure restoration |
+| i               | items        | Sub-item array for structure optimization     | Used for structure restoration |
+
+## Type Value Numeric Mapping Table (VALUE_DECODER_MAPS)
+
+| Original Type      | Abbreviated Value | Notes                   |
+| :----------------- | :---------------- | :---------------------- |
+| metric_name        | 20                | Primary metric name     |
+| metric_value       | 21                | Primary metric value    |
+| other_metric_value | 22                | Other metric value      |
+| contribute_ratio   | 23                | Contribution ratio      |
+| delta_value        | 24                | Change value/Difference |
+| ratio_value        | 25                | Change rate/Percentage  |
+| trend_desc         | 26                | Trend description       |
+| dim_value          | 27                | Dimension value/Step    |
+| time_desc          | 28                | Time description/Value  |
+| proportion         | 29                | Proportion/Ratio        |
+
+## Paragraph, Phrase, and Hardcoded Structure Type Mapping
+
+| Original Type | Abbreviated Value | Corresponding Enum/Structure | Notes                                      |
+| :------------ | :---------------- | :--------------------------- | :----------------------------------------- |
+| text          | 1                 | PhraseType                   | Default value for high-frequency phrase    |
+| entity        | 2                 | PhraseType                   |                                            |
+| custom        | 3                 | PhraseType                   |                                            |
+| normal        | 10                | ParagraphType                | Default value for high-frequency paragraph |
+| bullets       | 11                | ParagraphType                |                                            |
+| heading1      | 12                | ParagraphType                |                                            |
+| heading2      | 13                | ParagraphType                |                                            |
+| heading3      | 14                | ParagraphType                |                                            |
+| heading4      | 15                | ParagraphType                |                                            |
+| heading5      | 16                | ParagraphType                |                                            |
+| heading6      | 17                | ParagraphType                |                                            |
+| headline      | 30                | Structure Type               | HeadlineSpec.type                          |
+| section       | 31                | Structure Type               | Section title.type (when title is text)    |
+| bullet-item   | 32                | Structure Type               |                                            |
+
+```
+
 ## JSON Schema
 
 We provide the latest standard JSON Schema definition for `T8`, used for generating data with large models.
@@ -4449,6 +5010,410 @@ We provide the latest standard JSON Schema definition for `T8`, used for generat
 * `NPM Package`: [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json).
 * `GitHub Repository`: [GitHub](https://github.com/antvis/T8/blob/main/schema.json).
 * `Build`: Clone the T8 source code and run the `npm run build` command to generate the `schema.json` file.
+
+```json
+{
+  "$ref": "#/definitions/NarrativeTextSpec",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "BulletItemSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "subBullet": {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        "type": {
+          "const": "bullet-item",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "BulletsParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bullets": {
+          "items": {
+            "$ref": "#/definitions/BulletItemSpec"
+          },
+          "type": "array"
+        },
+        "className": {
+          "type": "string"
+        },
+        "isOrder": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "bullets",
+          "type": "string"
+        }
+      },
+      "required": ["bullets", "isOrder", "type"],
+      "type": "object"
+    },
+    "CustomBlockElement": {
+      "description": "basic block element structure, used for extends",
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "customType": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomMetaData": {
+      "additionalProperties": {},
+      "description": "custom phrase metadata",
+      "properties": {
+        "customType": {
+          "type": "string"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomPhraseSpec<CustomMetaData>": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/CustomMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "custom",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityMetaData": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "$ref": "#/definitions/ValueAssessment",
+          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
+        },
+        "detail": {
+          "description": "detail data, 明细数据，用于弹框展示"
+        },
+        "entityType": {
+          "$ref": "#/definitions/EntityType",
+          "description": "entity type, 实体类型标记"
+        },
+        "origin": {
+          "description": "original data, 原始数据",
+          "type": "number"
+        },
+        "sourceId": {
+          "description": "source id of the variable, to access the variable info from variableSourceMap",
+          "type": "string"
+        }
+      },
+      "required": ["entityType"],
+      "type": "object"
+    },
+    "EntityPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/EntityMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "entity",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityType": {
+      "enum": [
+        "metric_name",
+        "metric_value",
+        "other_metric_value",
+        "contribute_ratio",
+        "delta_value",
+        "ratio_value",
+        "trend_desc",
+        "dim_value",
+        "time_desc",
+        "proportion"
+      ],
+      "type": "string"
+    },
+    "HeadingParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "HeadlineSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "headline",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "NarrativeTextSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "headline": {
+          "$ref": "#/definitions/HeadlineSpec"
+        },
+        "key": {
+          "type": "string"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/definitions/SectionSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "ParagraphSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/HeadingParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/TextParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomBlockElement"
+        }
+      ]
+    },
+    "PhraseSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TextPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/EntityPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
+        }
+      ]
+    },
+    "SectionSpec": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "paragraphs": {
+              "items": {
+                "$ref": "#/definitions/ParagraphSpec"
+              },
+              "type": "array"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "customType": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "required": ["customType"],
+          "type": "object"
+        }
+      ]
+    },
+    "TextParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "normal",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "TextPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bold": {
+          "type": "boolean"
+        },
+        "className": {
+          "type": "string"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "text",
+          "type": "string"
+        },
+        "underline": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "value"],
+      "type": "object"
+    },
+    "ValueAssessment": {
+      "enum": ["positive", "negative", "equal"],
+      "type": "string"
+    }
+  }
+}
+
+```
 
 ## Case Study
 
@@ -5659,6 +6624,410 @@ url: /zh/schema/structure.md
 
 最新的 `T8` 标准 JSON Schema 定义如下，或者从远程源 [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json) 抓取：
 
+```json
+{
+  "$ref": "#/definitions/NarrativeTextSpec",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "BulletItemSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "subBullet": {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        "type": {
+          "const": "bullet-item",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "BulletsParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bullets": {
+          "items": {
+            "$ref": "#/definitions/BulletItemSpec"
+          },
+          "type": "array"
+        },
+        "className": {
+          "type": "string"
+        },
+        "isOrder": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "bullets",
+          "type": "string"
+        }
+      },
+      "required": ["bullets", "isOrder", "type"],
+      "type": "object"
+    },
+    "CustomBlockElement": {
+      "description": "basic block element structure, used for extends",
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "customType": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomMetaData": {
+      "additionalProperties": {},
+      "description": "custom phrase metadata",
+      "properties": {
+        "customType": {
+          "type": "string"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomPhraseSpec<CustomMetaData>": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/CustomMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "custom",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityMetaData": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "$ref": "#/definitions/ValueAssessment",
+          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
+        },
+        "detail": {
+          "description": "detail data, 明细数据，用于弹框展示"
+        },
+        "entityType": {
+          "$ref": "#/definitions/EntityType",
+          "description": "entity type, 实体类型标记"
+        },
+        "origin": {
+          "description": "original data, 原始数据",
+          "type": "number"
+        },
+        "sourceId": {
+          "description": "source id of the variable, to access the variable info from variableSourceMap",
+          "type": "string"
+        }
+      },
+      "required": ["entityType"],
+      "type": "object"
+    },
+    "EntityPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/EntityMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "entity",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityType": {
+      "enum": [
+        "metric_name",
+        "metric_value",
+        "other_metric_value",
+        "contribute_ratio",
+        "delta_value",
+        "ratio_value",
+        "trend_desc",
+        "dim_value",
+        "time_desc",
+        "proportion"
+      ],
+      "type": "string"
+    },
+    "HeadingParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "HeadlineSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "headline",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "NarrativeTextSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "headline": {
+          "$ref": "#/definitions/HeadlineSpec"
+        },
+        "key": {
+          "type": "string"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/definitions/SectionSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "ParagraphSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/HeadingParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/TextParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomBlockElement"
+        }
+      ]
+    },
+    "PhraseSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TextPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/EntityPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
+        }
+      ]
+    },
+    "SectionSpec": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "paragraphs": {
+              "items": {
+                "$ref": "#/definitions/ParagraphSpec"
+              },
+              "type": "array"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "customType": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "required": ["customType"],
+          "type": "object"
+        }
+      ]
+    },
+    "TextParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "normal",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "TextPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bold": {
+          "type": "boolean"
+        },
+        "className": {
+          "type": "string"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "text",
+          "type": "string"
+        },
+        "underline": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "value"],
+      "type": "object"
+    },
+    "ValueAssessment": {
+      "enum": ["positive", "negative", "equal"],
+      "type": "string"
+    }
+  }
+}
+
+```
+
 ---
 
 ---
@@ -6838,6 +8207,163 @@ url: /zh/tutorial/advanced/llm.md
 
 ## 提示词 Prompt
 
+```md
+你是一位经验丰富的数据分析师, 擅长根据给定主题和真实数据，撰写结构化、信息丰富的文章。
+
+---
+
+## 任务目标
+
+请根据我提供的 JSON Schema 规范，结合给定的**主题内容**或者**具体数据**，生成一篇结构化的文章。文章内容需严格遵循输出格式和实体标注要求。
+
+---
+
+## 数据要求
+
+- 所有数据必须来源于**公开真实的数据源**，包括但不限于：
+  - 官方公告/财报。
+  - 权威财经、科技媒体报道（如路透社、彭博社、财新网、TechCrunch 等）。
+  - 知名行业研究机构报告（如 IDC、Canalys、Counterpoint Research 等）。
+- **严禁使用任何虚构、AI猜测、模拟或未经证实的非公开数据。**
+- 数据必须是**具体的数字**（例如，“1.46亿台”、“7058台”），而非模糊的大概数字（如“几百万”、“数十辆”）。
+
+---
+
+## 输出格式要求
+
+请严格按照上传的 JSON Schema 结构来撰写文章内容，下面是对 JSON Schema 简单的讲解：
+
+- **顶级结构**：文章应包含一个根对象，其中包含 `headline` 和 `sections` 数组 。
+- **结构元素**：在 `sections` 数组内部，使用 `paragraph`、`phrase` 等元素来构建文章内容。
+
+  - `section`：代表文章的一个主要章节，应包含 `paragraphs` 数组。
+  - `paragraph`：代表一个段落，其中包含 `phrases` 数组和当前 `paragraph` 的 `type`，其 `phrases` 数组由 `text` 和 `entity` 元素构成。
+  - `bullet`：用于表示列表整体。
+  - `bullet-item`：用于表述列表中的某个项。
+  - `text`：用于普通文本内容。
+  - `entity`：用于标注具有特定含义的短语或数值，其 `metadata` 包含 `entity_type` 和 `value`。
+
+---
+
+## `entity` 书写规范
+
+### 实体标注类型 (`entity_type` 列表)
+
+下面是实体短语支持的类型列表，请务必严格按照下表进行实体标注：
+
+| 类型                 | 说明       | 示例                       |
+| -------------------- | ---------- | -------------------------- |
+| `metric_name`        | 指标名称   | “出货量”、“增长率”         |
+| `metric_value`       | 主指标值   | “1.46亿台”、“120座工厂”    |
+| `other_metric_value` | 其他指标值 | “192亿美元”                |
+| `delta_value`        | 差值       | “+120”                     |
+| `ratio_value`        | 差率       | “+8.4%”、“9%”              |
+| `contribute_ratio`   | 贡献度     | “40%”                      |
+| `trend_desc`         | 趋势描述   | “持续上升”、“趋于平稳”     |
+| `dim_value`          | 维度标识   | “印度”、“江苏”、“海外市场” |
+| `time_desc`          | 时间标识   | “2024年Q3”、“全年”         |
+| `proportion`         | 比例描述   | “30%"                      |
+
+在可能的情况下，要求尽可能多的将句子中的关键信息使用 `entity` 来取代普通 `text`（如指标、数值、时间、数字等），保证生成文本的多元性，提高可读性。(尤其要提升 `delta_value`, `ratio_value`, `proportion`短语的使用频率)。
+
+### `entity` 可选字段（强烈推荐使用）
+
+为每个 `entity` 尽量添加以下字段，以丰富结构和信息：
+
+- `origin`：数据本身在原始来源中的精确数值表示（例如，对于“1.46亿台”，其原始数值可能是 `146000000`；对于“13.9%”，其原始数值可能是 `0.139221`）。
+- `assessment`：根据官方数据，对该指标的增长或变化趋势进行判断（仅限 `'positive'` | `'negative'` | `'equal'` | `'neutral'`）。
+- `detail`：对实体内容的补充数据说明（例如，面对 `trend_desc`， `detail`应为一个具体数据组成的数组，例如 `[2,3,4,1,7]`）。
+
+---
+
+## 其他要求
+
+- 文章总字数应**不少于 800 个汉字**（请根据实际信息量调整具体字数）。
+- 文章内容需**逻辑清晰、结构分明**，确保段落之间、章节之间过渡自然。
+- 对数据提供**适当的解释和趋势分析**，不仅仅是罗列数字，要体现数据背后的意义。
+- 文章语言应**自然流畅、客观专业**，避免口语化、营销色彩，以及不必要的实体或数值堆砌。
+- 在最终输出的 JSON 中，`definitions` 部分可以**直接省略**，我只需要主体 JSON 内容。
+- 在最终的输出中，任何多余的描述和 `markdown` 的代码快包裹都不需要，我只要纯文本形式的 JSON Schema。
+
+## 输出格式要求
+
+**【🔥 强制指令】**
+
+输出必须使用**缩写的 JSON 键名**和**数字类型值映射**，以最小化令牌长度。严格遵守“缩减键名映射表”和“类型值数字映射表”中的定义。
+
+**重要提示：** 数组结构必须进行优化。将所有元素数组（例如，短语、段落、项目符号）转换为包含 **dt**（默认类型）和 **i**（项目）的对象。只有当子项的类型与父级的 **dt** **不同**时，才需要显式包含 **t** 键。
+
+## 缩减键名映射表
+
+| 缩写键 | 原始键      | 所在文件/类型                 | 备注             |
+| ------ | ----------- | ----------------------------- | ---------------- |
+| t      | type        | 所有元素                      | 最高频键         |
+| v      | value       | Phrase/BulletItem             |                  |
+| m      | metadata    | Phrase                        |                  |
+| o      | origin      | EntityMetaData                |                  |
+| d      | detail      | EntityMetaData                |                  |
+| a      | assessment  | EntityMetaData                |                  |
+| et     | entityType  | EntityMetaData                |                  |
+| sid    | sourceId    | EntityMetaData                |                  |
+| c      | chart       | EntityMetaData                |                  |
+| h      | headline    | NarrativeTextSpecs            |                  |
+| s      | sections    | NarrativeTextSpecs            |                  |
+| p      | phrases     | Headline/Paragraph/BulletItem |                  |
+| pa     | paragraphs  | StandardSectionSpec           |                  |
+| tit    | title       | Section                       |                  |
+| b      | bullets     | BulletsParagraphSpec          |                  |
+| io     | isOrder     | BulletsParagraphSpec          |                  |
+| bs     | subBullet   | BulletItemSpec                |                  |
+| ct     | customType  | CustomBlock/Meta              |                  |
+| isB    | isB         | boldTextPhraseSpec            | 只在 true 时出现 |
+| isI    | isI         | italicTextPhraseSpec          | 只在 true 时出现 |
+| isU    | isU         | underlineTextPhraseSpec       | 只在 true 时出现 |
+| url    | url         | urlTextPhraseSpecs            |                  |
+| sy     | styles      | CommonProps                   |                  |
+| cl     | className   | CommonProps                   |                  |
+| k      | key         | CommonProps                   |                  |
+| cfg    | config      | Chart                         |                  |
+| dat    | data        | Chart                         |                  |
+| r      | range       | Chart                         |                  |
+| dt     | defaultType | 结构优化数组默认类型          | 用于结构还原     |
+| i      | items       | 结构优化子项数组              | 用于结构还原     |
+
+## 类型值数字映射表 (VALUE_DECODER_MAPS)
+
+| 原始类型           | 缩写值 | 备注          |
+| ------------------ | ------ | ------------- |
+| metric_name        | 20     | 主指标名      |
+| metric_value       | 21     | 主指标值      |
+| other_metric_value | 22     | 其他指标值    |
+| contribute_ratio   | 23     | 贡献度        |
+| delta_value        | 24     | 变化值/差值   |
+| ratio_value        | 25     | 变化率/百分比 |
+| trend_desc         | 26     | 趋势描述      |
+| dim_value          | 27     | 维值/步骤     |
+| time_desc          | 28     | 时间描述/值   |
+| proportion         | 29     | 占比/比例     |
+
+## 段落、短语和硬编码结构类型映射
+
+| 原始类型    | 缩写值 | 所属枚举/结构 | 备注                                  |
+| ----------- | ------ | ------------- | ------------------------------------- |
+| text        | 1      | PhraseType    | 高频短语默认值                        |
+| entity      | 2      | PhraseType    |                                       |
+| custom      | 3      | PhraseType    |                                       |
+| normal      | 10     | ParagraphType | 高频段落默认值                        |
+| bullets     | 11     | ParagraphType |                                       |
+| heading1    | 12     | ParagraphType |                                       |
+| heading2    | 13     | ParagraphType |                                       |
+| heading3    | 14     | ParagraphType |                                       |
+| heading4    | 15     | ParagraphType |                                       |
+| heading5    | 16     | ParagraphType |                                       |
+| heading6    | 17     | ParagraphType |                                       |
+| headline    | 30     | 结构类型      | HeadlineSpec.type                     |
+| section     | 31     | 结构类型      | Section title.type (title 为 text 时) |
+| bullet-item | 32     | 结构类        |
+
+```
+
 ## JSON Schema
 
 我们提供了 `T8` 最新的标准 JSON Schema 定义，用于给大模型生成数据。
@@ -6845,6 +8371,410 @@ url: /zh/tutorial/advanced/llm.md
 * `NPM 包`：[unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json)。
 * `GitHub`：库\`：[GitHub](https://github.com/antvis/T8/blob/main/schema.json)。
 * `构建`：通过 clone T8 源码，运行 `npm run build` 命令，会生成 `schema.json` 文件。
+
+```json
+{
+  "$ref": "#/definitions/NarrativeTextSpec",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "BulletItemSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "subBullet": {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        "type": {
+          "const": "bullet-item",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "BulletsParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bullets": {
+          "items": {
+            "$ref": "#/definitions/BulletItemSpec"
+          },
+          "type": "array"
+        },
+        "className": {
+          "type": "string"
+        },
+        "isOrder": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "bullets",
+          "type": "string"
+        }
+      },
+      "required": ["bullets", "isOrder", "type"],
+      "type": "object"
+    },
+    "CustomBlockElement": {
+      "description": "basic block element structure, used for extends",
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "customType": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomMetaData": {
+      "additionalProperties": {},
+      "description": "custom phrase metadata",
+      "properties": {
+        "customType": {
+          "type": "string"
+        }
+      },
+      "required": ["customType"],
+      "type": "object"
+    },
+    "CustomPhraseSpec<CustomMetaData>": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/CustomMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "custom",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityMetaData": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "$ref": "#/definitions/ValueAssessment",
+          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
+        },
+        "detail": {
+          "description": "detail data, 明细数据，用于弹框展示"
+        },
+        "entityType": {
+          "$ref": "#/definitions/EntityType",
+          "description": "entity type, 实体类型标记"
+        },
+        "origin": {
+          "description": "original data, 原始数据",
+          "type": "number"
+        },
+        "sourceId": {
+          "description": "source id of the variable, to access the variable info from variableSourceMap",
+          "type": "string"
+        }
+      },
+      "required": ["entityType"],
+      "type": "object"
+    },
+    "EntityPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/EntityMetaData"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "entity",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type"],
+      "type": "object"
+    },
+    "EntityType": {
+      "enum": [
+        "metric_name",
+        "metric_value",
+        "other_metric_value",
+        "contribute_ratio",
+        "delta_value",
+        "ratio_value",
+        "trend_desc",
+        "dim_value",
+        "time_desc",
+        "proportion"
+      ],
+      "type": "string"
+    },
+    "HeadingParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "HeadlineSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "headline",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "NarrativeTextSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "headline": {
+          "$ref": "#/definitions/HeadlineSpec"
+        },
+        "key": {
+          "type": "string"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/definitions/SectionSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "ParagraphSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/HeadingParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/TextParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/BulletsParagraphSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomBlockElement"
+        }
+      ]
+    },
+    "PhraseSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TextPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/EntityPhraseSpec"
+        },
+        {
+          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
+        }
+      ]
+    },
+    "SectionSpec": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "paragraphs": {
+              "items": {
+                "$ref": "#/definitions/ParagraphSpec"
+              },
+              "type": "array"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "className": {
+              "type": "string"
+            },
+            "customType": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "styles": {
+              "type": "object"
+            }
+          },
+          "required": ["customType"],
+          "type": "object"
+        }
+      ]
+    },
+    "TextParagraphSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "phrases": {
+          "items": {
+            "$ref": "#/definitions/PhraseSpec"
+          },
+          "type": "array"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "normal",
+          "type": "string"
+        }
+      },
+      "required": ["phrases", "type"],
+      "type": "object"
+    },
+    "TextPhraseSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "bold": {
+          "type": "boolean"
+        },
+        "className": {
+          "type": "string"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "type": {
+          "const": "text",
+          "type": "string"
+        },
+        "underline": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "value"],
+      "type": "object"
+    },
+    "ValueAssessment": {
+      "enum": ["positive", "negative", "equal"],
+      "type": "string"
+    }
+  }
+}
+
+```
 
 ## 案例
 
