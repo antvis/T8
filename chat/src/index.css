@@ -40,11 +40,10 @@ body {
   margin: 0;
 }
 
-.app-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+.app-section {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
-  align-items: start;
 }
 
 .control-card,
@@ -135,9 +134,6 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .app-grid {
-    grid-template-columns: 1fr;
-  }
   .chat-wrapper {
     height: clamp(360px, 65vh, 720px);
   }
@@ -150,6 +146,16 @@ body {
 
   .hero {
     padding: 16px;
+  }
+
+  .hero > div {
+    flex-direction: column !important;
+    gap: 16px;
+  }
+
+  .hero > div > button {
+    margin-left: 0 !important;
+    width: 100%;
   }
 
   .chat-wrapper {

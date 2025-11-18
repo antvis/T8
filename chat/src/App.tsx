@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useXChat } from '@ant-design/x';
-import { Card, ConfigProvider, Typography, theme } from 'antd';
+import { Button, Card, ConfigProvider, Modal, Typography, theme } from 'antd';
 import { useLLMAgent } from './hooks/useLLMAgent';
 import { ControlPanel } from './components/ControlPanel';
 import { ChatArea } from './components/ChatArea';
@@ -12,6 +12,7 @@ function App() {
   const [provider, setProvider] = useState<ProviderType>('openai');
   const [endpoint, setEndpoint] = useState(PROVIDER_PRESETS.openai.endpoint);
   const [model, setModel] = useState(PROVIDER_PRESETS.openai.model);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const agent = useLLMAgent();
 
@@ -56,34 +57,55 @@ function App() {
     >
       <div className="app-shell">
         <header className="hero">
-          <div>
-            <Typography.Title level={3} className="hero-title">
-              T8 AI Chat Playground
-            </Typography.Title>
-            <Typography.Paragraph type="secondary" className="hero-desc">
-              使用 Ant Design X 打造的聊天体验，接入任意兼容的 LLM，并用 T8 渲染结构化回复。
-            </Typography.Paragraph>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+            <div style={{ flex: 1 }}>
+              <Typography.Title level={3} className="hero-title">
+                T8 AI Chat Playground
+              </Typography.Title>
+              <Typography.Paragraph type="secondary" className="hero-desc">
+                使用 Ant Design X 打造的聊天体验，接入任意兼容的 LLM，并用 T8 渲染结构化回复。
+              </Typography.Paragraph>
+            </div>
+            <Button type="primary" size="large" onClick={() => setIsModalOpen(true)} style={{ marginLeft: 16 }}>
+              ⚙️ 连接模型
+            </Button>
           </div>
         </header>
 
-        <section className="app-grid">
-          <Card className="control-card" title="连接你的模型" bordered={false}>
-            <ControlPanel
-              provider={provider}
-              llmKey={llmKey}
-              model={model}
-              endpoint={endpoint}
-              onProviderChange={setProvider}
-              onLlmKeyChange={setLlmKey}
-              onModelChange={setModel}
-              onEndpointChange={setEndpoint}
-            />
-          </Card>
-
+        <section className="app-section">
           <Card className="chat-card" title="对话区" bordered={false}>
             <ChatArea messages={parsedMessages} onSend={handleSend} disabled={!llmKey} />
           </Card>
         </section>
+
+        <Modal
+          title={<span style={{ fontSize: '18px', fontWeight: 600 }}>🔌 连接你的模型</span>}
+          open={isModalOpen}
+          onCancel={() => setIsModalOpen(false)}
+          footer={null}
+          width="90%"
+          style={{ maxWidth: 600 }}
+          styles={{
+            body: {
+              padding: '24px',
+            },
+            header: {
+              padding: '20px 24px',
+              borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+            },
+          }}
+        >
+          <ControlPanel
+            provider={provider}
+            llmKey={llmKey}
+            model={model}
+            endpoint={endpoint}
+            onProviderChange={setProvider}
+            onLlmKeyChange={setLlmKey}
+            onModelChange={setModel}
+            onEndpointChange={setEndpoint}
+          />
+        </Modal>
 
         <footer className="app-footer">
           <Typography.Text type="secondary">Made with Ant Design X ✕ T8</Typography.Text>

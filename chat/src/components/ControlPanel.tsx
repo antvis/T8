@@ -1,4 +1,4 @@
-import { Input, Select, Space, Typography } from 'antd';
+import { Alert, Input, Select, Space, Typography } from 'antd';
 import { PROVIDER_PRESETS } from '../constants';
 import type { ProviderType } from '../types';
 
@@ -55,6 +55,20 @@ export const ControlPanel = ({
           onChange={(event) => onLlmKeyChange(event.target.value)}
         />
       </div>
+      <Alert
+        type="info"
+        message={
+          <span>
+            💡 还没有 API Key？推荐在{' '}
+            <a href="https://zenmux.ai" target="_blank" rel="noopener noreferrer">
+              ZenMux.ai
+            </a>{' '}
+            平台快速创建
+          </span>
+        }
+        showIcon
+        style={{ marginTop: -8 }}
+      />
       <div className="control-row">
         <Typography.Text className="control-label">模型名称</Typography.Text>
         <Input
