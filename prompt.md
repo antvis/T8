@@ -51,7 +51,7 @@ Below is a list of types supported by entity phrases. Please be sure to strictly
 | `contribute_ratio`   | Contribution               | "40%"                                 |
 | `trend_desc`         | Trend Description          | "Continuously Rising", "Stable"       |
 | `dim_value`          | Dimensional identification | "India", "Jiangsu", "Overseas Market" |
-| `time_value`         | Time stamp                 | "Q3 2024", "all year"                 |
+| `time_desc`          | Time stamp                 | "Q3 2024", "all year"                 |
 | `proportion`         | Proportion description     | "30%"                                 |
 
 When possible, it is required to use as much key information in the sentence as possible to replace ordinary `text` (such as indicators, values, time, numbers, etc.), to ensure the diversity of generated text and improve readability. (In particular, it is necessary to increase the frequency of usage of the phrases `delta_value`, `ratio_value`, `proportion`).

@@ -7,6 +7,12 @@ import { createDimensionValue } from './createDimensionValue';
 import { createProportion } from './createProportion';
 import { createTimeDesc } from './createTimeDesc';
 import { createTrendDesc } from './createTrendDesc';
+import { createRank } from './createRank';
+import { createDifference } from './createDifference';
+import { createAnomaly } from './createAnomaly';
+import { createAssociation } from './createAssociation';
+import { createDistribution } from './createDistribution';
+import { createSeasonality } from './createSeasonality';
 
 /**
  * export all entity phrase factory functions.
@@ -23,6 +29,12 @@ export const presetPlugins = [
   createProportion(),
   createTimeDesc(),
   createTrendDesc(),
+  createRank(),
+  createDifference(),
+  createAnomaly(),
+  createAssociation(),
+  createDistribution(),
+  createSeasonality(),
 ];
 
 /**
@@ -38,3 +50,9 @@ export { createDimensionValue } from './createDimensionValue';
 export { createProportion } from './createProportion';
 export { createTimeDesc } from './createTimeDesc';
 export { createTrendDesc } from './createTrendDesc';
+export { createRank } from './createRank';
+export { createDifference } from './createDifference';
+export { createAnomaly } from './createAnomaly';
+export { createAssociation } from './createAssociation';
+export { createDistribution } from './createDistribution';
+export { createSeasonality } from './createSeasonality';

@@ -83,6 +83,30 @@ export const EntityType = [
    * @example 20%
    * */
   'proportion',
+  /**
+   * @description rank
+   */
+  'rank',
+  /**
+   * @description difference
+   * */
+  'difference',
+  /**
+   * @description anomaly
+   * */
+  'anomaly',
+  /**
+   * @description association
+   * */
+  'association',
+  /**
+   * @description distribution
+   * */
+  'distribution',
+  /**
+   * @description seasonality
+   * */
+  'seasonality',
 ] as const;
 
 export type EntityType = (typeof EntityType)[number];
