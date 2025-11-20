@@ -7,6 +7,7 @@ const t8Src = path.resolve(workspaceRoot, 'src');
 
 export default defineConfig({
   plugins: [react()],
+  base: '/chat',
   resolve: {
     alias: {
       '@t8': t8Src,
