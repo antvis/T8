@@ -33,7 +33,7 @@ export const useLLMAgent = () => {
           model: modelName,
           stream: true,
           messages: historyMessages,
-          max_tokens: 50,
+          max_tokens: 8192,
         };
 
         const response = await fetch(url, {
@@ -73,6 +73,47 @@ export const useLLMAgent = () => {
         let aggregated = '';
         let streamFinished = false;
         const parser = createT8ClarinetParser();
+        const THROTTLE_INTERVAL = 120;
+        let lastUpdateAt = 0;
+        let pendingUpdateTimer: ReturnType<typeof setTimeout> | null = null;
+
+        const dispatchUpdate = () => {
+          callbacks.onUpdate({
+            role: 'assistant',
+            content: aggregated,
+            spec: parser.getResult().document,
+          });
+          console.log('aggregated', parser.getResult().document);
+        };
+
+        const emitUpdate = () => {
+          pendingUpdateTimer = null;
+          lastUpdateAt = performance.now();
+          dispatchUpdate();
+        };
+
+        const scheduleUpdate = () => {
+          const now = performance.now();
+          const elapsed = now - lastUpdateAt;
+          if (elapsed >= THROTTLE_INTERVAL) {
+            emitUpdate();
+            return;
+          }
+          if (pendingUpdateTimer) return;
+          pendingUpdateTimer = setTimeout(() => {
+            emitUpdate();
+          }, THROTTLE_INTERVAL - elapsed);
+        };
+
+        const flushPendingUpdate = () => {
+          if (pendingUpdateTimer) {
+            clearTimeout(pendingUpdateTimer);
+            pendingUpdateTimer = null;
+          }
+          if (aggregated) {
+            dispatchUpdate();
+          }
+        };
 
         while (!streamFinished) {
           const { value, done } = await reader.read();
@@ -100,17 +141,14 @@ export const useLLMAgent = () => {
 
               aggregated += chunkText;
               parser.append(chunkText);
-              callbacks.onUpdate({
-                role: 'assistant',
-                content: aggregated,
-                spec: parser.getResult().document,
-              });
-              console.log('aggregated', parser.getResult().document);
+              scheduleUpdate();
             } catch (err) {
               console.warn('解析流数据失败', err);
             }
           }
         }
+
+        flushPendingUpdate();
 
         callbacks.onSuccess([
           {

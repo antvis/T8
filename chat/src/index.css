@@ -10,10 +10,11 @@ body {
 }
 
 #root {
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .app-shell {
+  height: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: clamp(16px, 5vw, 48px);
@@ -44,12 +45,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  flex: 1;
+  min-height: 0;
 }
 
 .control-card,
 .chat-card {
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+  flex: 1;
+  min-height: 0;
 }
 
 .control-stack {
@@ -77,33 +82,37 @@ body {
 .chat-card {
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .chat-card .ant-card-body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  flex: 1;
+  min-height: 0;
 }
 
 .chat-wrapper {
   flex: 1;
+  min-height: 0;
   height: clamp(420px, 70vh, 820px);
 }
 
 .chat-body {
   flex: 1;
+  min-height: 0;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(120, 137, 255, 0.2);
   border-radius: 20px;
   padding: 16px;
-  min-height: 320px;
-  height: calc(100% - 96px);
   display: flex;
   overflow: hidden;
 }
 
 .chat-messages {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding-right: 8px;
   scroll-behavior: smooth;
@@ -165,6 +174,7 @@ body {
     padding: 12px;
     min-height: 260px;
     height: calc(100% - 88px);
+    overflow: scroll;
   }
   .chat-input {
     padding: 6px;

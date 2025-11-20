@@ -85,15 +85,6 @@ function App() {
           footer={null}
           width="90%"
           style={{ maxWidth: 600 }}
-          styles={{
-            body: {
-              padding: '24px',
-            },
-            header: {
-              padding: '20px 24px',
-              borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-            },
-          }}
         >
           <ControlPanel
             provider={provider}
