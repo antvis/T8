@@ -10,6 +10,7 @@ const createLangConfig = (lang: string, label: string) => {
     link: `/${lang}`,
     themeConfig: {
       nav: [
+        { text: 'Demo', link: '/chat/index', target: 'chat' },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
         { text: 'Schema', link: `/${lang}/schema/index` },
         { text: 'API', link: `/${lang}/api/index` },
@@ -62,6 +63,15 @@ export default defineConfig({
   vite: {
     // @ts-expect-error type error
     plugins: [llmstxt()],
+    server: {
+      proxy: {
+        '/chat': {
+          target: 'http://localhost:4399',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/chat/, '/chat'),
+        },
+      },
+    },
   },
   markdown: {
     config(md) {

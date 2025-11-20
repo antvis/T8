@@ -29,7 +29,10 @@
     "build:schema": "mkdir -p dist && rm -rf dist/schema.json && ts-json-schema-generator -f tsconfig.json -p src/index.ts -t NarrativeTextSpec --no-type-check --no-ref-encode > dist/schema.json && cp dist/schema.json schema.json",
     "site:dev": "vitepress dev site",
     "site:build": "vitepress build site",
-    "site:preview": "vitepress preview site"
+    "site:preview": "vitepress preview site",
+    "chat:build": "cd chat && npm run build",
+    "build:all": "npm run chat:build && npm run site:build && npm run copy:chat",
+    "copy:chat": "mkdir -p site/.vitepress/dist/chat && cp -r chat/dist/* site/.vitepress/dist/chat/"
   },
   "lint-staged": {
     "**/*": [

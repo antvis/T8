@@ -22,3 +22,5 @@ export {
   createTimeDesc,
   createTrendDesc,
 } from './plugin';
+
+export { createT8ClarinetParser, T8ClarinetParser, T8ClarinetParseResult } from './utils';
