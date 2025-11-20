@@ -36,12 +36,20 @@ export const useLLMAgent = () => {
           max_tokens: 8192,
         };
 
-        const response = await fetch(url, {
+        // Gemini 使用查询参数方式传递 API key
+        const isGemini = providerName === 'gemini';
+        const requestUrl = isGemini ? `${url}?key=${encodeURIComponent(key)}` : url;
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+        };
+
+        if (!isGemini) {
+          headers.Authorization = `Bearer ${key}`;
+        }
+
+        const response = await fetch(requestUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${key}`,
-          },
+          headers,
           body: JSON.stringify(payload),
         });
 
@@ -83,7 +91,6 @@ export const useLLMAgent = () => {
             content: aggregated,
             spec: parser.getResult().document,
           });
-          console.log('aggregated', parser.getResult().document);
         };
 
         const emitUpdate = () => {

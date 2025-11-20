@@ -6,7 +6,7 @@ export type AgentMessage = {
   spec?: Partial<NarrativeTextSpec>;
 };
 
-export type ProviderType = 'openai' | 'deepseek';
+export type ProviderType = 'openai' | 'deepseek' | 'moonshot' | 'qwen' | 'groq' | 'stepfun' | 'gemini' | 'claude';
 
 export type RequestPayload = {
   llmKey?: string;
