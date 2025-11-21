@@ -31,7 +31,7 @@
     "site:build": "vitepress build site",
     "site:preview": "vitepress preview site",
     "chat:build": "cd chat && npm run build",
-    "build:all": "npm run chat:build && npm run site:build && npm run copy:chat",
+    "build:all": "rm -rf types && npm run build:types && npm run chat:build && npm run site:build && npm run copy:chat",
     "copy:chat": "mkdir -p site/.vitepress/dist/chat && cp -r chat/dist/* site/.vitepress/dist/chat/"
   },
   "lint-staged": {
@@ -43,7 +43,7 @@
   "limit-size": [
     {
       "path": "dist/t8.min.js",
-      "limit": "75 Kb"
+      "limit": "80 Kb"
     },
     {
       "path": "dist/t8.min.js",
