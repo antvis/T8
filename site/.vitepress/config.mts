@@ -10,7 +10,7 @@ const createLangConfig = (lang: string, label: string) => {
     link: `/${lang}`,
     themeConfig: {
       nav: [
-        { text: 'Demo', link: '/chat/index', target: 'chat' },
+        { text: 'AI', link: '/chat/index', target: 'chat' },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
         { text: 'Schema', link: `/${lang}/schema/index` },
         { text: 'API', link: `/${lang}/api/index` },
