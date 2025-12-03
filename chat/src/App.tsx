@@ -60,10 +60,10 @@ function App() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
             <div style={{ flex: 1 }}>
               <Typography.Title level={3} className="hero-title">
-                T8 AI Chat Playground
+                文本可视化 AI Agent
               </Typography.Title>
               <Typography.Paragraph type="secondary" className="hero-desc">
-                使用 Ant Design X 打造的聊天体验，接入任意兼容的 LLM，并用 T8 渲染结构化回复。
+                接入任意兼容的 LLM，输入相关的需求，基于 AI + T8 渲染结构化回复，例如：「生成英伟达财报」。
               </Typography.Paragraph>
             </div>
             <Button type="primary" size="large" onClick={() => setIsModalOpen(true)} style={{ marginLeft: 16 }}>
@@ -99,7 +99,7 @@ function App() {
         </Modal>
 
         <footer className="app-footer">
-          <Typography.Text type="secondary">Made with Ant Design X ✕ T8</Typography.Text>
+          <Typography.Text type="secondary">Made with AntV ✕ T8</Typography.Text>
         </footer>
       </div>
     </ConfigProvider>
