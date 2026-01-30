@@ -364,13 +364,14 @@ function parseTextWithFormatting(text: string): PhraseSpec[] {
 
 /**
  * Parses the metadata string from an entity definition.
- * Format: entityType, key1=value1, key2="value2"
+ * Format: entityType, key1=value1, key2="value2", key3=[1,2,3], key4={"a":1}
  *
  * @param metadataString - The metadata string to parse
  * @returns An EntityMetaData object
  */
 function parseEntityMetadata(metadataString: string): EntityMetaData {
-  const parts = metadataString.split(',').map((s) => s.trim());
+  // Split by commas that are not inside brackets or quotes
+  const parts = smartSplit(metadataString);
 
   if (parts.length === 0) {
     throw new Error('Entity must have at least an entityType');
@@ -392,19 +393,10 @@ function parseEntityMetadata(metadataString: string): EntityMetaData {
     }
 
     const key = pair.substring(0, eqIndex).trim();
-    let value: string | number | boolean = pair.substring(eqIndex + 1).trim();
+    const valueStr: string = pair.substring(eqIndex + 1).trim();
 
     // Parse the value
-    // Check if it's a quoted string
-    if (value.startsWith('"') && value.endsWith('"')) {
-      value = value.substring(1, value.length - 1);
-    } else if (value === 'true') {
-      value = true;
-    } else if (value === 'false') {
-      value = false;
-    } else if (!isNaN(Number(value))) {
-      value = Number(value);
-    }
+    const value = parseMetadataValue(valueStr);
 
     // Add to metadata
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -412,4 +404,109 @@ function parseEntityMetadata(metadataString: string): EntityMetaData {
   }
 
   return metadata;
+}
+
+/**
+ * Splits a string by commas, but ignores commas inside brackets/braces/quotes.
+ */
+function smartSplit(str: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let depth = 0; // Track nesting depth of brackets/braces
+  let inQuotes = false;
+  let quoteChar = '';
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    const prevChar = i > 0 ? str[i - 1] : '';
+
+    // Handle quotes
+    if ((char === '"' || char === "'") && prevChar !== '\\') {
+      if (!inQuotes) {
+        inQuotes = true;
+        quoteChar = char;
+      } else if (char === quoteChar) {
+        inQuotes = false;
+        quoteChar = '';
+      }
+      current += char;
+      continue;
+    }
+
+    // If we're inside quotes, just add the character
+    if (inQuotes) {
+      current += char;
+      continue;
+    }
+
+    // Track bracket/brace depth
+    if (char === '[' || char === '{') {
+      depth++;
+      current += char;
+    } else if (char === ']' || char === '}') {
+      depth--;
+      current += char;
+    } else if (char === ',' && depth === 0) {
+      // Only split on commas at depth 0 (not inside brackets/braces)
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  // Add the last part
+  if (current.trim()) {
+    result.push(current.trim());
+  }
+
+  return result;
+}
+
+/**
+ * Parses a metadata value, handling strings, numbers, booleans, arrays, and objects.
+ */
+function parseMetadataValue(valueStr: string): string | number | boolean | unknown[] | Record<string, unknown> {
+  valueStr = valueStr.trim();
+
+  // Check if it's a quoted string
+  if ((valueStr.startsWith('"') && valueStr.endsWith('"')) || (valueStr.startsWith("'") && valueStr.endsWith("'"))) {
+    return valueStr.substring(1, valueStr.length - 1);
+  }
+
+  // Check if it's a boolean
+  if (valueStr === 'true') {
+    return true;
+  }
+  if (valueStr === 'false') {
+    return false;
+  }
+
+  // Check if it's an array
+  if (valueStr.startsWith('[') && valueStr.endsWith(']')) {
+    try {
+      return JSON.parse(valueStr);
+    } catch {
+      // If JSON parsing fails, return as string
+      return valueStr;
+    }
+  }
+
+  // Check if it's an object
+  if (valueStr.startsWith('{') && valueStr.endsWith('}')) {
+    try {
+      return JSON.parse(valueStr);
+    } catch {
+      // If JSON parsing fails, return as string
+      return valueStr;
+    }
+  }
+
+  // Check if it's a number
+  if (!isNaN(Number(valueStr)) && valueStr !== '') {
+    return Number(valueStr);
+  }
+
+  // Return as string
+  return valueStr;
 }

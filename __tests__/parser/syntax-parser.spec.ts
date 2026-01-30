@@ -322,4 +322,64 @@ Total revenue reached [¥5M](metric_value, origin=5000000) with **strong growth*
     expect((paragraphs[3] as BulletsParagraphSpec).isOrder).toBe(true);
     expect((paragraphs[3] as BulletsParagraphSpec).bullets).toHaveLength(3);
   });
+
+  it('should parse entities with array metadata', () => {
+    const syntax = `[ranked 1st](rank, detail=[320, 180, 90, 65, 45])`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrase = result.sections![0].paragraphs![0].phrases[0];
+
+    expect(phrase.type).toBe(PhraseType.ENTITY);
+    expect(phrase.value).toBe('ranked 1st');
+    expect(phrase.metadata?.entityType).toBe('rank');
+    expect(phrase.metadata?.detail).toEqual([320, 180, 90, 65, 45]);
+  });
+
+  it('should parse entities with object metadata', () => {
+    const syntax = `[seasonal peak](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]})`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrase = result.sections![0].paragraphs![0].phrases[0];
+
+    expect(phrase.type).toBe(PhraseType.ENTITY);
+    expect(phrase.value).toBe('seasonal peak');
+    expect(phrase.metadata?.entityType).toBe('seasonality');
+    expect(phrase.metadata?.detail).toEqual({
+      data: [80, 90, 95, 135],
+      range: [0, 150],
+    });
+  });
+
+  it('should parse entities with array of objects metadata', () => {
+    const syntax = `[strong correlation](association, detail=[{"x":100,"y":105},{"x":120,"y":128}])`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrase = result.sections![0].paragraphs![0].phrases[0];
+
+    expect(phrase.type).toBe(PhraseType.ENTITY);
+    expect(phrase.value).toBe('strong correlation');
+    expect(phrase.metadata?.entityType).toBe('association');
+    expect(phrase.metadata?.detail).toEqual([
+      { x: 100, y: 105 },
+      { x: 120, y: 128 },
+    ]);
+  });
+
+  it('should parse entities with mixed metadata types', () => {
+    const syntax = `[test value](metric_value, origin=1234567, unit="元", detail=[1,2,3], active=true)`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrase = result.sections![0].paragraphs![0].phrases[0];
+
+    expect(phrase.type).toBe(PhraseType.ENTITY);
+    expect(phrase.metadata?.entityType).toBe('metric_value');
+    expect(phrase.metadata?.origin).toBe(1234567);
+    expect(phrase.metadata?.unit).toBe('元');
+    expect(phrase.metadata?.detail).toEqual([1, 2, 3]);
+    expect((phrase.metadata as Record<string, unknown>).active).toBe(true);
+  });
 });
