@@ -21,6 +21,35 @@
 
 ## 输出格式要求
 
+你可以使用两种格式输出文章：
+
+### 方式一：T8-DSL 语法（推荐）
+
+使用 T8-DSL 语法，这是一种类 Markdown 格式，支持实体标注：
+
+**语法规则：**
+
+- 使用标准 Markdown 标题：`#` 表示一级标题，`##` 表示二级标题，等等
+- 段落之间用空行分隔
+- 使用以下语法标注实体：`[显示文本](实体类型, key1=value1, key2="value2")`
+  - `显示文本`：要显示的文本
+  - `实体类型`：下表中的实体类型之一
+  - 可选的元数据：`origin=123`、`assessment="positive"` 等
+
+**示例：**
+
+```
+# 2024年第三季度智能手机出货量报告
+
+智能手机总出货量达到 [1.46亿台](metric_value, origin=146000000)，在 [2024年第三季度](time_desc) 实现了 [同比增长8.4%](ratio_value, assessment="positive")。
+
+## 地区分析
+
+[印度](dim_value) 市场贡献了 [4500万台](metric_value, origin=45000000)，占总出货量的 [30.8%](contribute_ratio, origin=0.308, assessment="positive")。
+```
+
+### 方式二：JSON Schema
+
 请严格按照上传的 JSON Schema 结构来撰写文章内容，下面是对 JSON Schema 简单的讲解：
 
 - **顶级结构**：文章应包含一个根对象，其中包含 `headline` 和 `sections` 数组 。

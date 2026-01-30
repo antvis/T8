@@ -21,6 +21,35 @@ Please generate a structured article based on the JSON Schema specification I pr
 
 ## Output format requirements
 
+You can output the article in two formats:
+
+### Option 1: T8-DSL Syntax (Recommended)
+
+Use the T8-DSL syntax, which is a Markdown-like format with entity annotations:
+
+**Syntax Rules:**
+
+- Use standard Markdown headings: `#` for H1, `##` for H2, etc.
+- Separate paragraphs with blank lines
+- Annotate entities using: `[displayText](entityType, key1=value1, key2="value2")`
+  - `displayText`: The text to display
+  - `entityType`: One of the entity types from the table below
+  - Optional metadata: `origin=123`, `assessment="positive"`, etc.
+
+**Example:**
+
+```
+# Q3 2024 Smartphone Shipments Report
+
+Total smartphone shipments reached [146 million units](metric_value, origin=146000000) in [Q3 2024](time_desc), showing a [year-over-year increase of 8.4%](ratio_value, assessment="positive").
+
+## Regional Analysis
+
+The [India](dim_value) market contributed [45 million units](metric_value, origin=45000000), accounting for [30.8%](contribute_ratio, origin=0.308, assessment="positive") of total shipments.
+```
+
+### Option 2: JSON Schema
+
 Please write the article strictly according to the uploaded JSON Schema structure. The following is a brief explanation of JSON Schema:
 
 - **Top Structure**: The article should contain a root object containing an array of `headline` and `sections`.
