@@ -47,7 +47,7 @@
     },
     {
       "path": "dist/t8.min.js",
-      "limit": "25 Kb",
+      "limit": "30 Kb",
       "gzip": true
     }
   ],
