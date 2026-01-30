@@ -69,7 +69,7 @@ describe('Text', () => {
     document.body.appendChild(div);
     const text = new Text(div);
 
-    const dsl = `
+    const syntax = `
 # Sales Report
 
 The total sales are [¥1,234,567](metric_value, origin=1234567).
@@ -79,7 +79,7 @@ The total sales are [¥1,234,567](metric_value, origin=1234567).
 Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
 `;
 
-    text.syntax(dsl).theme('light').render();
+    text.syntax(syntax).theme('light').render();
 
     // Check that the div has content
     expect(div.innerHTML).toContain('Sales Report');

@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { parseDSL } from '../../src/parser/dsl-parser';
+import { parseSyntax } from '../../src/parser/syntax-parser';
 import { ParagraphType, PhraseType } from '../../src/schema';
 
-describe('DSL Parser', () => {
+describe('T8 Syntax Parser', () => {
   it('should parse headings of different levels', () => {
-    const dsl = `
+    const syntax = `
 # Heading 1
 ## Heading 2
 ### Heading 3
 `;
-    const result = parseDSL(dsl);
+    const result = parseSyntax(syntax);
 
     expect(result.sections).toHaveLength(1);
     expect(result.sections![0].paragraphs).toHaveLength(3);
@@ -26,12 +26,12 @@ describe('DSL Parser', () => {
   });
 
   it('should parse paragraphs separated by blank lines', () => {
-    const dsl = `
+    const syntax = `
 First paragraph with some text.
 
 Second paragraph with more text.
 `;
-    const result = parseDSL(dsl);
+    const result = parseSyntax(syntax);
 
     expect(result.sections).toHaveLength(1);
     expect(result.sections![0].paragraphs).toHaveLength(2);
@@ -44,8 +44,8 @@ Second paragraph with more text.
   });
 
   it('should parse simple entities without metadata', () => {
-    const dsl = `The metric is [¥800,000](metric_value).`;
-    const result = parseDSL(dsl);
+    const syntax = `The metric is [¥800,000](metric_value).`;
+    const result = parseSyntax(syntax);
 
     expect(result.sections).toHaveLength(1);
     expect(result.sections![0].paragraphs).toHaveLength(1);
@@ -65,8 +65,8 @@ Second paragraph with more text.
   });
 
   it('should parse entities with metadata key-value pairs', () => {
-    const dsl = `The value is [¥1,234,567](metric_value, origin=1234567, unit="元").`;
-    const result = parseDSL(dsl);
+    const syntax = `The value is [¥1,234,567](metric_value, origin=1234567, unit="元").`;
+    const result = parseSyntax(syntax);
 
     const phrases = result.sections![0].paragraphs![0].phrases;
     expect(phrases).toHaveLength(3); // "The value is ", entity, "."
@@ -80,8 +80,8 @@ Second paragraph with more text.
   });
 
   it('should parse entities with assessment metadata', () => {
-    const dsl = `占比 [64.8%](contribute_ratio, assessment="positive")。`;
-    const result = parseDSL(dsl);
+    const syntax = `占比 [64.8%](contribute_ratio, assessment="positive")。`;
+    const result = parseSyntax(syntax);
 
     const phrases = result.sections![0].paragraphs![0].phrases;
     expect(phrases).toHaveLength(3); // "占比 ", entity, "。"
@@ -93,7 +93,7 @@ Second paragraph with more text.
   });
 
   it('should parse complex document with headings, paragraphs, and entities', () => {
-    const dsl = `
+    const syntax = `
 # 2026年第一季度销售报告
 
 本季度总销售额为 [¥1,234,567](metric_value, origin=1234567, unit="元")，表现出色。
@@ -102,7 +102,7 @@ Second paragraph with more text.
 
 华东地区贡献最大，销售额为 [¥800,000](metric_value)，占比 [64.8%](contribute_ratio, assessment="positive")。
 `;
-    const result = parseDSL(dsl);
+    const result = parseSyntax(syntax);
 
     expect(result.sections).toHaveLength(1);
     expect(result.sections![0].paragraphs).toHaveLength(4);
@@ -130,14 +130,14 @@ Second paragraph with more text.
   });
 
   it('should handle multi-line paragraphs', () => {
-    const dsl = `
+    const syntax = `
 This is a paragraph
 that spans multiple
 lines of text.
 
 This is another paragraph.
 `;
-    const result = parseDSL(dsl);
+    const result = parseSyntax(syntax);
 
     expect(result.sections).toHaveLength(1);
     expect(result.sections![0].paragraphs).toHaveLength(2);
@@ -148,8 +148,8 @@ This is another paragraph.
   });
 
   it('should parse entities with boolean values', () => {
-    const dsl = `Test [value](metric_value, active=true, disabled=false).`;
-    const result = parseDSL(dsl);
+    const syntax = `Test [value](metric_value, active=true, disabled=false).`;
+    const result = parseSyntax(syntax);
 
     const phrases = result.sections![0].paragraphs![0].phrases;
     const entity = phrases[1];
@@ -162,22 +162,22 @@ This is another paragraph.
   });
 
   it('should handle empty input', () => {
-    const dsl = '';
-    const result = parseDSL(dsl);
+    const syntax = '';
+    const result = parseSyntax(syntax);
 
     expect(result.sections).toHaveLength(0);
   });
 
   it('should handle input with only blank lines', () => {
-    const dsl = '\n\n\n';
-    const result = parseDSL(dsl);
+    const syntax = '\n\n\n';
+    const result = parseSyntax(syntax);
 
     expect(result.sections).toHaveLength(0);
   });
 
   it('should parse entities in headings', () => {
-    const dsl = `# Sales Report: [¥1,000,000](metric_value)`;
-    const result = parseDSL(dsl);
+    const syntax = `# Sales Report: [¥1,000,000](metric_value)`;
+    const result = parseSyntax(syntax);
 
     expect(result.sections![0].paragraphs![0].type).toBe(ParagraphType.HEADING1);
     const phrases = result.sections![0].paragraphs![0].phrases;

@@ -6,8 +6,8 @@ if (!container) {
   throw new Error('Container not found');
 }
 
-// Define the DSL string from the problem statement
-const dsl = `
+// Define the T8 Syntax string from the problem statement
+const syntax = `
 # 2026年第一季度销售报告
 
 本季度总销售额为 [¥1,234,567](metric_value, origin=1234567, unit="元")，表现出色。
@@ -21,6 +21,6 @@ const dsl = `
 
 // Create the Text instance and use DSL
 const text = new Text(container);
-text.syntax(dsl).theme('light').render();
+text.syntax(syntax).theme('light').render();
 
-console.log('DSL rendered successfully');
+console.log('T8 Syntax rendered successfully');

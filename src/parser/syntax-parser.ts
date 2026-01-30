@@ -1,18 +1,18 @@
 import { NarrativeTextSpec, ParagraphSpec, ParagraphType, PhraseSpec, PhraseType, EntityMetaData } from '../schema';
 
 /**
- * Parses a T8-DSL string into a NarrativeTextSpec object.
+ * Parses a T8 Syntax string into a NarrativeTextSpec object.
  *
- * The DSL supports:
+ * T8 Syntax supports:
  * - Markdown-style headings (# to ######)
  * - Paragraphs (text separated by blank lines)
  * - Entity syntax: [displayText](entityType, key1=value1, key2="value2")
  *
- * @param dslString - The DSL string to parse
+ * @param syntaxString - The T8 Syntax string to parse
  * @returns A NarrativeTextSpec object
  */
-export function parseDSL(dslString: string): NarrativeTextSpec {
-  const lines = dslString.split('\n');
+export function parseSyntax(syntaxString: string): NarrativeTextSpec {
+  const lines = syntaxString.split('\n');
   const sections: { paragraphs: ParagraphSpec[] }[] = [];
   const currentParagraphs: ParagraphSpec[] = [];
   let currentParagraphLines: string[] = [];

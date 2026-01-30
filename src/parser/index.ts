@@ -1,1 +1,1 @@
-export * from './dsl-parser';
+export * from './syntax-parser';

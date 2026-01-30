@@ -5,7 +5,7 @@ import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
 import { createT8ClarinetParser, T8ClarinetParser, T8ClarinetParseResult } from './utils/t8ClarinetParser';
-import { parseDSL } from './parser';
+import { parseSyntax } from './parser';
 
 /**
  * Text component for rendering narrative text visualizations.
@@ -57,12 +57,12 @@ export class Text extends EE {
   }
 
   /**
-   * Parse and set a T8-DSL string as the schema for the narrative text visualization.
-   * @param dslString - The T8-DSL string to parse and use as the schema.
+   * Parse and set a T8 Syntax string as the schema for the narrative text visualization.
+   * @param syntaxString - The T8 Syntax string to parse and use as the schema.
    * @returns The Text instance for method chaining.
    */
-  syntax(dslString: string) {
-    this.spec = parseDSL(dslString);
+  syntax(syntaxString: string) {
+    this.spec = parseSyntax(syntaxString);
     return this;
   }
 
