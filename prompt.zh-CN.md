@@ -228,9 +228,24 @@ T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记
 
 #### `detail`（任意类型）
 
-额外的上下文或细分数据。可以是数组、对象或字符串。
+额外的上下文或细分数据，用于图表渲染。某些实体类型需要此字段。
 
-**示例：**
+**以下实体类型需要此字段：**
+
+- `rank`：表示排名数据的数字数组
+  - 示例：`[顶尖表现者](rank, detail=[5, 8, 12, 15, 20])`
+- `difference`：显示比较值的数字数组
+  - 示例：`[差距缩小](difference, detail=[100, 80, 60, 40])`
+- `anomaly`：突出异常值的数字数组
+  - 示例：`[异常峰值](anomaly, detail=[10, 12, 11, 45, 13])`
+- `association`：用于相关性数据的 {x, y} 对象数组
+  - 示例：`[强相关性](association, detail=[{"x":1,"y":2},{"x":2,"y":4},{"x":3,"y":6}])`
+- `distribution`：显示数据分布的数字数组
+  - 示例：`[不均匀分布](distribution, detail=[5, 15, 45, 25, 10])`
+- `seasonality`：包含数据数组和可选范围的对象
+  - 示例：`[第四季度高峰](seasonality, detail={"data":[10,12,15,30],"range":[0,40]})`
+
+**其他类型可选：**
 
 - `[稳步增长](trend_desc, detail=[100, 120, 145, 180, 210])`
 - `[区域细分](metric_name, detail={"北方":45, "南方":55})`
@@ -273,17 +288,17 @@ T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记
 [亚太地区](dim_value)仍然是最大的市场，出货量达[6.8亿台](metric_value, origin=680000000)，但这比上一年[减少了1.8亿台](delta_value, origin=-180000000, assessment="negative")。
 
 主要市场：
-- [中国](dim_value)：[3.2亿台](metric_value, origin=320000000) - 下降[8.5%](ratio_value, origin=-0.085, assessment="negative")，全球[排名第1](rank)
-- [印度](dim_value)：[1.8亿台](metric_value, origin=180000000) - 上升[12.3%](ratio_value, origin=0.123, assessment="positive")，[排名第2](rank)
+- [中国](dim_value)：[3.2亿台](metric_value, origin=320000000) - 下降[8.5%](ratio_value, origin=-0.085, assessment="negative")，全球[排名第1](rank, detail=[320, 180, 90, 65, 45])
+- [印度](dim_value)：[1.8亿台](metric_value, origin=180000000) - 上升[12.3%](ratio_value, origin=0.123, assessment="positive")，[排名第2](rank, detail=[320, 180, 90, 65, 45])
 - [东南亚](dim_value)：[1.8亿台](metric_value, origin=180000000) - [保持稳定](trend_desc, assessment="equal")
 
-[中国](dim_value)和[印度](dim_value)之间的[差距为1.4亿台](difference, origin=140000000)，正在[缩小](trend_desc, assessment="neutral")。
+[中国](dim_value)和[印度](dim_value)之间的[差距为1.4亿台](difference, detail=[200, 180, 160, 140])，正在[缩小](trend_desc, assessment="neutral")。
 
 ### 市场动态
 
-销售额与经济指标显示出[强相关性](association, assessment="positive")。[分布](distribution)呈现[不均匀](anomaly)，城市地区出现[意外集中](anomaly)。
+销售额与经济指标显示出[强相关性](association, detail=[{"x":100,"y":105},{"x":120,"y":128},{"x":150,"y":155}])。[分布](distribution, detail=[15, 25, 35, 15, 10])呈现[不均匀](anomaly, detail=[15, 18, 20, 65, 22])，城市地区出现[意外集中](anomaly, detail=[15, 18, 20, 65, 22])。
 
-我们观察到[明显的季节性](seasonality)，[第四季度高峰](seasonality)由节假日购物推动。
+我们观察到[明显的季节性](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]})，[第四季度高峰](seasonality, detail={"data":[80, 90, 95, 135]})由节假日购物推动。
 
 详细方法请访问[我们的研究页面](https://example.com/methodology)。
 ```

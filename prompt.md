@@ -228,9 +228,24 @@ The unit of measurement for the value.
 
 #### `detail` (any)
 
-Additional context or breakdown data. Can be array, object, or string.
+Additional context or breakdown data for chart rendering. Required for certain entity types.
 
-**Examples:**
+**Required for these entity types:**
+
+- `rank`: Array of numbers representing ranking data
+  - Example: `[top performer](rank, detail=[5, 8, 12, 15, 20])`
+- `difference`: Array of numbers showing comparative values
+  - Example: `[gap narrowing](difference, detail=[100, 80, 60, 40])`
+- `anomaly`: Array of numbers highlighting outliers
+  - Example: `[unusual spike](anomaly, detail=[10, 12, 11, 45, 13])`
+- `association`: Array of {x, y} objects for correlation data
+  - Example: `[strong correlation](association, detail=[{"x":1,"y":2},{"x":2,"y":4},{"x":3,"y":6}])`
+- `distribution`: Array of numbers showing data spread
+  - Example: `[uneven distribution](distribution, detail=[5, 15, 45, 25, 10])`
+- `seasonality`: Object with data array and optional range
+  - Example: `[Q4 peak](seasonality, detail={"data":[10,12,15,30],"range":[0,40]})`
+
+**Optional for other types:**
 
 - `[steady growth](trend_desc, detail=[100, 120, 145, 180, 210])`
 - `[regional breakdown](metric_name, detail={"north":45, "south":55})`
@@ -273,17 +288,17 @@ The **premium segment** (devices over $800) showed *remarkable* [resilience](tre
 [Asia-Pacific](dim_value) remains the largest market with [680 million units](metric_value, origin=680000000) shipped, though this represents a [decline of 180 million units](delta_value, origin=-180000000, assessment="negative") from the previous year.
 
 Key markets:
-- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank) globally
-- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank)
+- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank, detail=[320, 180, 90, 65, 45]) globally
+- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank, detail=[320, 180, 90, 65, 45])
 - [Southeast Asia](dim_value): [180M units](metric_value, origin=180000000) - [stable](trend_desc, assessment="equal")
 
-The [difference of 140M units](difference, origin=140000000) between [China](dim_value) and [India](dim_value) is [narrowing](trend_desc, assessment="neutral").
+The [gap of 140M units](difference, detail=[200, 180, 160, 140]) between [China](dim_value) and [India](dim_value) is [narrowing](trend_desc, assessment="neutral").
 
 ### Market Dynamics
 
-Sales showed [strong correlation](association, assessment="positive") with economic indicators. The [distribution](distribution) was [uneven](anomaly), with [unexpected concentration](anomaly) in urban areas.
+Sales showed [strong correlation](association, detail=[{"x":100,"y":105},{"x":120,"y":128},{"x":150,"y":155}]) with economic indicators. The [distribution](distribution, detail=[15, 25, 35, 15, 10]) was [uneven](anomaly, detail=[15, 18, 20, 65, 22]), with [unexpected concentration](anomaly, detail=[15, 18, 20, 65, 22]) in urban areas.
 
-We observed [clear seasonality](seasonality) with [Q4 peaks](seasonality) driven by holiday shopping.
+We observed [clear seasonality](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]}) with [Q4 peaks](seasonality, detail={"data":[80, 90, 95, 135]}) driven by holiday shopping.
 
 For detailed methodology, visit [our research page](https://example.com/methodology).
 ```
