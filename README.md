@@ -53,18 +53,24 @@ The `Text` object then can be imported from T8.
 ```js
 import { Text } from '@antv/t8';
 
-// A text json schema to be visualized.
-const schema = {
-  /*  */
-};
+// A narrative text using T8-DSL syntax.
+const narrativeText = `
+# Sales Report
+
+Total sales reached [¥1,234,567](metric_value, origin=1234567).
+
+## Regional Performance
+
+Eastern region contributed [¥800,000](metric_value), accounting for [64.8%](contribute_ratio, assessment="positive").
+`;
 
 // Instantiate a new Text.
 const text = new Text({
   container: 'container',
 });
 
-// Specify schema visualization.
-text.schema(schema).theme('light');
+// Specify narrative text using syntax method.
+text.syntax(narrativeText).theme('light');
 
 // Render visualization.
 const unmont = text.render();
