@@ -60,7 +60,74 @@ This is the second paragraph, separated by a blank line.
 - Use blank lines to separate distinct paragraphs
 - Text within a paragraph flows naturally
 
-### 2. Entity Annotation Syntax
+#### Lists
+
+T8 Syntax supports both unordered (bullet) and ordered (numbered) lists.
+
+**Unordered Lists (using `-` or `*`):**
+
+```
+- First item
+- Second item
+- Third item
+```
+
+**Ordered Lists (using `1.` `2.` etc.):**
+
+```
+1. First step
+2. Second step
+3. Third step
+```
+
+**Rules:**
+
+- Each list item must be on its own line
+- Add one space after the bullet marker (`-`, `*`) or number (`1.`)
+- Lists can contain entities and text formatting
+- Separate lists from other content with blank lines
+
+### 2. Text Formatting
+
+T8 Syntax supports inline text formatting using Markdown syntax:
+
+**Bold Text:**
+
+```
+This is **bold text** that stands out.
+```
+
+**Italic Text:**
+
+```
+This is *italic text* for emphasis.
+```
+
+**Underline Text:**
+
+```
+This is __underlined text__ for importance.
+```
+
+**Links:**
+
+```
+Visit [our website](https://example.com) for more information.
+```
+
+**Rules:**
+
+- Formatting markers must be balanced (opening and closing)
+- Formatting can be combined with entities in the same paragraph
+- Links use `[text](URL)` syntax where URL starts with `http://`, `https://`, or `/`
+
+**Example:**
+
+```
+The **revenue** increased *significantly*, reaching [¥1.5M](metric_value). See [full report](https://example.com/report).
+```
+
+### 3. Entity Annotation Syntax
 
 The core feature of T8 Syntax is **entity annotation** - marking specific data points with semantic meaning and metadata.
 
@@ -97,7 +164,7 @@ The [sales revenue](metric_name) reached [¥1.5 million](metric_value) this quar
 Revenue grew by [15.3%](ratio_value, origin=0.153, assessment="positive") compared to last year.
 ```
 
-### 3. Entity Types Reference
+### 4. Entity Types Reference
 
 Use these entity types to annotate different kinds of data in your article:
 
@@ -114,7 +181,7 @@ Use these entity types to annotate different kinds of data in your article:
 | `time_desc`          | Time period or timestamp             | When specifying when something occurred       | "Q3 2024", "January-March", "fiscal year 2023" |
 | `proportion`         | Proportion or ratio                  | When expressing parts of a whole              | "3 out of 5", "60% of customers"               |
 
-### 4. Common Metadata Fields
+### 5. Common Metadata Fields
 
 Add these optional fields to provide richer data context:
 
@@ -162,7 +229,7 @@ Additional context or breakdown data. Can be array, object, or string.
 - `[steady growth](trend_desc, detail=[100, 120, 145, 180, 210])`
 - `[regional breakdown](metric_name, detail={"north":45, "south":55})`
 
-### 5. Complete Examples
+### 6. Complete Examples
 
 #### Example 1: Simple Report
 
@@ -176,7 +243,7 @@ Our [total revenue](metric_name) reached [¥2.3 million](metric_value, origin=23
 [North America](dim_value) was the top-performing region with [¥950K](metric_value, origin=950000), accounting for [41.3%](contribute_ratio, origin=0.413, assessment="positive") of total revenue.
 ```
 
-#### Example 2: Complex Analysis with Multiple Entities
+#### Example 2: Complex Analysis with All Features
 
 ```
 # 2024 Smartphone Market Analysis
@@ -185,7 +252,13 @@ Our [total revenue](metric_name) reached [¥2.3 million](metric_value, origin=23
 
 Global smartphone shipments reached [1.2 billion units](metric_value, origin=1200000000) in [2024](time_desc), showing a [modest decline of 2.1%](ratio_value, origin=-0.021, assessment="negative") year-over-year.
 
-The [premium segment](dim_value) (devices over $800) showed [resilience](trend_desc, assessment="positive"), growing by [5.8%](ratio_value, origin=0.058, assessment="positive") and now representing [22%](proportion, origin=0.22) of total market volume.
+The **premium segment** (devices over $800) showed *remarkable* [resilience](trend_desc, assessment="positive"), growing by [5.8%](ratio_value, origin=0.058, assessment="positive").
+
+## Key Findings
+
+1. [Asia-Pacific](dim_value) remains the __largest market__
+2. [Premium devices](dim_value) showed **strong growth**
+3. Budget segment faced *headwinds*
 
 ## Regional Breakdown
 
@@ -197,6 +270,8 @@ Key markets:
 - [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative")
 - [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive")
 - [Southeast Asia](dim_value): [180M units](metric_value, origin=180000000) - [stable](trend_desc, assessment="equal")
+
+For detailed methodology, visit [our research page](https://example.com/methodology).
 ```
 
 ---
