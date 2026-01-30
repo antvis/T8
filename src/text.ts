@@ -61,7 +61,7 @@ export class Text extends EE {
    * @param dslString - The T8-DSL string to parse and use as the schema.
    * @returns The Text instance for method chaining.
    */
-  dsl(dslString: string) {
+  syntax(dslString: string) {
     this.spec = parseDSL(dslString);
     return this;
   }

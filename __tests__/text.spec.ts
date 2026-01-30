@@ -64,7 +64,7 @@ describe('Text', () => {
     expect(div).toBeDOMEqual('text-clear');
   });
 
-  it('dsl method should parse DSL and render', () => {
+  it('syntax method should parse DSL and render', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const text = new Text(div);
@@ -79,7 +79,7 @@ The total sales are [¥1,234,567](metric_value, origin=1234567).
 Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
 `;
 
-    text.dsl(dsl).theme('light').render();
+    text.syntax(dsl).theme('light').render();
 
     // Check that the div has content
     expect(div.innerHTML).toContain('Sales Report');

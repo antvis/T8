@@ -21,6 +21,6 @@ const dsl = `
 
 // Create the Text instance and use DSL
 const text = new Text(container);
-text.dsl(dsl).theme('light').render();
+text.syntax(dsl).theme('light').render();
 
 console.log('DSL rendered successfully');
