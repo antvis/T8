@@ -1,4 +1,12 @@
-import { NarrativeTextSpec, ParagraphSpec, ParagraphType, PhraseSpec, PhraseType, EntityMetaData } from '../schema';
+import {
+  NarrativeTextSpec,
+  ParagraphSpec,
+  ParagraphType,
+  PhraseSpec,
+  PhraseType,
+  EntityMetaData,
+  BulletItemSpec,
+} from '../schema';
 
 /**
  * Parses a T8 Syntax string into a NarrativeTextSpec object.
@@ -6,6 +14,9 @@ import { NarrativeTextSpec, ParagraphSpec, ParagraphType, PhraseSpec, PhraseType
  * T8 Syntax supports:
  * - Markdown-style headings (# to ######)
  * - Paragraphs (text separated by blank lines)
+ * - Bullet lists (- or * for unordered, 1. 2. 3. for ordered)
+ * - Text formatting (**bold**, *italic*, __underline__)
+ * - Links [text](url)
  * - Entity syntax: [displayText](entityType, key1=value1, key2="value2")
  *
  * @param syntaxString - The T8 Syntax string to parse
@@ -16,6 +27,20 @@ export function parseSyntax(syntaxString: string): NarrativeTextSpec {
   const sections: { paragraphs: ParagraphSpec[] }[] = [];
   const currentParagraphs: ParagraphSpec[] = [];
   let currentParagraphLines: string[] = [];
+  let currentBulletLines: string[] = [];
+  let inBulletList = false;
+  let bulletListIsOrdered = false;
+
+  const flushBulletList = () => {
+    if (currentBulletLines.length > 0) {
+      const bulletParagraph = parseBulletList(currentBulletLines, bulletListIsOrdered);
+      if (bulletParagraph) {
+        currentParagraphs.push(bulletParagraph);
+      }
+      currentBulletLines = [];
+      inBulletList = false;
+    }
+  };
 
   const flushParagraph = () => {
     if (currentParagraphLines.length > 0) {
@@ -36,7 +61,8 @@ export function parseSyntax(syntaxString: string): NarrativeTextSpec {
     // Check if it's a heading
     const headingMatch = trimmedLine.match(/^(#{1,6})\s+(.+)$/);
     if (headingMatch) {
-      // Flush any accumulated paragraph
+      // Flush any accumulated content
+      flushBulletList();
       flushParagraph();
 
       const level = headingMatch[1].length;
@@ -55,16 +81,50 @@ export function parseSyntax(syntaxString: string): NarrativeTextSpec {
         type: headingType,
         phrases,
       } as ParagraphSpec);
-    } else if (trimmedLine === '') {
-      // Blank line - flush current paragraph
-      flushParagraph();
-    } else {
-      // Regular text line - accumulate
-      currentParagraphLines.push(line);
+      continue;
     }
+
+    // Check if it's a bullet list item (unordered: - or *)
+    const unorderedBulletMatch = trimmedLine.match(/^[-*]\s+(.+)$/);
+    if (unorderedBulletMatch) {
+      flushParagraph();
+      if (!inBulletList) {
+        inBulletList = true;
+        bulletListIsOrdered = false;
+      }
+      currentBulletLines.push(line);
+      continue;
+    }
+
+    // Check if it's a numbered list item (ordered: 1. 2. 3.)
+    const orderedBulletMatch = trimmedLine.match(/^\d+\.\s+(.+)$/);
+    if (orderedBulletMatch) {
+      flushParagraph();
+      if (!inBulletList) {
+        inBulletList = true;
+        bulletListIsOrdered = true;
+      }
+      currentBulletLines.push(line);
+      continue;
+    }
+
+    // Blank line
+    if (trimmedLine === '') {
+      flushBulletList();
+      flushParagraph();
+      continue;
+    }
+
+    // Regular text line
+    if (inBulletList) {
+      // If we're in a bullet list and hit non-bullet text, end the list
+      flushBulletList();
+    }
+    currentParagraphLines.push(line);
   }
 
-  // Flush any remaining paragraph
+  // Flush any remaining content
+  flushBulletList();
   flushParagraph();
 
   // Create sections from paragraphs
@@ -95,57 +155,207 @@ function parseBlock(text: string): ParagraphSpec | null {
 }
 
 /**
- * Parses inline content (text with entity markers) into an array of PhraseSpec.
- * Handles the [displayText](entityType, key1=value1, key2="value2") syntax.
+ * Parses bullet list lines into a BulletsParagraphSpec.
+ */
+function parseBulletList(lines: string[], isOrdered: boolean): ParagraphSpec | null {
+  if (lines.length === 0) {
+    return null;
+  }
+
+  const bullets: BulletItemSpec[] = [];
+
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+    let content = '';
+
+    // Extract content after bullet marker
+    if (isOrdered) {
+      const match = trimmedLine.match(/^\d+\.\s+(.+)$/);
+      if (match) {
+        content = match[1];
+      }
+    } else {
+      const match = trimmedLine.match(/^[-*]\s+(.+)$/);
+      if (match) {
+        content = match[1];
+      }
+    }
+
+    if (content) {
+      const phrases = parseInlineContent(content);
+      bullets.push({
+        type: 'bullet-item',
+        phrases,
+      });
+    }
+  }
+
+  if (bullets.length === 0) {
+    return null;
+  }
+
+  return {
+    type: ParagraphType.BULLETS,
+    isOrder: isOrdered,
+    bullets,
+  };
+}
+
+/**
+ * Parses inline content (text with entity markers, formatting, and links) into an array of PhraseSpec.
+ * Handles:
+ * - Entity syntax: [displayText](entityType, key1=value1, key2="value2")
+ * - Links: [text](http://url) or [text](https://url)
+ * - Bold: **text**
+ * - Italic: *text*
+ * - Underline: __text__
  */
 function parseInlineContent(text: string): PhraseSpec[] {
   const phrases: PhraseSpec[] = [];
 
-  // Regex to match entity syntax: [displayText](entityType, key1=value1, key2="value2")
-  // This regex captures:
-  // 1. The display text in square brackets
-  // 2. The entity type and metadata in parentheses
-  const entityRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  // Regex to match [...](...) syntax (both entities and links)
+  const bracketRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
 
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
-  while ((match = entityRegex.exec(text)) !== null) {
-    // Add any text before this entity
+  while ((match = bracketRegex.exec(text)) !== null) {
+    // Add any text before this match
     if (match.index > lastIndex) {
       const beforeText = text.substring(lastIndex, match.index);
       if (beforeText) {
-        phrases.push({
-          type: PhraseType.TEXT,
-          value: beforeText,
-        });
+        phrases.push(...parseTextWithFormatting(beforeText));
       }
     }
 
-    // Parse the entity
     const displayText = match[1];
-    const metadataString = match[2];
+    const paramString = match[2];
 
-    // Parse metadata
-    const metadata = parseEntityMetadata(metadataString);
+    // Determine if it's a link or an entity
+    // Links start with http://, https://, or /
+    if (paramString.startsWith('http://') || paramString.startsWith('https://') || paramString.startsWith('/')) {
+      // It's a link
+      phrases.push({
+        type: PhraseType.TEXT,
+        value: displayText,
+        url: paramString,
+      });
+    } else {
+      // It's an entity - parse metadata
+      const metadata = parseEntityMetadata(paramString);
+      phrases.push({
+        type: PhraseType.ENTITY,
+        value: displayText,
+        metadata,
+      });
+    }
 
-    phrases.push({
-      type: PhraseType.ENTITY,
-      value: displayText,
-      metadata,
-    });
-
-    lastIndex = entityRegex.lastIndex;
+    lastIndex = bracketRegex.lastIndex;
   }
 
-  // Add any remaining text after the last entity
+  // Add any remaining text after the last match
   if (lastIndex < text.length) {
     const afterText = text.substring(lastIndex);
     if (afterText) {
-      phrases.push({
-        type: PhraseType.TEXT,
-        value: afterText,
-      });
+      phrases.push(...parseTextWithFormatting(afterText));
+    }
+  }
+
+  return phrases;
+}
+
+/**
+ * Parses text with inline formatting (bold, italic, underline) into text phrases.
+ */
+function parseTextWithFormatting(text: string): PhraseSpec[] {
+  const phrases: PhraseSpec[] = [];
+
+  // Parse formatting markers: **bold**, *italic*, __underline__
+  // We'll process these in order of priority to avoid conflicts
+
+  let currentIndex = 0;
+  const textLength = text.length;
+
+  while (currentIndex < textLength) {
+    let foundFormatting = false;
+
+    // Check for bold (**text**)
+    if (currentIndex + 2 < textLength && text.substring(currentIndex, currentIndex + 2) === '**') {
+      const endIndex = text.indexOf('**', currentIndex + 2);
+      if (endIndex !== -1) {
+        const content = text.substring(currentIndex + 2, endIndex);
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: content,
+          bold: true,
+        });
+        currentIndex = endIndex + 2;
+        foundFormatting = true;
+      }
+    }
+
+    // Check for underline (__text__)
+    if (!foundFormatting && currentIndex + 2 < textLength && text.substring(currentIndex, currentIndex + 2) === '__') {
+      const endIndex = text.indexOf('__', currentIndex + 2);
+      if (endIndex !== -1) {
+        const content = text.substring(currentIndex + 2, endIndex);
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: content,
+          underline: true,
+        });
+        currentIndex = endIndex + 2;
+        foundFormatting = true;
+      }
+    }
+
+    // Check for italic (*text*)
+    if (!foundFormatting && currentIndex + 1 < textLength && text[currentIndex] === '*') {
+      const endIndex = text.indexOf('*', currentIndex + 1);
+      if (endIndex !== -1) {
+        const content = text.substring(currentIndex + 1, endIndex);
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: content,
+          italic: true,
+        });
+        currentIndex = endIndex + 1;
+        foundFormatting = true;
+      }
+    }
+
+    // If no formatting found, accumulate plain text until next formatting marker
+    if (!foundFormatting) {
+      let nextMarkerIndex = textLength;
+      const markers = ['**', '__', '*'];
+
+      for (const marker of markers) {
+        const markerIndex = text.indexOf(marker, currentIndex);
+        if (markerIndex !== -1 && markerIndex < nextMarkerIndex) {
+          nextMarkerIndex = markerIndex;
+        }
+      }
+
+      const plainText = text.substring(currentIndex, nextMarkerIndex);
+      if (plainText) {
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: plainText,
+        });
+      }
+      currentIndex = nextMarkerIndex;
+
+      // If we're at the end and haven't moved, break to avoid infinite loop
+      if (currentIndex === textLength) {
+        break;
+      }
+      if (currentIndex === nextMarkerIndex && nextMarkerIndex === textLength) {
+        break;
+      }
+      // If we found no markers and are not at end, skip one character to avoid infinite loop
+      if (nextMarkerIndex === textLength && currentIndex < textLength) {
+        currentIndex++;
+      }
     }
   }
 

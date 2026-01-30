@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { parseSyntax } from '../../src/parser/syntax-parser';
-import { ParagraphType, PhraseType } from '../../src/schema';
+import { ParagraphType, PhraseType, BulletsParagraphSpec, TextPhraseSpec } from '../../src/schema';
 
 describe('T8 Syntax Parser', () => {
   it('should parse headings of different levels', () => {
@@ -185,5 +185,141 @@ This is another paragraph.
     expect(phrases[0].type).toBe(PhraseType.TEXT);
     expect(phrases[1].type).toBe(PhraseType.ENTITY);
     expect(phrases[1].value).toBe('¥1,000,000');
+  });
+  it('should parse unordered bullet lists', () => {
+    const syntax = `
+# Features
+
+- First item
+- Second item
+- Third item
+`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    expect(result.sections![0].paragraphs).toHaveLength(2);
+
+    const bulletParagraph = result.sections![0].paragraphs![1];
+    expect(bulletParagraph.type).toBe(ParagraphType.BULLETS);
+    expect((bulletParagraph as BulletsParagraphSpec).isOrder).toBe(false);
+    expect((bulletParagraph as BulletsParagraphSpec).bullets).toHaveLength(3);
+    expect((bulletParagraph as BulletsParagraphSpec).bullets[0].phrases[0].value).toBe('First item');
+    expect((bulletParagraph as BulletsParagraphSpec).bullets[1].phrases[0].value).toBe('Second item');
+    expect((bulletParagraph as BulletsParagraphSpec).bullets[2].phrases[0].value).toBe('Third item');
+  });
+
+  it('should parse ordered bullet lists', () => {
+    const syntax = `
+# Steps
+
+1. First step
+2. Second step
+3. Third step
+`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    expect(result.sections![0].paragraphs).toHaveLength(2);
+
+    const bulletParagraph = result.sections![0].paragraphs![1];
+    expect(bulletParagraph.type).toBe(ParagraphType.BULLETS);
+    expect((bulletParagraph as BulletsParagraphSpec).isOrder).toBe(true);
+    expect((bulletParagraph as BulletsParagraphSpec).bullets).toHaveLength(3);
+    expect((bulletParagraph as BulletsParagraphSpec).bullets[0].phrases[0].value).toBe('First step');
+  });
+
+  it('should parse bold text', () => {
+    const syntax = `This is **bold text** in a sentence.`;
+    const result = parseSyntax(syntax);
+
+    const phrases = result.sections![0].paragraphs![0].phrases;
+    expect(phrases).toHaveLength(3);
+    expect(phrases[0].value).toBe('This is ');
+    expect(phrases[1].value).toBe('bold text');
+    expect((phrases[1] as TextPhraseSpec).bold).toBe(true);
+    expect(phrases[2].value).toBe(' in a sentence.');
+  });
+
+  it('should parse italic text', () => {
+    const syntax = `This is *italic text* in a sentence.`;
+    const result = parseSyntax(syntax);
+
+    const phrases = result.sections![0].paragraphs![0].phrases;
+    expect(phrases).toHaveLength(3);
+    expect(phrases[1].value).toBe('italic text');
+    expect((phrases[1] as TextPhraseSpec).italic).toBe(true);
+  });
+
+  it('should parse underline text', () => {
+    const syntax = `This is __underlined text__ in a sentence.`;
+    const result = parseSyntax(syntax);
+
+    const phrases = result.sections![0].paragraphs![0].phrases;
+    expect(phrases).toHaveLength(3);
+    expect(phrases[1].value).toBe('underlined text');
+    expect((phrases[1] as TextPhraseSpec).underline).toBe(true);
+  });
+
+  it('should parse links', () => {
+    const syntax = `Check out [our website](https://example.com) for more info.`;
+    const result = parseSyntax(syntax);
+
+    const phrases = result.sections![0].paragraphs![0].phrases;
+    expect(phrases).toHaveLength(3);
+    expect(phrases[1].value).toBe('our website');
+    expect((phrases[1] as TextPhraseSpec).url).toBe('https://example.com');
+  });
+
+  it('should parse entities with formatting in bullet lists', () => {
+    const syntax = `
+- Revenue: [¥1,000,000](metric_value, origin=1000000)
+- **Growth**: [15%](ratio_value, assessment="positive")
+`;
+    const result = parseSyntax(syntax);
+
+    const bulletParagraph = result.sections![0].paragraphs![0];
+    expect(bulletParagraph.type).toBe(ParagraphType.BULLETS);
+    expect((bulletParagraph as BulletsParagraphSpec).bullets).toHaveLength(2);
+
+    // First bullet has entity
+    const firstBullet = (bulletParagraph as BulletsParagraphSpec).bullets[0];
+    expect(firstBullet.phrases.some((p) => p.type === PhraseType.ENTITY)).toBe(true);
+
+    // Second bullet has bold text and entity
+    const secondBullet = (bulletParagraph as BulletsParagraphSpec).bullets[1];
+    expect(secondBullet.phrases.some((p) => (p as TextPhraseSpec).bold === true)).toBe(true);
+    expect(secondBullet.phrases.some((p) => p.type === PhraseType.ENTITY)).toBe(true);
+  });
+
+  it('should handle mixed content with lists, formatting, and entities', () => {
+    const syntax = `
+# Q3 Report
+
+Total revenue reached [¥5M](metric_value, origin=5000000) with **strong growth**.
+
+## Key Metrics
+
+1. Revenue: [¥5M](metric_value)
+2. Growth: *up* [25%](ratio_value, assessment="positive")
+3. Details at [company site](https://example.com)
+`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const paragraphs = result.sections![0].paragraphs!;
+
+    // Check heading
+    expect(paragraphs[0].type).toBe(ParagraphType.HEADING1);
+
+    // Check paragraph with entity and bold
+    expect(paragraphs[1].type).toBe(ParagraphType.NORMAL);
+
+    // Check subheading
+    expect(paragraphs[2].type).toBe(ParagraphType.HEADING2);
+
+    // Check ordered list
+    expect(paragraphs[3].type).toBe(ParagraphType.BULLETS);
+    expect((paragraphs[3] as BulletsParagraphSpec).isOrder).toBe(true);
+    expect((paragraphs[3] as BulletsParagraphSpec).bullets).toHaveLength(3);
   });
 });
