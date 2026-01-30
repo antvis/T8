@@ -43,11 +43,18 @@ export function parseDSL(dslString: string): NarrativeTextSpec {
       const content = headingMatch[2];
       const phrases = parseInlineContent(content);
 
-      const headingType = `heading${level}` as ParagraphType;
+      const headingType = `heading${level}` as
+        | ParagraphType.HEADING1
+        | ParagraphType.HEADING2
+        | ParagraphType.HEADING3
+        | ParagraphType.HEADING4
+        | ParagraphType.HEADING5
+        | ParagraphType.HEADING6;
+
       currentParagraphs.push({
         type: headingType,
         phrases,
-      });
+      } as ParagraphSpec);
     } else if (trimmedLine === '') {
       // Blank line - flush current paragraph
       flushParagraph();
