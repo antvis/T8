@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T8 DSL Example</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      #root {
+        border: 1px solid #e0e0e0;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #ffffff;
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .description {
+        color: #666;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>T8 DSL Parser Demo</h1>
+    <p class="description">
+      This page demonstrates the T8-DSL parser, which converts a Markdown-like syntax with entity annotations into rich
+      narrative text visualizations.
+    </p>
+    <div id="root"></div>
+    <script src="./t8.min.js"></script>
+    <script>
+      const { Text } = window.T8;
+
+      const dsl = `
+# 2026年第一季度销售报告
+
+本季度总销售额为 [¥1,234,567](metric_value, origin=1234567, unit="元")，表现出色。
+
+## 各地区表现
+
+华东地区贡献最大，销售额为 [¥800,000](metric_value)，占比 [64.8%](contribute_ratio, assessment="positive")。
+
+华南地区紧随其后，但环比 [下降了 5%](ratio_value, assessment="negative")。
+
+### 详细分析
+
+- **东部**：[增长 12%](ratio_value, assessment="positive")
+- **西部**：[持平](ratio_value, assessment="equal")
+- **北部**：[下降 3%](ratio_value, assessment="negative")
+`;
+
+      const container = document.getElementById('root');
+      const text = new Text(container);
+
+      text.dsl(dsl).theme('light').render();
+    </script>
+  </body>
+</html>
