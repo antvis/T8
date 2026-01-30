@@ -168,18 +168,24 @@ Revenue grew by [15.3%](ratio_value, origin=0.153, assessment="positive") compar
 
 Use these entity types to annotate different kinds of data in your article:
 
-| Entity Type          | Description                          | When to Use                                   | Examples                                       |
-| -------------------- | ------------------------------------ | --------------------------------------------- | ---------------------------------------------- |
-| `metric_name`        | Name of a metric or KPI              | When mentioning what you're measuring         | "revenue", "user count", "market share"        |
-| `metric_value`       | Primary metric value                 | The main number/value being reported          | "¥1.5 million", "50,000 users", "250 units"    |
-| `other_metric_value` | Secondary or supporting metric value | Additional metrics that provide context       | "average order value: $120"                    |
-| `delta_value`        | Absolute change/difference           | When showing numeric change between periods   | "+1,200 units", "-$50K", "increased by 500"    |
-| `ratio_value`        | Percentage change/rate               | When showing percentage change                | "+15.3%", "-5.2%", "grew 23%"                  |
-| `contribute_ratio`   | Contribution percentage              | When showing what % something contributes     | "accounts for 45%", "represents 30% of total"  |
-| `trend_desc`         | Trend description                    | Describing direction/pattern of change        | "steadily rising", "declining trend", "stable" |
-| `dim_value`          | Dimensional value/category           | Geographic, categorical, or segmentation data | "North America", "Enterprise segment", "Q3"    |
-| `time_desc`          | Time period or timestamp             | When specifying when something occurred       | "Q3 2024", "January-March", "fiscal year 2023" |
-| `proportion`         | Proportion or ratio                  | When expressing parts of a whole              | "3 out of 5", "60% of customers"               |
+| Entity Type          | Description                          | When to Use                                    | Examples                                                 |
+| -------------------- | ------------------------------------ | ---------------------------------------------- | -------------------------------------------------------- |
+| `metric_name`        | Name of a metric or KPI              | When mentioning what you're measuring          | "revenue", "user count", "market share"                  |
+| `metric_value`       | Primary metric value                 | The main number/value being reported           | "¥1.5 million", "50,000 users", "250 units"              |
+| `other_metric_value` | Secondary or supporting metric value | Additional metrics that provide context        | "average order value: $120"                              |
+| `delta_value`        | Absolute change/difference           | When showing numeric change between periods    | "+1,200 units", "-$50K", "increased by 500"              |
+| `ratio_value`        | Percentage change/rate               | When showing percentage change                 | "+15.3%", "-5.2%", "grew 23%"                            |
+| `contribute_ratio`   | Contribution percentage              | When showing what % something contributes      | "accounts for 45%", "represents 30% of total"            |
+| `trend_desc`         | Trend description                    | Describing direction/pattern of change         | "steadily rising", "declining trend", "stable"           |
+| `dim_value`          | Dimensional value/category           | Geographic, categorical, or segmentation data  | "North America", "Enterprise segment", "Q3"              |
+| `time_desc`          | Time period or timestamp             | When specifying when something occurred        | "Q3 2024", "January-March", "fiscal year 2023"           |
+| `proportion`         | Proportion or ratio                  | When expressing parts of a whole               | "3 out of 5", "60% of customers"                         |
+| `rank`               | Ranking or position                  | When indicating order or position in a list    | "ranked 1st", "top 3", "5th place"                       |
+| `difference`         | Comparative difference               | When highlighting difference between two items | "difference of $50K", "gap of 200 units"                 |
+| `anomaly`            | Unusual or unexpected value          | When pointing out outliers or anomalies        | "unusual spike", "unexpected drop"                       |
+| `association`        | Relationship or correlation          | When describing connections between metrics    | "strongly correlated", "linked to", "related"            |
+| `distribution`       | Data distribution pattern            | When describing how data is spread             | "evenly distributed", "concentrated in", "spread across" |
+| `seasonality`        | Seasonal pattern or trend            | When describing recurring seasonal patterns    | "seasonal peak", "holiday period", "Q4 surge"            |
 
 ### 5. Common Metadata Fields
 
@@ -267,9 +273,17 @@ The **premium segment** (devices over $800) showed *remarkable* [resilience](tre
 [Asia-Pacific](dim_value) remains the largest market with [680 million units](metric_value, origin=680000000) shipped, though this represents a [decline of 180 million units](delta_value, origin=-180000000, assessment="negative") from the previous year.
 
 Key markets:
-- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative")
-- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive")
+- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank) globally
+- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank)
 - [Southeast Asia](dim_value): [180M units](metric_value, origin=180000000) - [stable](trend_desc, assessment="equal")
+
+The [difference of 140M units](difference, origin=140000000) between [China](dim_value) and [India](dim_value) is [narrowing](trend_desc, assessment="neutral").
+
+### Market Dynamics
+
+Sales showed [strong correlation](association, assessment="positive") with economic indicators. The [distribution](distribution) was [uneven](anomaly), with [unexpected concentration](anomaly) in urban areas.
+
+We observed [clear seasonality](seasonality) with [Q4 peaks](seasonality) driven by holiday shopping.
 
 For detailed methodology, visit [our research page](https://example.com/methodology).
 ```
