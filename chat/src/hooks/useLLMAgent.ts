@@ -91,7 +91,9 @@ export const useLLMAgent = () => {
             spec = parseSyntax(aggregated);
           } catch (error) {
             // If parsing fails (e.g., incomplete content), use partial content
-            console.warn('Parsing incomplete T8 syntax during streaming', error);
+            console.warn(
+              `Failed to parse incomplete T8 syntax during streaming: ${error instanceof Error ? error.message : String(error)}`,
+            );
             spec = undefined;
           }
 
@@ -170,7 +172,7 @@ export const useLLMAgent = () => {
         try {
           finalSpec = parseSyntax(aggregated);
         } catch (error) {
-          console.warn('Failed to parse final T8 syntax', error);
+          console.warn(`Failed to parse final T8 syntax: ${error instanceof Error ? error.message : String(error)}`);
           finalSpec = undefined;
         }
 
