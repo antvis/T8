@@ -4,7 +4,7 @@ title: 流式输出
 
 # 流式输出
 
-在某些场景下，你可能希望以流式或增量的方式渲染叙述文本，比如从服务端分片接收数据，或模拟实时更新。T8 提供了便捷的 API：`text.streamRender`。
+在某些场景下，你可能希望以流式或增量的方式渲染叙述文本，比如从服务端分片接收数据，或模拟实时更新。使用简化后的 T8 API，你可以通过多次调用 `text.render()` 并传入更新后的 T8 语法字符串来实现。
 
 ## 什么时候需要流式输出？
 
@@ -14,13 +14,12 @@ title: 流式输出
 
 ## T8 的流式原理
 
-`Text` 类暴露了 `streamRender` 方法，可以不断追加 JSON 片段并增量更新可视化。内部采用流式 JSON 解析器，支持不完整或分块数据。
+`Text` 类的 `render` 方法可以被多次调用，每次传入逐步完整的 T8 语法字符串。每次调用都会用更新的内容重新渲染可视化，创造流式效果。
 
-## 流式渲染事例
+## 流式渲染示例
 
 ```typescript
-import { Text } from 't8';
-import spec from './example.json';
+import { Text } from '@antv/t8';
 
 const app = document.getElementById('app');
 const text = new Text(app!);
@@ -31,17 +30,27 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// 模拟流式数据
+// 将被逐步构建的 T8 语法字符串
+const fullSyntax = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+`;
+
+// 通过逐步展示内容来模拟流式数据
 async function streamingRender() {
-  const value = JSON.stringify(spec, null, 2).split('\n');
-  for (let i = 0; i < value.length; i++) {
-    await delay(Math.random() * 30 + 20); // 模拟网络延迟
-    text.streamRender(value[i]);
+  const step = 10; // 每步展示的字符数
+  for (let i = 0; i <= fullSyntax.length; i += step) {
+    await delay(50); // 模拟网络延迟
+    const chunk = fullSyntax.slice(0, i);
+    text.render(chunk);
   }
 }
 
 streamingRender().then(() => {
-  console.log('All data processed.');
+  console.log('所有数据已渲染。');
 });
 ```
 
@@ -49,604 +58,47 @@ streamingRender().then(() => {
 
 ```ts index.ts
 import { Text } from '@antv/t8';
-import spec from './example.json';
 
 const app = document.getElementById('app');
 const text = new Text(app!);
+text.theme('light');
 
-// Utility: delay for a given ms
+// 工具函数：延迟指定毫秒
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Mock streaming data
+// 将被逐步构建的 T8 语法字符串
+const fullSyntax = `
+# 本季度销售额高于往常
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。共完成了 [29 笔交易](metric_value)，[平均交易额](metric_name) 为 [¥12k](metric_value)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。相比去年同期上涨了 [¥106.1k](delta_value, assessment="positive")。
+`;
+
+// 通过逐步展示内容来模拟流式数据
 async function streamingRender() {
-  const value = JSON.stringify(spec, null, 2).split('\n');
-  for (let i = 0; i < value.length; i++) {
-    await delay(Math.random() * 30 + 20); // Simulate network latency
-    text.streamRender(value[i]);
+  const step = 10; // 每步展示的字符数
+  for (let i = 0; i <= fullSyntax.length; i += step) {
+    await delay(50); // 模拟网络延迟
+    const chunk = fullSyntax.slice(0, i);
+    text.render(chunk);
   }
 }
 
 streamingRender().then(() => {
-  console.log('All data processed.');
+  console.log('所有数据已渲染。');
 });
-```
-
-```json example.json
-{
-  "sections": [
-    {
-      "paragraphs": [
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "This quarter, "
-            },
-            {
-              "type": "entity",
-              "value": "bookings",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are higher than usual for this point in the quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$348k",
-              "metadata": {
-                "entityType": "metric_value",
-                "origin": 348.12
-              }
-            },
-            {
-              "type": "text",
-              "value": ". "
-            },
-            {
-              "type": "text",
-              "value": "They were made up of "
-            },
-            {
-              "type": "entity",
-              "value": "29 deals",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ", "
-            },
-            {
-              "type": "text",
-              "value": "with the "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "being "
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": "."
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "entity",
-              "value": "Bookings ",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are up "
-            },
-            {
-              "type": "entity",
-              "value": "$180.3k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are up "
-            },
-            {
-              "type": "entity",
-              "value": "$106.1k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last year. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$110k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "46.2%",
-              "metadata": {
-                "entityType": "contribute_ratio"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "greater than average bookings at the same time each quarter over the previous year. "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "Looking across the most relevant dimensions, "
-            },
-            {
-              "type": "text",
-              "value": "the "
-            },
-            {
-              "type": "entity",
-              "value": "increase",
-              "metadata": {
-                "entityType": "trend_desc",
-                "detail": [1, 2, 6, 18, 24, 48]
-              }
-            },
-            {
-              "type": "text",
-              "value": " relative to the same time last quarter was primarily driven by"
-            }
-          ]
-        },
-        {
-          "type": "bullets",
-          "isOrder": false,
-          "bullets": [
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "Prospecting",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "lead source"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$50.6k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all lead sources.",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx1"
-                  }
-                }
-              ],
-              "subBullet": {
-                "type": "bullets",
-                "isOrder": true,
-                "bullets": [
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 1"
-                      }
-                    ],
-                    "subBullet": {
-                      "type": "bullets",
-                      "isOrder": false,
-                      "bullets": [
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.1, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "45%",
-                              "metadata": {
-                                "entityType": "proportion",
-                                "origin": 0.45
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.2, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "65%",
-                              "metadata": {
-                                "entityType": "proportion"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 2"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "entity",
-                  "value": "Keely Townsend",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$86.2k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all account executives",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx2"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "New Client",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "opportunity type"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$160.1k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all opportunity types",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx3"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "number of deals",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "29",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is up "
-            },
-            {
-              "type": "entity",
-              "value": "17",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "12",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is down "
-            },
-            {
-              "type": "entity",
-              "value": "$2k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "negative"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$14k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "headline": {
-    "type": "headline",
-    "phrases": [
-      {
-        "type": "text",
-        "value": "Bookings This Quarter Higher than Usual"
-      }
-    ]
-  }
-}
 ```
 
 :::
 
 ## API 参考
 
-- `text.streamRender(newJSONFragment: string, options?: { onError?: (error: string) => void; onComplete?: (result: T8ClarinetParseResult) => void; })`
-  - 附加 JSON 片段并尝试解析/更新可视化效果。
-  - 如果解析失败，则调用 `onError`；如果解析到有效文档，则调用 `onComplete`。
+- `text.render(content?: string | NarrativeTextSpec)`
+  - 使用提供的 T8 语法字符串或 NarrativeTextSpec 对象渲染可视化。
+  - 可以多次调用以增量更新可视化。
+  - 解析错误将被优雅处理并记录到控制台。
 - `text.clear()`
-  - 重置内部解析器并清除可视化效果。
+  - 通过卸载来清除可视化。

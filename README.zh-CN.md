@@ -68,14 +68,12 @@ const text = new Text({
   container: 'container',
 });
 
-// 使用 syntax 方法指定叙述性文本
-text.syntax(narrativeText).theme('dark');
+// 使用 render 方法传入 T8 语法字符串
+text.theme('dark').render(narrativeText);
 
-// 渲染
-const unmont = text.render();
-
-// 销毁
-unmont();
+// 卸载
+const unmount = text.render(narrativeText);
+unmount();
 ```
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。

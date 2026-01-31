@@ -16,18 +16,6 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | --------- | --------------------- | -------- | ------------------------------------------------------- |
 | container | string \| HTMLElement | Yes      | Container element, can be a DOM selector or DOM element |
 
-#### schema
-
-| Parameter | Type              | Required | Description                             |
-| --------- | ----------------- | -------- | --------------------------------------- |
-| spec      | NarrativeTextSpec | Yes      | Text visualization specification object |
-
-**Return Value**
-
-| Type | Description                             |
-| ---- | --------------------------------------- |
-| Text | Text instance, supports method chaining |
-
 #### theme
 
 | Parameter | Type                        | Required | Description        |
@@ -53,24 +41,13 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | ---- | --------------------------------------- |
 | Text | Text instance, supports method chaining |
 
-#### streamRender
-
-| Parameter       | Type   | Required | Description                                                                             |
-| --------------- | ------ | -------- | --------------------------------------------------------------------------------------- |
-| newJSONFragment | string | Yes      | A JSON string fragment to append and parse incrementally.                               |
-| options         | object | No       | Optional callbacks: onError (error: string), onComplete (result: T8ClarinetParseResult) |
-
-#### clear
-
-| Parameter | Type | Required | Description |
-| --------- | ---- | -------- | ----------- |
-| (none)    |      |          |             |
-
 #### render
 
-| Parameter | Type | Required | Description |
-| --------- | ---- | -------- | ----------- |
-| (none)    |      |          |             |
+Renders the narrative text visualization. Accepts either a T8 syntax string or a NarrativeTextSpec object.
+
+| Parameter | Type                        | Required | Description                                            |
+| --------- | --------------------------- | -------- | ------------------------------------------------------ |
+| content   | string \| NarrativeTextSpec | No       | T8 syntax string or NarrativeTextSpec object to render |
 
 **Return Value**
 
@@ -78,7 +55,30 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | -------- | -------------------------------------------- |
 | function | Unmount function to remove the visualization |
 
+**Usage Examples**
+
+```typescript
+// Render with T8 syntax string
+text.theme('light').render(`
+  # Sales Report
+  Total sales are [¥1,234,567](metric_value).
+`);
+
+// Render with NarrativeTextSpec object
+text.render(spec);
+```
+
+#### clear
+
+Clears the visualization by unmounting it.
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
 #### unmount
+
+Unmounts the visualization component.
 
 | Parameter | Type | Required | Description |
 | --------- | ---- | -------- | ----------- |

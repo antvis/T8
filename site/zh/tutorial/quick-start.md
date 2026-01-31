@@ -75,14 +75,12 @@ const narrativeText = `
 // 实例化 Text
 const text = new Text(document.getElementById('app'));
 
-// 使用 syntax 方法指定叙述性文本
-text.syntax(narrativeText).theme('dark');
+// 使用 render 方法传入 T8 语法字符串
+text.theme('dark').render(narrativeText);
 
-// 渲染
-const unmont = text.render();
-
-// 销毁
-unmont();
+// 卸载
+const unmount = text.render(narrativeText);
+unmount();
 ```
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
@@ -106,11 +104,8 @@ const narrativeText = `
 // 实例化 Text
 const text = new Text(document.getElementById('app'));
 
-// 使用 syntax 方法指定叙述性文本
-text.syntax(narrativeText).theme('light');
-
-// 渲染
-text.render();
+// 使用 render 方法传入 T8 语法字符串
+text.theme('light').render(narrativeText);
 ```
 
 :::
@@ -132,11 +127,8 @@ import spec from './example.json';
 // 实例化 Text
 const text = new Text(document.getElementById('app'));
 
-// 指定可视化元素
-text.schema(spec).theme('light');
-
-// 渲染
-text.render();
+// 使用 render 方法传入 spec 对象
+text.theme('light').render(spec);
 ```
 
 ```json example.json

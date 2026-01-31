@@ -75,14 +75,12 @@ This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](m
 // Instantiate Text
 const text = new Text(document.getElementById('app'));
 
-// Specify narrative text using syntax method
-text.syntax(narrativeText).theme('dark');
+// Render with T8 syntax string
+text.theme('dark').render(narrativeText);
 
-// Render
-const unmont = text.render();
-
-// Destroy
-unmont();
+// Unmount
+const unmount = text.render(narrativeText);
+unmount();
 ```
 
 If you haven't encountered any other issues, you should get the following clear data text visualization effect.
@@ -106,11 +104,8 @@ This quarter, [bookings](metric_name) are higher than usual for this point in th
 // Instantiate Text
 const text = new Text(document.getElementById('app'));
 
-// Use syntax method to specify narrative text
-text.syntax(narrativeText).theme('light');
-
-// Render
-text.render();
+// Render with T8 syntax string
+text.theme('light').render(narrativeText);
 ```
 
 :::
@@ -132,11 +127,8 @@ import spec from './example.json';
 // Instantiate Text
 const text = new Text(document.getElementById('app'));
 
-// Specify visualization elements
-text.schema(spec).theme('light');
-
-// Render
-text.render();
+// Render with spec object
+text.theme('light').render(spec);
 ```
 
 ```json example.json

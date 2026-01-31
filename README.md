@@ -69,14 +69,12 @@ const text = new Text({
   container: 'container',
 });
 
-// Specify narrative text using syntax method.
-text.syntax(narrativeText).theme('light');
+// Render with T8 syntax string
+text.theme('light').render(narrativeText);
 
-// Render visualization.
-const unmont = text.render();
-
-// Destroy.
-unmont();
+// Unmount
+const unmount = text.render(narrativeText);
+unmount();
 ```
 
 If all goes well, you can get the following narrative text visualization!
