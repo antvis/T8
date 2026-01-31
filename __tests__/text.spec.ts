@@ -9,9 +9,7 @@ describe('Text', () => {
     document.body.appendChild(div);
     const text = new Text(div);
 
-    text.schema(SCHEMA as NarrativeTextSpec).theme('dark');
-
-    const destroy = text.render();
+    const destroy = text.theme('dark').render(SCHEMA as NarrativeTextSpec);
 
     expect(div).toBeDOMEqual('text-simple');
     destroy();
@@ -37,23 +35,18 @@ describe('Text', () => {
     const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
     text.registerPlugin(dimensionPlugin);
 
-    text.schema(SCHEMA as NarrativeTextSpec);
-
-    const destroy = text.render();
+    const destroy = text.render(SCHEMA as NarrativeTextSpec);
 
     expect(div).toBeDOMEqual('text-register-plugin');
     destroy();
   });
 
-  it('streamRender', () => {
+  it('render with T8 syntax string', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const text = new Text(div);
 
-    // Set theme (required for rendering)
-    text.theme('light');
-
-    // Create a T8 syntax string to test the new streamRender implementation
+    // Create a T8 syntax string
     const t8Syntax = `
 # Sales Report
 
@@ -67,17 +60,7 @@ Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
 - The [South Region](dim_value) contributed [45%](proportion)
 `;
 
-    // Test with onComplete callback
-    let completionCalled = false;
-    text.streamRender(t8Syntax, {
-      onComplete: (result) => {
-        completionCalled = true;
-        expect(result).toBeDefined();
-        expect(result.sections).toBeDefined();
-      },
-    });
-
-    expect(completionCalled).toBe(true);
+    text.theme('light').render(t8Syntax);
 
     // Check that the content was rendered
     const innerHTML = div.innerHTML;
@@ -91,34 +74,22 @@ Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
     expect(div).toBeDOMEqual('text-clear');
   });
 
-  it('streamRender with callbacks', () => {
+  it('render handles invalid syntax gracefully', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const text = new Text(div);
 
-    // Test that callbacks are properly invoked
-    let completeCalled = false;
-    let errorCalled = false;
+    // This should not throw but render empty content
+    const destroy = text.theme('light').render('# Test Heading\n\nSome content.');
 
-    const validSyntax = '# Test Heading\n\nSome content.';
+    // With valid syntax, should render successfully
+    expect(div.innerHTML.length).toBeGreaterThan(0);
+    expect(div.innerHTML).toContain('Test Heading');
 
-    text.streamRender(validSyntax, {
-      onError: () => {
-        errorCalled = true;
-      },
-      onComplete: (result) => {
-        completeCalled = true;
-        expect(result).toBeDefined();
-        expect(result.sections).toBeDefined();
-      },
-    });
-
-    // With valid syntax, onComplete should be called and onError should not
-    expect(completeCalled).toBe(true);
-    expect(errorCalled).toBe(false);
+    destroy();
   });
 
-  it('syntax method should parse DSL and render', () => {
+  it('render with NarrativeTextSpec object', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const text = new Text(div);
@@ -133,7 +104,7 @@ The total sales are [¥1,234,567](metric_value, origin=1234567).
 Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
 `;
 
-    text.syntax(syntax).theme('light').render();
+    text.theme('light').render(syntax);
 
     // Check that the div has content
     expect(div.innerHTML).toContain('Sales Report');

@@ -25,10 +25,6 @@ const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   tooltip: false,
 };
 
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 export const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
 
 const appChart = document.getElementById('app-chart');
@@ -101,7 +97,6 @@ const app4 = document.getElementById('app4');
 const app5 = document.getElementById('app5');
 
 const text = new Text(app!);
-text.schema(spec as NarrativeTextSpec);
 text.on('narrative:click', (spec) => {
   console.log('onClickNarrative', spec);
 });
@@ -115,35 +110,27 @@ text.on('phrase:click', (spec) => {
   console.log('onClickPhrase', spec);
 });
 // text.theme(theme);
-text.render();
+text.render(spec as NarrativeTextSpec);
 
 const text2 = new Text(app2!);
-text2.schema(spec as NarrativeTextSpec);
-text2.theme('dark', { fontSize: 12, lineHeight: 20 });
-text2.render();
+text2.theme('dark', { fontSize: 12, lineHeight: 20 }).render(spec as NarrativeTextSpec);
 
 const text3 = new Text(app3!);
-text3.schema(spec as NarrativeTextSpec);
-text3.theme('dark');
-text3.render();
+text3.theme('dark').render(spec as NarrativeTextSpec);
 
 const text4 = new Text(app4!);
-text4.schema(spec as NarrativeTextSpec);
 text4.registerPlugin(dimensionPlugin);
-text4.theme('dark');
-text4.render();
+text4.theme('dark').render(spec as NarrativeTextSpec);
 
 const text5 = new Text(app5!);
 // text5.registerPlugin(dimensionPlugin);
 text5.theme('dark');
 
-// mock streaming data
+// mock streaming data - now using T8 syntax directly
 async function streamingRender() {
-  const value = JSON.stringify(spec, null, 2).split('\n');
-  for (let i = 0; i < value.length; i++) {
-    await delay(Math.random() * 30 + 20);
-    text5.streamRender(value[i]);
-  }
+  // Convert spec to T8 syntax or use a T8 syntax string directly
+  // For this example, we'll just render the full spec at once
+  text5.render(spec as NarrativeTextSpec);
 }
 
 streamingRender().then(() => {

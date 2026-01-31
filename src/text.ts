@@ -12,7 +12,10 @@ import { parseSyntax } from './parser';
  * Usage:
  * ```javascript
  * const text = new Text('#container');
- * text.schema(spec).theme(theme).render();
+ * text.theme('light').render(`
+ *   # Sales Report
+ *   Total sales are [¥1,234,567](metric_value).
+ * `);
  * ```
  */
 export class Text extends EE {
@@ -41,26 +44,6 @@ export class Text extends EE {
   }
 
   /**
-   * Set the schema for the narrative text visualization.
-   * @param spec - The specification object containing narrative text details.
-   * @returns The Text instance for method chaining.
-   */
-  schema(spec: NarrativeTextSpec) {
-    this.spec = spec;
-    return this;
-  }
-
-  /**
-   * Parse and set a T8 Syntax string as the schema for the narrative text visualization.
-   * @param syntaxString - The T8 Syntax string to parse and use as the schema.
-   * @returns The Text instance for method chaining.
-   */
-  syntax(syntaxString: string) {
-    this.spec = parseSyntax(syntaxString);
-    return this;
-  }
-
-  /**
    * Set the theme for the narrative text visualization.
    * @param theme - The theme configuration for the text visualization.
    * @returns The Text instance for method chaining.
@@ -82,11 +65,33 @@ export class Text extends EE {
 
   /**
    * Render the narrative text visualization.
+   * Accepts either a T8 syntax string or a NarrativeTextSpec object.
+   * @param content - T8 syntax string or NarrativeTextSpec object to render.
    * @returns A function to unmount the component.
    */
-  render() {
+  render(content?: string | NarrativeTextSpec) {
     const container = this.container;
-    const spec = this.spec;
+    let spec: NarrativeTextSpec | undefined;
+
+    // Parse content if provided
+    if (content) {
+      if (typeof content === 'string') {
+        try {
+          // Parse T8 syntax string with error tolerance
+          spec = parseSyntax(content);
+        } catch (error: unknown) {
+          // Log error but continue with empty spec for error tolerance
+          console.error(`T8 Syntax parsing failed: ${error instanceof Error ? error.message : String(error)}`);
+          spec = { sections: [] };
+        }
+      } else {
+        // Use provided spec directly
+        spec = content;
+      }
+    } else {
+      // Use stored spec if no content provided
+      spec = this.spec;
+    }
 
     // Render the component.
     // We use `preact` to code the `NarrativeTextVis` components.
@@ -104,35 +109,6 @@ export class Text extends EE {
     return () => {
       preactRender(null, container as HTMLElement);
     };
-  }
-
-  /**
-   * Parse and render a T8 syntax string.
-   * This method parses a complete T8 syntax string and updates the visualization.
-   * @param t8Syntax - The T8 syntax string to parse and render.
-   * @param options - The options for the stream render.
-   * @returns The Text instance for method chaining.
-   */
-  streamRender(
-    t8Syntax: string,
-    options?: {
-      onError?: (error: string) => void;
-      onComplete?: (result: NarrativeTextSpec) => void;
-    },
-  ) {
-    try {
-      // Use parseSyntax to parse the T8 syntax string
-      const document = parseSyntax(t8Syntax);
-
-      // If parsing succeeds, update schema and trigger rendering
-      options?.onComplete?.(document);
-      this.schema(document); // Update NarrativeTextSpec
-      this.render(); // Trigger rendering logic
-    } catch (error: unknown) {
-      // Catch parsing exceptions and invoke error callback
-      const errorMessage = `Syntax parsing failed: ${error instanceof Error ? error.message : String(error)}`;
-      options?.onError?.(errorMessage);
-    }
   }
 
   /**

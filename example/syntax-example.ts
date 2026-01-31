@@ -56,8 +56,7 @@ async function streamingRender() {
   while (count < syntax.length) {
     const chunk = syntax.slice(0, count + step);
     count += step;
-    text.syntax(chunk);
-    text.render();
+    text.render(chunk);
     await delay(100);
   }
 }
