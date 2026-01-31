@@ -1,6 +1,5 @@
 import { type NarrativeTextSpec, ParagraphType, Text } from '../src';
-// import spec from './example.json';
-import $spec from './test_json3.json';
+import spec from './example.json';
 
 import { createDimensionValue } from '../src/plugin/presets/createDimensionValue';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin/types';
@@ -16,11 +15,7 @@ import {
   renderDistribution,
   renderAssociationChart,
 } from '../src/charts';
-import { restore as restoreJson } from '../src/utils/schema-simplified';
 
-const spec = restoreJson($spec);
-
-console.info(JSON.stringify(spec).length, JSON.stringify($spec).length);
 const dimensionValueDescriptor: SpecificEntityPhraseDescriptor = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   style: (value, _, themeSeedToken) => ({
