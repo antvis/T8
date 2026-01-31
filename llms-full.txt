@@ -1301,7 +1301,13 @@ The latest standard JSON Schema definition for `T8` is as follows, or fetch from
         "trend_desc",
         "dim_value",
         "time_desc",
-        "proportion"
+        "proportion",
+        "rank",
+        "difference",
+        "anomaly",
+        "association",
+        "distribution",
+        "seasonality"
       ],
       "type": "string"
     },
@@ -2886,16 +2892,20 @@ After installation, you can export the `Text` object and API from the T8 library
 ```js
 import { Text } from '@antv/t8';
 
-// Schema to be visualized
-const spec = {
-  /*  */
-};
+// Narrative text using T8-DSL syntax
+const narrativeText = `
+# Sales Report
+
+This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](metric_value, origin=348.12).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter.
+`;
 
 // Instantiate Text
 const text = new Text(document.getElementById('app'));
 
-// Specify visualization elements
-text.schema(spec).theme('dark');
+// Specify narrative text using syntax method
+text.syntax(narrativeText).theme('dark');
 
 // Render
 const unmont = text.render();
@@ -2905,6 +2915,34 @@ unmont();
 ```
 
 If you haven't encountered any other issues, you should get the following clear data text visualization effect.
+
+You can also use the T8-DSL syntax for a more intuitive way to create narrative text:
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+
+// Narrative text using T8-DSL syntax
+const narrativeText = `
+# Bookings This Quarter Higher than Usual
+
+This quarter, [bookings](metric_name) are higher than usual for this point in the quarter. They are [¥348k](metric_value, origin=348.12). They were made up of [29 deals](metric_value), with the [average deal size](metric_name) being [¥12k](metric_value).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter. They are up [¥106.1k](delta_value, assessment="positive") relative to the same time last year.
+`;
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Use syntax method to specify narrative text
+text.syntax(narrativeText).theme('light');
+
+// Render
+text.render();
+```
+
+:::
 
 ::: my-sandbox {template=vanilla-ts}
 
@@ -4846,85 +4884,376 @@ Through this approach, we can provide users with an AI Agent application or use 
 
 ## Prompt Engineering
 
-````md
-You are an experienced data analyst who is good at writing structured, informative articles based on a given topic and real data.
+`````md
+You are an experienced data analyst who is good at writing structured, informative articles based on a given topic and real data using T8 Syntax.
 
 ---
 
 ## Mission Objective
 
-Please generate a structured article based on the JSON Schema specification I provided, combined with the given topic content or specific data. The content of the article must strictly follow the output format and entity labeling requirements.
+Please generate a structured article using **T8 Syntax**, combined with the given topic content or specific data. The content must strictly follow the T8 Syntax format and entity labeling requirements.
 
 ---
 
 ## Data Requirements
 
 - All data must be from **publicly authentic data sources**, including but not limited to:
-- Official announcement/financial report.
-- Authoritative financial and technological media reports (such as Reuters, Bloomberg, Caixin.com, TechCrunch, etc.).
-- Reports from well-known industry research institutions (such as IDC, Canalys, Counterpoint Research, etc.).
-- **The use of any fictional, AI guessing, simulated or unproven non-public data is strictly prohibited. **
-- The data must be ** specific numbers** (for example, "146 million units", "7058 units"), rather than vague approximate numbers (such as "millions", "dozens").
+  - Official announcement/financial report
+  - Authoritative financial and technological media reports (such as Reuters, Bloomberg, Caixin.com, TechCrunch, etc.)
+  - Reports from well-known industry research institutions (such as IDC, Canalys, Counterpoint Research, etc.)
+- **The use of any fictional, AI guessing, simulated or unproven non-public data is strictly prohibited**
+- The data must be **specific numbers** (for example, "146 million units", "7058 units"), rather than vague approximate numbers (such as "millions", "dozens")
 
 ---
 
-## Output format requirements
+## T8 Syntax Specification
 
-Please write the article strictly according to the uploaded JSON Schema structure. The following is a brief explanation of JSON Schema:
+T8 Syntax is a Markdown-like language for creating narrative text with semantic entity annotations. It makes data analysis reports more expressive and visually appealing.
 
-- **Top Structure**: The article should contain a root object containing an array of `headline` and `sections`.
-- **Structural Elements**: Inside the `sections` array, use elements such as `paragraph`, `phrase` to construct the article content.
+### 1. Document Structure
 
-- `section`: represents a main chapter of the article and should contain an array of `paragraphs`.
-- `paragraph`: Represents a paragraph containing an array of `phrases` and the current `paragraph` `type`, whose `phrases` array consists of `text` and `entity` elements.
-- `bullet`: used to represent the entire list.
-- `bullet-item`: used to express an item in the list.
-- `text`: Used for normal text content.
-- `entity`: Used to annotate phrases or values ​​with specific meanings, and its `metadata` contains `entity_type` and `value`.
+#### Headings (6 levels)
+
+Use standard Markdown heading syntax to create document structure:
+
+```
+# Level 1 Heading (Main Title)
+## Level 2 Heading (Section)
+### Level 3 Heading (Subsection)
+#### Level 4 Heading
+##### Level 5 Heading
+###### Level 6 Heading
+```
+
+**Rules:**
+
+- Each heading must be on its own line
+- Add one space after the `#` symbols
+- Headings create visual hierarchy in the rendered output
+
+#### Paragraphs
+
+Regular text paragraphs are separated by blank lines:
+
+```
+This is the first paragraph with some content.
+
+This is the second paragraph, separated by a blank line.
+```
+
+**Rules:**
+
+- Paragraphs can span multiple lines
+- Use blank lines to separate distinct paragraphs
+- Text within a paragraph flows naturally
+
+#### Lists
+
+T8 Syntax supports both unordered (bullet) and ordered (numbered) lists.
+
+**Unordered Lists (using `-` or `*`):**
+
+```
+- First item
+- Second item
+- Third item
+```
+
+**Ordered Lists (using `1.` `2.` etc.):**
+
+```
+1. First step
+2. Second step
+3. Third step
+```
+
+**Rules:**
+
+- Each list item must be on its own line
+- Add one space after the bullet marker (`-`, `*`) or number (`1.`)
+- Lists can contain entities and text formatting
+- Separate lists from other content with blank lines
+
+### 2. Text Formatting
+
+T8 Syntax supports inline text formatting using Markdown syntax:
+
+**Bold Text:**
+
+```
+This is **bold text** that stands out.
+```
+
+**Italic Text:**
+
+```
+This is *italic text* for emphasis.
+```
+
+**Underline Text:**
+
+```
+This is __underlined text__ for importance.
+```
+
+**Links:**
+
+```
+Visit [our website](https://example.com) for more information.
+```
+
+**Rules:**
+
+- Formatting markers must be balanced (opening and closing)
+- Formatting can be combined with entities in the same paragraph
+- Links use `[text](URL)` syntax where URL starts with `http://`, `https://`, or `/`
+
+**Example:**
+
+```
+The **revenue** increased *significantly*, reaching [¥1.5M](metric_value). See [full report](https://example.com/report).
+```
+
+### 3. Entity Annotation Syntax
+
+The core feature of T8 Syntax is **entity annotation** - marking specific data points with semantic meaning and metadata.
+
+#### Basic Entity Syntax
+
+```
+[displayText](entityType)
+```
+
+- `displayText`: The text shown to readers
+- `entityType`: The semantic type of this entity (see entity types table below)
+
+**Example:**
+
+```
+The [sales revenue](metric_name) reached [¥1.5 million](metric_value) this quarter.
+```
+
+#### Entity with Metadata
+
+```
+[displayText](entityType, key1=value1, key2=value2, key3="string value")
+```
+
+**Metadata Rules:**
+
+- Separate multiple metadata fields with commas
+- Numbers and booleans: write directly (e.g., `origin=1500000`, `active=true`)
+- Strings: wrap in double quotes (e.g., `unit="元"`, `region="Asia"`)
+
+**Example:**
+
+```
+Revenue grew by [15.3%](ratio_value, origin=0.153, assessment="positive") compared to last year.
+```
+
+### 4. Entity Types Reference
+
+Use these entity types to annotate different kinds of data in your article:
+
+| Entity Type          | Description                          | When to Use                                    | Examples                                                 |
+| -------------------- | ------------------------------------ | ---------------------------------------------- | -------------------------------------------------------- |
+| `metric_name`        | Name of a metric or KPI              | When mentioning what you're measuring          | "revenue", "user count", "market share"                  |
+| `metric_value`       | Primary metric value                 | The main number/value being reported           | "¥1.5 million", "50,000 users", "250 units"              |
+| `other_metric_value` | Secondary or supporting metric value | Additional metrics that provide context        | "average order value: $120"                              |
+| `delta_value`        | Absolute change/difference           | When showing numeric change between periods    | "+1,200 units", "-$50K", "increased by 500"              |
+| `ratio_value`        | Percentage change/rate               | When showing percentage change                 | "+15.3%", "-5.2%", "grew 23%"                            |
+| `contribute_ratio`   | Contribution percentage              | When showing what % something contributes      | "accounts for 45%", "represents 30% of total"            |
+| `trend_desc`         | Trend description                    | Describing direction/pattern of change         | "steadily rising", "declining trend", "stable"           |
+| `dim_value`          | Dimensional value/category           | Geographic, categorical, or segmentation data  | "North America", "Enterprise segment", "Q3"              |
+| `time_desc`          | Time period or timestamp             | When specifying when something occurred        | "Q3 2024", "January-March", "fiscal year 2023"           |
+| `proportion`         | Proportion or ratio                  | When expressing parts of a whole               | "3 out of 5", "60% of customers"                         |
+| `rank`               | Ranking or position                  | When indicating order or position in a list    | "ranked 1st", "top 3", "5th place"                       |
+| `difference`         | Comparative difference               | When highlighting difference between two items | "difference of $50K", "gap of 200 units"                 |
+| `anomaly`            | Unusual or unexpected value          | When pointing out outliers or anomalies        | "unusual spike", "unexpected drop"                       |
+| `association`        | Relationship or correlation          | When describing connections between metrics    | "strongly correlated", "linked to", "related"            |
+| `distribution`       | Data distribution pattern            | When describing how data is spread             | "evenly distributed", "concentrated in", "spread across" |
+| `seasonality`        | Seasonal pattern or trend            | When describing recurring seasonal patterns    | "seasonal peak", "holiday period", "Q4 surge"            |
+
+### 5. Common Metadata Fields
+
+Add these optional fields to provide richer data context:
+
+#### `origin` (number)
+
+The raw numerical value behind the displayed text.
+
+**Examples:**
+
+- `[¥1.5M](metric_value, origin=1500000)`
+- `[23.7%](ratio_value, origin=0.237)`
+- `[5.2K users](metric_value, origin=5200)`
+- `[3 out of 4 of the budget segment](proportion, origin=0.75)`
+
+**Why use it:** Enables data visualization, sorting, and calculations
+
+#### `assessment` (string)
+
+Evaluates whether a change is positive, negative, or neutral.
+
+**Valid values:** `"positive"`, `"negative"`, `"equal"`, `"neutral"`
+
+**Examples:**
+
+- `[increased 15%](ratio_value, assessment="positive")`
+- `[dropped 8%](ratio_value, assessment="negative")`
+- `[remained flat](trend_desc, assessment="equal")`
+
+**Why use it:** Enables visual indicators (colors, icons) for good/bad trends
+
+#### `unit` (string)
+
+The unit of measurement for the value.
+
+**Examples:**
+
+- `[¥1,500,000](metric_value, unit="元", origin=1500000)`
+- `[150](metric_value, unit="units")`
+
+#### `detail` (any)
+
+Additional context or breakdown data for chart rendering. Required for certain entity types.
+
+**Required for these entity types:**
+
+- `rank`: Array of numbers representing ranking data
+  - Example: `[top performer](rank, detail=[5, 8, 12, 15, 20])`
+- `difference`: Array of numbers showing comparative values
+  - Example: `[gap narrowing](difference, detail=[100, 80, 60, 40])`
+- `anomaly`: Array of numbers highlighting outliers
+  - Example: `[unusual spike](anomaly, detail=[10, 12, 11, 45, 13])`
+- `association`: Array of {x, y} objects for correlation data
+  - Example: `[strong correlation](association, detail=[{"x":1,"y":2},{"x":2,"y":4},{"x":3,"y":6}])`
+- `distribution`: Array of numbers showing data spread
+  - Example: `[uneven distribution](distribution, detail=[5, 15, 45, 25, 10])`
+- `seasonality`: Object with data array and optional range
+  - Example: `[Q4 peak](seasonality, detail={"data":[10,12,15,30],"range":[0,40]})`
+
+**Optional for other types:**
+
+- `[steady growth](trend_desc, detail=[100, 120, 145, 180, 210])`
+- `[regional breakdown](metric_name, detail={"north":45, "south":55})`
+
+### 6. Complete Examples
+
+#### Example 1: Simple Report
+
+```
+# Q3 2024 Sales Report
+
+Our [total revenue](metric_name) reached [¥2.3 million](metric_value, origin=2300000, unit="元") in [Q3 2024](time_desc), representing a [growth of 18.5%](ratio_value, origin=0.185, assessment="positive") compared to the previous quarter.
+
+## Regional Performance
+
+[North America](dim_value) was the top-performing region with [¥950K](metric_value, origin=950000), accounting for [41.3%](contribute_ratio, origin=0.413, assessment="positive") of total revenue.
+```
+
+#### Example 2: Complex Analysis with All Features
+
+```
+# 2024 Smartphone Market Analysis
+
+## Market Overview
+
+Global [smartphone shipments](metric_name) reached [1.2 billion units](metric_value, origin=1200000000) in [2024](time_desc), showing a [modest decline of 2.1%](ratio_value, origin=-0.021, assessment="negative") year-over-year.
+
+The **premium segment** (devices over $800) showed *remarkable* [resilience](trend_desc, assessment="positive"), growing by [5.8%](ratio_value, origin=0.058, assessment="positive"). [Average selling price](other_metric_value) was [$420](metric_value, origin=420, unit="USD").
+
+## Key Findings
+
+1. [Asia-Pacific](dim_value) remains the __largest market__
+2. [Premium devices](dim_value) showed **strong growth**
+3. Budget segment faced *headwinds*
+
+## Regional Breakdown
+
+### Asia-Pacific
+
+[Asia-Pacific](dim_value) remains the largest market with [680 million units](metric_value, origin=680000000) shipped, though this represents a [decline of 180 million units](delta_value, origin=-180000000, assessment="negative") from the previous year.
+
+Key markets:
+- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank, detail=[320, 180, 90, 65, 45]) globally, accounting for [47%](contribute_ratio, origin=0.47, assessment="positive") of regional sales
+- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank, detail=[320, 180, 90, 65, 45]), representing [3 out of 4](proportion, origin=0.75) of the budget segment
+- [Southeast Asia](dim_value): [180M units](metric_value, origin=180000000) - [stable](trend_desc, assessment="equal")
+
+The [gap of 140M units](difference, detail=[200, 180, 160, 140]) between [China](dim_value) and [India](dim_value) is [narrowing](trend_desc, assessment="neutral").
+
+### Market Dynamics
+
+Sales showed [strong correlation](association, detail=[{"x":100,"y":105},{"x":120,"y":128},{"x":150,"y":155}]) with economic indicators. The [distribution](distribution, detail=[15, 25, 35, 15, 10]) was [uneven](anomaly, detail=[15, 18, 20, 65, 22]), with [unexpected concentration](anomaly, detail=[15, 18, 20, 65, 22]) in urban areas.
+
+We observed [clear seasonality](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]}) with [Q4 peaks](seasonality, detail={"data":[80, 90, 95, 135]}) driven by holiday shopping.
+
+For detailed methodology, visit [our research page](https://example.com/methodology).
+```
 
 ---
 
-## `entity` Writing specifications
+## Writing Guidelines
 
-### Entity label type (`entity_type` list)
+### Content Requirements
 
-Below is a list of types supported by entity phrases. Please be sure to strictly mark entities according to the following table:
+1. **Minimum Length:** No less than 800 words (adjust based on data complexity)
+2. **Structure:** Clear hierarchy with logical flow between sections
+3. **Analysis:** Don't just list numbers - explain their significance and context
+4. **Tone:** Natural, fluent, objective, and professional
+5. **Entity Usage:** Annotate ALL meaningful data points - metrics, values, trends, times, changes, percentages
 
-| Type                 | Description                | Example                               |
-| -------------------- | -------------------------- | ------------------------------------- |
-| `metric_name`        | Indicator name             | "Shipment", "Growth Rate"             |
-| `metric_value`       | Main indicator value       | "146 million units", "120 factories"  |
-| `other_metric_value` | Other metric values        | "$19.2 billion"                       |
-| `delta_value`        | Difference                 | "+120"                                |
-| `ratio_value`        | Rate                       | "+8.4%", "9%"                         |
-| `contribute_ratio`   | Contribution               | "40%"                                 |
-| `trend_desc`         | Trend Description          | "Continuously Rising", "Stable"       |
-| `dim_value`          | Dimensional identification | "India", "Jiangsu", "Overseas Market" |
-| `time_desc`          | Time stamp                 | "Q3 2024", "all year"                 |
-| `proportion`         | Proportion description     | "30%"                                 |
+### Entity Annotation Best Practices
 
-When possible, it is required to use as much key information in the sentence as possible to replace ordinary `text` (such as indicators, values, time, numbers, etc.), to ensure the diversity of generated text and improve readability. (In particular, it is necessary to increase the frequency of usage of the phrases `delta_value`, `ratio_value`, `proportion`).
+1. **Be Comprehensive:** Mark all quantitative data, not just major figures
+2. **Use Appropriate Types:** Choose the entity type that best describes the semantic meaning
+3. **Add Metadata:** Include `origin`, `assessment`, and other relevant fields when applicable
+4. **Natural Flow:** Entities should blend seamlessly into readable prose
 
-### `entity` optional field (highly recommended)
+### What to Annotate
 
-Try to add the following fields for each `entity` to enrich the structure and information:
+✅ **DO annotate:**
 
-- `origin`: The exact numerical representation of the data itself in the original source (for example, for "146 million units", its original value might be `146 million units", and for "13.9%", its original value might be `0.139221`).
-- `assessment`: Based on official data, judge the growth or changing trend of this indicator (only `'positive'` | `'negative'` | `'equal'` | `'neutral'`).
-- `detail`: Supplementary data description of entity content (for example, in the face of `trend_desc`, `detail` should be an array of specific data, such as `[2,3,4,1,7]`).
+- All numeric values (revenue, counts, measurements)
+- All percentages (changes, contributions, proportions)
+- Metric names and KPIs
+- Time periods
+- Geographic regions and categories
+- Trend descriptions
+- Comparisons and changes
+
+❌ **DON'T annotate:**
+
+- Generic text without specific data meaning
+- Connecting phrases and transitions
+- Context that doesn't represent measurable concepts
 
 ---
 
-## Other Requirements
+## Output Format
 
-- The total number of words in the article should be no less than 800 Chinese characters (please adjust the specific number of words according to the actual amount of information).
-- The content of the article must be clear and clear in structure to ensure a natural transition between paragraphs and chapters.
-- Provide the most appropriate explanation and trend analysis of the data, not just listing numbers, but also reflecting the meaning behind the data.
-- The language of the article should be natural, fluent, objective and professional, and avoid colloquialism, marketing colors, and unnecessary physical or numerical stacking.
-- In the final output JSON, the `definitions` part can be omitted directly, I only need the body JSON content.
-- In the final output, no unnecessary description and fast wrapping of `markdown` code is needed(such as \```json{}\```), I just want JSON Schema in plain text.
+**Important:** Output ONLY the T8 Syntax content. Do not wrap it in code blocks or add explanatory text.
+
+**Correct:**
+
+```
+# Sales Report
+
+Revenue reached [¥1.5M](metric_value, origin=1500000)...
+```
+
+**Incorrect:**
 
 ````
+Here is the T8 Syntax output:
+
+```t8syntax
+# Sales Report
+...
+```
+````
+
+`````
 
 ## JSON Schema
 
@@ -5116,7 +5445,13 @@ We provide the latest standard JSON Schema definition for `T8`, used for generat
         "trend_desc",
         "dim_value",
         "time_desc",
-        "proportion"
+        "proportion",
+        "rank",
+        "difference",
+        "anomaly",
+        "association",
+        "distribution",
+        "seasonality"
       ],
       "type": "string"
     },
@@ -5906,16 +6241,20 @@ $ yarn add @antv/t8
 ```js
 import { Text } from '@antv/t8';
 
-// 待可视化的 schema
-const spec = {
-  /*  */
-};
+// 使用 T8-DSL 语法编写的叙述性文本
+const narrativeText = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+`;
 
 // 实例化 Text
 const text = new Text(document.getElementById('app'));
 
-// 指定可视化元素
-text.schema(spec).theme('dark');
+// 使用 syntax 方法指定叙述性文本
+text.syntax(narrativeText).theme('dark');
 
 // 渲染
 const unmont = text.render();
@@ -5925,6 +6264,34 @@ unmont();
 ```
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
+
+你也可以使用 T8-DSL 语法，这是一种更直观的创建叙述性文本的方式：
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+
+// 使用 T8-DSL 语法编写的叙述性文本
+const narrativeText = `
+# 本季度销售额高于往常
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。共完成了 [29 笔交易](metric_value)，[平均交易额](metric_name) 为 [¥12k](metric_value)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。相比去年同期上涨了 [¥106.1k](delta_value, assessment="positive")。
+`;
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 使用 syntax 方法指定叙述性文本
+text.syntax(narrativeText).theme('light');
+
+// 渲染
+text.render();
+```
+
+:::
 
 ::: my-sandbox {template=vanilla-ts}
 
@@ -6729,7 +7096,13 @@ url: /zh/schema/structure.md
         "trend_desc",
         "dim_value",
         "time_desc",
-        "proportion"
+        "proportion",
+        "rank",
+        "difference",
+        "anomaly",
+        "association",
+        "distribution",
+        "seasonality"
       ],
       "type": "string"
     },
@@ -8130,85 +8503,376 @@ url: /zh/tutorial/advanced/llm.md
 
 ## 提示词 Prompt
 
-````md
-你是一位经验丰富的数据分析师, 擅长根据给定主题和真实数据，撰写结构化、信息丰富的文章。
+`````md
+你是一位经验丰富的数据分析师，擅长使用 T8 Syntax 根据给定主题和真实数据撰写结构化、信息丰富的文章。
 
 ---
 
 ## 任务目标
 
-请根据我提供的 JSON Schema 规范，结合给定的**主题内容**或者**具体数据**，生成一篇结构化的文章。文章内容需严格遵循输出格式和实体标注要求。
+请使用 **T8 Syntax** 生成一篇结构化文章，结合给定的主题内容或具体数据。文章内容需严格遵循 T8 Syntax 格式和实体标注要求。
 
 ---
 
 ## 数据要求
 
 - 所有数据必须来源于**公开真实的数据源**，包括但不限于：
-  - 官方公告/财报。
-  - 权威财经、科技媒体报道（如路透社、彭博社、财新网、TechCrunch 等）。
-  - 知名行业研究机构报告（如 IDC、Canalys、Counterpoint Research 等）。
-- **严禁使用任何虚构、AI猜测、模拟或未经证实的非公开数据。**
-- 数据必须是**具体的数字**（例如，“1.46亿台”、“7058台”），而非模糊的大概数字（如“几百万”、“数十辆”）。
+  - 官方公告/财报
+  - 权威财经、科技媒体报道（如路透社、彭博社、财新网、TechCrunch 等）
+  - 知名行业研究机构报告（如 IDC、Canalys、Counterpoint Research 等）
+- **严禁使用任何虚构、AI猜测、模拟或未经证实的非公开数据**
+- 数据必须是**具体的数字**（例如，"1.46亿台"、"7058台"），而非模糊的大概数字（如"几百万"、"数十辆"）
 
 ---
 
-## 输出格式要求
+## T8 Syntax 规范
 
-请严格按照上传的 JSON Schema 结构来撰写文章内容，下面是对 JSON Schema 简单的讲解：
+T8 Syntax 是一种类 Markdown 的语言，用于创建带有语义实体标注的叙述性文本。它使数据分析报告更具表现力和视觉吸引力。
 
-- **顶级结构**：文章应包含一个根对象，其中包含 `headline` 和 `sections` 数组 。
-- **结构元素**：在 `sections` 数组内部，使用 `paragraph`、`phrase` 等元素来构建文章内容。
+### 1. 文档结构
 
-  - `section`：代表文章的一个主要章节，应包含 `paragraphs` 数组。
-  - `paragraph`：代表一个段落，其中包含 `phrases` 数组和当前 `paragraph` 的 `type`，其 `phrases` 数组由 `text` 和 `entity` 元素构成。
-  - `bullet`：用于表示列表整体。
-  - `bullet-item`：用于表述列表中的某个项。
-  - `text`：用于普通文本内容。
-  - `entity`：用于标注具有特定含义的短语或数值，其 `metadata` 包含 `entity_type` 和 `value`。
+#### 标题（6 级）
+
+使用标准 Markdown 标题语法创建文档结构：
+
+```
+# 一级标题（主标题）
+## 二级标题（章节）
+### 三级标题（子章节）
+#### 四级标题
+##### 五级标题
+###### 六级标题
+```
+
+**规则：**
+
+- 每个标题必须独占一行
+- 在 `#` 符号后添加一个空格
+- 标题在渲染输出中创建视觉层次结构
+
+#### 段落
+
+常规文本段落通过空行分隔：
+
+```
+这是第一段，包含一些内容。
+
+这是第二段，通过空行分隔。
+```
+
+**规则：**
+
+- 段落可以跨越多行
+- 使用空行分隔不同的段落
+- 段落内的文本自然流动
+
+#### 列表
+
+T8 Syntax 支持无序（项目符号）和有序（编号）列表。
+
+**无序列表（使用 `-` 或 `*`）：**
+
+```
+- 第一项
+- 第二项
+- 第三项
+```
+
+**有序列表（使用 `1.` `2.` 等）：**
+
+```
+1. 第一步
+2. 第二步
+3. 第三步
+```
+
+**规则：**
+
+- 每个列表项必须独占一行
+- 在项目符号（`-`、`*`）或数字（`1.`）后添加一个空格
+- 列表可以包含实体和文本格式
+- 用空行将列表与其他内容分隔开
+
+### 2. 文本格式
+
+T8 Syntax 支持使用 Markdown 语法的内联文本格式：
+
+**粗体文本：**
+
+```
+这是**粗体文本**，很突出。
+```
+
+**斜体文本：**
+
+```
+这是*斜体文本*，用于强调。
+```
+
+**下划线文本：**
+
+```
+这是__下划线文本__，表示重要性。
+```
+
+**链接：**
+
+```
+访问[我们的网站](https://example.com)了解更多信息。
+```
+
+**规则：**
+
+- 格式标记必须平衡（开始和结束）
+- 格式可以与实体在同一段落中组合
+- 链接使用 `[文本](URL)` 语法，其中 URL 以 `http://`、`https://` 或 `/` 开头
+
+**示例：**
+
+```
+**收入**显著*增长*，达到 [150万元](metric_value)。查看[完整报告](https://example.com/report)。
+```
+
+### 3. 实体标注语法
+
+T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记特定的数据点。
+
+#### 基本实体语法
+
+```
+[显示文本](实体类型)
+```
+
+- `显示文本`：向读者显示的文本
+- `实体类型`：此实体的语义类型（见下方实体类型表）
+
+**示例：**
+
+```
+本季度[销售收入](metric_name)达到[150万元](metric_value)。
+```
+
+#### 带元数据的实体
+
+```
+[显示文本](实体类型, key1=value1, key2=value2, key3="字符串值")
+```
+
+**元数据规则：**
+
+- 用逗号分隔多个元数据字段
+- 数字和布尔值：直接书写（例如，`origin=1500000`、`active=true`）
+- 字符串：用双引号包裹（例如，`unit="元"`、`region="亚洲"`）
+
+**示例：**
+
+```
+收入同比增长[15.3%](ratio_value, origin=0.153, assessment="positive")。
+```
+
+### 4. 实体类型参考
+
+使用这些实体类型来标注文章中不同类型的数据：
+
+| 实体类型             | 描述               | 使用场景                   | 示例                                       |
+| -------------------- | ------------------ | -------------------------- | ------------------------------------------ |
+| `metric_name`        | 指标或 KPI 名称    | 提及正在测量的内容时       | "收入"、"用户数"、"市场份额"               |
+| `metric_value`       | 主要指标值         | 报告的主要数字/值          | "150万元"、"5万用户"、"250台"              |
+| `other_metric_value` | 次要或支持性指标值 | 提供上下文的额外指标       | "平均订单价值：120元"                      |
+| `delta_value`        | 绝对变化/差值      | 显示期间之间的数值变化时   | "+1200台"、"-5万元"、"增加500"             |
+| `ratio_value`        | 百分比变化/比率    | 显示百分比变化时           | "+15.3%"、"-5.2%"、"增长23%"               |
+| `contribute_ratio`   | 贡献百分比         | 显示某物贡献的百分比时     | "占45%"、"占总数的30%"                     |
+| `trend_desc`         | 趋势描述           | 描述变化的方向/模式        | "稳步上升"、"下降趋势"、"稳定"             |
+| `dim_value`          | 维度值/类别        | 地理、分类或细分数据       | "华东地区"、"企业客户"、"第三季度"         |
+| `time_desc`          | 时间段或时间戳     | 指定事件发生时间时         | "2024年第三季度"、"1-3月"、"2023财年"      |
+| `proportion`         | 比例或比率         | 表达整体的一部分时         | "五分之三"、"60%的客户"                    |
+| `rank`               | 排名或位置         | 指示列表中的顺序或位置时   | "排名第1"、"前3名"、"第5位"                |
+| `difference`         | 比较差异           | 突出两项之间的差异时       | "差额5万元"、"相差200台"                   |
+| `anomaly`            | 异常或意外值       | 指出异常值或离群值时       | "异常峰值"、"意外下降"                     |
+| `association`        | 关系或关联         | 描述指标之间的联系时       | "强相关"、"关联到"、"相关"                 |
+| `distribution`       | 数据分布模式       | 描述数据如何分布时         | "均匀分布"、"集中在"、"分散在"             |
+| `seasonality`        | 季节性模式或趋势   | 描述重复出现的季节性模式时 | "季节性高峰"、"节假日期间"、"第四季度激增" |
+
+### 5. 常用元数据字段
+
+添加这些可选字段以提供更丰富的数据上下文：
+
+#### `origin`（数字）
+
+显示文本背后的原始数值。
+
+**示例：**
+
+- `[150万](metric_value, origin=1500000)`
+- `[23.7%](ratio_value, origin=0.237)`
+- `[5.2千用户](metric_value, origin=5200)`
+- `[三分之四的场景](proportion, origin=0.75)`
+
+**使用原因：** 支持数据可视化、排序和计算
+
+#### `assessment`（字符串）
+
+评估变化是正面、负面还是中性的。
+
+**有效值：** `"positive"`、`"negative"`、`"equal"`、`"neutral"`
+
+**示例：**
+
+- `[增长15%](ratio_value, assessment="positive")`
+- `[下降8%](ratio_value, assessment="negative")`
+- `[保持稳定](trend_desc, assessment="equal")`
+
+**使用原因：** 支持好/坏趋势的视觉指示器（颜色、图标）
+
+#### `unit`（字符串）
+
+值的测量单位。
+
+**示例：**
+
+- `[150万元](metric_value, unit="元", origin=1500000)`
+- `[150](metric_value, unit="台")`
+
+#### `detail`（任意类型）
+
+额外的上下文或细分数据，用于图表渲染。某些实体类型需要此字段。
+
+**以下实体类型需要此字段：**
+
+- `rank`：表示排名数据的数字数组
+  - 示例：`[顶尖表现者](rank, detail=[5, 8, 12, 15, 20])`
+- `difference`：显示比较值的数字数组
+  - 示例：`[差距缩小](difference, detail=[100, 80, 60, 40])`
+- `anomaly`：突出异常值的数字数组
+  - 示例：`[异常峰值](anomaly, detail=[10, 12, 11, 45, 13])`
+- `association`：用于相关性数据的 {x, y} 对象数组
+  - 示例：`[强相关性](association, detail=[{"x":1,"y":2},{"x":2,"y":4},{"x":3,"y":6}])`
+- `distribution`：显示数据分布的数字数组
+  - 示例：`[不均匀分布](distribution, detail=[5, 15, 45, 25, 10])`
+- `seasonality`：包含数据数组和可选范围的对象
+  - 示例：`[第四季度高峰](seasonality, detail={"data":[10,12,15,30],"range":[0,40]})`
+
+**其他类型可选：**
+
+- `[稳步增长](trend_desc, detail=[100, 120, 145, 180, 210])`
+- `[区域细分](metric_name, detail={"北方":45, "南方":55})`
+
+### 6. 完整示例
+
+#### 示例 1：简单报告
+
+```
+# 2024年第三季度销售报告
+
+我们的[总收入](metric_name)达到[230万元](metric_value, origin=2300000, unit="元")，在[2024年第三季度](time_desc)，相比上一季度实现了[18.5%的增长](ratio_value, origin=0.185, assessment="positive")。
+
+## 区域表现
+
+[华东地区](dim_value)是表现最好的地区，收入为[95万元](metric_value, origin=950000)，占总收入的[41.3%](contribute_ratio, origin=0.413, assessment="positive")。
+```
+
+#### 示例 2：包含所有特性的复杂分析
+
+```
+# 2024年智能手机市场分析
+
+## 市场概况
+
+全球[智能手机出货量](metric_name)在[2024年](time_desc)达到[12亿台](metric_value, origin=1200000000)，同比[小幅下降2.1%](ratio_value, origin=-0.021, assessment="negative")。
+
+**高端市场**（售价超过800美元的设备）表现出*显著的*[韧性](trend_desc, assessment="positive")，增长了[5.8%](ratio_value, origin=0.058, assessment="positive")。[平均售价](other_metric_value)为[420美元](metric_value, origin=420, unit="美元")。
+
+## 主要发现
+
+1. [亚太地区](dim_value)仍是__最大市场__
+2. [高端设备](dim_value)显示**强劲增长**
+3. 预算市场面临*逆风*
+
+## 地区细分
+
+### 亚太地区
+
+[亚太地区](dim_value)仍然是最大的市场，出货量达[6.8亿台](metric_value, origin=680000000)，但这比上一年[减少了1.8亿台](delta_value, origin=-180000000, assessment="negative")。
+
+主要市场：
+- [中国](dim_value)：[3.2亿台](metric_value, origin=320000000) - 下降[8.5%](ratio_value, origin=-0.085, assessment="negative")，全球[排名第1](rank, detail=[320, 180, 90, 65, 45])，占区域销售额的[47%](contribute_ratio, origin=0.47, assessment="positive")
+- [印度](dim_value)：[1.8亿台](metric_value, origin=180000000) - 上升[12.3%](ratio_value, origin=0.123, assessment="positive")，[排名第2](rank, detail=[320, 180, 90, 65, 45])，在低端市场占[四分之三](proportion, origin=0.75)
+- [东南亚](dim_value)：[1.8亿台](metric_value, origin=180000000) - [保持稳定](trend_desc, assessment="equal")
+
+[中国](dim_value)和[印度](dim_value)之间的[差距为1.4亿台](difference, detail=[200, 180, 160, 140])，正在[缩小](trend_desc, assessment="neutral")。
+
+### 市场动态
+
+销售额与经济指标显示出[强相关性](association, detail=[{"x":100,"y":105},{"x":120,"y":128},{"x":150,"y":155}])。[分布](distribution, detail=[15, 25, 35, 15, 10])呈现[不均匀](anomaly, detail=[15, 18, 20, 65, 22])，城市地区出现[意外集中](anomaly, detail=[15, 18, 20, 65, 22])。
+
+我们观察到[明显的季节性](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]})，[第四季度高峰](seasonality, detail={"data":[80, 90, 95, 135]})由节假日购物推动。
+
+详细方法请访问[我们的研究页面](https://example.com/methodology)。
+```
 
 ---
 
-## `entity` 书写规范
+## 写作指南
 
-### 实体标注类型 (`entity_type` 列表)
+### 内容要求
 
-下面是实体短语支持的类型列表，请务必严格按照下表进行实体标注：
+1. **最小长度：** 不少于800字（根据数据复杂度调整）
+2. **结构：** 清晰的层次结构，章节之间逻辑流畅
+3. **分析：** 不仅列出数字 - 解释其意义和背景
+4. **语气：** 自然、流畅、客观、专业
+5. **实体使用：** 标注所有有意义的数据点 - 指标、值、趋势、时间、变化、百分比
 
-| 类型                 | 说明       | 示例                       |
-| -------------------- | ---------- | -------------------------- |
-| `metric_name`        | 指标名称   | “出货量”、“增长率”         |
-| `metric_value`       | 主指标值   | “1.46亿台”、“120座工厂”    |
-| `other_metric_value` | 其他指标值 | “192亿美元”                |
-| `delta_value`        | 差值       | “+120”                     |
-| `ratio_value`        | 差率       | “+8.4%”、“9%”              |
-| `contribute_ratio`   | 贡献度     | “40%”                      |
-| `trend_desc`         | 趋势描述   | “持续上升”、“趋于平稳”     |
-| `dim_value`          | 维度标识   | “印度”、“江苏”、“海外市场” |
-| `time_desc`          | 时间标识   | “2024年Q3”、“全年”         |
-| `proportion`         | 比例描述   | “30%"                      |
+### 实体标注最佳实践
 
-在可能的情况下，要求尽可能多的将句子中的关键信息使用 `entity` 来取代普通 `text`（如指标、数值、时间、数字等），保证生成文本的多元性，提高可读性。(尤其要提升 `delta_value`, `ratio_value`, `proportion`短语的使用频率)。
+1. **全面标注：** 标记所有定量数据，不仅仅是主要数字
+2. **使用适当类型：** 选择最能描述语义含义的实体类型
+3. **添加元数据：** 在适用时包含 `origin`、`assessment` 和其他相关字段
+4. **自然流畅：** 实体应无缝融入可读的文章中
 
-### `entity` 可选字段（强烈推荐使用）
+### 应标注的内容
 
-为每个 `entity` 尽量添加以下字段，以丰富结构和信息：
+✅ **应该标注：**
 
-- `origin`：数据本身在原始来源中的精确数值表示（例如，对于“1.46亿台”，其原始数值可能是 `146000000`；对于“13.9%”，其原始数值可能是 `0.139221`）。
-- `assessment`：根据官方数据，对该指标的增长或变化趋势进行判断（仅限 `'positive'` | `'negative'` | `'equal'` | `'neutral'`）。
-- `detail`：对实体内容的补充数据说明（例如，面对 `trend_desc`， `detail`应为一个具体数据组成的数组，例如 `[2,3,4,1,7]`）。
+- 所有数值（收入、计数、测量值）
+- 所有百分比（变化、贡献、比例）
+- 指标名称和 KPI
+- 时间段
+- 地理区域和类别
+- 趋势描述
+- 比较和变化
+
+❌ **不应标注：**
+
+- 没有特定数据含义的通用文本
+- 连接短语和过渡语
+- 不代表可测量概念的上下文
 
 ---
 
-## 其他要求
+## 输出格式
 
-- 文章总字数应**不少于 800 个汉字**（请根据实际信息量调整具体字数）。
-- 文章内容需**逻辑清晰、结构分明**，确保段落之间、章节之间过渡自然。
-- 对数据提供**适当的解释和趋势分析**，不仅仅是罗列数字，要体现数据背后的意义。
-- 文章语言应**自然流畅、客观专业**，避免口语化、营销色彩，以及不必要的实体或数值堆砌。
-- 在最终输出的 JSON 中，`definitions` 部分可以**直接省略**，我只需要主体 JSON 内容。
-- [重要！！！]在最终的输出中，任何多余的描述和 `markdown` 的代码快包裹（例如 \```json{}\```）都不需要，我只要纯文本形式的 JSON Schema。
+**重要：** 仅输出 T8 Syntax 内容。不要将其包裹在代码块中或添加解释性文本。
+
+**正确：**
+
+```
+# 销售报告
+
+收入达到[150万元](metric_value, origin=1500000)...
+```
+
+**错误：**
 
 ````
+以下是 T8 Syntax 输出：
+
+```t8syntax
+# 销售报告
+...
+```
+````
+
+`````
 
 ## JSON Schema
 
@@ -8400,7 +9064,13 @@ url: /zh/tutorial/advanced/llm.md
         "trend_desc",
         "dim_value",
         "time_desc",
-        "proportion"
+        "proportion",
+        "rank",
+        "difference",
+        "anomaly",
+        "association",
+        "distribution",
+        "seasonality"
       ],
       "type": "string"
     },

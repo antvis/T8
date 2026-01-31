@@ -213,7 +213,13 @@ url: /zh/schema/structure.md
         "trend_desc",
         "dim_value",
         "time_desc",
-        "proportion"
+        "proportion",
+        "rank",
+        "difference",
+        "anomaly",
+        "association",
+        "distribution",
+        "seasonality"
       ],
       "type": "string"
     },

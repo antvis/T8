@@ -213,7 +213,13 @@ The latest standard JSON Schema definition for `T8` is as follows, or fetch from
         "trend_desc",
         "dim_value",
         "time_desc",
-        "proportion"
+        "proportion",
+        "rank",
+        "difference",
+        "anomaly",
+        "association",
+        "distribution",
+        "seasonality"
       ],
       "type": "string"
     },

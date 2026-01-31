@@ -59,16 +59,20 @@ After installation, you can export the `Text` object and API from the T8 library
 ```js
 import { Text } from '@antv/t8';
 
-// Schema to be visualized
-const spec = {
-  /*  */
-};
+// Narrative text using T8-DSL syntax
+const narrativeText = `
+# Sales Report
+
+This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](metric_value, origin=348.12).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter.
+`;
 
 // Instantiate Text
 const text = new Text(document.getElementById('app'));
 
-// Specify visualization elements
-text.schema(spec).theme('dark');
+// Specify narrative text using syntax method
+text.syntax(narrativeText).theme('dark');
 
 // Render
 const unmont = text.render();
@@ -78,6 +82,34 @@ unmont();
 ```
 
 If you haven't encountered any other issues, you should get the following clear data text visualization effect.
+
+You can also use the T8-DSL syntax for a more intuitive way to create narrative text:
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+
+// Narrative text using T8-DSL syntax
+const narrativeText = `
+# Bookings This Quarter Higher than Usual
+
+This quarter, [bookings](metric_name) are higher than usual for this point in the quarter. They are [¥348k](metric_value, origin=348.12). They were made up of [29 deals](metric_value), with the [average deal size](metric_name) being [¥12k](metric_value).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter. They are up [¥106.1k](delta_value, assessment="positive") relative to the same time last year.
+`;
+
+// Instantiate Text
+const text = new Text(document.getElementById('app'));
+
+// Use syntax method to specify narrative text
+text.syntax(narrativeText).theme('light');
+
+// Render
+text.render();
+```
+
+:::
 
 ::: my-sandbox {template=vanilla-ts}
 
