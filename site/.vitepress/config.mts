@@ -12,7 +12,7 @@ const createLangConfig = (lang: string, label: string) => {
       nav: [
         { text: 'AI', link: '/chat/index', target: 'chat' },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
-        { text: 'Schema', link: `/${lang}/schema/index` },
+        { text: 'Syntax', link: `/${lang}/syntax/index` },
         { text: 'API', link: `/${lang}/api/index` },
       ],
       sidebar: {
@@ -34,19 +34,19 @@ const createLangConfig = (lang: string, label: string) => {
             ],
           },
         ],
-        [`/${lang}/schema/`]: [
+        [`/${lang}/syntax/`]: [
           {
-            text: 'Schema',
+            text: 'Syntax',
             items: [
-              { text: 'Overview', link: `/${lang}/schema/index` },
-              { text: 'Structure', link: `/${lang}/schema/structure` },
+              { text: 'Overview', link: `/${lang}/syntax/index` },
+              { text: 'Structure', link: `/${lang}/syntax/structure` },
               {
-                text: 'Types',
+                text: 'Elements',
                 items: [
-                  { text: 'NarrativeText', link: `/${lang}/schema/types/narrative-text` },
-                  { text: 'Section', link: `/${lang}/schema/types/section` },
-                  { text: 'Paragraph', link: `/${lang}/schema/types/paragraph` },
-                  { text: 'Phrase & Entity', link: `/${lang}/schema/types/phrase` },
+                  { text: 'Document', link: `/${lang}/syntax/types/narrative-text` },
+                  { text: 'Section', link: `/${lang}/syntax/types/section` },
+                  { text: 'Paragraph', link: `/${lang}/syntax/types/paragraph` },
+                  { text: 'Phrase & Entity', link: `/${lang}/syntax/types/phrase` },
                 ],
               },
             ],

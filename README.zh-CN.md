@@ -19,10 +19,12 @@
 
 `T8` 是一套声明式的 Markdown `Syntax` 语法，可以用它描述数据解读报告的内容。技术方案上，基于 Markdown `Syntax` 数据来自服务端生成的假设，前端消费 Syntax 进行渲染即可。随着数据表达的多样性和即时性的要求越来越高，以及 AI、NLP 技术越来越多的被应用，前端维护文本模版将不可持续，此时使用 T8 进行统一渲染将是最佳选择。
 
-- [Introduction](https://t8.antv.vision/tutorial/quick-start.html) - 一个关于 T8 的概要介绍和想法，以及如何使用。
-- [T8's Schema](https://t8.antv.vision/schema/) - T8 的 schema 介绍和描述.
-- [API](https://t8.antv.vision/api/) - 介绍 T8 的 API 接口，以及如何使用他们。
-- [Example]() - 一个使用 T8 的可运行的 Agent 应用，并结合 AI 进行展示和可视化。
+## 📚 文档
+
+- **[快速开始](https://t8.antv.vision/tutorial/quick-start.html)** - 几分钟内开始使用 T8，包含安装和基本使用示例
+- **[教程](https://t8.antv.vision/tutorial/quick-start)** - 学习主题、事件、插件、流式渲染和 LLM 集成
+- **[语法](https://t8.antv.vision/syntax/)** - 完整的 T8 语法参考和结构指南
+- **[API 文档](https://t8.antv.vision/api/)** - 详细的 API 文档和使用指南
 
 ## ✨ Features
 
@@ -31,64 +33,39 @@
 - 🛠️ **可扩展** - 可以通过 `EntityPhrase` 来快速的自定义 T8 文本展示的样式。
 - 🪩 **轻量级** - 很少的、轻量的依赖，并在代码设计中关注包大小，压缩后小于 `20` Kb。
 
-## 🔨 Getting Started
+## 🔨 安装
 
-T8 可以使用常规的包管理工具安装，例如 npm 或者 Yarn 等。
-
-```bash
-$ npm install @antv/t8
-```
+使用 npm 或 yarn 安装 T8：
 
 ```bash
-$ yarn add @antv/t8
+npm install @antv/t8
 ```
 
-安装之后，在 T8 这个库中，就可以导出 `Text` 对象和 API。
-
-```html
-<div id="container"></div>
+```bash
+yarn add @antv/t8
 ```
+
+## 🚀 快速示例
 
 ```js
 import { Text } from '@antv/t8';
 
-// 使用 T8-DSL 语法编写的叙述性文本
-const narrativeText = `
-# 销售报告
-
-总销售额达到 [¥1,234,567](metric_value, origin=1234567)。
-
-## 各地区表现
-
-华东地区贡献最大，销售额为 [¥800,000](metric_value)，占比 [64.8%](contribute_ratio, assessment="positive")。
-`;
-
-// 实例化 Text
-const text = new Text({
-  container: 'container',
-});
-
-// 使用 render 方法传入 T8 语法字符串
-text.theme('dark').render(narrativeText);
-
-// 卸载
-const unmount = text.render(narrativeText);
-unmount();
+const text = new Text({ container: 'container' });
+text.theme('light').render(`
+  # 销售报告
+  总销售额达到 [¥1,234,567](metric_value, origin=1234567)。
+`);
 ```
 
-如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
-
-<img alt="T8 examples preview" width="768" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*u8U8To8YM4UAAAAAT_AAAAgAemJ7AQ/fmt.webp" />
+完整的使用示例和高级功能，请参见 **[快速开始指南](https://t8.antv.vision/tutorial/quick-start.html)**。
 
 ## 🤖 在大模型中使用
 
-T8 可以用来对于特定的文本输出成符合要求的 `schema`，然后渲染出更加易于阅读的文本，而对于文本的处理是大模型 LLM 的核心优势之一。为了帮助大家更好的使用 T8，我们提供了一系列的内容，方便大家在自己的 Agent 中快速生成和渲染文本信息简报。
+T8 被设计为对大语言模型友好。T8 语法可以轻松地由 AI 模型生成，使其成为自动化数据叙述生成的理想选择。为了帮助您将 T8 与 AI Agent 集成：
 
-1. 面向 LLM 的提示词模版，见 [prompt.md](./prompt.md) 和 [prompt.zh-CN.md](./prompt.zh-CN.md)。
-2. 一些案例：[案例](./example/example.md)。
-3. 一个基于百宝箱的 Agent 案例：数据文本简报。
-
-欢迎大家在自己的 AI Agent 中使用后，给出反馈和优化建议。
+- **[提示词模板](./prompt.zh-CN.md)** - 可直接使用的 LLM 提示词，用于生成 T8 语法
+- **[LLM 集成指南](https://t8.antv.vision/tutorial/advanced/llm.html)** - 使用 T8 与大语言模型的完整指南
+- **[示例](./example/example.md)** - T8 语法输出示例
 
 ## 📮 Contributing
 

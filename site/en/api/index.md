@@ -9,7 +9,7 @@ title: API Documentation
 ### constructor
 
 ```typescript
-constructor(container: string | HTMLElement, options?: TextOptions);
+constructor(container: string | HTMLElement);
 ```
 
 | Parameter | Type                  | Required | Description                                             |
