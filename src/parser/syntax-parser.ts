@@ -291,6 +291,14 @@ function parseTextWithFormatting(text: string): PhraseSpec[] {
         });
         currentIndex = endIndex + 2;
         foundFormatting = true;
+      } else {
+        // No closing marker found, treat the opening marker as plain text
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: '**',
+        });
+        currentIndex += 2;
+        foundFormatting = true;
       }
     }
 
@@ -306,6 +314,14 @@ function parseTextWithFormatting(text: string): PhraseSpec[] {
         });
         currentIndex = endIndex + 2;
         foundFormatting = true;
+      } else {
+        // No closing marker found, treat the opening marker as plain text
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: '__',
+        });
+        currentIndex += 2;
+        foundFormatting = true;
       }
     }
 
@@ -320,6 +336,14 @@ function parseTextWithFormatting(text: string): PhraseSpec[] {
           italic: true,
         });
         currentIndex = endIndex + 1;
+        foundFormatting = true;
+      } else {
+        // No closing marker found, treat the opening marker as plain text
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: '*',
+        });
+        currentIndex += 1;
         foundFormatting = true;
       }
     }

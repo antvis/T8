@@ -149,3 +149,7 @@ lib/
 
 # Snapshot
 __tests__/snapshot/**/*-actual.*
+
+# Test files
+test-streaming.html
+test-streaming-node.ts
