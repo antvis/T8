@@ -25,6 +25,12 @@ jobs:
       - name: 🚀 Build
         run: npm run build
 
+      - name: 🏗️ Install chat dependencies
+        run: cd chat && npm install
+
+      - name: 🌐 Build site
+        run: npm run build:all
+
       - name: ✅ Test
         run: npx vitest --coverage --watch=false
 

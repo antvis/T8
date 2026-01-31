@@ -12,6 +12,7 @@ const presetLightColors = {
   colorProportionShadow: '#CDDDFD',
   colorProportionFill: '#3471F9',
   colorLineStroke: '#5B8FF9',
+  colorLink: '#1677FF',
 } as const;
 
 const presetDarkColors = {
@@ -28,6 +29,7 @@ const presetDarkColors = {
   colorProportionShadow: '#CDDDFD',
   colorProportionFill: '#3471F9',
   colorLineStroke: '#5B8FF9',
+  colorLink: '#4B91FF',
 } as const;
 
 export const presetTheme = {

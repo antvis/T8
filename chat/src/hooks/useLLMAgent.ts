@@ -1,5 +1,5 @@
 import { useXAgent } from '@ant-design/x';
-import { createT8ClarinetParser } from '@t8/utils';
+import { parseSyntax } from '@t8/parser';
 import { PROVIDER_PRESETS, SYSTEM_PROMPT } from '../constants';
 import { pickDeltaContent } from '../utils';
 import type { AgentMessage, AgentRequestInput } from '../types';
@@ -80,16 +80,27 @@ export const useLLMAgent = () => {
         let buffer = '';
         let aggregated = '';
         let streamFinished = false;
-        const parser = createT8ClarinetParser();
         const THROTTLE_INTERVAL = 120;
         let lastUpdateAt = 0;
         let pendingUpdateTimer: ReturnType<typeof setTimeout> | null = null;
 
         const dispatchUpdate = () => {
+          // Parse the accumulated T8 syntax content
+          let spec;
+          try {
+            spec = parseSyntax(aggregated);
+          } catch (error) {
+            // If parsing fails (e.g., incomplete content), use partial content
+            console.warn(
+              `Failed to parse incomplete T8 syntax during streaming: ${error instanceof Error ? error.message : String(error)}`,
+            );
+            spec = undefined;
+          }
+
           callbacks.onUpdate({
             role: 'assistant',
             content: aggregated,
-            spec: parser.getResult().document,
+            spec,
           });
         };
 
@@ -147,7 +158,6 @@ export const useLLMAgent = () => {
               if (!chunkText) continue;
 
               aggregated += chunkText;
-              parser.append(chunkText);
               scheduleUpdate();
             } catch (err) {
               console.warn('解析流数据失败', err);
@@ -157,11 +167,20 @@ export const useLLMAgent = () => {
 
         flushPendingUpdate();
 
+        // Parse final complete T8 syntax content
+        let finalSpec;
+        try {
+          finalSpec = parseSyntax(aggregated);
+        } catch (error) {
+          console.warn(`Failed to parse final T8 syntax: ${error instanceof Error ? error.message : String(error)}`);
+          finalSpec = undefined;
+        }
+
         callbacks.onSuccess([
           {
             role: 'assistant',
             content: aggregated,
-            spec: parser.getResult().document,
+            spec: finalSpec,
           },
         ]);
       } catch (error) {

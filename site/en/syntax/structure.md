@@ -59,8 +59,8 @@ Total sales reached [¥1.2M](metric_value, origin=1200000).
 ### With Entity Annotations
 
 ```markdown
-Sales increased by [15%](ratio_value, assessment="positive") compared to 
-[last quarter](time_desc). The [top performing region](dim_value) was 
+Sales increased by [15%](ratio_value, assessment="positive") compared to
+[last quarter](time_desc). The [top performing region](dim_value) was
 [Eastern China](dim_value) with [¥800,000](metric_value).
 ```
 
@@ -69,13 +69,7 @@ Sales increased by [15%](ratio_value, assessment="positive") compared to
 For TypeScript users, T8 provides type definitions:
 
 ```typescript
-import type {
-  NarrativeTextSpec,
-  SectionSpec,
-  ParagraphSpec,
-  PhraseSpec,
-  EntityType
-} from '@antv/t8';
+import type { NarrativeTextSpec, SectionSpec, ParagraphSpec, PhraseSpec, EntityType } from '@antv/t8';
 ```
 
-See the [API documentation](../../api/index.md) for complete type definitions.
+See the [API documentation](../api/) for complete type definitions.

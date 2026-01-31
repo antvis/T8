@@ -68,13 +68,7 @@ T8 文档采用层级结构组织，包含以下组件：
 对于 TypeScript 用户，T8 提供类型定义：
 
 ```typescript
-import type {
-  NarrativeTextSpec,
-  SectionSpec,
-  ParagraphSpec,
-  PhraseSpec,
-  EntityType
-} from '@antv/t8';
+import type { NarrativeTextSpec, SectionSpec, ParagraphSpec, PhraseSpec, EntityType } from '@antv/t8';
 ```
 
-完整的类型定义请参阅 [API 文档](../../api/index.md)。
+完整的类型定义请参阅 [API 文档](../api/)。
