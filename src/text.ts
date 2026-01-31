@@ -4,7 +4,6 @@ import { NarrativeTextVis } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
-import { createT8ClarinetParser, T8ClarinetParser, T8ClarinetParseResult } from './utils/t8ClarinetParser';
 import { parseSyntax } from './parser';
 
 /**
@@ -33,17 +32,12 @@ export class Text extends EE {
    * Plugin manager for the text visualization.
    */
   private pluginManager: PluginManager;
-  /**
-   * The streaming parser for the NTV schema.
-   */
-  private parser: T8ClarinetParser;
 
   constructor(container: string | HTMLElement) {
     super();
     this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
 
     this.pluginManager = new PluginManager(presetPlugins);
-    this.parser = createT8ClarinetParser();
   }
 
   /**
@@ -113,34 +107,38 @@ export class Text extends EE {
   }
 
   /**
-   * Stream render the narrative text visualization.
-   * @param newJSONFragment - The new JSON fragment to render.
+   * Stream render a T8 syntax string fragment.
+   * This method parses a complete T8 syntax string and updates the visualization.
+   * @param t8SyntaxFragment - The T8 syntax string to parse and render.
    * @param options - The options for the stream render.
    * @returns The Text instance for method chaining.
    */
   streamRender(
-    newJSONFragment: string,
+    t8SyntaxFragment: string,
     options?: {
       onError?: (error: string) => void;
-      onComplete?: (result: T8ClarinetParseResult) => void;
+      onComplete?: (result: NarrativeTextSpec) => void;
     },
   ) {
-    this.parser.append(newJSONFragment);
-    const result = this.parser.getResult();
-    if (result.error) {
-      options?.onError?.(result.error);
-    } else {
-      options?.onComplete?.(result);
-      this.schema(result.document as NarrativeTextSpec);
-      this.render();
+    try {
+      // Use parseSyntax to parse the T8 syntax string
+      const document = parseSyntax(t8SyntaxFragment);
+
+      // If parsing succeeds, update schema and trigger rendering
+      options?.onComplete?.(document);
+      this.schema(document); // Update NarrativeTextSpec
+      this.render(); // Trigger rendering logic
+    } catch (error: unknown) {
+      // Catch parsing exceptions and invoke error callback
+      const errorMessage = `Syntax parsing failed: ${error instanceof Error ? error.message : String(error)}`;
+      options?.onError?.(errorMessage);
     }
   }
 
   /**
-   * Clear the parser.
+   * Clear the visualization.
    */
   clear() {
-    this.parser.reset();
     this.unmount();
   }
 
