@@ -4,7 +4,6 @@ import { NarrativeTextVis } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
-import { createT8ClarinetParser, T8ClarinetParser, T8ClarinetParseResult } from './utils/t8ClarinetParser';
 import { parseSyntax } from './parser';
 
 /**
@@ -13,7 +12,10 @@ import { parseSyntax } from './parser';
  * Usage:
  * ```javascript
  * const text = new Text('#container');
- * text.schema(spec).theme(theme).render();
+ * text.theme('light').render(`
+ *   # Sales Report
+ *   Total sales are [¥1,234,567](metric_value).
+ * `);
  * ```
  */
 export class Text extends EE {
@@ -33,37 +35,12 @@ export class Text extends EE {
    * Plugin manager for the text visualization.
    */
   private pluginManager: PluginManager;
-  /**
-   * The streaming parser for the NTV schema.
-   */
-  private parser: T8ClarinetParser;
 
   constructor(container: string | HTMLElement) {
     super();
     this.container = typeof container === 'string' ? (document.querySelector(container) as HTMLElement) : container;
 
     this.pluginManager = new PluginManager(presetPlugins);
-    this.parser = createT8ClarinetParser();
-  }
-
-  /**
-   * Set the schema for the narrative text visualization.
-   * @param spec - The specification object containing narrative text details.
-   * @returns The Text instance for method chaining.
-   */
-  schema(spec: NarrativeTextSpec) {
-    this.spec = spec;
-    return this;
-  }
-
-  /**
-   * Parse and set a T8 Syntax string as the schema for the narrative text visualization.
-   * @param syntaxString - The T8 Syntax string to parse and use as the schema.
-   * @returns The Text instance for method chaining.
-   */
-  syntax(syntaxString: string) {
-    this.spec = parseSyntax(syntaxString);
-    return this;
   }
 
   /**
@@ -88,11 +65,28 @@ export class Text extends EE {
 
   /**
    * Render the narrative text visualization.
+   * Accepts a T8 syntax string for rendering.
+   * @param t8Syntax - T8 syntax string to render.
    * @returns A function to unmount the component.
    */
-  render() {
+  render(t8Syntax?: string) {
     const container = this.container;
-    const spec = this.spec;
+    let spec: NarrativeTextSpec | undefined;
+
+    // Parse T8 syntax if provided
+    if (t8Syntax) {
+      try {
+        // Parse T8 syntax string with error tolerance
+        spec = parseSyntax(t8Syntax);
+      } catch (error: unknown) {
+        // Log error but continue with empty spec for error tolerance
+        console.error(`T8 Syntax parsing failed: ${error instanceof Error ? error.message : String(error)}`);
+        spec = { sections: [] };
+      }
+    } else {
+      // Use stored spec if no content provided
+      spec = this.spec;
+    }
 
     // Render the component.
     // We use `preact` to code the `NarrativeTextVis` components.
@@ -108,39 +102,14 @@ export class Text extends EE {
 
     // Return unmount function.
     return () => {
-      preactRender(null, container as HTMLElement);
+      preactRender(null, container);
     };
   }
 
   /**
-   * Stream render the narrative text visualization.
-   * @param newJSONFragment - The new JSON fragment to render.
-   * @param options - The options for the stream render.
-   * @returns The Text instance for method chaining.
-   */
-  streamRender(
-    newJSONFragment: string,
-    options?: {
-      onError?: (error: string) => void;
-      onComplete?: (result: T8ClarinetParseResult) => void;
-    },
-  ) {
-    this.parser.append(newJSONFragment);
-    const result = this.parser.getResult();
-    if (result.error) {
-      options?.onError?.(result.error);
-    } else {
-      options?.onComplete?.(result);
-      this.schema(result.document as NarrativeTextSpec);
-      this.render();
-    }
-  }
-
-  /**
-   * Clear the parser.
+   * Clear the visualization.
    */
   clear() {
-    this.parser.reset();
     this.unmount();
   }
 
@@ -148,6 +117,6 @@ export class Text extends EE {
    * Unmount the component.
    */
   unmount() {
-    preactRender(null, this.container as HTMLElement);
+    preactRender(null, this.container);
   }
 }
