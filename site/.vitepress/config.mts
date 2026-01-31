@@ -13,7 +13,7 @@ const createLangConfig = (lang: string, label: string) => {
         { text: 'AI', link: '/chat/index', target: 'chat' },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
         { text: 'Syntax', link: `/${lang}/syntax/index` },
-        { text: 'API', link: `/${lang}/api/index` },
+        { text: 'API', link: `/${lang}/api/` },
       ],
       sidebar: {
         [`/${lang}/tutorial/`]: [

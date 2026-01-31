@@ -1,5 +1,4 @@
 import analystPrompt from '../../prompt.zh-CN.md?raw';
-import schema from '../../schema.json?raw';
 import type { ProviderType } from './types';
 
 export const PROVIDER_PRESETS: Record<
@@ -61,4 +60,4 @@ export const PROVIDER_PRESETS: Record<
   },
 };
 
-export const SYSTEM_PROMPT = [analystPrompt.trim(), schema.trim()].join('\n\n');
+export const SYSTEM_PROMPT = analystPrompt.trim();

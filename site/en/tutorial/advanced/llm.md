@@ -11,22 +11,24 @@ Through this approach, we can provide users with an AI Agent application or use 
 ## Overall Process
 
 - **Data Retrieval**: Acquire data by integrating various data retrieval tools such as search results, knowledge bases, datasets, models, tools, APIs, etc.
-- **Structuring Text Data**: Process the retrieved data into a T8-compatible and renderable JSON Schema format using large language models combined with prompt engineering.
-- **Render Schema**: If working within a code-editing application, integrate with `T8`'s API; if on an Agent platform, integrate `T8` using the platform's "Custom Card" feature.
+- **Structuring Text Data**: Process the retrieved data into T8 Syntax format using large language models combined with prompt engineering. T8 Syntax is a markdown-like language that combines text formatting with entity annotations.
+- **Render Content**: If working within a code-editing application, integrate with `T8`'s API; if on an Agent platform, integrate `T8` using the platform's "Custom Card" feature.
 
 ## Prompt Engineering
 
 <<< @/../prompt.md
 
-## JSON Schema
+## T8 Syntax
 
-We provide the latest standard JSON Schema definition for `T8`, used for generating data with large models.
+T8 uses a markdown-like syntax for rendering narrative text with rich entity annotations. The syntax supports:
 
-- `NPM Package`: [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json).
-- `GitHub Repository`: [GitHub](https://github.com/antvis/T8/blob/main/schema.json).
-- `Build`: Clone the T8 source code and run the `npm run build` command to generate the `schema.json` file.
+- Headings (# to ######)
+- Text formatting (**bold**, _italic_, **underline**)
+- Links `[text](url)`
+- Entity syntax: `[displayText](entityType, key1=value1, key2="value2")`
+- Bullet lists (unordered and ordered)
 
-<<< @/../schema.json
+For complete syntax documentation, see the [T8 Syntax Guide](/en/syntax/).
 
 ## Case Study
 

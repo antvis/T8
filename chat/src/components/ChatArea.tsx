@@ -23,7 +23,7 @@ export const ChatArea = ({ messages, onSend, disabled = false }: ChatAreaProps) 
         typing: status === 'loading' || status === 'updating',
         content:
           message.role === 'assistant' ? (
-            <NarrativeViewer spec={message.spec} fallbackText={message.content} />
+            <NarrativeViewer content={message.content} fallbackText={message.content} />
           ) : (
             <Typography.Text>{message.content}</Typography.Text>
           ),

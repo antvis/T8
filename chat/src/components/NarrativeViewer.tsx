@@ -1,35 +1,32 @@
 import { useEffect, useRef } from 'react';
 import { Text } from '@t8/text';
-import type { NarrativeTextSpec } from '@t8/schema';
 import { Typography } from 'antd';
 
 type NarrativeViewerProps = {
-  spec?: Partial<NarrativeTextSpec>;
+  content?: string;
   fallbackText?: string;
 };
 
-const NarrativeViewer = ({ spec, fallbackText }: NarrativeViewerProps) => {
+const NarrativeViewer = ({ content, fallbackText }: NarrativeViewerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!spec || !containerRef.current) {
+    if (!content || !containerRef.current) {
       return;
     }
 
     const renderer = new Text(containerRef.current);
-    renderer.schema(spec).theme('light');
-
-    renderer.render();
+    renderer.theme('light').render(content);
 
     return () => {
       renderer.unmount();
     };
-  }, [JSON.stringify(spec)]);
+  }, [content]);
 
   return (
     <div className="narrative-viewer">
       <div ref={containerRef} />
-      {!spec && fallbackText ? <Typography.Text>{fallbackText}</Typography.Text> : null}
+      {!content && fallbackText ? <Typography.Text>{fallbackText}</Typography.Text> : null}
     </div>
   );
 };
