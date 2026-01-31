@@ -382,4 +382,84 @@ Total revenue reached [¥5M](metric_value, origin=5000000) with **strong growth*
     expect(phrase.metadata?.detail).toEqual([1, 2, 3]);
     expect((phrase.metadata as Record<string, unknown>).active).toBe(true);
   });
+
+  it('should handle unclosed bold formatting without infinite loop', () => {
+    const syntax = `Text with **unclosed bold at the end`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrases = result.sections![0].paragraphs![0].phrases;
+
+    // Should parse without hanging
+    expect(phrases.length).toBeGreaterThan(0);
+    expect(phrases[0].value).toBe('Text with ');
+    expect(phrases[1].value).toBe('**');
+    expect(phrases[2].value).toBe('unclosed bold at the end');
+  });
+
+  it('should handle unclosed italic formatting without infinite loop', () => {
+    const syntax = `Text with *unclosed italic at the end`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrases = result.sections![0].paragraphs![0].phrases;
+
+    // Should parse without hanging
+    expect(phrases.length).toBeGreaterThan(0);
+    expect(phrases[0].value).toBe('Text with ');
+    expect(phrases[1].value).toBe('*');
+    expect(phrases[2].value).toBe('unclosed italic at the end');
+  });
+
+  it('should handle unclosed underline formatting without infinite loop', () => {
+    const syntax = `Text with __unclosed underline at the end`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrases = result.sections![0].paragraphs![0].phrases;
+
+    // Should parse without hanging
+    expect(phrases.length).toBeGreaterThan(0);
+    expect(phrases[0].value).toBe('Text with ');
+    expect(phrases[1].value).toBe('__');
+    expect(phrases[2].value).toBe('unclosed underline at the end');
+  });
+
+  it('should handle multiple unclosed formatting markers', () => {
+    const syntax = `Text **bold __underline *italic`;
+    const result = parseSyntax(syntax);
+
+    expect(result.sections).toHaveLength(1);
+    const phrases = result.sections![0].paragraphs![0].phrases;
+
+    // Should parse without hanging and treat all markers as plain text
+    expect(phrases.length).toBeGreaterThan(0);
+  });
+
+  it('should handle streaming-like partial syntax without infinite loop', () => {
+    // This simulates what happens during streaming when text is incrementally added
+    const partialChunks = [
+      'The **premium segment**',
+      'The **premium segment** (devices over $800) showed *remarkable',
+      'The **premium segment** (devices over $800) showed *remarkable* [resilience](trend_desc',
+    ];
+
+    // Each chunk should parse without infinite loop
+    partialChunks.forEach((chunk) => {
+      const result = parseSyntax(chunk);
+      expect(result.sections).toBeDefined();
+    });
+  });
+
+  it('should handle formatting markers at exact string boundaries', () => {
+    // Test edge cases where markers appear at the very end
+    const testCases = [{ text: 'x**' }, { text: 'x__' }, { text: 'ab**' }, { text: 'ab__' }];
+
+    testCases.forEach(({ text }) => {
+      const result = parseSyntax(text);
+      expect(result.sections).toBeDefined();
+      // Should complete without hanging
+      expect(result.sections!.length).toBeGreaterThanOrEqual(0);
+    });
+  });
 });

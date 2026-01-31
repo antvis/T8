@@ -146,6 +146,11 @@ dist/
 es/
 lib/
 /types/
+example/dist/
 
 # Snapshot
 __tests__/snapshot/**/*-actual.*
+
+# Test files
+test-streaming.html
+test-streaming-node.ts
