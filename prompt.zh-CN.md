@@ -271,9 +271,9 @@ T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记
 
 ## 市场概况
 
-全球智能手机出货量在[2024年](time_desc)达到[12亿台](metric_value, origin=1200000000)，同比[小幅下降2.1%](ratio_value, origin=-0.021, assessment="negative")。
+全球[智能手机出货量](metric_name)在[2024年](time_desc)达到[12亿台](metric_value, origin=1200000000)，同比[小幅下降2.1%](ratio_value, origin=-0.021, assessment="negative")。
 
-**高端市场**（售价超过800美元的设备）表现出*显著的*[韧性](trend_desc, assessment="positive")，增长了[5.8%](ratio_value, origin=0.058, assessment="positive")。
+**高端市场**（售价超过800美元的设备）表现出*显著的*[韧性](trend_desc, assessment="positive")，增长了[5.8%](ratio_value, origin=0.058, assessment="positive")。[平均售价](other_metric_value)为[420美元](metric_value, origin=420, unit="美元")。
 
 ## 主要发现
 
@@ -288,8 +288,8 @@ T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记
 [亚太地区](dim_value)仍然是最大的市场，出货量达[6.8亿台](metric_value, origin=680000000)，但这比上一年[减少了1.8亿台](delta_value, origin=-180000000, assessment="negative")。
 
 主要市场：
-- [中国](dim_value)：[3.2亿台](metric_value, origin=320000000) - 下降[8.5%](ratio_value, origin=-0.085, assessment="negative")，全球[排名第1](rank, detail=[320, 180, 90, 65, 45])
-- [印度](dim_value)：[1.8亿台](metric_value, origin=180000000) - 上升[12.3%](ratio_value, origin=0.123, assessment="positive")，[排名第2](rank, detail=[320, 180, 90, 65, 45])
+- [中国](dim_value)：[3.2亿台](metric_value, origin=320000000) - 下降[8.5%](ratio_value, origin=-0.085, assessment="negative")，全球[排名第1](rank, detail=[320, 180, 90, 65, 45])，占区域销售额的[47%](contribute_ratio, origin=0.47, assessment="positive")
+- [印度](dim_value)：[1.8亿台](metric_value, origin=180000000) - 上升[12.3%](ratio_value, origin=0.123, assessment="positive")，[排名第2](rank, detail=[320, 180, 90, 65, 45])，在低端市场占[四分之三](proportion)
 - [东南亚](dim_value)：[1.8亿台](metric_value, origin=180000000) - [保持稳定](trend_desc, assessment="equal")
 
 [中国](dim_value)和[印度](dim_value)之间的[差距为1.4亿台](difference, detail=[200, 180, 160, 140])，正在[缩小](trend_desc, assessment="neutral")。

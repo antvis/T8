@@ -271,9 +271,9 @@ Our [total revenue](metric_name) reached [¥2.3 million](metric_value, origin=23
 
 ## Market Overview
 
-Global smartphone shipments reached [1.2 billion units](metric_value, origin=1200000000) in [2024](time_desc), showing a [modest decline of 2.1%](ratio_value, origin=-0.021, assessment="negative") year-over-year.
+Global [smartphone shipments](metric_name) reached [1.2 billion units](metric_value, origin=1200000000) in [2024](time_desc), showing a [modest decline of 2.1%](ratio_value, origin=-0.021, assessment="negative") year-over-year.
 
-The **premium segment** (devices over $800) showed *remarkable* [resilience](trend_desc, assessment="positive"), growing by [5.8%](ratio_value, origin=0.058, assessment="positive").
+The **premium segment** (devices over $800) showed *remarkable* [resilience](trend_desc, assessment="positive"), growing by [5.8%](ratio_value, origin=0.058, assessment="positive"). [Average selling price](other_metric_value) was [$420](metric_value, origin=420, unit="USD").
 
 ## Key Findings
 
@@ -288,8 +288,8 @@ The **premium segment** (devices over $800) showed *remarkable* [resilience](tre
 [Asia-Pacific](dim_value) remains the largest market with [680 million units](metric_value, origin=680000000) shipped, though this represents a [decline of 180 million units](delta_value, origin=-180000000, assessment="negative") from the previous year.
 
 Key markets:
-- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank, detail=[320, 180, 90, 65, 45]) globally
-- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank, detail=[320, 180, 90, 65, 45])
+- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank, detail=[320, 180, 90, 65, 45]) globally, accounting for [47%](contribute_ratio, origin=0.47, assessment="positive") of regional sales
+- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank, detail=[320, 180, 90, 65, 45]), representing [3 out of 4](proportion) of the budget segment
 - [Southeast Asia](dim_value): [180M units](metric_value, origin=180000000) - [stable](trend_desc, assessment="equal")
 
 The [gap of 140M units](difference, detail=[200, 180, 160, 140]) between [China](dim_value) and [India](dim_value) is [narrowing](trend_desc, assessment="neutral").
