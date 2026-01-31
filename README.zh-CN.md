@@ -59,6 +59,14 @@ text.theme('light').render(`
 
 完整的使用示例和高级功能，请参见 **[快速开始指南](https://t8.antv.vision/tutorial/quick-start.html)**。
 
+## 🤖 在大模型中使用
+
+T8 被设计为对大语言模型友好。T8 语法可以轻松地由 AI 模型生成，使其成为自动化数据叙述生成的理想选择。为了帮助您将 T8 与 AI Agent 集成：
+
+- **[提示词模板](./prompt.zh-CN.md)** - 可直接使用的 LLM 提示词，用于生成 T8 语法
+- **[LLM 集成指南](https://t8.antv.vision/tutorial/advanced/llm.html)** - 使用 T8 与大语言模型的完整指南
+- **[示例](./example/example.md)** - T8 语法输出示例
+
 ## 📮 Contributing
 
 很期待我们的用户参入到 T8 的开发和反馈，也感谢所有贡献这个项目的开源社区开发者。🙏
