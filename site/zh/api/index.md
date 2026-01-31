@@ -9,7 +9,7 @@ title: API 文档
 ### constructor
 
 ```typescript
-constructor(container: string | HTMLElement, options?: TextOptions);
+constructor(container: string | HTMLElement);
 ```
 
 | 参数      | 类型                  | 必填 | 说明                                   |
