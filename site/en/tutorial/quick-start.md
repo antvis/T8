@@ -110,6 +110,131 @@ text.theme('light').render(narrativeText);
 
 :::
 
+## Using in React
+
+T8 is framework-agnostic and works seamlessly with React. Here's how to integrate it:
+
+```tsx
+import { Text } from '@antv/t8';
+import { useEffect, useRef } from 'react';
+
+function T8Component() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<Text | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Initialize T8 instance
+    const text = new Text(containerRef.current);
+    textRef.current = text;
+
+    // Render narrative text
+    const narrativeText = `
+# Sales Report
+
+This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](metric_value, origin=348.12).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter.
+    `;
+
+    text.theme('light').render(narrativeText);
+
+    // Cleanup on unmount
+    return () => {
+      text.unmount();
+    };
+  }, []);
+
+  return <div ref={containerRef} />;
+}
+
+export default T8Component;
+```
+
+## Using in Vue
+
+T8 also works great with Vue. Here's a Vue 3 example:
+
+```vue
+<template>
+  <div ref="containerRef"></div>
+</template>
+
+<script setup lang="ts">
+import { Text } from '@antv/t8';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const containerRef = ref<HTMLDivElement>();
+let textInstance: Text | null = null;
+
+onMounted(() => {
+  if (!containerRef.value) return;
+
+  // Initialize T8 instance
+  textInstance = new Text(containerRef.value);
+
+  // Render narrative text
+  const narrativeText = `
+# Sales Report
+
+This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](metric_value, origin=348.12).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter.
+  `;
+
+  textInstance.theme('light').render(narrativeText);
+});
+
+onBeforeUnmount(() => {
+  if (textInstance) {
+    textInstance.unmount();
+  }
+});
+</script>
+```
+
+For Vue 2, you can use the Options API:
+
+```vue
+<template>
+  <div ref="container"></div>
+</template>
+
+<script>
+import { Text } from '@antv/t8';
+
+export default {
+  name: 'T8Component',
+  data() {
+    return {
+      textInstance: null,
+    };
+  },
+  mounted() {
+    // Initialize T8 instance
+    this.textInstance = new Text(this.$refs.container);
+
+    // Render narrative text
+    const narrativeText = `
+# Sales Report
+
+This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](metric_value, origin=348.12).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter.
+    `;
+
+    this.textInstance.theme('light').render(narrativeText);
+  },
+  beforeDestroy() {
+    if (this.textInstance) {
+      this.textInstance.unmount();
+    }
+  },
+};
+</script>
+```
+
 <style>
 .info-box {
   padding: 12px;
