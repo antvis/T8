@@ -94,18 +94,6 @@ T8 can be used to output specific text into a schema that meets the requirements
 
 We welcome all contributors to T8 and all our backers, and thank you for your suggestions and feedback.
 
-### 🧪 Restore Benchmark
-
-Synthetic benchmark validates the `restore` function (compressed JSON -> schema). It generates random compressed cases and checks that restored output matches `schema.json` via Ajv with a success ratio threshold (>=90%).
-
-Run it directly:
-
-```bash
-npx vitest run __tests__/restore.benchmark.spec.ts --reporter verbose
-```
-
-Adjust generation logic in `__tests__/restore.benchmark.spec.ts` to explore edge cases.
-
 ## 📮 Contributing
 
 This project exists thanks to all the people who contribute. And thank you to all our backers! 🙏
