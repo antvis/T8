@@ -63,16 +63,20 @@ $ yarn add @antv/t8
 ```js
 import { Text } from '@antv/t8';
 
-// 待可视化的 schema
-const spec = {
-  /*  */
-};
+// 使用 T8-DSL 语法编写的叙述性文本
+const narrativeText = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+`;
 
 // 实例化 Text
 const text = new Text(document.getElementById('app'));
 
-// 指定可视化元素
-text.schema(spec).theme('dark');
+// 使用 syntax 方法指定叙述性文本
+text.syntax(narrativeText).theme('dark');
 
 // 渲染
 const unmont = text.render();
@@ -82,6 +86,34 @@ unmont();
 ```
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
+
+你也可以使用 T8-DSL 语法，这是一种更直观的创建叙述性文本的方式：
+
+::: my-sandbox {template=vanilla-ts}
+
+```ts index.ts
+import { Text } from '@antv/t8';
+
+// 使用 T8-DSL 语法编写的叙述性文本
+const narrativeText = `
+# 本季度销售额高于往常
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。共完成了 [29 笔交易](metric_value)，[平均交易额](metric_name) 为 [¥12k](metric_value)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。相比去年同期上涨了 [¥106.1k](delta_value, assessment="positive")。
+`;
+
+// 实例化 Text
+const text = new Text(document.getElementById('app'));
+
+// 使用 syntax 方法指定叙述性文本
+text.syntax(narrativeText).theme('light');
+
+// 渲染
+text.render();
+```
+
+:::
 
 <style>
 .info-box {

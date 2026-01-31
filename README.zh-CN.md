@@ -52,18 +52,24 @@ $ yarn add @antv/t8
 ```js
 import { Text } from '@antv/t8';
 
-// 待可视化的 schema
-const schema = {
-  /*  */
-};
+// 使用 T8-DSL 语法编写的叙述性文本
+const narrativeText = `
+# 销售报告
+
+总销售额达到 [¥1,234,567](metric_value, origin=1234567)。
+
+## 各地区表现
+
+华东地区贡献最大，销售额为 [¥800,000](metric_value)，占比 [64.8%](contribute_ratio, assessment="positive")。
+`;
 
 // 实例化 Text
 const text = new Text({
   container: 'container',
 });
 
-// 指定可视化元素
-text.schema(schema).theme('dark');
+// 使用 syntax 方法指定叙述性文本
+text.syntax(narrativeText).theme('dark');
 
 // 渲染
 const unmont = text.render();

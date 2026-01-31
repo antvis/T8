@@ -63,4 +63,28 @@ describe('Text', () => {
 
     expect(div).toBeDOMEqual('text-clear');
   });
+
+  it('syntax method should parse DSL and render', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    const text = new Text(div);
+
+    const syntax = `
+# Sales Report
+
+The total sales are [¥1,234,567](metric_value, origin=1234567).
+
+## Regional Performance
+
+Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
+`;
+
+    text.syntax(syntax).theme('light').render();
+
+    // Check that the div has content
+    expect(div.innerHTML).toContain('Sales Report');
+    expect(div.innerHTML).toContain('¥1,234,567');
+    expect(div.innerHTML).toContain('Regional Performance');
+    expect(div.innerHTML).toContain('64.8%');
+  });
 });
