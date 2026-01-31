@@ -43,11 +43,11 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 
 #### render
 
-Renders the narrative text visualization. Accepts either a T8 syntax string or a NarrativeTextSpec object.
+Renders the narrative text visualization with a T8 syntax string.
 
-| Parameter | Type                        | Required | Description                                            |
-| --------- | --------------------------- | -------- | ------------------------------------------------------ |
-| content   | string \| NarrativeTextSpec | No       | T8 syntax string or NarrativeTextSpec object to render |
+| Parameter | Type   | Required | Description                |
+| --------- | ------ | -------- | -------------------------- |
+| t8Syntax  | string | No       | T8 syntax string to render |
 
 **Return Value**
 
@@ -55,7 +55,7 @@ Renders the narrative text visualization. Accepts either a T8 syntax string or a
 | -------- | -------------------------------------------- |
 | function | Unmount function to remove the visualization |
 
-**Usage Examples**
+**Usage Example**
 
 ```typescript
 // Render with T8 syntax string
@@ -63,9 +63,6 @@ text.theme('light').render(`
   # Sales Report
   Total sales are [¥1,234,567](metric_value).
 `);
-
-// Render with NarrativeTextSpec object
-text.render(spec);
 ```
 
 #### clear

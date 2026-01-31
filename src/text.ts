@@ -65,28 +65,23 @@ export class Text extends EE {
 
   /**
    * Render the narrative text visualization.
-   * Accepts either a T8 syntax string or a NarrativeTextSpec object.
-   * @param content - T8 syntax string or NarrativeTextSpec object to render.
+   * Accepts a T8 syntax string for rendering.
+   * @param t8Syntax - T8 syntax string to render.
    * @returns A function to unmount the component.
    */
-  render(content?: string | NarrativeTextSpec) {
+  render(t8Syntax?: string) {
     const container = this.container;
     let spec: NarrativeTextSpec | undefined;
 
-    // Parse content if provided
-    if (content) {
-      if (typeof content === 'string') {
-        try {
-          // Parse T8 syntax string with error tolerance
-          spec = parseSyntax(content);
-        } catch (error: unknown) {
-          // Log error but continue with empty spec for error tolerance
-          console.error(`T8 Syntax parsing failed: ${error instanceof Error ? error.message : String(error)}`);
-          spec = { sections: [] };
-        }
-      } else {
-        // Use provided spec directly
-        spec = content;
+    // Parse T8 syntax if provided
+    if (t8Syntax) {
+      try {
+        // Parse T8 syntax string with error tolerance
+        spec = parseSyntax(t8Syntax);
+      } catch (error: unknown) {
+        // Log error but continue with empty spec for error tolerance
+        console.error(`T8 Syntax parsing failed: ${error instanceof Error ? error.message : String(error)}`);
+        spec = { sections: [] };
       }
     } else {
       // Use stored spec if no content provided

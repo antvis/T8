@@ -1,7 +1,25 @@
 import { describe, expect, it } from 'vitest';
-import { Text, NarrativeTextSpec, createDimensionValue } from '../src';
-import SCHEMA from '../example/example.json';
+import { Text, createDimensionValue } from '../src';
 import { SpecificEntityPhraseDescriptor } from '../src/plugin';
+
+// T8 Syntax equivalent of the example.json schema
+const EXAMPLE_T8_SYNTAX = `
+# Bookings This Quarter Higher than Usual
+
+This quarter, [bookings](metric_name) are higher than usual for this point in the quarter. They are [$348k](metric_value, origin=348.12). They were made up of [29 deals](metric_value), with the [average deal size](metric_name) being [$12k](metric_value).
+
+[Bookings](metric_name) are up [$180.3k](delta_value, assessment="positive") relative to the same time last quarter. They are up [$106.1k](delta_value, assessment="positive") relative to the same time last year. They are [$110k](metric_value) ([46.2%](contribute_ratio)) greater than average bookings at the same time each quarter over the previous year.
+
+Looking across the most relevant dimensions, the increase relative to the same time last quarter was primarily driven by
+
+- the [Prospecting](dim_value) lead source ([$50.6k](delta_value, assessment="positive"))
+- [Keely Townsend](dim_value) ([$86.2k](delta_value, assessment="positive"))
+- the [New Client](dim_value) opportunity type ([$160.1k](delta_value, assessment="positive"))
+
+The [number of deals](metric_name) ([29](metric_value)) is up [17](delta_value, assessment="positive") relative to the same time last quarter ([12](metric_value)).
+
+The [average deal size](metric_name) ([$12k](metric_value)) is down [$2k](delta_value, assessment="negative") relative to the same time last quarter ([$14k](metric_value)).
+`;
 
 describe('Text', () => {
   it('simple', () => {
@@ -9,7 +27,7 @@ describe('Text', () => {
     document.body.appendChild(div);
     const text = new Text(div);
 
-    const destroy = text.theme('dark').render(SCHEMA as NarrativeTextSpec);
+    const destroy = text.theme('dark').render(EXAMPLE_T8_SYNTAX);
 
     expect(div).toBeDOMEqual('text-simple');
     destroy();
@@ -35,7 +53,7 @@ describe('Text', () => {
     const dimensionPlugin = createDimensionValue(dimensionValueDescriptor, 'overwrite');
     text.registerPlugin(dimensionPlugin);
 
-    const destroy = text.render(SCHEMA as NarrativeTextSpec);
+    const destroy = text.render(EXAMPLE_T8_SYNTAX);
 
     expect(div).toBeDOMEqual('text-register-plugin');
     destroy();
@@ -89,7 +107,7 @@ Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
     destroy();
   });
 
-  it('render with NarrativeTextSpec object', () => {
+  it('render with T8 syntax', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const text = new Text(div);

@@ -43,11 +43,11 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 
 #### render
 
-渲染叙述性文本可视化。接受 T8 语法字符串或 NarrativeTextSpec 对象。
+使用 T8 语法字符串渲染叙述性文本可视化。
 
-| 参数    | 类型                        | 必填 | 说明                             |
-| ------- | --------------------------- | ---- | -------------------------------- |
-| content | string \| NarrativeTextSpec | 否   | 要渲染的 T8 语法字符串或规范对象 |
+| 参数     | 类型   | 必填 | 说明                   |
+| -------- | ------ | ---- | ---------------------- |
+| t8Syntax | string | 否   | 要渲染的 T8 语法字符串 |
 
 **返回值**
 
@@ -63,9 +63,6 @@ text.theme('light').render(`
   # 销售报告
   总销售额为 [¥1,234,567](metric_value).
 `);
-
-// 使用 NarrativeTextSpec 对象渲染
-text.render(spec);
 ```
 
 #### clear
