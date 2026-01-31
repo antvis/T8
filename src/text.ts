@@ -107,14 +107,14 @@ export class Text extends EE {
   }
 
   /**
-   * Stream render a T8 syntax string fragment.
+   * Parse and render a T8 syntax string.
    * This method parses a complete T8 syntax string and updates the visualization.
-   * @param t8SyntaxFragment - The T8 syntax string to parse and render.
+   * @param t8Syntax - The T8 syntax string to parse and render.
    * @param options - The options for the stream render.
    * @returns The Text instance for method chaining.
    */
   streamRender(
-    t8SyntaxFragment: string,
+    t8Syntax: string,
     options?: {
       onError?: (error: string) => void;
       onComplete?: (result: NarrativeTextSpec) => void;
@@ -122,7 +122,7 @@ export class Text extends EE {
   ) {
     try {
       // Use parseSyntax to parse the T8 syntax string
-      const document = parseSyntax(t8SyntaxFragment);
+      const document = parseSyntax(t8Syntax);
 
       // If parsing succeeds, update schema and trigger rendering
       options?.onComplete?.(document);

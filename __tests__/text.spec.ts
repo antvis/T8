@@ -91,17 +91,15 @@ Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
     expect(div).toBeDOMEqual('text-clear');
   });
 
-  it('streamRender with error handling', () => {
+  it('streamRender with callbacks', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
     const text = new Text(div);
 
-    // Test with invalid syntax that would cause parseSyntax to throw
-    // parseSyntax is generally forgiving, but we'll test the error callback mechanism
+    // Test that callbacks are properly invoked
+    let completeCalled = false;
     let errorCalled = false;
 
-    // To trigger an error, we'd need to modify parseSyntax or pass something that breaks it
-    // For now, let's just verify the callback structure works
     const validSyntax = '# Test Heading\n\nSome content.';
 
     text.streamRender(validSyntax, {
@@ -109,12 +107,14 @@ Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
         errorCalled = true;
       },
       onComplete: (result) => {
-        // Should complete successfully
+        completeCalled = true;
         expect(result).toBeDefined();
+        expect(result.sections).toBeDefined();
       },
     });
 
-    // With valid syntax, error should not be called
+    // With valid syntax, onComplete should be called and onError should not
+    expect(completeCalled).toBe(true);
     expect(errorCalled).toBe(false);
   });
 
