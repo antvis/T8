@@ -110,6 +110,175 @@ text.theme('light').render(narrativeText);
 
 :::
 
+## 在 HTML 中使用（通过 CDN）
+
+T8 可以通过 unpkg CDN 直接在 HTML 页面中使用。这是最简单的入门方式，无需任何构建工具：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T8 示例</title>
+</head>
+<body>
+  <div id="container"></div>
+
+  <!-- 从 unpkg CDN 引入 T8 -->
+  <script src="https://unpkg.com/@antv/t8@0.3.0/dist/t8.min.js"></script>
+  
+  <script>
+    // T8 作为全局变量可用
+    const { Text } = window.T8;
+
+    // 初始化 T8 实例
+    const text = new Text(document.getElementById('container'));
+
+    // 渲染叙述性文本
+    const narrativeText = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+    `;
+
+    text.theme('light').render(narrativeText);
+  </script>
+</body>
+</html>
+```
+
+您也可以通过省略版本号来使用最新版本：
+
+```html
+<script src="https://unpkg.com/@antv/t8/dist/t8.min.js"></script>
+```
+
+## 在 React 中使用
+
+T8 是框架无关的，可以无缝集成到 React 中。以下是集成方法：
+
+```tsx
+import { Text } from '@antv/t8';
+import { useEffect, useRef } from 'react';
+
+function T8Component() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // 初始化 T8 实例
+    const text = new Text(containerRef.current);
+
+    // 渲染叙述性文本
+    const narrativeText = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+    `;
+
+    text.theme('light').render(narrativeText);
+
+    // 组件卸载时清理
+    return () => {
+      text.unmount();
+    };
+  }, []);
+
+  return <div ref={containerRef} />;
+}
+
+export default T8Component;
+```
+
+## 在 Vue 中使用
+
+T8 同样适用于 Vue。以下是 Vue 3 示例：
+
+```vue
+<template>
+  <div ref="containerRef"></div>
+</template>
+
+<script setup lang="ts">
+import { Text } from '@antv/t8';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const containerRef = ref<HTMLDivElement>();
+let textInstance: Text | null = null;
+
+onMounted(() => {
+  if (!containerRef.value) return;
+
+  // 初始化 T8 实例
+  textInstance = new Text(containerRef.value);
+
+  // 渲染叙述性文本
+  const narrativeText = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+  `;
+
+  textInstance.theme('light').render(narrativeText);
+});
+
+onBeforeUnmount(() => {
+  if (textInstance) {
+    textInstance.unmount();
+  }
+});
+</script>
+```
+
+对于 Vue 2，可以使用选项式 API：
+
+```vue
+<template>
+  <div ref="container"></div>
+</template>
+
+<script>
+import { Text } from '@antv/t8';
+
+export default {
+  name: 'T8Component',
+  data() {
+    return {
+      textInstance: null,
+    };
+  },
+  mounted() {
+    // 初始化 T8 实例
+    this.textInstance = new Text(this.$refs.container);
+
+    // 渲染叙述性文本
+    const narrativeText = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+    `;
+
+    this.textInstance.theme('light').render(narrativeText);
+  },
+  beforeDestroy() {
+    if (this.textInstance) {
+      this.textInstance.unmount();
+    }
+  },
+};
+</script>
+```
+
 <style>
 .info-box {
   padding: 12px;
