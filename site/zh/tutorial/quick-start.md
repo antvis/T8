@@ -120,14 +120,12 @@ import { useEffect, useRef } from 'react';
 
 function T8Component() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<Text | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     // 初始化 T8 实例
     const text = new Text(containerRef.current);
-    textRef.current = text;
 
     // 渲染叙述性文本
     const narrativeText = `
