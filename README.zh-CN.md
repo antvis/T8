@@ -23,7 +23,7 @@
 
 - **[快速开始](https://t8.antv.vision/tutorial/quick-start.html)** - 几分钟内开始使用 T8，包含安装和基本使用示例
 - **[教程](https://t8.antv.vision/tutorial/quick-start)** - 学习主题、事件、插件、流式渲染和 LLM 集成
-- **[Schema](https://t8.antv.vision/schema/)** - T8 语法和 Schema 结构的完整参考
+- **[语法](https://t8.antv.vision/syntax/)** - 完整的 T8 语法参考和结构指南
 - **[API 文档](https://t8.antv.vision/api/)** - 详细的 API 文档和使用指南
 
 ## ✨ Features

@@ -36,7 +36,7 @@ Especially with the development of augmented analytics, the data text descriptio
 
 ## Features
 
-- Standardized JSON schema description for data interpretation text ([narrative-text-schema](../schema/index.md));
+- T8 syntax description for data interpretation text ([T8 syntax reference](../syntax/index.md));
 - Pure JS rendering engine `Text` for text-schema;
   - Parse text structure description JSON schema into HTML;
   - Standard visual representation of data phrases (such as metric values, ratios, differences, proportions, contribution rates, etc.);
