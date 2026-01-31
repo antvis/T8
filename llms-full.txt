@@ -9,24 +9,12 @@ url: /en/api.md
 ### constructor
 
 ```typescript
-constructor(container: string | HTMLElement, options?: TextOptions);
+constructor(container: string | HTMLElement);
 ```
 
 | Parameter | Type                  | Required | Description                                             |
 | --------- | --------------------- | -------- | ------------------------------------------------------- |
 | container | string | HTMLElement | Yes      | Container element, can be a DOM selector or DOM element |
-
-#### schema
-
-| Parameter | Type              | Required | Description                             |
-| --------- | ----------------- | -------- | --------------------------------------- |
-| spec      | NarrativeTextSpec | Yes      | Text visualization specification object |
-
-**Return Value**
-
-| Type | Description                             |
-| ---- | --------------------------------------- |
-| Text | Text instance, supports method chaining |
 
 #### theme
 
@@ -53,24 +41,13 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | ---- | --------------------------------------- |
 | Text | Text instance, supports method chaining |
 
-#### streamRender
-
-| Parameter       | Type   | Required | Description                                                                             |
-| --------------- | ------ | -------- | --------------------------------------------------------------------------------------- |
-| newJSONFragment | string | Yes      | A JSON string fragment to append and parse incrementally.                               |
-| options         | object | No       | Optional callbacks: onError (error: string), onComplete (result: T8ClarinetParseResult) |
-
-#### clear
-
-| Parameter | Type | Required | Description |
-| --------- | ---- | -------- | ----------- |
-| (none)    |      |          |             |
-
 #### render
 
-| Parameter | Type | Required | Description |
-| --------- | ---- | -------- | ----------- |
-| (none)    |      |          |             |
+Renders the narrative text visualization with a T8 syntax string.
+
+| Parameter | Type   | Required | Description                |
+| --------- | ------ | -------- | -------------------------- |
+| t8Syntax  | string | No       | T8 syntax string to render |
 
 **Return Value**
 
@@ -78,7 +55,27 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | -------- | -------------------------------------------- |
 | function | Unmount function to remove the visualization |
 
+**Usage Example**
+
+```typescript
+// Render with T8 syntax string
+text.theme('light').render(`
+  # Sales Report
+  Total sales are [¥1,234,567](metric_value).
+`);
+```
+
+#### clear
+
+Clears the visualization by unmounting it.
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
 #### unmount
+
+Unmounts the visualization component.
 
 | Parameter | Type | Required | Description |
 | --------- | ---- | -------- | ----------- |
@@ -330,24 +327,12 @@ url: /zh/api.md
 ### constructor
 
 ```typescript
-constructor(container: string | HTMLElement, options?: TextOptions);
+constructor(container: string | HTMLElement);
 ```
 
 | 参数      | 类型                  | 必填 | 说明                                   |
 | --------- | --------------------- | ---- | -------------------------------------- |
 | container | string | HTMLElement | 是   | 容器元素，可以是 DOM 选择器或 DOM 元素 |
-
-#### schema
-
-| 参数 | 类型              | 必填 | 说明               |
-| ---- | ----------------- | ---- | ------------------ |
-| spec | NarrativeTextSpec | 是   | 文本可视化规范对象 |
-
-**返回值**
-
-| 类型 | 说明                    |
-| ---- | ----------------------- |
-| Text | Text 实例，支持链式调用 |
 
 #### theme
 
@@ -374,24 +359,13 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | ---- | ----------------------- |
 | Text | Text 实例，支持链式调用 |
 
-#### streamRender
-
-| 参数            | 类型   | 必填 | 说明                                                                          |
-| --------------- | ------ | ---- | ----------------------------------------------------------------------------- |
-| newJSONFragment | string | 是   | 追加并增量解析的 JSON 字符串片段。                                            |
-| options         | object | 否   | 可选回调：onError (error: string)，onComplete (result: T8ClarinetParseResult) |
-
-#### clear
-
-| 参数 | 类型 | 必填 | 说明 |
-| ---- | ---- | ---- | ---- |
-| (无) |      |      |      |
-
 #### render
 
-| 参数 | 类型 | 必填 | 说明 |
-| ---- | ---- | ---- | ---- |
-| (无) |      |      |      |
+使用 T8 语法字符串渲染叙述性文本可视化。
+
+| 参数     | 类型   | 必填 | 说明                   |
+| -------- | ------ | ---- | ---------------------- |
+| t8Syntax | string | 否   | 要渲染的 T8 语法字符串 |
 
 **返回值**
 
@@ -399,7 +373,27 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | -------- | ------------------------ |
 | function | 卸载函数，移除可视化组件 |
 
+**使用示例**
+
+```typescript
+// 使用 T8 语法字符串渲染
+text.theme('light').render(`
+  # 销售报告
+  总销售额为 [¥1,234,567](metric_value).
+`);
+```
+
+#### clear
+
+通过卸载来清除可视化。
+
+| 参数 | 类型 | 必填 | 说明 |
+| ---- | ---- | ---- | ---- |
+| (无) |      |      |      |
+
 #### unmount
+
+卸载可视化组件。
 
 | 参数 | 类型 | 必填 | 说明 |
 | ---- | ---- | ---- | ---- |
@@ -873,7 +867,7 @@ text.on('narrative:click', (spec) => {
 ---
 
 ---
-url: /en/schema/types/narrative-text.md
+url: /en/syntax/types/narrative-text.md
 ---
 
 # NarrativeText
@@ -980,7 +974,7 @@ const spec: NarrativeTextSpec = {
 ---
 
 ---
-url: /zh/schema/types/narrative-text.md
+url: /zh/syntax/types/narrative-text.md
 ---
 
 # NarrativeText
@@ -1087,452 +1081,7 @@ const spec: NarrativeTextSpec = {
 ---
 
 ---
-url: /en/schema/structure.md
----
-
-# Structure Overview
-
-![overview](https://gw.alipayobjects.com/mdn/rms_e59602/afts/img/A*QpAmQYCQL2cAAAAAAAAAAAAAARQnAQ)
-
-A data report includes the following components in its overall structure:
-
-* `Headline`: The title;
-* `Section`: Sections used to divide different report topics;
-
-A `Section` contains multiple `Paragraph`s, which can be of the following types:
-
-* `heading1` ~ `heading6` (note that these are different from the report-level Headline, which specifically refers to the article title);
-* `normal` for regular text paragraphs, corresponding to the HTML `<p>` tag;
-* `bullets` for lists, which can be ordered or unordered, corresponding to HTML `<ul>` and `<ol>` tags, supporting multi-level list nesting;
-* `custom` for custom paragraph types;
-* `visualization` for visualization charts (not currently supported, can be implemented through custom paragraphs);
-
-Besides the standard type containing multiple `Paragraph`s, `Section` can also be customized.
-
-Except for custom paragraphs, `heading`, `normal`, and `bullets` are all composed of multiple `Phrase`s, which include the following types:
-
-* `text` for plain text;
-* `entity` for entities, which correspond to specific data content in the data report;
-* `custom` for custom phrases;
-
-***
-
-The latest standard JSON Schema definition for `T8` is as follows, or fetch from [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json):
-
-```json
-{
-  "$ref": "#/definitions/NarrativeTextSpec",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "BulletItemSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "subBullet": {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        "type": {
-          "const": "bullet-item",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "BulletsParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bullets": {
-          "items": {
-            "$ref": "#/definitions/BulletItemSpec"
-          },
-          "type": "array"
-        },
-        "className": {
-          "type": "string"
-        },
-        "isOrder": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "bullets",
-          "type": "string"
-        }
-      },
-      "required": ["bullets", "isOrder", "type"],
-      "type": "object"
-    },
-    "CustomBlockElement": {
-      "description": "basic block element structure, used for extends",
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "customType": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomMetaData": {
-      "additionalProperties": {},
-      "description": "custom phrase metadata",
-      "properties": {
-        "customType": {
-          "type": "string"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomPhraseSpec<CustomMetaData>": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/CustomMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "custom",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityMetaData": {
-      "additionalProperties": false,
-      "properties": {
-        "assessment": {
-          "$ref": "#/definitions/ValueAssessment",
-          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
-        },
-        "detail": {
-          "description": "detail data, 明细数据，用于弹框展示"
-        },
-        "entityType": {
-          "$ref": "#/definitions/EntityType",
-          "description": "entity type, 实体类型标记"
-        },
-        "origin": {
-          "description": "original data, 原始数据",
-          "type": "number"
-        },
-        "sourceId": {
-          "description": "source id of the variable, to access the variable info from variableSourceMap",
-          "type": "string"
-        }
-      },
-      "required": ["entityType"],
-      "type": "object"
-    },
-    "EntityPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/EntityMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "entity",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityType": {
-      "enum": [
-        "metric_name",
-        "metric_value",
-        "other_metric_value",
-        "contribute_ratio",
-        "delta_value",
-        "ratio_value",
-        "trend_desc",
-        "dim_value",
-        "time_desc",
-        "proportion",
-        "rank",
-        "difference",
-        "anomaly",
-        "association",
-        "distribution",
-        "seasonality"
-      ],
-      "type": "string"
-    },
-    "HeadingParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "HeadlineSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "headline",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "NarrativeTextSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "headline": {
-          "$ref": "#/definitions/HeadlineSpec"
-        },
-        "key": {
-          "type": "string"
-        },
-        "sections": {
-          "items": {
-            "$ref": "#/definitions/SectionSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "ParagraphSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/HeadingParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/TextParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomBlockElement"
-        }
-      ]
-    },
-    "PhraseSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TextPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/EntityPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
-        }
-      ]
-    },
-    "SectionSpec": {
-      "anyOf": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "paragraphs": {
-              "items": {
-                "$ref": "#/definitions/ParagraphSpec"
-              },
-              "type": "array"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "customType": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "required": ["customType"],
-          "type": "object"
-        }
-      ]
-    },
-    "TextParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "normal",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "TextPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bold": {
-          "type": "boolean"
-        },
-        "className": {
-          "type": "string"
-        },
-        "italic": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "text",
-          "type": "string"
-        },
-        "underline": {
-          "type": "boolean"
-        },
-        "url": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type", "value"],
-      "type": "object"
-    },
-    "ValueAssessment": {
-      "enum": ["positive", "negative", "equal"],
-      "type": "string"
-    }
-  }
-}
-
-```
-
----
-
----
-url: /en/schema/types/paragraph.md
+url: /en/syntax/types/paragraph.md
 ---
 
 # Paragraph
@@ -1737,7 +1286,7 @@ const list: BulletsParagraphSpec = {
 ---
 
 ---
-url: /zh/schema/types/paragraph.md
+url: /zh/syntax/types/paragraph.md
 ---
 
 # Paragraph
@@ -1942,7 +1491,7 @@ const list: BulletsParagraphSpec = {
 ---
 
 ---
-url: /en/schema/types/phrase.md
+url: /en/syntax/types/phrase.md
 ---
 
 # Phrase & Entity
@@ -2137,7 +1686,7 @@ const entity: EntityPhraseSpec = {
 ---
 
 ---
-url: /zh/schema/types/phrase.md
+url: /zh/syntax/types/phrase.md
 ---
 
 # Phrase & Entity
@@ -2865,7 +2414,7 @@ Especially with the development of augmented analytics, the data text descriptio
 
 ## Features
 
-* Standardized JSON schema description for data interpretation text ([narrative-text-schema](../schema/index.md));
+* T8 syntax description for data interpretation text ([T8 syntax reference](../syntax/index.md));
 * Pure JS rendering engine `Text` for text-schema;
   * Parse text structure description JSON schema into HTML;
   * Standard visual representation of data phrases (such as metric values, ratios, differences, proportions, contribution rates, etc.);
@@ -2904,14 +2453,12 @@ This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](m
 // Instantiate Text
 const text = new Text(document.getElementById('app'));
 
-// Specify narrative text using syntax method
-text.syntax(narrativeText).theme('dark');
+// Render with T8 syntax string
+text.theme('dark').render(narrativeText);
 
-// Render
-const unmont = text.render();
-
-// Destroy
-unmont();
+// Unmount
+const unmount = text.render(narrativeText);
+unmount();
 ```
 
 If you haven't encountered any other issues, you should get the following clear data text visualization effect.
@@ -2935,597 +2482,8 @@ This quarter, [bookings](metric_name) are higher than usual for this point in th
 // Instantiate Text
 const text = new Text(document.getElementById('app'));
 
-// Use syntax method to specify narrative text
-text.syntax(narrativeText).theme('light');
-
-// Render
-text.render();
-```
-
-:::
-
-::: my-sandbox {template=vanilla-ts}
-
-```ts index.ts
-import { Text } from '@antv/t8';
-import spec from './example.json';
-
-// Instantiate Text
-const text = new Text(document.getElementById('app'));
-
-// Specify visualization elements
-text.schema(spec).theme('light');
-
-// Render
-text.render();
-```
-
-```json example.json
-{
-  "sections": [
-    {
-      "paragraphs": [
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "This quarter, "
-            },
-            {
-              "type": "entity",
-              "value": "bookings",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are higher than usual for this point in the quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$348k",
-              "metadata": {
-                "entityType": "metric_value",
-                "origin": 348.12
-              }
-            },
-            {
-              "type": "text",
-              "value": ". "
-            },
-            {
-              "type": "text",
-              "value": "They were made up of "
-            },
-            {
-              "type": "entity",
-              "value": "29 deals",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ", "
-            },
-            {
-              "type": "text",
-              "value": "with the "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "being "
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": "."
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "entity",
-              "value": "Bookings ",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are up "
-            },
-            {
-              "type": "entity",
-              "value": "$180.3k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are up "
-            },
-            {
-              "type": "entity",
-              "value": "$106.1k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last year. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$110k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "46.2%",
-              "metadata": {
-                "entityType": "contribute_ratio"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "greater than average bookings at the same time each quarter over the previous year. "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "Looking across the most relevant dimensions, "
-            },
-            {
-              "type": "text",
-              "value": "the "
-            },
-            {
-              "type": "entity",
-              "value": "increase",
-              "metadata": {
-                "entityType": "trend_desc",
-                "detail": [1, 2, 6, 18, 24, 48]
-              }
-            },
-            {
-              "type": "text",
-              "value": " relative to the same time last quarter was primarily driven by"
-            }
-          ]
-        },
-        {
-          "type": "bullets",
-          "isOrder": false,
-          "bullets": [
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "Prospecting",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "lead source"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$50.6k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all lead sources.",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx1"
-                  }
-                }
-              ],
-              "subBullet": {
-                "type": "bullets",
-                "isOrder": true,
-                "bullets": [
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 1"
-                      }
-                    ],
-                    "subBullet": {
-                      "type": "bullets",
-                      "isOrder": false,
-                      "bullets": [
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.1, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "45%",
-                              "metadata": {
-                                "entityType": "proportion",
-                                "origin": 0.45
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.2, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "65%",
-                              "metadata": {
-                                "entityType": "proportion"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 2"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "entity",
-                  "value": "Keely Townsend",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$86.2k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all account executives",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx2"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "New Client",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "opportunity type"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$160.1k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all opportunity types",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx3"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "number of deals",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "29",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is up "
-            },
-            {
-              "type": "entity",
-              "value": "17",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "12",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is down "
-            },
-            {
-              "type": "entity",
-              "value": "$2k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "negative"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$14k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "headline": {
-    "type": "headline",
-    "phrases": [
-      {
-        "type": "text",
-        "value": "Bookings This Quarter Higher than Usual"
-      }
-    ]
-  }
-}
+// Render with T8 syntax string
+text.theme('light').render(narrativeText);
 ```
 
 :::
@@ -3533,183 +2491,7 @@ text.render();
 ---
 
 ---
-url: /en/schema.md
----
-
-# Schema
-
-## Overview
-
-T8 Schema is a JSON Schema specification for declaratively describing data interpretation reports. It provides a complete type system for building structured narrative text visualization content.
-
-## Core Concepts
-
-T8 Schema system includes the following core concepts:
-
-1. **NarrativeText**
-
-   * Acts as the top-level container for the entire document
-   * Contains Headline and multiple Section blocks
-   * Supports global style configuration
-
-2. **Section**
-
-   * Used to organize and manage collections of related paragraphs
-   * Supports standard paragraph groups and custom blocks
-   * Can be flexibly extended to accommodate different display requirements
-
-3. **Paragraph**
-
-   * Supports multiple paragraph types: headings, body text, lists, etc.
-   * Each type has its specific structure and purpose
-   * Can be extended through custom types
-
-4. **Phrase**
-   * Serves as the smallest unit of text composition
-   * Includes plain text, entities, and custom phrases
-   * Supports rich styling and interaction configuration
-
-## Type System
-
-You can use T8's type definitions in TypeScript projects as follows:
-
-```ts
-import type {
-  NarrativeTextSpec,
-  ParagraphSpec,
-  PhraseSpec,
-  // ...
-} from '@antv/t8';
-```
-
-The main type definitions include:
-
-* `NarrativeTextSpec`: Top-level document structure
-* `SectionSpec`: Section block structure
-* `ParagraphSpec`: Paragraph type definitions
-* `PhraseSpec`: Phrase type definitions
-* `EntityType`: Entity type enumeration
-* `CommonProps`: Common property definitions
-
-## Extensibility
-
-T8 Schema has designed a comprehensive extension mechanism:
-
-1. **Custom Blocks**
-
-   * Extend through the `CustomBlockElement` interface
-   * Can implement completely custom block structures
-
-2. **Custom Phrases**
-
-   * Extend through the `CustomPhraseSpec` interface
-   * Supports custom metadata and rendering logic
-
-3. **Style System**
-   * All components support `CommonProps`
-   * Can customize styles through `styles` and `className`
-
-## Detailed Documentation
-
-* [Overall Structure](./structure.md) - Understand the overall organization of the Schema
-* Type Definitions
-  * [NarrativeText](./types/narrative-text.md) - Top-level text structure
-  * [Section](./types/section.md) - Section blocks
-  * [Paragraph](./types/paragraph.md) - Paragraph types
-  * [Phrase & Entity](./types/phrase.md) - Phrases and entities
-
----
-
----
-url: /zh/schema.md
----
-
-# Schema
-
-## 概述
-
-T8 Schema 是一套用于声明式描述数据解读报告的 JSON Schema 规范。它提供了一个完整的类型系统，用于构建结构化的叙事文本可视化内容。
-
-## 核心概念
-
-T8 Schema 系统主要包含以下核心概念：
-
-1. **叙事文本 (NarrativeText)**
-
-   * 作为整个文档的顶层容器
-   * 包含标题（Headline）和多个段落区块（Section）
-   * 支持全局样式配置
-
-2. **段落区块 (Section)**
-
-   * 用于组织和管理相关内容的段落集合
-   * 支持标准段落组和自定义区块
-   * 可以灵活扩展以适应不同的展示需求
-
-3. **段落 (Paragraph)**
-
-   * 支持多种段落类型：标题、正文、列表等
-   * 每种类型都有其特定的结构和用途
-   * 可以通过自定义类型扩展
-
-4. **短语 (Phrase)**
-   * 作为文本的最小组成单位
-   * 包括纯文本、实体和自定义短语
-   * 支持丰富的样式和交互配置
-
-## 类型系统
-
-通过以下方式可以在 TypeScript 项目中使用 T8 的类型定义：
-
-```ts
-import type {
-  NarrativeTextSpec,
-  ParagraphSpec,
-  PhraseSpec,
-  // ...
-} from '@antv/t8';
-```
-
-主要的类型定义包括：
-
-* `NarrativeTextSpec`: 顶层文档结构
-* `SectionSpec`: 段落区块结构
-* `ParagraphSpec`: 段落类型定义
-* `PhraseSpec`: 短语类型定义
-* `EntityType`: 实体类型枚举
-* `CommonProps`: 通用属性定义
-
-## 扩展性
-
-T8 Schema 设计了完善的扩展机制：
-
-1. **自定义区块**
-
-   * 通过 `CustomBlockElement` 接口扩展
-   * 可以实现完全自定义的区块结构
-
-2. **自定义短语**
-
-   * 通过 `CustomPhraseSpec` 接口扩展
-   * 支持自定义元数据和渲染逻辑
-
-3. **样式系统**
-   * 所有组件都支持 `CommonProps`
-   * 可以通过 `styles` 和 `className` 自定义样式
-
-## 详细文档
-
-* [总体结构](./structure.md) - 了解 Schema 的整体组织结构
-* 类型定义
-  * [NarrativeText](./types/narrative-text.md) - 顶层文本结构
-  * [Section](./types/section.md) - 段落区块
-  * [Paragraph](./types/paragraph.md) - 段落类型
-  * [Phrase & Entity](./types/phrase.md) - 短语和实体
-
----
-
----
-url: /en/schema/types/section.md
+url: /en/syntax/types/section.md
 ---
 
 # Section
@@ -3819,7 +2601,7 @@ const standardSection: SectionSpec = {
 ---
 
 ---
-url: /zh/schema/types/section.md
+url: /zh/syntax/types/section.md
 ---
 
 # Section
@@ -3934,7 +2716,7 @@ url: /en/tutorial/advanced/streaming.md
 
 # Streaming Output
 
-In some scenarios, you may want to render narrative text in a streaming or incremental fashion, such as when receiving data from a server in chunks or simulating real-time updates. The T8 library provides a convenient API for this: `text.streamRender`.
+In some scenarios, you may want to render narrative text in a streaming or incremental fashion, such as when receiving data from a server in chunks or simulating real-time updates. With the simplified T8 API, you can achieve this by repeatedly calling `text.render()` with updated T8 syntax strings.
 
 ## When to Use Streaming Output?
 
@@ -3944,13 +2726,12 @@ In some scenarios, you may want to render narrative text in a streaming or incre
 
 ## How Streaming Works in T8
 
-The `Text` class exposes a `streamRender` method, which allows you to append JSON fragments and incrementally update the visualization. Internally, it uses a streaming JSON parser to handle incomplete or chunked data.
+The `Text` class's `render` method can be called multiple times with progressively complete T8 syntax strings. Each call will re-render the visualization with the updated content, creating a streaming effect.
 
 ## Example for Streaming Render
 
 ```typescript
-import { Text } from 't8';
-import spec from './example.json';
+import { Text } from '@antv/t8';
 
 const app = document.getElementById('app');
 const text = new Text(app!);
@@ -3961,17 +2742,27 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Mock streaming data
+// T8 syntax string that will be built incrementally
+const fullSyntax = `
+# Sales Report
+
+This quarter, [bookings](metric_name) are higher than usual. They are [¥348k](metric_value, origin=348.12).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter.
+`;
+
+// Mock streaming data by revealing content gradually
 async function streamingRender() {
-  const value = JSON.stringify(spec, null, 2).split('\n');
-  for (let i = 0; i < value.length; i++) {
-    await delay(Math.random() * 30 + 20); // Simulate network latency
-    text.streamRender(value[i]);
+  const step = 10; // Characters to reveal per step
+  for (let i = 0; i <= fullSyntax.length; i += step) {
+    await delay(50); // Simulate network latency
+    const chunk = fullSyntax.slice(0, i);
+    text.render(chunk);
   }
 }
 
 streamingRender().then(() => {
-  console.log('All data processed.');
+  console.log('All data rendered.');
 });
 ```
 
@@ -3979,607 +2770,981 @@ streamingRender().then(() => {
 
 ```ts index.ts
 import { Text } from '@antv/t8';
-import spec from './example.json';
 
 const app = document.getElementById('app');
 const text = new Text(app!);
+text.theme('light');
 
 // Utility: delay for a given ms
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Mock streaming data
+// T8 syntax string that will be built incrementally
+const fullSyntax = `
+# Bookings This Quarter Higher than Usual
+
+This quarter, [bookings](metric_name) are higher than usual for this point in the quarter. They are [¥348k](metric_value, origin=348.12). They were made up of [29 deals](metric_value), with the [average deal size](metric_name) being [¥12k](metric_value).
+
+[Bookings](metric_name) are up [¥180.3k](delta_value, assessment="positive") relative to the same time last quarter. They are up [¥106.1k](delta_value, assessment="positive") relative to the same time last year.
+`;
+
+// Mock streaming data by revealing content gradually
 async function streamingRender() {
-  const value = JSON.stringify(spec, null, 2).split('\n');
-  for (let i = 0; i < value.length; i++) {
-    await delay(Math.random() * 30 + 20); // Simulate network latency
-    text.streamRender(value[i]);
+  const step = 10; // Characters to reveal per step
+  for (let i = 0; i <= fullSyntax.length; i += step) {
+    await delay(50); // Simulate network latency
+    const chunk = fullSyntax.slice(0, i);
+    text.render(chunk);
   }
 }
 
 streamingRender().then(() => {
-  console.log('All data processed.');
+  console.log('All data rendered.');
 });
-```
-
-```json example.json
-{
-  "sections": [
-    {
-      "paragraphs": [
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "This quarter, "
-            },
-            {
-              "type": "entity",
-              "value": "bookings",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are higher than usual for this point in the quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$348k",
-              "metadata": {
-                "entityType": "metric_value",
-                "origin": 348.12
-              }
-            },
-            {
-              "type": "text",
-              "value": ". "
-            },
-            {
-              "type": "text",
-              "value": "They were made up of "
-            },
-            {
-              "type": "entity",
-              "value": "29 deals",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ", "
-            },
-            {
-              "type": "text",
-              "value": "with the "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "being "
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": "."
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "entity",
-              "value": "Bookings ",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are up "
-            },
-            {
-              "type": "entity",
-              "value": "$180.3k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are up "
-            },
-            {
-              "type": "entity",
-              "value": "$106.1k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last year. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$110k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "46.2%",
-              "metadata": {
-                "entityType": "contribute_ratio"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "greater than average bookings at the same time each quarter over the previous year. "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "Looking across the most relevant dimensions, "
-            },
-            {
-              "type": "text",
-              "value": "the "
-            },
-            {
-              "type": "entity",
-              "value": "increase",
-              "metadata": {
-                "entityType": "trend_desc",
-                "detail": [1, 2, 6, 18, 24, 48]
-              }
-            },
-            {
-              "type": "text",
-              "value": " relative to the same time last quarter was primarily driven by"
-            }
-          ]
-        },
-        {
-          "type": "bullets",
-          "isOrder": false,
-          "bullets": [
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "Prospecting",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "lead source"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$50.6k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all lead sources.",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx1"
-                  }
-                }
-              ],
-              "subBullet": {
-                "type": "bullets",
-                "isOrder": true,
-                "bullets": [
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 1"
-                      }
-                    ],
-                    "subBullet": {
-                      "type": "bullets",
-                      "isOrder": false,
-                      "bullets": [
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.1, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "45%",
-                              "metadata": {
-                                "entityType": "proportion",
-                                "origin": 0.45
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.2, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "65%",
-                              "metadata": {
-                                "entityType": "proportion"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 2"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "entity",
-                  "value": "Keely Townsend",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$86.2k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all account executives",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx2"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "New Client",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "opportunity type"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$160.1k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all opportunity types",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx3"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "number of deals",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "29",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is up "
-            },
-            {
-              "type": "entity",
-              "value": "17",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "12",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is down "
-            },
-            {
-              "type": "entity",
-              "value": "$2k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "negative"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$14k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "headline": {
-    "type": "headline",
-    "phrases": [
-      {
-        "type": "text",
-        "value": "Bookings This Quarter Higher than Usual"
-      }
-    ]
-  }
-}
 ```
 
 :::
 
 ## API Reference
 
-* `text.streamRender(newJSONFragment: string, options?: { onError?: (error: string) => void; onComplete?: (result: T8ClarinetParseResult) => void; })`
-  * Appends a JSON fragment and tries to parse/update the visualization.
-  * Calls `onError` if parsing fails, or `onComplete` if a valid document is parsed.
+* `text.render(content?: string | NarrativeTextSpec)`
+  * Renders the visualization with the provided T8 syntax string or NarrativeTextSpec object.
+  * Can be called multiple times to update the visualization incrementally.
+  * Parsing errors are handled gracefully and logged to console.
 * `text.clear()`
-  * Resets the internal parser and clears the visualization.
+  * Clears the visualization by unmounting it.
+
+---
+
+---
+url: /en/syntax/structure.md
+---
+
+# Syntax Structure
+
+![overview](https://gw.alipayobjects.com/mdn/rms_e59602/afts/img/A*QpAmQYCQL2cAAAAAAAAAAAAAARQnAQ)
+
+## Document Structure
+
+A T8 document is organized hierarchically with the following components:
+
+### Top Level
+
+* **Headline** (optional): The document title
+* **Sections**: One or more content sections
+
+### Section Level
+
+A `Section` groups related paragraphs together. It can contain:
+
+* **Paragraphs**: Multiple paragraph elements
+* **Custom blocks**: Extended content types
+
+### Paragraph Level
+
+Paragraphs support standard Markdown syntax:
+
+* **Headings**: `#` through `######` for H1-H6
+* **Text**: Regular paragraphs (like HTML `<p>`)
+* **Lists**: Ordered (`1.`) and unordered (`-` or `*`) with nesting support
+* **Custom**: Extended paragraph types
+
+### Phrase Level
+
+Within paragraphs, text is composed of phrases:
+
+* **Plain text**: Regular text content
+* **Entities**: Annotated data elements using `[text](entity_type, ...)`
+* **Custom phrases**: Extended phrase types
+
+## Syntax Examples
+
+### Basic Document
+
+```markdown
+# Q4 Sales Report
+
+## Overview
+
+Total sales reached [¥1.2M](metric_value, origin=1200000).
+
+## Regional Performance
+
+- Eastern region: [¥800K](metric_value)
+- Western region: [¥400K](metric_value)
+```
+
+### With Entity Annotations
+
+```markdown
+Sales increased by [15%](ratio_value, assessment="positive") compared to
+[last quarter](time_desc). The [top performing region](dim_value) was
+[Eastern China](dim_value) with [¥800,000](metric_value).
+```
+
+## Type System Reference
+
+For TypeScript users, T8 provides type definitions:
+
+```typescript
+import type { NarrativeTextSpec, SectionSpec, ParagraphSpec, PhraseSpec, EntityType } from '@antv/t8';
+```
+
+See the [API documentation](../api/) for complete type definitions.
+
+---
+
+---
+url: /en/syntax.md
+---
+
+# T8 Syntax
+
+## Overview
+
+T8 Syntax is a markdown-like language for creating rich narrative text visualizations. It extends standard Markdown with special annotations for data entities, making it easy to highlight metrics, trends, and insights in your text.
+
+## Why T8 Syntax?
+
+T8 Syntax is designed to be:
+
+* **Human-readable**: Based on Markdown, familiar and easy to learn
+* **LLM-friendly**: Can be easily generated by AI models with simple prompts
+* **Data-aware**: Built-in support for metric values, percentages, trends, and other data entities
+* **Extensible**: Support for custom phrases and blocks
+
+## Basic Syntax
+
+T8 Syntax uses standard Markdown for structure and adds special entity annotations using the format:
+
+```
+[display text](entity_type, property=value, ...)
+```
+
+### Example
+
+```markdown
+# Sales Report
+
+Total sales reached [¥1,234,567](metric_value, origin=1234567).
+
+Eastern region contributed [¥800,000](metric_value), 
+accounting for [64.8%](contribute_ratio, assessment="positive").
+```
+
+## Core Components
+
+T8 Syntax is organized into the following hierarchical structure:
+
+1. **Document**
+   * The top-level container for the entire narrative text
+   * Can include a headline and multiple sections
+   * Supports global styling
+
+2. **Section**
+   * Groups related paragraphs together
+   * Supports standard paragraphs and custom blocks
+   * Can be extended for different display needs
+
+3. **Paragraph**
+   * Supports multiple types: headings (# to ######), text, lists
+   * Standard Markdown paragraph syntax
+   * Can be extended with custom types
+
+4. **Phrase & Entity**
+   * The smallest unit of text
+   * Plain text or annotated entities
+   * Entities include metrics, dimensions, trends, etc.
+
+## Entity Types
+
+T8's power lies in its rich set of entity types that go beyond standard Markdown. These entities enable you to semantically mark up data in your narrative text, providing visual emphasis and interactive capabilities.
+
+### Core Metric Entities
+
+#### `metric_name`
+
+**Introduction**: Identifies the name or label of a metric being discussed.
+
+**Use Cases**:
+
+* Introducing key performance indicators (KPIs)
+* Labeling metrics in explanatory text
+* Creating glossary-style definitions
+
+**Example**:
+
+```markdown
+[Daily Active Users](metric_name) increased significantly this quarter.
+```
+
+#### `metric_value`
+
+**Introduction**: Represents the numeric value of a metric, with support for formatting and origin data.
+
+**Use Cases**:
+
+* Displaying KPI values
+* Showing measurement results
+* Presenting statistical data
+
+**Properties**:
+
+* `origin`: The raw numeric value (for calculations)
+* `unit`: Optional unit of measurement
+
+**Example**:
+
+```markdown
+Total revenue reached [¥1,234,567](metric_value, origin=1234567).
+Sales volume was [1.2 billion units](metric_value, origin=1200000000).
+```
+
+#### `other_metric_value`
+
+**Introduction**: For secondary or supporting metric values that are not the primary focus.
+
+**Use Cases**:
+
+* Supporting statistics
+* Contextual metrics
+* Comparison benchmarks
+
+**Example**:
+
+```markdown
+[Average order value](other_metric_value) was [$125](metric_value, origin=125).
+```
+
+### Change & Trend Entities
+
+#### `delta_value`
+
+**Introduction**: Represents absolute change in a metric value, with positive/negative assessment.
+
+**Use Cases**:
+
+* Showing absolute increases or decreases
+* Year-over-year comparisons
+* Sequential period changes
+
+**Properties**:
+
+* `origin`: The numeric change value
+* `assessment`: "positive", "negative", or "equal"
+
+**Example**:
+
+```markdown
+Sales increased by [¥180,000](delta_value, origin=180000, assessment="positive").
+Revenue decreased by [¥50,000](delta_value, origin=-50000, assessment="negative").
+```
+
+#### `ratio_value`
+
+**Introduction**: Represents percentage change or growth rate.
+
+**Use Cases**:
+
+* Growth rates
+* Percentage changes
+* Period-over-period comparisons
+
+**Properties**:
+
+* `origin`: The decimal ratio (e.g., 0.15 for 15%)
+* `assessment`: Direction evaluation
+
+**Example**:
+
+```markdown
+Revenue grew by [15%](ratio_value, origin=0.15, assessment="positive").
+Sales declined [3.2%](ratio_value, origin=-0.032, assessment="negative") year-over-year.
+```
+
+#### `contribute_ratio`
+
+**Introduction**: Indicates the contribution percentage of a part to the whole.
+
+**Use Cases**:
+
+* Market share
+* Contribution analysis
+* Composition breakdowns
+
+**Properties**:
+
+* `origin`: The decimal ratio
+* `assessment`: Evaluation of the contribution
+
+**Example**:
+
+```markdown
+Eastern region accounts for [64.8%](contribute_ratio, origin=0.648, assessment="positive") of total sales.
+```
+
+#### `proportion`
+
+**Introduction**: Represents a part-to-whole ratio or fraction.
+
+**Use Cases**:
+
+* Showing fractions
+* Demographic distributions
+* Segmentation data
+
+**Properties**:
+
+* `origin`: The decimal proportion
+
+**Example**:
+
+```markdown
+[3 out of 4](proportion, origin=0.75) customers prefer online shopping.
+```
+
+#### `trend_desc`
+
+**Introduction**: Qualitative description of a trend or direction.
+
+**Use Cases**:
+
+* Describing movement patterns
+* Trend characterization
+* Qualitative assessments
+
+**Properties**:
+
+* `assessment`: Evaluation of the trend direction
+
+**Example**:
+
+```markdown
+The market shows [strong growth](trend_desc, assessment="positive").
+Prices remained [stable](trend_desc, assessment="equal").
+```
+
+### Dimensional Entities
+
+#### `dim_value`
+
+**Introduction**: Represents a dimension value such as category, region, product, or segment.
+
+**Use Cases**:
+
+* Geographic regions
+* Product categories
+* Customer segments
+* Time periods
+
+**Example**:
+
+```markdown
+[Asia-Pacific](dim_value) remains the largest market.
+[Premium devices](dim_value) showed strong growth.
+```
+
+#### `time_desc`
+
+**Introduction**: Temporal references and time period descriptions.
+
+**Use Cases**:
+
+* Date references
+* Time period labels
+* Temporal comparisons
+
+**Example**:
+
+```markdown
+In [2024](time_desc), global shipments reached new heights.
+Results for [Q4 2023](time_desc) exceeded expectations.
+```
+
+### Advanced Analytics Entities
+
+#### `rank`
+
+**Introduction**: Indicates ranking position with optional detailed ranking data.
+
+**Use Cases**:
+
+* Competitive rankings
+* Top/bottom performers
+* Sorted lists
+
+**Properties**:
+
+* `detail`: Array of values for visualization
+
+**Example**:
+
+```markdown
+China [ranked 1st](rank, detail=[320, 180, 90, 65, 45]) globally.
+```
+
+#### `difference`
+
+**Introduction**: Highlights the gap or difference between values.
+
+**Use Cases**:
+
+* Comparative analysis
+* Gap analysis
+* Distance metrics
+
+**Properties**:
+
+* `detail`: Array showing the progression
+
+**Example**:
+
+```markdown
+The [gap of 140M units](difference, detail=[200, 180, 160, 140]) is narrowing.
+```
+
+#### `anomaly`
+
+**Introduction**: Marks unusual patterns or outliers in data.
+
+**Use Cases**:
+
+* Outlier detection
+* Unusual patterns
+* Data quality issues
+
+**Properties**:
+
+* `detail`: Data showing the anomaly
+
+**Example**:
+
+```markdown
+We detected [unexpected concentration](anomaly, detail=[15, 18, 20, 65, 22]) in urban areas.
+```
+
+#### `association`
+
+**Introduction**: Describes correlations or relationships between variables.
+
+**Use Cases**:
+
+* Correlation analysis
+* Causal relationships
+* Dependency patterns
+
+**Properties**:
+
+* `detail`: Data points showing the association
+
+**Example**:
+
+```markdown
+Sales showed [strong correlation](association, detail=[{"x":100,"y":105},{"x":120,"y":128}]) with marketing spend.
+```
+
+#### `distribution`
+
+**Introduction**: Represents how data is distributed across categories or ranges.
+
+**Use Cases**:
+
+* Frequency distributions
+* Category breakdowns
+* Range analyses
+
+**Properties**:
+
+* `detail`: Array of distribution values
+
+**Example**:
+
+```markdown
+The [distribution](distribution, detail=[15, 25, 35, 15, 10]) shows normal characteristics.
+```
+
+#### `seasonality`
+
+**Introduction**: Indicates periodic or seasonal patterns in data.
+
+**Use Cases**:
+
+* Seasonal trends
+* Cyclical patterns
+* Periodic variations
+
+**Properties**:
+
+* `detail`: Object with data and optional range
+
+**Example**:
+
+```markdown
+We observed [clear seasonality](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]}) with Q4 peaks.
+```
+
+## Complete Example
+
+Here's a comprehensive example using multiple entity types:
+
+```markdown
+# Q4 Sales Report
+
+## Overview
+
+In [Q4 2024](time_desc), [total revenue](metric_name) reached 
+[¥5.2M](metric_value, origin=5200000), representing a 
+[¥800K increase](delta_value, origin=800000, assessment="positive") and 
+[18% growth](ratio_value, origin=0.18, assessment="positive") compared to Q3.
+
+## Regional Performance
+
+[North America](dim_value) led with [¥2.1M](metric_value, origin=2100000), 
+accounting for [40%](contribute_ratio, origin=0.40, assessment="positive") 
+of total revenue. The region [ranked 1st](rank, detail=[2100000, 1800000, 1300000]) 
+among all markets.
+
+[Europe](dim_value) showed [strong momentum](trend_desc, assessment="positive"), 
+with [nearly half](proportion, origin=0.48) of sales from new customers.
+```
+
+See [Phrase & Entity](./types/phrase.md) for technical implementation details.
+
+## Detailed Documentation
+
+* [Structure](./structure.md) - Understand the overall syntax structure
+* Elements
+  * [Document](./types/narrative-text.md) - Top-level document structure
+  * [Section](./types/section.md) - Section blocks
+  * [Paragraph](./types/paragraph.md) - Paragraph types
+  * [Phrase & Entity](./types/phrase.md) - Text and entity annotations
+
+---
+
+---
+url: /zh/syntax.md
+---
+
+# T8 语法
+
+## 概述
+
+T8 语法是一种类 Markdown 的标记语言，用于创建富文本叙事可视化。它在标准 Markdown 基础上扩展了数据实体的特殊标注，使得在文本中突出显示指标、趋势和洞察变得简单。
+
+## 为什么使用 T8 语法？
+
+T8 语法的设计目标：
+
+* **人类可读**：基于 Markdown，熟悉且易于学习
+* **AI 友好**：可以通过简单的提示词轻松被 AI 模型生成
+* **数据感知**：内置支持指标值、百分比、趋势等数据实体
+* **可扩展**：支持自定义短语和区块
+
+## 基本语法
+
+T8 语法使用标准 Markdown 来组织结构，并使用以下格式添加特殊的实体标注：
+
+```
+[显示文本](实体类型, 属性=值, ...)
+```
+
+### 示例
+
+```markdown
+# 销售报告
+
+总销售额达到 [¥1,234,567](metric_value, origin=1234567)。
+
+华东地区贡献 [¥800,000](metric_value)，
+占比 [64.8%](contribute_ratio, assessment="positive")。
+```
+
+## 核心组成
+
+T8 语法按照以下层级结构组织：
+
+1. **文档**
+   * 整个叙事文本的顶层容器
+   * 可以包含标题和多个段落区块
+   * 支持全局样式配置
+
+2. **段落区块 (Section)**
+   * 将相关段落组织在一起
+   * 支持标准段落和自定义区块
+   * 可以根据不同展示需求进行扩展
+
+3. **段落 (Paragraph)**
+   * 支持多种类型：标题（# 到 ######）、文本、列表
+   * 标准 Markdown 段落语法
+   * 可以通过自定义类型扩展
+
+4. **短语与实体**
+   * 文本的最小单位
+   * 纯文本或标注的实体
+   * 实体包括指标、维度、趋势等
+
+## 实体类型
+
+T8 的强大之处在于其丰富的实体类型集，这超越了标准 Markdown 的能力。这些实体使您能够在叙述文本中语义化地标记数据，提供视觉强调和交互功能。
+
+### 核心指标实体
+
+#### `metric_name`
+
+**介绍**：标识正在讨论的指标的名称或标签。
+
+**使用场景**：
+
+* 介绍关键绩效指标（KPI）
+* 在解释性文本中标注指标
+* 创建术语表式定义
+
+**示例**：
+
+```markdown
+[日活跃用户数](metric_name)本季度显著增长。
+```
+
+#### `metric_value`
+
+**介绍**：表示指标的数值，支持格式化和原始数据。
+
+**使用场景**：
+
+* 显示 KPI 值
+* 展示测量结果
+* 呈现统计数据
+
+**属性**：
+
+* `origin`：原始数值（用于计算）
+* `unit`：可选的度量单位
+
+**示例**：
+
+```markdown
+总收入达到 [¥1,234,567](metric_value, origin=1234567)。
+销售量为 [12亿台](metric_value, origin=1200000000)。
+```
+
+#### `other_metric_value`
+
+**介绍**：用于次要或辅助指标值，不是主要关注点。
+
+**使用场景**：
+
+* 支持性统计数据
+* 上下文指标
+* 比较基准
+
+**示例**：
+
+```markdown
+[平均订单价值](other_metric_value)为 [¥125](metric_value, origin=125)。
+```
+
+### 变化与趋势实体
+
+#### `delta_value`
+
+**介绍**：表示指标值的绝对变化，带有正负评估。
+
+**使用场景**：
+
+* 显示绝对增长或减少
+* 同比比较
+* 连续期间变化
+
+**属性**：
+
+* `origin`：数值变化量
+* `assessment`："positive"、"negative" 或 "equal"
+
+**示例**：
+
+```markdown
+销售额增长了 [¥180,000](delta_value, origin=180000, assessment="positive")。
+收入下降了 [¥50,000](delta_value, origin=-50000, assessment="negative")。
+```
+
+#### `ratio_value`
+
+**介绍**：表示百分比变化或增长率。
+
+**使用场景**：
+
+* 增长率
+* 百分比变化
+* 环比同比分析
+
+**属性**：
+
+* `origin`：十进制比率（如 0.15 表示 15%）
+* `assessment`：方向评估
+
+**示例**：
+
+```markdown
+收入增长了 [15%](ratio_value, origin=0.15, assessment="positive")。
+销售额同比下降 [3.2%](ratio_value, origin=-0.032, assessment="negative")。
+```
+
+#### `contribute_ratio`
+
+**介绍**：表示部分对整体的贡献百分比。
+
+**使用场景**：
+
+* 市场份额
+* 贡献度分析
+* 组成分解
+
+**属性**：
+
+* `origin`：十进制比率
+* `assessment`：贡献度评估
+
+**示例**：
+
+```markdown
+华东地区占总销售额的 [64.8%](contribute_ratio, origin=0.648, assessment="positive")。
+```
+
+#### `proportion`
+
+**介绍**：表示部分与整体的比率或分数。
+
+**使用场景**：
+
+* 显示分数
+* 人口分布
+* 细分数据
+
+**属性**：
+
+* `origin`：十进制比例
+
+**示例**：
+
+```markdown
+[四分之三](proportion, origin=0.75)的客户偏好在线购物。
+```
+
+#### `trend_desc`
+
+**介绍**：趋势或方向的定性描述。
+
+**使用场景**：
+
+* 描述运动模式
+* 趋势特征
+* 定性评估
+
+**属性**：
+
+* `assessment`：趋势方向的评估
+
+**示例**：
+
+```markdown
+市场呈现[强劲增长](trend_desc, assessment="positive")态势。
+价格保持[稳定](trend_desc, assessment="equal")。
+```
+
+### 维度实体
+
+#### `dim_value`
+
+**介绍**：表示维度值，如类别、地区、产品或细分市场。
+
+**使用场景**：
+
+* 地理区域
+* 产品类别
+* 客户细分
+* 时间段
+
+**示例**：
+
+```markdown
+[亚太地区](dim_value)仍是最大市场。
+[高端设备](dim_value)表现出强劲增长。
+```
+
+#### `time_desc`
+
+**介绍**：时间引用和时间段描述。
+
+**使用场景**：
+
+* 日期引用
+* 时间段标签
+* 时间比较
+
+**示例**：
+
+```markdown
+在 [2024年](time_desc)，全球出货量创新高。
+[2023年第四季度](time_desc)的结果超出预期。
+```
+
+### 高级分析实体
+
+#### `rank`
+
+**介绍**：表示排名位置，可选详细排名数据。
+
+**使用场景**：
+
+* 竞争排名
+* 最佳/最差表现者
+* 排序列表
+
+**属性**：
+
+* `detail`：用于可视化的值数组
+
+**示例**：
+
+```markdown
+中国在全球[排名第一](rank, detail=[320, 180, 90, 65, 45])。
+```
+
+#### `difference`
+
+**介绍**：突出显示值之间的差距或差异。
+
+**使用场景**：
+
+* 比较分析
+* 差距分析
+* 距离度量
+
+**属性**：
+
+* `detail`：显示进展的数组
+
+**示例**：
+
+```markdown
+[1.4亿台的差距](difference, detail=[200, 180, 160, 140])正在缩小。
+```
+
+#### `anomaly`
+
+**介绍**：标记数据中的异常模式或离群值。
+
+**使用场景**：
+
+* 离群值检测
+* 异常模式
+* 数据质量问题
+
+**属性**：
+
+* `detail`：显示异常的数据
+
+**示例**：
+
+```markdown
+我们检测到城市地区的[异常集中](anomaly, detail=[15, 18, 20, 65, 22])。
+```
+
+#### `association`
+
+**介绍**：描述变量之间的相关性或关系。
+
+**使用场景**：
+
+* 相关性分析
+* 因果关系
+* 依赖模式
+
+**属性**：
+
+* `detail`：显示关联的数据点
+
+**示例**：
+
+```markdown
+销售额与营销支出呈现[强相关性](association, detail=[{"x":100,"y":105},{"x":120,"y":128}])。
+```
+
+#### `distribution`
+
+**介绍**：表示数据如何在类别或范围内分布。
+
+**使用场景**：
+
+* 频率分布
+* 类别分解
+* 范围分析
+
+**属性**：
+
+* `detail`：分布值数组
+
+**示例**：
+
+```markdown
+[分布](distribution, detail=[15, 25, 35, 15, 10])呈现正常特征。
+```
+
+#### `seasonality`
+
+**介绍**：表示数据中的周期性或季节性模式。
+
+**使用场景**：
+
+* 季节性趋势
+* 周期性模式
+* 定期变化
+
+**属性**：
+
+* `detail`：包含数据和可选范围的对象
+
+**示例**：
+
+```markdown
+我们观察到第四季度达到峰值的[明显季节性](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]})。
+```
+
+## 完整示例
+
+以下是使用多种实体类型的综合示例：
+
+```markdown
+# 第四季度销售报告
+
+## 概述
+
+在 [2024年第四季度](time_desc)，[总收入](metric_name)达到 
+[¥520万](metric_value, origin=5200000)，相比第三季度增长了 
+[¥80万](delta_value, origin=800000, assessment="positive")，
+增长率为 [18%](ratio_value, origin=0.18, assessment="positive")。
+
+## 各地区表现
+
+[北美地区](dim_value)以 [¥210万](metric_value, origin=2100000)领先，
+占总收入的 [40%](contribute_ratio, origin=0.40, assessment="positive")。
+该地区在所有市场中[排名第一](rank, detail=[2100000, 1800000, 1300000])。
+
+[欧洲](dim_value)呈现[强劲势头](trend_desc, assessment="positive")，
+[近一半](proportion, origin=0.48)的销售额来自新客户。
+```
+
+技术实现细节请参阅 [短语与实体](./types/phrase.md)。
+
+## 详细文档
+
+* [结构](./structure.md) - 了解整体语法结构
+* 元素
+  * [文档](./types/narrative-text.md) - 顶层文档结构
+  * [段落区块](./types/section.md) - 段落区块
+  * [段落](./types/paragraph.md) - 段落类型
+  * [短语与实体](./types/phrase.md) - 文本和实体标注
 
 ---
 
@@ -4879,8 +4044,8 @@ Through this approach, we can provide users with an AI Agent application or use 
 ## Overall Process
 
 * **Data Retrieval**: Acquire data by integrating various data retrieval tools such as search results, knowledge bases, datasets, models, tools, APIs, etc.
-* **Structuring Text Data**: Process the retrieved data into a T8-compatible and renderable JSON Schema format using large language models combined with prompt engineering.
-* **Render Schema**: If working within a code-editing application, integrate with `T8`'s API; if on an Agent platform, integrate `T8` using the platform's "Custom Card" feature.
+* **Structuring Text Data**: Process the retrieved data into T8 Syntax format using large language models combined with prompt engineering. T8 Syntax is a markdown-like language that combines text formatting with entity annotations.
+* **Render Content**: If working within a code-editing application, integrate with `T8`'s API; if on an Agent platform, integrate `T8` using the platform's "Custom Card" feature.
 
 ## Prompt Engineering
 
@@ -5255,423 +4420,17 @@ Here is the T8 Syntax output:
 
 `````
 
-## JSON Schema
+## T8 Syntax
 
-We provide the latest standard JSON Schema definition for `T8`, used for generating data with large models.
+T8 uses a markdown-like syntax for rendering narrative text with rich entity annotations. The syntax supports:
 
-* `NPM Package`: [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json).
-* `GitHub Repository`: [GitHub](https://github.com/antvis/T8/blob/main/schema.json).
-* `Build`: Clone the T8 source code and run the `npm run build` command to generate the `schema.json` file.
+* Headings (# to ######)
+* Text formatting (**bold**, *italic*, **underline**)
+* Links `[text](url)`
+* Entity syntax: `[displayText](entityType, key1=value1, key2="value2")`
+* Bullet lists (unordered and ordered)
 
-```json
-{
-  "$ref": "#/definitions/NarrativeTextSpec",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "BulletItemSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "subBullet": {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        "type": {
-          "const": "bullet-item",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "BulletsParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bullets": {
-          "items": {
-            "$ref": "#/definitions/BulletItemSpec"
-          },
-          "type": "array"
-        },
-        "className": {
-          "type": "string"
-        },
-        "isOrder": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "bullets",
-          "type": "string"
-        }
-      },
-      "required": ["bullets", "isOrder", "type"],
-      "type": "object"
-    },
-    "CustomBlockElement": {
-      "description": "basic block element structure, used for extends",
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "customType": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomMetaData": {
-      "additionalProperties": {},
-      "description": "custom phrase metadata",
-      "properties": {
-        "customType": {
-          "type": "string"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomPhraseSpec<CustomMetaData>": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/CustomMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "custom",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityMetaData": {
-      "additionalProperties": false,
-      "properties": {
-        "assessment": {
-          "$ref": "#/definitions/ValueAssessment",
-          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
-        },
-        "detail": {
-          "description": "detail data, 明细数据，用于弹框展示"
-        },
-        "entityType": {
-          "$ref": "#/definitions/EntityType",
-          "description": "entity type, 实体类型标记"
-        },
-        "origin": {
-          "description": "original data, 原始数据",
-          "type": "number"
-        },
-        "sourceId": {
-          "description": "source id of the variable, to access the variable info from variableSourceMap",
-          "type": "string"
-        }
-      },
-      "required": ["entityType"],
-      "type": "object"
-    },
-    "EntityPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/EntityMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "entity",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityType": {
-      "enum": [
-        "metric_name",
-        "metric_value",
-        "other_metric_value",
-        "contribute_ratio",
-        "delta_value",
-        "ratio_value",
-        "trend_desc",
-        "dim_value",
-        "time_desc",
-        "proportion",
-        "rank",
-        "difference",
-        "anomaly",
-        "association",
-        "distribution",
-        "seasonality"
-      ],
-      "type": "string"
-    },
-    "HeadingParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "HeadlineSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "headline",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "NarrativeTextSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "headline": {
-          "$ref": "#/definitions/HeadlineSpec"
-        },
-        "key": {
-          "type": "string"
-        },
-        "sections": {
-          "items": {
-            "$ref": "#/definitions/SectionSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "ParagraphSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/HeadingParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/TextParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomBlockElement"
-        }
-      ]
-    },
-    "PhraseSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TextPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/EntityPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
-        }
-      ]
-    },
-    "SectionSpec": {
-      "anyOf": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "paragraphs": {
-              "items": {
-                "$ref": "#/definitions/ParagraphSpec"
-              },
-              "type": "array"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "customType": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "required": ["customType"],
-          "type": "object"
-        }
-      ]
-    },
-    "TextParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "normal",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "TextPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bold": {
-          "type": "boolean"
-        },
-        "className": {
-          "type": "string"
-        },
-        "italic": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "text",
-          "type": "string"
-        },
-        "underline": {
-          "type": "boolean"
-        },
-        "url": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type", "value"],
-      "type": "object"
-    },
-    "ValueAssessment": {
-      "enum": ["positive", "negative", "equal"],
-      "type": "string"
-    }
-  }
-}
-
-```
+For complete syntax documentation, see the [T8 Syntax Guide](/en/syntax/).
 
 ## Case Study
 
@@ -6214,7 +4973,7 @@ narrative 相关技术基于 `JSON` 数据来自 LLM 大模型生成的假设，
 
 ## 特性
 
-* 数据解读文本的规范描述 json schema（[narrative-text-schema](../schema/index.md)）；
+* 数据解读文本的 T8 语法描述（[T8 语法参考](../syntax/index.md)）；
 * text-schema 的纯 JS 渲染引擎 `Text`；
   * 解析文本结构描述 json schema 为 html；
   * 数据短语（如指标值、比率、差值、占比、贡献度等）标准视觉表示；
@@ -6253,14 +5012,12 @@ const narrativeText = `
 // 实例化 Text
 const text = new Text(document.getElementById('app'));
 
-// 使用 syntax 方法指定叙述性文本
-text.syntax(narrativeText).theme('dark');
+// 使用 render 方法传入 T8 语法字符串
+text.theme('dark').render(narrativeText);
 
-// 渲染
-const unmont = text.render();
-
-// 销毁
-unmont();
+// 卸载
+const unmount = text.render(narrativeText);
+unmount();
 ```
 
 如果没有遇到其他问题的话，你就可以获得以下的数据清晰的文本可视化效果了。
@@ -6284,1045 +5041,11 @@ const narrativeText = `
 // 实例化 Text
 const text = new Text(document.getElementById('app'));
 
-// 使用 syntax 方法指定叙述性文本
-text.syntax(narrativeText).theme('light');
-
-// 渲染
-text.render();
+// 使用 render 方法传入 T8 语法字符串
+text.theme('light').render(narrativeText);
 ```
 
 :::
-
-::: my-sandbox {template=vanilla-ts}
-
-```ts index.ts
-import { Text } from '@antv/t8';
-import spec from './example.json';
-
-// 实例化 Text
-const text = new Text(document.getElementById('app'));
-
-// 指定可视化元素
-text.schema(spec).theme('light');
-
-// 渲染
-text.render();
-```
-
-```json example.json
-{
-  "sections": [
-    {
-      "paragraphs": [
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "This quarter, "
-            },
-            {
-              "type": "entity",
-              "value": "bookings",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are higher than usual for this point in the quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$348k",
-              "metadata": {
-                "entityType": "metric_value",
-                "origin": 348.12
-              }
-            },
-            {
-              "type": "text",
-              "value": ". "
-            },
-            {
-              "type": "text",
-              "value": "They were made up of "
-            },
-            {
-              "type": "entity",
-              "value": "29 deals",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ", "
-            },
-            {
-              "type": "text",
-              "value": "with the "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "being "
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": "."
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "entity",
-              "value": "Bookings ",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are up "
-            },
-            {
-              "type": "entity",
-              "value": "$180.3k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are up "
-            },
-            {
-              "type": "entity",
-              "value": "$106.1k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last year. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$110k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "46.2%",
-              "metadata": {
-                "entityType": "contribute_ratio"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "greater than average bookings at the same time each quarter over the previous year. "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "Looking across the most relevant dimensions, "
-            },
-            {
-              "type": "text",
-              "value": "the "
-            },
-            {
-              "type": "entity",
-              "value": "increase",
-              "metadata": {
-                "entityType": "trend_desc",
-                "detail": [1, 2, 6, 18, 24, 48]
-              }
-            },
-            {
-              "type": "text",
-              "value": " relative to the same time last quarter was primarily driven by"
-            }
-          ]
-        },
-        {
-          "type": "bullets",
-          "isOrder": false,
-          "bullets": [
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "Prospecting",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "lead source"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$50.6k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all lead sources.",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx1"
-                  }
-                }
-              ],
-              "subBullet": {
-                "type": "bullets",
-                "isOrder": true,
-                "bullets": [
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 1"
-                      }
-                    ],
-                    "subBullet": {
-                      "type": "bullets",
-                      "isOrder": false,
-                      "bullets": [
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.1, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "45%",
-                              "metadata": {
-                                "entityType": "proportion",
-                                "origin": 0.45
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.2, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "65%",
-                              "metadata": {
-                                "entityType": "proportion"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 2"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "entity",
-                  "value": "Keely Townsend",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$86.2k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all account executives",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx2"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "New Client",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "opportunity type"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$160.1k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all opportunity types",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx3"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "number of deals",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "29",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is up "
-            },
-            {
-              "type": "entity",
-              "value": "17",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "12",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is down "
-            },
-            {
-              "type": "entity",
-              "value": "$2k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "negative"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$14k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "headline": {
-    "type": "headline",
-    "phrases": [
-      {
-        "type": "text",
-        "value": "Bookings This Quarter Higher than Usual"
-      }
-    ]
-  }
-}
-```
-
-:::
-
----
-
----
-url: /zh/schema/structure.md
----
-
-# 总体结构说明
-
-![overview](https://gw.alipayobjects.com/mdn/rms_e59602/afts/img/A*QpAmQYCQL2cAAAAAAAAAAAAAARQnAQ)
-
-一份数据报告从整体结构上，包括：
-
-* `Headline` 标题；
-* `Section` 段落，用于划分不同报告主题；
-
-`Section` 内包含了多个 `Paragraph`，段落类型可能有：
-
-* `heading1` ~ `heading6`（注意这里和报告级别的 不同，Headline 不同，Headline 特指文章标题）；
-* `normal` 即普通文本段落，对应 html 的 `<p>` 标签；
-* `bullets` 列表，可以分为有序列表和无序列表，对应 html 的 `<ul>` 和 `<ol>` 标签，支持多级列表嵌套；
-* `custom` 自定义段落类型；
-* `visualization` 可视化图表（暂不支持，可通过自定义段落实现）；
-
-`Section` 除了标准类型含多个 `Paragraph` 之外，还可以自定义。
-
-除了自定义段落之外，`heading`、`normal`、`bullets` 都是由多个 `Phrase` 组成的，即短语，`Phrase` 的类型主要包括：
-
-* `text` 纯文本;
-* `entity` 实体，也就是数据报告中对应明细数据的内容;
-* `custom` 自定义短语;
-
-***
-
-最新的 `T8` 标准 JSON Schema 定义如下，或者从远程源 [unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json) 抓取：
-
-```json
-{
-  "$ref": "#/definitions/NarrativeTextSpec",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "BulletItemSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "subBullet": {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        "type": {
-          "const": "bullet-item",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "BulletsParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bullets": {
-          "items": {
-            "$ref": "#/definitions/BulletItemSpec"
-          },
-          "type": "array"
-        },
-        "className": {
-          "type": "string"
-        },
-        "isOrder": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "bullets",
-          "type": "string"
-        }
-      },
-      "required": ["bullets", "isOrder", "type"],
-      "type": "object"
-    },
-    "CustomBlockElement": {
-      "description": "basic block element structure, used for extends",
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "customType": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomMetaData": {
-      "additionalProperties": {},
-      "description": "custom phrase metadata",
-      "properties": {
-        "customType": {
-          "type": "string"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomPhraseSpec<CustomMetaData>": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/CustomMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "custom",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityMetaData": {
-      "additionalProperties": false,
-      "properties": {
-        "assessment": {
-          "$ref": "#/definitions/ValueAssessment",
-          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
-        },
-        "detail": {
-          "description": "detail data, 明细数据，用于弹框展示"
-        },
-        "entityType": {
-          "$ref": "#/definitions/EntityType",
-          "description": "entity type, 实体类型标记"
-        },
-        "origin": {
-          "description": "original data, 原始数据",
-          "type": "number"
-        },
-        "sourceId": {
-          "description": "source id of the variable, to access the variable info from variableSourceMap",
-          "type": "string"
-        }
-      },
-      "required": ["entityType"],
-      "type": "object"
-    },
-    "EntityPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/EntityMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "entity",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityType": {
-      "enum": [
-        "metric_name",
-        "metric_value",
-        "other_metric_value",
-        "contribute_ratio",
-        "delta_value",
-        "ratio_value",
-        "trend_desc",
-        "dim_value",
-        "time_desc",
-        "proportion",
-        "rank",
-        "difference",
-        "anomaly",
-        "association",
-        "distribution",
-        "seasonality"
-      ],
-      "type": "string"
-    },
-    "HeadingParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "HeadlineSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "headline",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "NarrativeTextSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "headline": {
-          "$ref": "#/definitions/HeadlineSpec"
-        },
-        "key": {
-          "type": "string"
-        },
-        "sections": {
-          "items": {
-            "$ref": "#/definitions/SectionSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "ParagraphSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/HeadingParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/TextParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomBlockElement"
-        }
-      ]
-    },
-    "PhraseSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TextPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/EntityPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
-        }
-      ]
-    },
-    "SectionSpec": {
-      "anyOf": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "paragraphs": {
-              "items": {
-                "$ref": "#/definitions/ParagraphSpec"
-              },
-              "type": "array"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "customType": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "required": ["customType"],
-          "type": "object"
-        }
-      ]
-    },
-    "TextParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "normal",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "TextPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bold": {
-          "type": "boolean"
-        },
-        "className": {
-          "type": "string"
-        },
-        "italic": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "text",
-          "type": "string"
-        },
-        "underline": {
-          "type": "boolean"
-        },
-        "url": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type", "value"],
-      "type": "object"
-    },
-    "ValueAssessment": {
-      "enum": ["positive", "negative", "equal"],
-      "type": "string"
-    }
-  }
-}
-
-```
 
 ---
 
@@ -7836,7 +5559,7 @@ url: /zh/tutorial/advanced/streaming.md
 
 # 流式输出
 
-在某些场景下，你可能希望以流式或增量的方式渲染叙述文本，比如从服务端分片接收数据，或模拟实时更新。T8 提供了便捷的 API：`text.streamRender`。
+在某些场景下，你可能希望以流式或增量的方式渲染叙述文本，比如从服务端分片接收数据，或模拟实时更新。使用简化后的 T8 API，你可以通过多次调用 `text.render()` 并传入更新后的 T8 语法字符串来实现。
 
 ## 什么时候需要流式输出？
 
@@ -7846,13 +5569,12 @@ url: /zh/tutorial/advanced/streaming.md
 
 ## T8 的流式原理
 
-`Text` 类暴露了 `streamRender` 方法，可以不断追加 JSON 片段并增量更新可视化。内部采用流式 JSON 解析器，支持不完整或分块数据。
+`Text` 类的 `render` 方法可以被多次调用，每次传入逐步完整的 T8 语法字符串。每次调用都会用更新的内容重新渲染可视化，创造流式效果。
 
-## 流式渲染事例
+## 流式渲染示例
 
 ```typescript
-import { Text } from 't8';
-import spec from './example.json';
+import { Text } from '@antv/t8';
 
 const app = document.getElementById('app');
 const text = new Text(app!);
@@ -7863,17 +5585,27 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// 模拟流式数据
+// 将被逐步构建的 T8 语法字符串
+const fullSyntax = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+`;
+
+// 通过逐步展示内容来模拟流式数据
 async function streamingRender() {
-  const value = JSON.stringify(spec, null, 2).split('\n');
-  for (let i = 0; i < value.length; i++) {
-    await delay(Math.random() * 30 + 20); // 模拟网络延迟
-    text.streamRender(value[i]);
+  const step = 10; // 每步展示的字符数
+  for (let i = 0; i <= fullSyntax.length; i += step) {
+    await delay(50); // 模拟网络延迟
+    const chunk = fullSyntax.slice(0, i);
+    text.render(chunk);
   }
 }
 
 streamingRender().then(() => {
-  console.log('All data processed.');
+  console.log('所有数据已渲染。');
 });
 ```
 
@@ -7881,607 +5613,50 @@ streamingRender().then(() => {
 
 ```ts index.ts
 import { Text } from '@antv/t8';
-import spec from './example.json';
 
 const app = document.getElementById('app');
 const text = new Text(app!);
+text.theme('light');
 
-// Utility: delay for a given ms
+// 工具函数：延迟指定毫秒
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Mock streaming data
+// 将被逐步构建的 T8 语法字符串
+const fullSyntax = `
+# 本季度销售额高于往常
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。共完成了 [29 笔交易](metric_value)，[平均交易额](metric_name) 为 [¥12k](metric_value)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。相比去年同期上涨了 [¥106.1k](delta_value, assessment="positive")。
+`;
+
+// 通过逐步展示内容来模拟流式数据
 async function streamingRender() {
-  const value = JSON.stringify(spec, null, 2).split('\n');
-  for (let i = 0; i < value.length; i++) {
-    await delay(Math.random() * 30 + 20); // Simulate network latency
-    text.streamRender(value[i]);
+  const step = 10; // 每步展示的字符数
+  for (let i = 0; i <= fullSyntax.length; i += step) {
+    await delay(50); // 模拟网络延迟
+    const chunk = fullSyntax.slice(0, i);
+    text.render(chunk);
   }
 }
 
 streamingRender().then(() => {
-  console.log('All data processed.');
+  console.log('所有数据已渲染。');
 });
-```
-
-```json example.json
-{
-  "sections": [
-    {
-      "paragraphs": [
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "This quarter, "
-            },
-            {
-              "type": "entity",
-              "value": "bookings",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are higher than usual for this point in the quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$348k",
-              "metadata": {
-                "entityType": "metric_value",
-                "origin": 348.12
-              }
-            },
-            {
-              "type": "text",
-              "value": ". "
-            },
-            {
-              "type": "text",
-              "value": "They were made up of "
-            },
-            {
-              "type": "entity",
-              "value": "29 deals",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ", "
-            },
-            {
-              "type": "text",
-              "value": "with the "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "being "
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": "."
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "entity",
-              "value": "Bookings ",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "are up "
-            },
-            {
-              "type": "entity",
-              "value": "$180.3k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter. "
-            },
-            {
-              "type": "text",
-              "value": "They are up "
-            },
-            {
-              "type": "entity",
-              "value": "$106.1k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last year. "
-            },
-            {
-              "type": "text",
-              "value": "They are "
-            },
-            {
-              "type": "entity",
-              "value": "$110k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "46.2%",
-              "metadata": {
-                "entityType": "contribute_ratio"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "greater than average bookings at the same time each quarter over the previous year. "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "Looking across the most relevant dimensions, "
-            },
-            {
-              "type": "text",
-              "value": "the "
-            },
-            {
-              "type": "entity",
-              "value": "increase",
-              "metadata": {
-                "entityType": "trend_desc",
-                "detail": [1, 2, 6, 18, 24, 48]
-              }
-            },
-            {
-              "type": "text",
-              "value": " relative to the same time last quarter was primarily driven by"
-            }
-          ]
-        },
-        {
-          "type": "bullets",
-          "isOrder": false,
-          "bullets": [
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "Prospecting",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "lead source"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$50.6k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all lead sources.",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx1"
-                  }
-                }
-              ],
-              "subBullet": {
-                "type": "bullets",
-                "isOrder": true,
-                "bullets": [
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 1"
-                      }
-                    ],
-                    "subBullet": {
-                      "type": "bullets",
-                      "isOrder": false,
-                      "bullets": [
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.1, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "45%",
-                              "metadata": {
-                                "entityType": "proportion",
-                                "origin": 0.45
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "bullet-item",
-                          "phrases": [
-                            {
-                              "type": "text",
-                              "value": "sub node 1.2, the proportion percentage is "
-                            },
-                            {
-                              "type": "entity",
-                              "value": "65%",
-                              "metadata": {
-                                "entityType": "proportion"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "bullet-item",
-                    "phrases": [
-                      {
-                        "type": "text",
-                        "value": "sub node 2"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "entity",
-                  "value": "Keely Townsend",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$86.2k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all account executives",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx2"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            },
-            {
-              "type": "bullet-item",
-              "phrases": [
-                {
-                  "type": "text",
-                  "value": "the "
-                },
-                {
-                  "type": "entity",
-                  "value": "New Client",
-                  "metadata": {
-                    "entityType": "dim_value"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": " "
-                },
-                {
-                  "type": "text",
-                  "value": "opportunity type"
-                },
-                {
-                  "type": "text",
-                  "value": " ("
-                },
-                {
-                  "type": "entity",
-                  "value": "$160.1k",
-                  "metadata": {
-                    "entityType": "delta_value",
-                    "assessment": "positive"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": ") "
-                },
-                {
-                  "type": "custom",
-                  "value": "See all opportunity types",
-                  "metadata": {
-                    "interaction": "click",
-                    "show": "modal",
-                    "tableId": "0xx3"
-                  }
-                },
-                {
-                  "type": "text",
-                  "value": "."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "number of deals",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "29",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is up "
-            },
-            {
-              "type": "entity",
-              "value": "17",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "positive"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "12",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        },
-        {
-          "type": "normal",
-          "phrases": [
-            {
-              "type": "text",
-              "value": "The "
-            },
-            {
-              "type": "entity",
-              "value": "average deal size",
-              "metadata": {
-                "entityType": "metric_name"
-              }
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$12k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": "is down "
-            },
-            {
-              "type": "entity",
-              "value": "$2k",
-              "metadata": {
-                "entityType": "delta_value",
-                "assessment": "negative"
-              }
-            },
-            {
-              "type": "text",
-              "value": " "
-            },
-            {
-              "type": "text",
-              "value": "relative to the same time last quarter"
-            },
-            {
-              "type": "text",
-              "value": " ("
-            },
-            {
-              "type": "entity",
-              "value": "$14k",
-              "metadata": {
-                "entityType": "metric_value"
-              }
-            },
-            {
-              "type": "text",
-              "value": ") "
-            },
-            {
-              "type": "text",
-              "value": ". "
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "headline": {
-    "type": "headline",
-    "phrases": [
-      {
-        "type": "text",
-        "value": "Bookings This Quarter Higher than Usual"
-      }
-    ]
-  }
-}
 ```
 
 :::
 
 ## API 参考
 
-* `text.streamRender(newJSONFragment: string, options?: { onError?: (error: string) => void; onComplete?: (result: T8ClarinetParseResult) => void; })`
-  * 附加 JSON 片段并尝试解析/更新可视化效果。
-  * 如果解析失败，则调用 `onError`；如果解析到有效文档，则调用 `onComplete`。
+* `text.render(content?: string | NarrativeTextSpec)`
+  * 使用提供的 T8 语法字符串或 NarrativeTextSpec 对象渲染可视化。
+  * 可以多次调用以增量更新可视化。
+  * 解析错误将被优雅处理并记录到控制台。
 * `text.clear()`
-  * 重置内部解析器并清除可视化效果。
+  * 通过卸载来清除可视化。
 
 ---
 
@@ -8498,8 +5673,8 @@ url: /zh/tutorial/advanced/llm.md
 ## 整体流程
 
 * **获取数据信息**：通过增加一些数据检索工具，获取数据信息，比如：搜索结果、知识库、数据集、模型、工具、API 等。
-* **对文本数据结构化处理**：通过大模型 + 提示词的方式，将上一步获取的数据信息，处理成 T8 可识别、可渲染的 JSON Schema 格式。
-* **渲染 Schema**：如果是通过代码编辑应用，则结合 `T8` 的 API 集成；如果通过 Agent 平台，需要通过平台 `自定义卡片` 的能力集成 `T8`。
+* **对文本数据结构化处理**：通过大模型 + 提示词的方式，将上一步获取的数据信息，处理成 T8 语法格式。T8 语法是一种类似 Markdown 的语言，结合了文本格式化和实体标注。
+* **渲染内容**：如果是通过代码编辑应用，则结合 `T8` 的 API 集成；如果通过 Agent 平台，需要通过平台 `自定义卡片` 的能力集成 `T8`。
 
 ## 提示词 Prompt
 
@@ -8874,424 +6049,95 @@ T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记
 
 `````
 
-## JSON Schema
+## T8 语法
 
-我们提供了 `T8` 最新的标准 JSON Schema 定义，用于给大模型生成数据。
+T8 使用类似 Markdown 的语法来渲染带有丰富实体标注的叙事文本。该语法支持：
 
-* `NPM 包`：[unpkg.com](http://unpkg.com/@antv/t8/dist/schema.json)。
-* `GitHub`：库\`：[GitHub](https://github.com/antvis/T8/blob/main/schema.json)。
-* `构建`：通过 clone T8 源码，运行 `npm run build` 命令，会生成 `schema.json` 文件。
+* 标题（# 到 ######）
+* 文本格式化（**粗体**、*斜体*、**下划线**）
+* 链接 `[文本](url)`
+* 实体语法：`[显示文本](实体类型, key1=value1, key2="value2")`
+* 项目列表（无序和有序）
 
-```json
-{
-  "$ref": "#/definitions/NarrativeTextSpec",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "BulletItemSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "subBullet": {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        "type": {
-          "const": "bullet-item",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "BulletsParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bullets": {
-          "items": {
-            "$ref": "#/definitions/BulletItemSpec"
-          },
-          "type": "array"
-        },
-        "className": {
-          "type": "string"
-        },
-        "isOrder": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "bullets",
-          "type": "string"
-        }
-      },
-      "required": ["bullets", "isOrder", "type"],
-      "type": "object"
-    },
-    "CustomBlockElement": {
-      "description": "basic block element structure, used for extends",
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "customType": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomMetaData": {
-      "additionalProperties": {},
-      "description": "custom phrase metadata",
-      "properties": {
-        "customType": {
-          "type": "string"
-        }
-      },
-      "required": ["customType"],
-      "type": "object"
-    },
-    "CustomPhraseSpec<CustomMetaData>": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/CustomMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "custom",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityMetaData": {
-      "additionalProperties": false,
-      "properties": {
-        "assessment": {
-          "$ref": "#/definitions/ValueAssessment",
-          "description": "assessment up or down, used for derived value 衍生指标评估参数，指定上涨或者下跌"
-        },
-        "detail": {
-          "description": "detail data, 明细数据，用于弹框展示"
-        },
-        "entityType": {
-          "$ref": "#/definitions/EntityType",
-          "description": "entity type, 实体类型标记"
-        },
-        "origin": {
-          "description": "original data, 原始数据",
-          "type": "number"
-        },
-        "sourceId": {
-          "description": "source id of the variable, to access the variable info from variableSourceMap",
-          "type": "string"
-        }
-      },
-      "required": ["entityType"],
-      "type": "object"
-    },
-    "EntityPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/EntityMetaData"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "entity",
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type"],
-      "type": "object"
-    },
-    "EntityType": {
-      "enum": [
-        "metric_name",
-        "metric_value",
-        "other_metric_value",
-        "contribute_ratio",
-        "delta_value",
-        "ratio_value",
-        "trend_desc",
-        "dim_value",
-        "time_desc",
-        "proportion",
-        "rank",
-        "difference",
-        "anomaly",
-        "association",
-        "distribution",
-        "seasonality"
-      ],
-      "type": "string"
-    },
-    "HeadingParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "enum": ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "HeadlineSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "headline",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "NarrativeTextSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "headline": {
-          "$ref": "#/definitions/HeadlineSpec"
-        },
-        "key": {
-          "type": "string"
-        },
-        "sections": {
-          "items": {
-            "$ref": "#/definitions/SectionSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "ParagraphSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/HeadingParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/TextParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/BulletsParagraphSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomBlockElement"
-        }
-      ]
-    },
-    "PhraseSpec": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TextPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/EntityPhraseSpec"
-        },
-        {
-          "$ref": "#/definitions/CustomPhraseSpec<CustomMetaData>"
-        }
-      ]
-    },
-    "SectionSpec": {
-      "anyOf": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "paragraphs": {
-              "items": {
-                "$ref": "#/definitions/ParagraphSpec"
-              },
-              "type": "array"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "properties": {
-            "className": {
-              "type": "string"
-            },
-            "customType": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "styles": {
-              "type": "object"
-            }
-          },
-          "required": ["customType"],
-          "type": "object"
-        }
-      ]
-    },
-    "TextParagraphSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "className": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "phrases": {
-          "items": {
-            "$ref": "#/definitions/PhraseSpec"
-          },
-          "type": "array"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "normal",
-          "type": "string"
-        }
-      },
-      "required": ["phrases", "type"],
-      "type": "object"
-    },
-    "TextPhraseSpec": {
-      "additionalProperties": false,
-      "properties": {
-        "bold": {
-          "type": "boolean"
-        },
-        "className": {
-          "type": "string"
-        },
-        "italic": {
-          "type": "boolean"
-        },
-        "key": {
-          "type": "string"
-        },
-        "styles": {
-          "type": "object"
-        },
-        "type": {
-          "const": "text",
-          "type": "string"
-        },
-        "underline": {
-          "type": "boolean"
-        },
-        "url": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": ["type", "value"],
-      "type": "object"
-    },
-    "ValueAssessment": {
-      "enum": ["positive", "negative", "equal"],
-      "type": "string"
-    }
-  }
-}
-
-```
+完整的语法文档，请参阅 [T8 语法指南](/zh/syntax/)。
 
 ## 案例
 
 我们基于蚂蚁 Agent 平台[百宝箱](https://www.tbox.cn/)，构建了一个 T8 的案例，可以参考 \[Text Summary]。
+
+---
+
+---
+url: /zh/syntax/structure.md
+---
+
+# 语法结构
+
+![overview](https://gw.alipayobjects.com/mdn/rms_e59602/afts/img/A*QpAmQYCQL2cAAAAAAAAAAAAAARQnAQ)
+
+## 文档结构
+
+T8 文档采用层级结构组织，包含以下组件：
+
+### 顶层
+
+* **标题 (Headline)**（可选）：文档标题
+* **段落区块 (Sections)**：一个或多个内容区块
+
+### 区块层级
+
+`Section` 将相关段落组织在一起，可以包含：
+
+* **段落 (Paragraphs)**：多个段落元素
+* **自定义区块**：扩展内容类型
+
+### 段落层级
+
+段落支持标准 Markdown 语法：
+
+* **标题**：`#` 到 `######` 对应 H1-H6
+* **文本**：常规段落（类似 HTML `<p>`）
+* **列表**：有序列表（`1.`）和无序列表（`-` 或 `*`），支持嵌套
+* **自定义**：扩展段落类型
+
+### 短语层级
+
+在段落内，文本由短语组成：
+
+* **纯文本**：常规文本内容
+* **实体**：使用 `[文本](实体类型, ...)` 标注的数据元素
+* **自定义短语**：扩展短语类型
+
+## 语法示例
+
+### 基本文档
+
+```markdown
+# Q4 销售报告
+
+## 概述
+
+总销售额达到 [¥120万](metric_value, origin=1200000)。
+
+## 各地区表现
+
+- 华东地区：[¥80万](metric_value)
+- 华西地区：[¥40万](metric_value)
+```
+
+### 带实体标注
+
+```markdown
+销售额相比[上季度](time_desc)增长了 [15%](ratio_value, assessment="positive")。
+[表现最佳的地区](dim_value)是[华东](dim_value)，销售额为 [¥80万](metric_value)。
+```
+
+## 类型系统参考
+
+对于 TypeScript 用户，T8 提供类型定义：
+
+```typescript
+import type { NarrativeTextSpec, SectionSpec, ParagraphSpec, PhraseSpec, EntityType } from '@antv/t8';
+```
+
+完整的类型定义请参阅 [API 文档](../api/)。

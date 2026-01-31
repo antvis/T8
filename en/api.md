@@ -9,24 +9,12 @@ url: /en/api.md
 ### constructor
 
 ```typescript
-constructor(container: string | HTMLElement, options?: TextOptions);
+constructor(container: string | HTMLElement);
 ```
 
 | Parameter | Type                  | Required | Description                                             |
 | --------- | --------------------- | -------- | ------------------------------------------------------- |
 | container | string | HTMLElement | Yes      | Container element, can be a DOM selector or DOM element |
-
-#### schema
-
-| Parameter | Type              | Required | Description                             |
-| --------- | ----------------- | -------- | --------------------------------------- |
-| spec      | NarrativeTextSpec | Yes      | Text visualization specification object |
-
-**Return Value**
-
-| Type | Description                             |
-| ---- | --------------------------------------- |
-| Text | Text instance, supports method chaining |
 
 #### theme
 
@@ -53,24 +41,13 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | ---- | --------------------------------------- |
 | Text | Text instance, supports method chaining |
 
-#### streamRender
-
-| Parameter       | Type   | Required | Description                                                                             |
-| --------------- | ------ | -------- | --------------------------------------------------------------------------------------- |
-| newJSONFragment | string | Yes      | A JSON string fragment to append and parse incrementally.                               |
-| options         | object | No       | Optional callbacks: onError (error: string), onComplete (result: T8ClarinetParseResult) |
-
-#### clear
-
-| Parameter | Type | Required | Description |
-| --------- | ---- | -------- | ----------- |
-| (none)    |      |          |             |
-
 #### render
 
-| Parameter | Type | Required | Description |
-| --------- | ---- | -------- | ----------- |
-| (none)    |      |          |             |
+Renders the narrative text visualization with a T8 syntax string.
+
+| Parameter | Type   | Required | Description                |
+| --------- | ------ | -------- | -------------------------- |
+| t8Syntax  | string | No       | T8 syntax string to render |
 
 **Return Value**
 
@@ -78,7 +55,27 @@ constructor(container: string | HTMLElement, options?: TextOptions);
 | -------- | -------------------------------------------- |
 | function | Unmount function to remove the visualization |
 
+**Usage Example**
+
+```typescript
+// Render with T8 syntax string
+text.theme('light').render(`
+  # Sales Report
+  Total sales are [¥1,234,567](metric_value).
+`);
+```
+
+#### clear
+
+Clears the visualization by unmounting it.
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| (none)    |      |          |             |
+
 #### unmount
+
+Unmounts the visualization component.
 
 | Parameter | Type | Required | Description |
 | --------- | ---- | -------- | ----------- |
