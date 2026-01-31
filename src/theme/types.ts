@@ -36,4 +36,5 @@ export type SeedTokenOptions = {
   colorProportionShadow: string;
   colorProportionFill: string;
   colorLineStroke: string;
+  colorLink: string;
 };

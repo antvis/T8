@@ -139,7 +139,12 @@ export const Phrase: FunctionComponent<PhraseProps> = ({ spec: phrase }) => {
     if (phrase.underline) defaultText = <Underline>{defaultText}</Underline>;
     if (phrase.url)
       defaultText = (
-        <a target="_blank" rel="noreferrer" href={phrase.url}>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href={phrase.url}
+          style={{ color: themeSeedToken.colorLink, textDecoration: 'underline' }}
+        >
           {defaultText}
         </a>
       );
