@@ -110,6 +110,52 @@ text.theme('light').render(narrativeText);
 
 :::
 
+## 在 HTML 中使用（通过 CDN）
+
+T8 可以通过 unpkg CDN 直接在 HTML 页面中使用。这是最简单的入门方式，无需任何构建工具：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T8 示例</title>
+</head>
+<body>
+  <div id="container"></div>
+
+  <!-- 从 unpkg CDN 引入 T8 -->
+  <script src="https://unpkg.com/@antv/t8@0.3.0/dist/t8.min.js"></script>
+  
+  <script>
+    // T8 作为全局变量可用
+    const { Text } = window.T8;
+
+    // 初始化 T8 实例
+    const text = new Text(document.getElementById('container'));
+
+    // 渲染叙述性文本
+    const narrativeText = `
+# 销售报告
+
+本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
+
+[销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
+    `;
+
+    text.theme('light').render(narrativeText);
+  </script>
+</body>
+</html>
+```
+
+您也可以通过省略版本号来使用最新版本：
+
+```html
+<script src="https://unpkg.com/@antv/t8/dist/t8.min.js"></script>
+```
+
 ## 在 React 中使用
 
 T8 是框架无关的，可以无缝集成到 React 中。以下是集成方法：
