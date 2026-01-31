@@ -280,7 +280,7 @@ function parseTextWithFormatting(text: string): PhraseSpec[] {
     let foundFormatting = false;
 
     // Check for bold (**text**)
-    if (currentIndex + 2 < textLength && text.substring(currentIndex, currentIndex + 2) === '**') {
+    if (currentIndex + 1 < textLength && text.substring(currentIndex, currentIndex + 2) === '**') {
       const endIndex = text.indexOf('**', currentIndex + 2);
       if (endIndex !== -1) {
         const content = text.substring(currentIndex + 2, endIndex);
@@ -303,7 +303,7 @@ function parseTextWithFormatting(text: string): PhraseSpec[] {
     }
 
     // Check for underline (__text__)
-    if (!foundFormatting && currentIndex + 2 < textLength && text.substring(currentIndex, currentIndex + 2) === '__') {
+    if (!foundFormatting && currentIndex + 1 < textLength && text.substring(currentIndex, currentIndex + 2) === '__') {
       const endIndex = text.indexOf('__', currentIndex + 2);
       if (endIndex !== -1) {
         const content = text.substring(currentIndex + 2, endIndex);
@@ -367,18 +367,31 @@ function parseTextWithFormatting(text: string): PhraseSpec[] {
           value: plainText,
         });
       }
-      currentIndex = nextMarkerIndex;
 
-      // If we're at the end and haven't moved, break to avoid infinite loop
+      // If we found a marker at currentIndex but couldn't process it (due to boundary conditions),
+      // we need to treat it as plain text and advance past it
+      if (nextMarkerIndex === currentIndex && currentIndex < textLength) {
+        // Determine marker length at current position
+        let markerLength = 1;
+        if (currentIndex + 1 < textLength) {
+          const twoChar = text.substring(currentIndex, currentIndex + 2);
+          if (twoChar === '**' || twoChar === '__') {
+            markerLength = 2;
+          }
+        }
+
+        phrases.push({
+          type: PhraseType.TEXT,
+          value: text.substring(currentIndex, currentIndex + markerLength),
+        });
+        currentIndex += markerLength;
+      } else {
+        currentIndex = nextMarkerIndex;
+      }
+
+      // If we're at the end, break to avoid infinite loop
       if (currentIndex === textLength) {
         break;
-      }
-      if (currentIndex === nextMarkerIndex && nextMarkerIndex === textLength) {
-        break;
-      }
-      // If we found no markers and are not at end, skip one character to avoid infinite loop
-      if (nextMarkerIndex === textLength && currentIndex < textLength) {
-        currentIndex++;
       }
     }
   }

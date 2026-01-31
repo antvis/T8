@@ -450,4 +450,16 @@ Total revenue reached [¥5M](metric_value, origin=5000000) with **strong growth*
       expect(result.sections).toBeDefined();
     });
   });
+
+  it('should handle formatting markers at exact string boundaries', () => {
+    // Test edge cases where markers appear at the very end
+    const testCases = [{ text: 'x**' }, { text: 'x__' }, { text: 'ab**' }, { text: 'ab__' }];
+
+    testCases.forEach(({ text }) => {
+      const result = parseSyntax(text);
+      expect(result.sections).toBeDefined();
+      // Should complete without hanging
+      expect(result.sections!.length).toBeGreaterThanOrEqual(0);
+    });
+  });
 });
