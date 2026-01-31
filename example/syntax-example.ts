@@ -8,15 +8,40 @@ if (!container) {
 
 // Define the T8 Syntax string from the problem statement
 const syntax = `
-# 2026年第一季度销售报告
+# 2024 Smartphone Market Analysis
 
-本季度总销售额为 [¥1,234,567](metric_value, origin=1234567, unit="元")，表现出色。
+## Market Overview
 
-## 各地区表现
+Global smartphone shipments reached [1.2 billion units](metric_value, origin=1200000000) in [2024](time_desc), showing a [modest decline of 2.1%](ratio_value, origin=-0.021, assessment="negative") year-over-year.
 
-华东地区贡献最大，销售额为 [¥800,000](metric_value)，占比 [64.8%](contribute_ratio, assessment="positive")。
+The **premium segment** (devices over $800) showed *remarkable* [resilience](trend_desc, assessment="positive"), growing by [5.8%](ratio_value, origin=0.058, assessment="positive").
 
-华南地区紧随其后，但环比 [下降了 5%](ratio_value, assessment="negative")。
+## Key Findings
+
+1. [Asia-Pacific](dim_value) remains the __largest market__
+2. [Premium devices](dim_value) showed **strong growth**
+3. Budget segment faced *headwinds*
+
+## Regional Breakdown
+
+### Asia-Pacific
+
+[Asia-Pacific](dim_value) remains the largest market with [680 million units](metric_value, origin=680000000) shipped, though this represents a [decline of 180 million units](delta_value, origin=-180000000, assessment="negative") from the previous year.
+
+Key markets:
+- [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank, detail=[320, 180, 90, 65, 45]) globally
+- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank, detail=[320, 180, 90, 65, 45])
+- [Southeast Asia](dim_value): [180M units](metric_value, origin=180000000) - [stable](trend_desc, assessment="equal")
+
+The [gap of 140M units](difference, detail=[200, 180, 160, 140]) between [China](dim_value) and [India](dim_value) is [narrowing](trend_desc, assessment="neutral").
+
+### Market Dynamics
+
+Sales showed [strong correlation](association, detail=[{"x":100,"y":105},{"x":120,"y":128},{"x":150,"y":155}]) with economic indicators. The [distribution](distribution, detail=[15, 25, 35, 15, 10]) was [uneven](anomaly, detail=[15, 18, 20, 65, 22]), with [unexpected concentration](anomaly, detail=[15, 18, 20, 65, 22]) in urban areas.
+
+We observed [clear seasonality](seasonality, detail={"data":[80, 90, 95, 135], "range":[0, 150]}) with [Q4 peaks](seasonality, detail={"data":[80, 90, 95, 135]}) driven by holiday shopping.
+
+For detailed methodology, visit [our research page](https://example.com/methodology).
 `;
 
 // Create the Text instance and use DSL
