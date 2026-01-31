@@ -53,8 +53,8 @@ const app1 = document.getElementById('app1');
 const text1 = new Text(app1!);
 (async () => {
   let chunk = '';
-  for (let i = 0; i < syntax.length; i += 50) {
-    chunk += syntax.slice(i, i + 50);
+  for (let i = 0; i < syntax.length; i += 10) {
+    chunk += syntax.slice(i, i + 10);
     text1.render(chunk);
     await new Promise((resolve) => setTimeout(resolve, 160));
   }

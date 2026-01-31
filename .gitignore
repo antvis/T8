@@ -146,6 +146,7 @@ dist/
 es/
 lib/
 /types/
+example/dist/
 
 # Snapshot
 __tests__/snapshot/**/*-actual.*

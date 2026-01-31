@@ -1,0 +1,40 @@
+name: Surge PR Preview
+
+on:
+  pull_request:
+    paths:
+      - 'example/**'
+      - 'src/**'
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+      - name: ⤵️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🎉 Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 🚧 Install dependencies
+        run: npm install
+
+      - name: 🚀 Build library
+        run: npm run build
+
+      - name: 📦 Build example
+        run: npx vite build -c vite.config.example.mjs
+
+      - name: 🌊 Deploy to Surge
+        uses: afc163/surge-preview@v1
+        with:
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dist: example/dist
+          build: |
+            echo "Already built"
