@@ -200,6 +200,7 @@ The raw numerical value behind the displayed text.
 - `[¥1.5M](metric_value, origin=1500000)`
 - `[23.7%](ratio_value, origin=0.237)`
 - `[5.2K users](metric_value, origin=5200)`
+- `[3 out of 4 of the budget segment](proportion, origin=0.75)`
 
 **Why use it:** Enables data visualization, sorting, and calculations
 
@@ -289,7 +290,7 @@ The **premium segment** (devices over $800) showed *remarkable* [resilience](tre
 
 Key markets:
 - [China](dim_value): [320M units](metric_value, origin=320000000) - down [8.5%](ratio_value, origin=-0.085, assessment="negative"), [ranked 1st](rank, detail=[320, 180, 90, 65, 45]) globally, accounting for [47%](contribute_ratio, origin=0.47, assessment="positive") of regional sales
-- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank, detail=[320, 180, 90, 65, 45]), representing [3 out of 4](proportion) of the budget segment
+- [India](dim_value): [180M units](metric_value, origin=180000000) - up [12.3%](ratio_value, origin=0.123, assessment="positive"), [ranked 2nd](rank, detail=[320, 180, 90, 65, 45]), representing [3 out of 4](proportion, origin=0.75) of the budget segment
 - [Southeast Asia](dim_value): [180M units](metric_value, origin=180000000) - [stable](trend_desc, assessment="equal")
 
 The [gap of 140M units](difference, detail=[200, 180, 160, 140]) between [China](dim_value) and [India](dim_value) is [narrowing](trend_desc, assessment="neutral").

@@ -200,6 +200,7 @@ T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记
 - `[150万](metric_value, origin=1500000)`
 - `[23.7%](ratio_value, origin=0.237)`
 - `[5.2千用户](metric_value, origin=5200)`
+- `[三分之四的场景](proportion, origin=0.75)`
 
 **使用原因：** 支持数据可视化、排序和计算
 
@@ -289,7 +290,7 @@ T8 Syntax 的核心特性是**实体标注** - 用语义含义和元数据标记
 
 主要市场：
 - [中国](dim_value)：[3.2亿台](metric_value, origin=320000000) - 下降[8.5%](ratio_value, origin=-0.085, assessment="negative")，全球[排名第1](rank, detail=[320, 180, 90, 65, 45])，占区域销售额的[47%](contribute_ratio, origin=0.47, assessment="positive")
-- [印度](dim_value)：[1.8亿台](metric_value, origin=180000000) - 上升[12.3%](ratio_value, origin=0.123, assessment="positive")，[排名第2](rank, detail=[320, 180, 90, 65, 45])，在低端市场占[四分之三](proportion)
+- [印度](dim_value)：[1.8亿台](metric_value, origin=180000000) - 上升[12.3%](ratio_value, origin=0.123, assessment="positive")，[排名第2](rank, detail=[320, 180, 90, 65, 45])，在低端市场占[四分之三](proportion, origin=0.75)
 - [东南亚](dim_value)：[1.8亿台](metric_value, origin=180000000) - [保持稳定](trend_desc, assessment="equal")
 
 [中国](dim_value)和[印度](dim_value)之间的[差距为1.4亿台](difference, detail=[200, 180, 160, 140])，正在[缩小](trend_desc, assessment="neutral")。
