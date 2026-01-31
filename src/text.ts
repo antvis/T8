@@ -102,7 +102,7 @@ export class Text extends EE {
 
     // Return unmount function.
     return () => {
-      preactRender(null, container as HTMLElement);
+      preactRender(null, container);
     };
   }
 
@@ -117,6 +117,6 @@ export class Text extends EE {
    * Unmount the component.
    */
   unmount() {
-    preactRender(null, this.container as HTMLElement);
+    preactRender(null, this.container);
   }
 }

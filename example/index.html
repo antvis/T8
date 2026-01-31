@@ -3,21 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Narrative Text</title>
+    <title>T8 Syntax Example</title>
     <style>
-      .t8-container {
-        padding: 4px 16px;
-        margin: 8px 0;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .container {
+        border: 1px solid #e0e0e0;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        margin: 8px;
+      }
+      .dark {
+        background-color: #333;
+        color: #fff;
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .description {
+        color: #666;
+        margin-bottom: 20px;
       }
     </style>
   </head>
   <body>
-    <div id="app-chart" class="t8-chart-container" style="background-color: #000"></div>
-    <div id="app5" class="t8-container" style="background-color: #000; min-height: 600px"></div>
-    <div id="app" class="t8-container"></div>
-    <div id="app2" class="t8-container" style="background-color: #000"></div>
-    <div id="app3" class="t8-container" style="background-color: #000"></div>
-    <div id="app4" class="t8-container" style="background-color: #000"></div>
-    <script type="module" src="./main.tsx"></script>
+    <h1>T8 Syntax Render</h1>
+    <p class="description">
+      This page demonstrates the T8 Syntax parser, which converts a Markdown-like syntax with entity annotations into
+      rich narrative text visualizations.
+    </p>
+    <div class="container" id="app1"></div>
+    <div class="container dark" id="app2"></div>
+    <div class="container" id="app3"></div>
+    <script type="module" src="./main.ts"></script>
   </body>
 </html>

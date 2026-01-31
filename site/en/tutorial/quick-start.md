@@ -116,3 +116,4 @@ text.theme('light').render(narrativeText);
   background-color: #646cff24;
   border-radius: 8px;
 }
+</style>
