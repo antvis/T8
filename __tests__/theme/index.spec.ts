@@ -11,6 +11,7 @@ describe('theme/index', () => {
       colorEntityBase: 'rgba(0, 0, 0, 0.65)',
       colorHeadingBase: 'rgba(0, 0, 0, 0.85)',
       colorLineStroke: '#5B8FF9',
+      colorLink: '#1677FF',
       colorMetricName: 'rgba(0, 0, 0, 0.88)',
       colorMetricValue: '#1677FF',
       colorNegative: '#13A8A8',
