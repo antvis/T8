@@ -14,7 +14,7 @@ title: 快速开始
 
 **_"为什么我应该使用 T8 而不是直接拼接 DOM？"_**
 
-答案在于 T8 的**声明式语法** - 这是其与众不同的核心特性。
+答案在于 T8 的**声明式语法** —— 这是其与众不同的核心特性。
 
 T8 语法是一种轻量级的、基于 Markdown 的 DSL（领域特定语言），专为叙述性文本可视化设计。无需手动构建 DOM 元素或维护复杂的模板，你只需编写简单、易读的语法来描述你的数据叙述。这种语法可以轻松地由 LLM（大语言模型）生成，使其非常适合 AI 驱动的分析和自动化报告。
 
@@ -23,7 +23,7 @@ T8 语法是一种轻量级的、基于 Markdown 的 DSL（领域特定语言）
 <u>_如果你的业务有简单、固定的模板，扩展性需求有限，传统的 DOM 操作可能就足够了。_</u> 然而，T8 的语法带来了显著的优势：
 
 - **对 LLM 友好**：语法直观，可以通过简单的提示轻松由 AI 模型生成；
-- **声明式和可读性强**：编写你想要的内容，而不是如何构建它 - 语法本身就是文档；
+- **声明式和可读性强**：编写你想要的内容，而不是如何构建它 —— 语法本身就是文档；
 - **标准化样式**：默认提供专业、一致的外观，无需手动样式设置；
 - **内置数据可视化**：词级图表（迷你饼图、迷你折线图）是语法原生支持的；
 - **框架无关**：与 React、Vue 或纯 JavaScript 无缝协作；
@@ -120,26 +120,26 @@ T8 可以通过 unpkg CDN 直接在 HTML 页面中使用。这是最简单的入
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T8 示例</title>
-</head>
-<body>
-  <div id="container"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T8 示例</title>
+  </head>
+  <body>
+    <div id="container"></div>
 
-  <!-- 从 unpkg CDN 引入 T8 -->
-  <script src="https://unpkg.com/@antv/t8@0.3.0/dist/t8.min.js"></script>
-  
-  <script>
-    // T8 作为全局变量可用
-    const { Text } = window.T8;
+    <!-- 从 unpkg CDN 引入 T8 -->
+    <script src="https://unpkg.com/@antv/t8@0.3.0/dist/t8.min.js"></script>
 
-    // 初始化 T8 实例
-    const text = new Text(document.getElementById('container'));
+    <script>
+      // T8 作为全局变量可用
+      const { Text } = window.T8;
 
-    // 渲染叙述性文本
-    const narrativeText = `
+      // 初始化 T8 实例
+      const text = new Text(document.getElementById('container'));
+
+      // 渲染叙述性文本
+      const narrativeText = `
 # 销售报告
 
 本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
@@ -147,9 +147,9 @@ T8 可以通过 unpkg CDN 直接在 HTML 页面中使用。这是最简单的入
 [销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
     `;
 
-    text.theme('light').render(narrativeText);
-  </script>
-</body>
+      text.theme('light').render(narrativeText);
+    </script>
+  </body>
 </html>
 ```
 
