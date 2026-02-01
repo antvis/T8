@@ -10,19 +10,22 @@ url: /zh/tutorial/quick-start.md
 
 当前主要致力于细分领域：**基于洞察的解读文本（narrative-text）展示及编辑能力**。
 
-***`text-schema` 构建成本高不如直接拼接 DOM 快，我为什么还要用 T8？***
+***"为什么我应该使用 T8 而不是直接拼接 DOM？"***
 
-要解答这个问题需要先明确 `JSON` 从哪儿来？
+答案在于 T8 的**声明式语法** —— 这是其与众不同的核心特性。
 
-narrative 相关技术基于 `JSON` 数据来自 LLM 大模型生成的假设，前端消费 schema 进行渲染即可。随着数据表达的多样性和即时性的要求越来越高，以及 NLP 技术越来越多的被应用，前端维护文本模版将不可持续。此时使用 NarrativeTextVis 进行统一渲染将是最佳选择。
+T8 语法是一种轻量级的、基于 Markdown 的 DSL（领域特定语言），专为叙述性文本可视化设计。无需手动构建 DOM 元素或维护复杂的模板，你只需编写简单、易读的语法来描述你的数据叙述。这种语法可以轻松地由 LLM（大语言模型）生成，使其非常适合 AI 驱动的分析和自动化报告。
 
-但是不可否认仍然将有很长一段时间，类似的文本表达可以通过默认的一套或者几套模版满足需求，结合 `text-schema` 对于的学习成本，使用前端熟悉的 `dom/jsx` 进行开发似乎是更好的选择。*如果你的业务对文本表述扩展性要求不高，且模版相对固定，请使用你熟悉的语法。* 但是如果使用 text-schema 将带来以下好处：
+随着数据表达需求变得越来越多样化和即时，在前端维护文本模板变得不可持续。T8 的语法优先方法为动态、AI 生成的内容提供了更好的解决方案。
 
-* 作为一种解读文本的标准描述，可静态化文本数据结构，一处维护各处复用;
-* `JSON` 格式决定了其有利于数据储存和进一步消费;
-* 样式规范，默认好看；
-* 行内小图（word-scale chart）是默认的支持的，并且随着版本升级可获得更多行内数据展示；
-* 相关交互的可扩展性；
+*如果你的业务有简单、固定的模板，扩展性需求有限，传统的 DOM 操作可能就足够了。* 然而，T8 的语法带来了显著的优势：
+
+* **对 LLM 友好**：语法直观，可以通过简单的提示轻松由 AI 模型生成；
+* **声明式和可读性强**：编写你想要的内容，而不是如何构建它 —— 语法本身就是文档；
+* **标准化样式**：默认提供专业、一致的外观，无需手动样式设置；
+* **内置数据可视化**：词级图表（迷你饼图、迷你折线图）是语法原生支持的；
+* **框架无关**：与 React、Vue 或纯 JavaScript 无缝协作；
+* **可扩展**：轻松添加自定义实体短语以匹配你的设计系统；
 
 ## 使用场景
 
@@ -32,11 +35,11 @@ narrative 相关技术基于 `JSON` 数据来自 LLM 大模型生成的假设，
 
 ## 特性
 
-* 数据解读文本的 T8 语法描述（[T8 语法参考](../syntax/index.md)）；
-* text-schema 的纯 JS 渲染引擎 `Text`；
-  * 解析文本结构描述 json schema 为 html；
-  * 数据短语（如指标值、比率、差值、占比、贡献度等）标准视觉表示；
-  * 行内小图（mini pie、mini line）数据驱动展示，提高文本看数效率；
+* **T8 语法**：一种用于数据叙述性文本的声明式、基于 Markdown 的 DSL（[T8 语法参考](../syntax/index.md)）；
+* **纯 JS 渲染引擎** `Text`：将 T8 语法转换为美观、交互式的 HTML；
+  * 将 T8 语法结构解析为语义化的 HTML 元素；
+  * 数据短语（如指标值、比率、差值、占比、贡献度等）的标准视觉表示；
+  * 数据驱动的行内小图（迷你饼图、迷你折线图）提高文本阅读效率；
 
 ## 基本使用
 
@@ -113,26 +116,26 @@ T8 可以通过 unpkg CDN 直接在 HTML 页面中使用。这是最简单的入
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T8 示例</title>
-</head>
-<body>
-  <div id="container"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T8 示例</title>
+  </head>
+  <body>
+    <div id="container"></div>
 
-  <!-- 从 unpkg CDN 引入 T8 -->
-  <script src="https://unpkg.com/@antv/t8@0.3.0/dist/t8.min.js"></script>
-  
-  <script>
-    // T8 作为全局变量可用
-    const { Text } = window.T8;
+    <!-- 从 unpkg CDN 引入 T8 -->
+    <script src="https://unpkg.com/@antv/t8@0.3.0/dist/t8.min.js"></script>
 
-    // 初始化 T8 实例
-    const text = new Text(document.getElementById('container'));
+    <script>
+      // T8 作为全局变量可用
+      const { Text } = window.T8;
 
-    // 渲染叙述性文本
-    const narrativeText = `
+      // 初始化 T8 实例
+      const text = new Text(document.getElementById('container'));
+
+      // 渲染叙述性文本
+      const narrativeText = `
 # 销售报告
 
 本季度 [销售额](metric_name) 高于往常。销售额为 [¥348k](metric_value, origin=348.12)。
@@ -140,9 +143,9 @@ T8 可以通过 unpkg CDN 直接在 HTML 页面中使用。这是最简单的入
 [销售额](metric_name) 相比上季度同期上涨了 [¥180.3k](delta_value, assessment="positive")。
     `;
 
-    text.theme('light').render(narrativeText);
-  </script>
-</body>
+      text.theme('light').render(narrativeText);
+    </script>
+  </body>
 </html>
 ```
 
