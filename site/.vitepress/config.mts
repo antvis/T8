@@ -12,6 +12,7 @@ const createLangConfig = (lang: string, label: string) => {
       nav: [
         { text: 'AI', link: '/chat/index', target: 'chat' },
         { text: 'Tutorial', link: `/${lang}/tutorial/quick-start` },
+        { text: 'Examples', link: `/${lang}/examples` },
         { text: 'Syntax', link: `/${lang}/syntax/index` },
         { text: 'API', link: `/${lang}/api/` },
       ],
@@ -21,7 +22,6 @@ const createLangConfig = (lang: string, label: string) => {
             text: 'Tutorial',
             items: [
               { text: 'Quick Start', link: `/${lang}/tutorial/quick-start` },
-              { text: 'Examples', link: `/${lang}/tutorial/examples` },
               {
                 text: 'Advanced',
                 items: [
