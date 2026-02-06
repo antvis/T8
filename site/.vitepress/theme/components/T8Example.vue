@@ -22,7 +22,6 @@ const props = defineProps<{
 const container = ref<HTMLElement | null>(null);
 const showCode = ref(false);
 let textInstance: any = null;
-let unmount: (() => void) | null = null;
 
 onMounted(async () => {
   if (!container.value) return;
@@ -71,9 +70,6 @@ onMounted(async () => {
 });
 
 onBeforeUnmount(() => {
-  if (unmount) {
-    unmount();
-  }
   if (textInstance) {
     textInstance.unmount?.();
   }
