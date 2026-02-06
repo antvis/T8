@@ -12,6 +12,7 @@ export const createSvg = (container: Element, width: number, height: number): Se
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.style.margin = '0px 4px';
   svg.style.transform = 'translate(0px, 0.125em)';
+  svg.style.display = 'inline-block';
 
   svg.setAttribute('height', String(height));
   svg.setAttribute('width', String(width));

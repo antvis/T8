@@ -74,6 +74,7 @@ function createArrow(direction: 'up' | 'down', size: number): Element {
   svg.setAttribute('height', `${size}px`);
   svg.setAttribute('viewBox', '0 0 8 9');
   svg.style.marginRight = `${MARGIN_RIGHT}px`;
+  svg.style.display = 'inline-block';
   svg.setAttribute('version', '1.1');
 
   const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
