@@ -102,4 +102,4 @@ Standard markdown syntax is supported:
 - Lists (numbered and bulleted)
 - Links
 
-Learn more in the [T8 Syntax Documentation](../syntax/index.md).
+Learn more in the [T8 Syntax Documentation](/en/syntax/).

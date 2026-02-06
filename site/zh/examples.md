@@ -102,4 +102,4 @@ const marketAnalysisSyntax = `# 2024 年智能手机市场分析
 - 列表（编号和项目符号）
 - 链接
 
-在 [T8 语法文档](../syntax/index.md)中了解更多。
+在 [T8 语法文档](/zh/syntax/)中了解更多。
