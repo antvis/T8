@@ -21,6 +21,7 @@ const createLangConfig = (lang: string, label: string) => {
             text: 'Tutorial',
             items: [
               { text: 'Quick Start', link: `/${lang}/tutorial/quick-start` },
+              { text: 'Examples', link: `/${lang}/tutorial/examples` },
               {
                 text: 'Advanced',
                 items: [
