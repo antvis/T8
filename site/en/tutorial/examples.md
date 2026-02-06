@@ -174,7 +174,7 @@ For detailed methodology, visit [our research page](https://example.com/methodol
 
 // Create a custom plugin to style dimension values
 const dimensionValueDescriptor = {
-  style: (value, _, themeSeedToken) => ({
+  style: () => ({
     color: 'red',
     fontSize: 19,
   }),

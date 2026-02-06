@@ -174,7 +174,7 @@ const syntax = `
 
 // 创建自定义插件来样式化维度值
 const dimensionValueDescriptor = {
-  style: (value, _, themeSeedToken) => ({
+  style: () => ({
     color: 'red',
     fontSize: 19,
   }),
