@@ -6,12 +6,12 @@
     <div v-if="showCode" class="code-display">
       <pre><code>{{ syntax }}</code></pre>
     </div>
-    <div class="render-container" :class="containerClass" ref="container"></div>
+    <div class="render-container" :class="[containerClass, { light: !isDarkTheme }]" ref="container"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 
 const props = defineProps<{
   syntax: string;
@@ -22,6 +22,11 @@ const props = defineProps<{
 const container = ref<HTMLElement | null>(null);
 const showCode = ref(false);
 let textInstance: any = null;
+
+// Determine if the theme is dark based on mode or containerClass
+const isDarkTheme = computed(() => {
+  return props.mode === 'dark' || props.containerClass === 'dark';
+});
 
 onMounted(async () => {
   if (!container.value) return;
@@ -136,6 +141,10 @@ onBeforeUnmount(() => {
   padding: 1.5rem;
   min-height: 200px;
   background-color: var(--vp-c-bg);
+}
+
+.render-container.light {
+  background-color: #ffffff;
 }
 
 .render-container.dark {
