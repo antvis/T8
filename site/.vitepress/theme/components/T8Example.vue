@@ -25,7 +25,7 @@ let textInstance: any = null;
 
 // Determine if the theme is dark based on mode or containerClass
 const isDarkTheme = computed(() => {
-  return props.mode === 'dark' || props.containerClass === 'dark';
+  return props.mode === 'dark' || props.containerClass?.includes('dark');
 });
 
 onMounted(async () => {
