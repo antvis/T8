@@ -11,8 +11,14 @@ import { Selection } from './selection';
 export const createSvg = (container: Element, width: number, height: number): Selection => {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.style.margin = '0px 4px';
-  svg.style.transform = 'translate(0px, 0.125em)';
-  svg.style.display = 'inline-block';
+
+  // The container is a wrapper span between the outer inline-flex phrase span and this svg.
+  // Make it a centering flex box as well, so the svg is centered against the text instead of
+  // sitting on the baseline of its own line box.
+  if (container instanceof HTMLElement) {
+    container.style.display = 'inline-flex';
+    container.style.alignItems = 'center';
+  }
 
   svg.setAttribute('height', String(height));
   svg.setAttribute('width', String(width));

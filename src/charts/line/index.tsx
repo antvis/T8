@@ -1,11 +1,10 @@
 import { getElementFontSize } from '../../utils';
 import { ChartRenderFunction } from '../types';
-import { createSvg, scaleLinear, line, area } from '../utils';
+import { createSvg, scaleLinear, line, area, SCALE_ADJUST } from '../utils';
 
 const LINE_STROKE_COLOR = '#5B8FF9';
 const LINE_FILL_COLOR = '#5B8FF9';
 const LINEAR_FILL_COLOR_ID = 'wsc-line-fill';
-const SCALE_ADJUST = 2;
 
 /**
  * Line chart configuration
