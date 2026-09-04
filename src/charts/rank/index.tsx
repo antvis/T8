@@ -1,10 +1,9 @@
-import { createSvg, Scale, scaleLinear, Selection } from '../utils';
+import { createSvg, Scale, scaleLinear, Selection, SCALE_ADJUST } from '../utils';
 import { getElementFontSize } from '../../utils';
 import { ChartRenderFunction } from '../types';
 
 // Chart colors
 const BAR_FILL_COLOR = '#5B8FF9';
-const SCALE_ADJUST = 2;
 
 /**
  * Highlight message interface

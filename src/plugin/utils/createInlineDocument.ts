@@ -12,6 +12,8 @@ export const createInlineDocument = (
   position: 'suffix' | 'prefix' = 'suffix',
 ): HTMLSpanElement => {
   const span = document.createElement('span');
+  span.style.display = 'inline-flex';
+  span.style.alignItems = 'center';
 
   const originalElementSpan = value;
   span.textContent = originalElementSpan;

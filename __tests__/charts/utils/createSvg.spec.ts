@@ -42,7 +42,13 @@ describe('createSvg', () => {
     const svg = selection.node() as HTMLElement;
 
     expect(svg.style.margin).toBe('0px 4px');
-    expect(svg.style.transform).toBe('translate(0px, 0.125em)');
+  });
+
+  it('should make the container a centering inline-flex box', () => {
+    createSvg(testContainer, 100, 200);
+
+    expect(testContainer.style.display).toBe('inline-flex');
+    expect(testContainer.style.alignItems).toBe('center');
   });
 
   it('should create SVG in proper namespace', () => {
@@ -129,6 +135,6 @@ describe('createSvg', () => {
     const svg2 = selection2.node() as HTMLElement;
 
     expect(svg1.style.margin).toBe(svg2.style.margin);
-    expect(svg1.style.transform).toBe(svg2.style.transform);
+    expect(svg1.style.display).toBe(svg2.style.display);
   });
 });
