@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { Ol, Ul, Li } from '../styled';
 import { Phrases } from '../phrases';
 import { getPrefixCls, classnames as cx } from '../../utils';
@@ -16,7 +15,7 @@ type BulletsProps = {
 export function Bullets({ spec }: BulletsProps) {
   const { onEvent } = useEvent();
 
-  const children = spec.bullets?.map((bullet) => {
+  const children = spec.bullets?.map((bullet, index) => {
     const onLiClick = () => {
       onEvent?.('paragraph:click', bullet);
     };
@@ -29,7 +28,7 @@ export function Bullets({ spec }: BulletsProps) {
     return (
       <Li
         className={cx(getPrefixCls('li'), bullet.className)}
-        key={spec.key || v4()}
+        key={bullet.key ?? index}
         style={bullet.styles}
         onClick={onLiClick}
         onMouseEnter={onLiMouseEnter}

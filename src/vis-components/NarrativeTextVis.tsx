@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { useRef } from 'preact/hooks';
 import { NarrativeTextSpec } from '../schema';
 import { Container } from './styled';
@@ -96,7 +95,7 @@ export function NarrativeTextVis({
         ref={narrativeDomRef}
       >
         {headline ? <Headline spec={headline} /> : null}
-        {sections ? sections?.map((section) => <Section key={section.key || v4()} spec={section} />) : null}
+        {sections ? sections?.map((section, index) => <Section key={section.key ?? index} spec={section} />) : null}
       </Container>
     </ContextProvider>
   );

@@ -1,4 +1,2 @@
-export { useTheme, ThemeProvider } from './theme';
-export { usePluginManager as usePlugin, PluginProvider } from './plugin';
-export { useEvent, EventProvider } from './event';
+export { useTheme, usePluginManager, useEvent, ContextProvider } from './narrativeContext';
 export { useCurrentParagraphInfo, CurrentParagraphInfoProvider } from './currentParagraphInfo';

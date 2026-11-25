@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { SectionSpec, isCustomSection, isStandardSection } from '../../schema';
 import { getPrefixCls, classnames as cx, functionalize } from '../../utils';
 import { Container } from '../styled';
@@ -56,7 +55,7 @@ export function Section({ spec }: SectionProps) {
       onMouseLeave={onMouseLeave}
     >
       {sectionContent && <Container dangerouslySetInnerHTML={{ __html: sectionContent.outerHTML }} />}
-      {isStandardSection(spec) && spec.paragraphs.map((p) => <Paragraph key={p.key || v4()} spec={p} />)}
+      {isStandardSection(spec) && spec.paragraphs.map((p, index) => <Paragraph key={p.key ?? index} spec={p} />)}
     </Container>
   );
 }

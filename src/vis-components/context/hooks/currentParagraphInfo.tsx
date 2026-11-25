@@ -1,5 +1,5 @@
 import { ComponentChildren, createContext } from 'preact';
-import { useContext } from 'preact/compat';
+import { useContext } from 'preact/hooks';
 import { ParagraphType } from '../../../schema';
 
 type CurrentParagraphInfoContextType = {
