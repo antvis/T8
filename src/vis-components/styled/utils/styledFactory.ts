@@ -1,24 +1,23 @@
-import { ClassAttributes, createElement, JSX, Ref } from 'preact';
-import { CommonComponentProps, ComponentFactoryOptions } from '../types';
-import { JSXInternal } from 'preact/src/jsx';
+import { Child, h } from '../../dom';
+import { StyledProps, ComponentFactoryOptions } from '../types';
 import { defaultSeedToken } from '../../../theme';
 
 /**
  * Universal component factory function
- * Creates pre-styled components with consistent behavior
+ * Creates pre-styled element creators with consistent behavior
  *
  * @param options - Component factory options
- * @returns A new pre-styled component
+ * @returns A function creating the pre-styled element
  *
  * @example
- * // Create a simple div container component
+ * // Create a simple div container
  * const Container = createStyledComponent({
  *   element: 'div',
- *   styleFactory: getContainerStyle,
- *   forwardRef: true
+ *   factoryStyles: getContainerStyle,
  * });
+ * const el = Container({ theme, className: 'foo' }, 'children');
  *
- * // Create a fixed-style mark component
+ * // Create a fixed-style mark
  * const Bold = createStyledComponent({
  *   element: 'strong'
  * });
@@ -26,23 +25,9 @@ import { defaultSeedToken } from '../../../theme';
 export function createStyledComponent(options: ComponentFactoryOptions) {
   const { element, factoryStyles = {} } = options;
 
-  // Component without size parameter
-  return function Component({ children, style, theme = defaultSeedToken, forwardRef, ...rest }: CommonComponentProps) {
+  return function Component({ theme = defaultSeedToken, style, ...rest }: StyledProps, ...children: Child[]) {
     const presetStyles = typeof factoryStyles === 'function' ? factoryStyles(theme) : factoryStyles;
 
-    const combinedStyles = {
-      ...presetStyles,
-      ...(style as JSX.CSSProperties),
-    };
-
-    const props: ClassAttributes<HTMLElement> & JSXInternal.HTMLAttributes = {
-      ...rest,
-      style: combinedStyles,
-      ref: forwardRef as Ref<HTMLElement> | undefined,
-    };
-
-    const component = createElement(element, props, children);
-
-    return component;
+    return h(element, { ...rest, style: { ...presetStyles, ...style } }, ...children);
   };
 }

@@ -1,6 +1,5 @@
-import { h, render as preactRender } from 'preact';
 import { NarrativeTextSpec } from './schema';
-import { NarrativeTextVis } from './vis-components';
+import { renderNarrativeText } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
@@ -88,21 +87,19 @@ export class Text extends EE {
       spec = this.spec;
     }
 
-    // Render the component.
-    // We use `preact` to code the `NarrativeTextVis` components.
-    preactRender(
-      h(NarrativeTextVis, {
-        spec,
+    // Replace the content of the container with the rendered narrative text.
+    container.innerHTML = '';
+    container.appendChild(
+      renderNarrativeText(spec, {
         pluginManager: this.pluginManager,
         themeSeedToken: this.themeSeedToken,
         onEvent: this.emit.bind(this),
       }),
-      container,
     );
 
     // Return unmount function.
     return () => {
-      preactRender(null, container);
+      container.innerHTML = '';
     };
   }
 
@@ -117,6 +114,6 @@ export class Text extends EE {
    * Unmount the component.
    */
   unmount() {
-    preactRender(null, this.container);
+    this.container.innerHTML = '';
   }
 }

@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import preact from '@preact/preset-vite';
 
 export default defineConfig({
   root: './example',
@@ -8,5 +7,4 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
   },
-  plugins: [preact()],
 });
