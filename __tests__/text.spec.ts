@@ -157,4 +157,14 @@ describe('Text incremental render', () => {
     text.theme('dark').render(para(1));
     expect(paragraphs(div)[0]).not.toBe(before);
   });
+
+  it('does not reuse paragraphs after unmount', () => {
+    const div = document.createElement('div');
+    const text = new Text(div);
+    text.render(para(1));
+    const before = paragraphs(div)[0];
+    text.unmount();
+    text.render(para(1));
+    expect(paragraphs(div)[0]).not.toBe(before);
+  });
 });

@@ -105,9 +105,7 @@ export class Text extends EE {
     );
 
     // Return unmount function.
-    return () => {
-      container.innerHTML = '';
-    };
+    return () => this.unmount();
   }
 
   /**
@@ -121,6 +119,7 @@ export class Text extends EE {
    * Unmount the component.
    */
   unmount() {
+    this.cache.clear();
     this.container.innerHTML = '';
   }
 }
