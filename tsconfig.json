@@ -10,8 +10,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "inlineSourceMap": true,
-    "jsxImportSource": "preact",
-    "jsx": "react-jsx",
     "rootDirs": ["./src", "./__tests__"],
     "noEmit": true,
     "types": ["vitest/globals", "node"]

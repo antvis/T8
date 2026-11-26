@@ -1,6 +1,5 @@
-import { h, render as preactRender } from 'preact';
 import { NarrativeTextSpec } from './schema';
-import { NarrativeTextVis } from './vis-components';
+import { renderNarrativeText, ParagraphCache } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
@@ -35,6 +34,10 @@ export class Text extends EE {
    * Plugin manager for the text visualization.
    */
   private pluginManager: PluginManager;
+  /**
+   * Paragraphs rendered last time, reused while the theme and plugins stay the same.
+   */
+  private cache: ParagraphCache = new Map();
 
   constructor(container: string | HTMLElement) {
     super();
@@ -50,6 +53,7 @@ export class Text extends EE {
    */
   theme(theme: 'dark' | 'light', seedToken?: Partial<SeedTokenOptions>) {
     this.themeSeedToken = getThemeSeedToken(theme, seedToken);
+    this.cache.clear();
     return this;
   }
 
@@ -60,6 +64,7 @@ export class Text extends EE {
    */
   registerPlugin(plugin: PluginType) {
     this.pluginManager.register(plugin);
+    this.cache.clear();
     return this;
   }
 
@@ -88,22 +93,19 @@ export class Text extends EE {
       spec = this.spec;
     }
 
-    // Render the component.
-    // We use `preact` to code the `NarrativeTextVis` components.
-    preactRender(
-      h(NarrativeTextVis, {
-        spec,
+    // Replace the content of the container with the rendered narrative text.
+    container.innerHTML = '';
+    container.appendChild(
+      renderNarrativeText(spec, {
         pluginManager: this.pluginManager,
         themeSeedToken: this.themeSeedToken,
         onEvent: this.emit.bind(this),
+        cache: this.cache,
       }),
-      container,
     );
 
     // Return unmount function.
-    return () => {
-      preactRender(null, container);
-    };
+    return () => this.unmount();
   }
 
   /**
@@ -117,6 +119,7 @@ export class Text extends EE {
    * Unmount the component.
    */
   unmount() {
-    preactRender(null, this.container);
+    this.cache.clear();
+    this.container.innerHTML = '';
   }
 }
