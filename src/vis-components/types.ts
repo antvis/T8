@@ -50,7 +50,16 @@ export type RenderContext = {
   theme: SeedTokenOptions;
   pluginManager: PluginManager;
   onEvent?: NarrativeEvents['onEvent'];
+  /**
+   * Returns the element of an identical paragraph from the previous render, or renders a new one.
+   */
+  reuse?: (spec: ParagraphSpec, render: () => HTMLElement | null) => HTMLElement | null;
 };
+
+/**
+ * Paragraph elements of the previous render, keyed by the serialized paragraph spec.
+ */
+export type ParagraphCache = Map<string, HTMLElement[]>;
 
 /**
  * Create `click` / `mouseenter` / `mouseleave` handlers which emit `<type>:<event>` with the spec.

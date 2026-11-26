@@ -131,3 +131,30 @@ Eastern region contributed [64.8%](contribute_ratio, assessment="positive").
     expect(div.innerHTML).toContain('64.8%');
   });
 });
+
+describe('Text incremental render', () => {
+  const para = (i: number) => `Row ${i}: [bookings](metric_name) is [${i}](metric_value).`;
+  const paragraphs = (div: HTMLElement) => Array.from(div.querySelectorAll('.t8-p'));
+
+  it('reuses unchanged paragraphs and rebuilds changed ones', () => {
+    const div = document.createElement('div');
+    const text = new Text(div);
+    text.render(`${para(1)}\n\n${para(2)}`);
+    const before = paragraphs(div);
+    text.render(`${para(1)}\n\n${para(2)} more\n\n${para(3)}`);
+    const after = paragraphs(div);
+    expect(after.length).toBe(3);
+    expect(after[0]).toBe(before[0]);
+    expect(after[1]).not.toBe(before[1]);
+    expect(after[1].textContent).toContain('more');
+  });
+
+  it('does not reuse paragraphs after the theme changes', () => {
+    const div = document.createElement('div');
+    const text = new Text(div);
+    text.render(para(1));
+    const before = paragraphs(div)[0];
+    text.theme('dark').render(para(1));
+    expect(paragraphs(div)[0]).not.toBe(before);
+  });
+});

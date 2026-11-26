@@ -1,5 +1,5 @@
 import { NarrativeTextSpec } from './schema';
-import { renderNarrativeText } from './vis-components';
+import { renderNarrativeText, ParagraphCache } from './vis-components';
 import { getThemeSeedToken, SeedTokenOptions } from './theme';
 import { PluginManager, PluginType, presetPlugins } from './plugin';
 import EE from '@antv/event-emitter';
@@ -34,6 +34,10 @@ export class Text extends EE {
    * Plugin manager for the text visualization.
    */
   private pluginManager: PluginManager;
+  /**
+   * Paragraphs rendered last time, reused while the theme and plugins stay the same.
+   */
+  private cache: ParagraphCache = new Map();
 
   constructor(container: string | HTMLElement) {
     super();
@@ -49,6 +53,7 @@ export class Text extends EE {
    */
   theme(theme: 'dark' | 'light', seedToken?: Partial<SeedTokenOptions>) {
     this.themeSeedToken = getThemeSeedToken(theme, seedToken);
+    this.cache.clear();
     return this;
   }
 
@@ -59,6 +64,7 @@ export class Text extends EE {
    */
   registerPlugin(plugin: PluginType) {
     this.pluginManager.register(plugin);
+    this.cache.clear();
     return this;
   }
 
@@ -94,6 +100,7 @@ export class Text extends EE {
         pluginManager: this.pluginManager,
         themeSeedToken: this.themeSeedToken,
         onEvent: this.emit.bind(this),
+        cache: this.cache,
       }),
     );
 

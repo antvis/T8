@@ -13,6 +13,10 @@ import { renderBullets } from './Bullets';
 import { RenderContext, getEventHandlers } from '../types';
 
 export function renderParagraph(spec: ParagraphSpec, ctx: RenderContext) {
+  return ctx.reuse ? ctx.reuse(spec, () => createParagraph(spec, ctx)) : createParagraph(spec, ctx);
+}
+
+function createParagraph(spec: ParagraphSpec, ctx: RenderContext) {
   const events = getEventHandlers(ctx.onEvent, 'paragraph', spec);
 
   if (isCustomParagraph(spec)) {
